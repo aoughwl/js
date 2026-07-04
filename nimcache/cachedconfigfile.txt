@@ -1,0 +1,1 @@
+--base:/home/savant/aoughwl-js/tests -d:nimony -d:nimNativeAlloc --bits:32 --cpu:amd64 --os:Linux /home/savant/aoughwl-js/tests/tffi.nim --passC: --passL:

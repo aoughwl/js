@@ -1,0 +1,121 @@
+(.nif27)
+(stmts
+ (cmd :lengc "/home/savant/nimony-js/bin/lengc" "c" "--compileOnly" "--bits\3A32"(args)(input))
+ (cmd :hexer "/home/savant/nimony-js/bin/hexer" "c" "--bits\3A32" "--cpu\3Ale" "--flags\3Abr"(args)
+  (input 0))
+ (cmd :dce "/home/savant/nimony-js/bin/hexer" "d" "--bits\3A32" "--cpu\3Ale"(args)
+  (input 0 -1))
+ (cmd :dceLive "/home/savant/nimony-js/bin/hexer" "dl" "--bits\3A32" "--cpu\3Ale"(args)
+  (input 0 -1)(output))
+ (cmd :dceEmit "/home/savant/nimony-js/bin/hexer" "de" "--bits\3A32" "--cpu\3Ale"(args)
+  (input 0 1))
+ (cmd :cc "gcc" "-c" "-Wno-attributes" "-O1" "-Itests"(args)(input)"-o"(output))
+ (cmd :link "niflink"
+  (input 0 0)(output))
+ (do dceLive
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.dce.nif")
+  (input "/home/savant/aoughwl-js/nimcache/sysvq0asl.dce.nif")
+  (input "/home/savant/aoughwl-js/nimcache/syn1lfpjv.dce.nif")
+  (input "/home/savant/aoughwl-js/nimcache/for2ybv4p1.dce.nif")
+  (input "/home/savant/aoughwl-js/nimcache/jsfc0lwq21.dce.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.live.nif"))
+ (do dceEmit
+  (args "--outdir\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.x.nif")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.live.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.c.nif"))
+ (do dceEmit
+  (args "--outdir\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (input "/home/savant/aoughwl-js/nimcache/sysvq0asl.x.nif")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.live.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/sysvq0asl.c.nif"))
+ (do dceEmit
+  (args "--outdir\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (input "/home/savant/aoughwl-js/nimcache/syn1lfpjv.x.nif")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.live.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/syn1lfpjv.c.nif"))
+ (do dceEmit
+  (args "--outdir\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (input "/home/savant/aoughwl-js/nimcache/for2ybv4p1.x.nif")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.live.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/for2ybv4p1.c.nif"))
+ (do dceEmit
+  (args "--outdir\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (input "/home/savant/aoughwl-js/nimcache/jsfc0lwq21.x.nif")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.live.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/jsfc0lwq21.c.nif"))
+ (do link
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.linkmanifest.nif")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.o")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/sysvq0asl.o")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/syn1lfpjv.o")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/for2ybv4p1.o")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/jsfc0lwq21.o")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/tffi"))
+ (do cc
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.c")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.o"))
+ (do lengc
+  (args "--nimcache\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (args "--isMain")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.c.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.c"))
+ (do hexer
+  (args "--isMain")
+  (args "--app\3Aconsole")
+  (args "--outdir\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr.s.nif")
+  (input "/home/savant/aoughwl-js/nimcache/sysvq0asl.s.idx.nif")
+  (input "/home/savant/aoughwl-js/nimcache/syn1lfpjv.s.idx.nif")
+  (input "/home/savant/aoughwl-js/nimcache/jsfc0lwq21.s.idx.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.x.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.dce.nif"))
+ (do cc
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/sysvq0asl.c")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/sysvq0asl.o"))
+ (do lengc
+  (args "--nimcache\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/sysvq0asl.c.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/sysvq0asl.c"))
+ (do hexer
+  (input "/home/savant/aoughwl-js/nimcache/sysvq0asl.s.nif")
+  (input "/home/savant/aoughwl-js/nimcache/sysvq0asl.s.idx.nif")
+  (output "/home/savant/aoughwl-js/nimcache/sysvq0asl.x.nif")
+  (output "/home/savant/aoughwl-js/nimcache/sysvq0asl.dce.nif"))
+ (do cc
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/syn1lfpjv.c")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/syn1lfpjv.o"))
+ (do lengc
+  (args "--nimcache\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/syn1lfpjv.c.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/syn1lfpjv.c"))
+ (do hexer
+  (input "/home/savant/aoughwl-js/nimcache/syn1lfpjv.s.nif")
+  (input "/home/savant/aoughwl-js/nimcache/sysvq0asl.s.idx.nif")
+  (input "/home/savant/aoughwl-js/nimcache/for2ybv4p1.s.idx.nif")
+  (output "/home/savant/aoughwl-js/nimcache/syn1lfpjv.x.nif")
+  (output "/home/savant/aoughwl-js/nimcache/syn1lfpjv.dce.nif"))
+ (do cc
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/for2ybv4p1.c")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/for2ybv4p1.o"))
+ (do lengc
+  (args "--nimcache\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/for2ybv4p1.c.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/for2ybv4p1.c"))
+ (do hexer
+  (input "/home/savant/aoughwl-js/nimcache/for2ybv4p1.s.nif")
+  (input "/home/savant/aoughwl-js/nimcache/sysvq0asl.s.idx.nif")
+  (output "/home/savant/aoughwl-js/nimcache/for2ybv4p1.x.nif")
+  (output "/home/savant/aoughwl-js/nimcache/for2ybv4p1.dce.nif"))
+ (do cc
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/jsfc0lwq21.c")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/jsfc0lwq21.o"))
+ (do lengc
+  (args "--nimcache\3A/home/savant/aoughwl-js/nimcache/tff8wodtr")
+  (input "/home/savant/aoughwl-js/nimcache/tff8wodtr/jsfc0lwq21.c.nif")
+  (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/jsfc0lwq21.c"))
+ (do hexer
+  (input "/home/savant/aoughwl-js/nimcache/jsfc0lwq21.s.nif")
+  (input "/home/savant/aoughwl-js/nimcache/sysvq0asl.s.idx.nif")
+  (output "/home/savant/aoughwl-js/nimcache/jsfc0lwq21.x.nif")
+  (output "/home/savant/aoughwl-js/nimcache/jsfc0lwq21.dce.nif")))

@@ -1,0 +1,4 @@
+(.nif27)
+(.indexat 148              )
+(stmts
+ (import "/home/savant/nimony-js/lib/std/system.nim" "/home/savant/nimony-js/lib/std/formatfloat.nim"))(.index)

@@ -1,0 +1,650 @@
+(.nif27)
+(.indexat 13824            )
+(stmts@,1,jsffi.nim
+ (type@B,O :JsValue.0.~9 .
+  (object@2 .
+   (fld~9,3 :h.0 .
+    (i@3 32))))
+ (proc@,U :rawRelease.0.@5
+  (params@F
+   (param@1 :h.0 .
+    (i@3 32))).
+  (pragmas@Q
+   (importc "_jsRelease")
+   (smry~Q
+    (param 0 0)))
+  (stmts .))
+ (proc@,W :rawStrictEq.0.@5
+  (params@G
+   (param@1 :a.0 .
+    (i@6 32))
+   (param@4 :b.0 .
+    (i@3 32)))
+  (bool@F)
+  (pragmas@a
+   (importc "_jsStrictEq")
+   (smry~a
+    (param 0 0)
+    (param 1 1)))
+  (stmts .))
+ (proc@,Z :rawStrToJs.0.@5
+  (params@F
+   (param@1 :p.0 .
+    (ptr@3
+     (c 8)))
+   (param@D :n.0 .
+    (i@3 32)))
+  (i@M 32)
+  (pragmas@h
+   (importc "_strToJs")
+   (smry~h
+    (param 0 0)
+    (param 1 1)))
+  (stmts .))
+ (proc@,a :rawStrLen.0.@5
+  (params@E
+   (param@1 :h.2 .
+    (i@3 32)))
+  (i@C 32)
+  (pragmas@U
+   (importc "_jsStrLen")
+   (smry~U
+    (param 0 0)))
+  (stmts .))
+ (proc@,b :rawStrInto.0.@5
+  (params@F
+   (param@1 :h.3 .
+    (i@3 32))
+   (param@B :dst.0 .
+    (ptr@5
+     (c 8)))).
+  (pragmas@e
+   (importc "_jsStrInto")
+   (smry~e
+    (param 0 0)
+    (param 1 1)))
+  (stmts .))
+ (proc@,d :rawNumToJs.0.@5
+  (params@F
+   (param@1 :x.0 .
+    (i@3 32)))
+  (i@A 32)
+  (pragmas@V
+   (importc "_numToJs")
+   (smry~V
+    (param 0 0)))
+  (stmts .))
+ (proc@,e :rawToNum.0.@5
+  (params@D
+   (param@1 :h.4 .
+    (i@3 32)))
+  (i@C 32)
+  (pragmas@T
+   (importc "_jsToNum")
+   (smry~T
+    (param 0 0)))
+  (stmts .))
+ (proc@,h :rawBoolToJs.0.@5
+  (params@G
+   (param@1 :b.1 .
+    (bool@3)))
+  (i@B 32)
+  (pragmas@X
+   (importc "_boolToJs")
+   (smry~X
+    (param 0 0)))
+  (stmts .))
+ (proc@,i :rawToBool.0.@5
+  (params@E
+   (param@1 :h.6 .
+    (i@3 32)))
+  (bool@C)
+  (pragmas@V
+   (importc "_jsToBool")
+   (smry~V
+    (param 0 0)))
+  (stmts .))
+ (proc@,v :rawGlobalH.0.@5
+  (params@F
+   (param@1 :nameH.0 .
+    (i@7 32)))
+  (i@G 32)
+  (pragmas@b
+   (importc "_jsGlobalH")
+   (smry~b
+    (param 0 0)))
+  (stmts .))
+ (proc@,w :rawGetProp.0.@5
+  (params@F
+   (param@1 :obj.2 .
+    (i@B 32))
+   (param@6 :name.2 .
+    (i@6 32)))
+  (i@K 32)
+  (pragmas@f
+   (importc "_jsGetProp")
+   (smry~f
+    (param 0 0)
+    (param 1 1)))
+  (stmts .))
+ (proc@,x :rawSetProp.0.@5
+  (params@F
+   (param@1 :obj.3 .
+    (i@G 32))
+   (param@6 :name.3 .
+    (i@B 32))
+   (param@C :val.0 .
+    (i@5 32))).
+  (pragmas@d
+   (importc "_jsSetProp")
+   (smry~d
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)))
+  (stmts .))
+ (proc@,z :rawCall1.0.@5
+  (params@D
+   (param@1 :obj.5 .
+    (i@E 32))
+   (param@6 :name.5 .
+    (i@9 32))
+   (param@C :a.1 .
+    (i@3 32)))
+  (i@N 32)
+  (pragmas@g
+   (importc "_jsCall1")
+   (smry~g
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)))
+  (stmts .))
+ (proc@,10 :rawCall2.0.@5
+  (params@D
+   (param@1 :obj.6 .
+    (i@H 32))
+   (param@6 :name.6 .
+    (i@C 32))
+   (param@C :a.2 .
+    (i@6 32))
+   (param@F :b.2 .
+    (i@3 32)))
+  (i@Q 32)
+  (pragmas@j
+   (importc "_jsCall2")
+   (smry~j
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)
+    (param 3 3)))
+  (stmts .))
+ (proc@,11 :rawCall3.0.@5
+  (params@D
+   (param@1 :obj.7 .
+    (i@K 32))
+   (param@6 :name.7 .
+    (i@F 32))
+   (param@C :a.3 .
+    (i@9 32))
+   (param@F :b.3 .
+    (i@6 32))
+   (param@I :c.0 .
+    (i@3 32)))
+  (i@T 32)
+  (pragmas@m
+   (importc "_jsCall3")
+   (smry~m
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)
+    (param 3 3)
+    (param 4 4)))
+  (stmts .))
+ (proc@,12 :rawNewObject.0.@5
+  (params@H)
+  (i@4 32)
+  (pragmas@R
+   (importc "_jsNewObject")
+   (smry~R))
+  (stmts .))
+ (proc@,18 :=destroy.0.@5
+  (params@F
+   (param@1 :x.2 . JsValue.0.@3)).
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (call@A rawRelease.0.~A
+    (dot@2 x.2~1 h.0 0))))
+ (proc@,1L :==.0.@5
+  (params@A
+   (param@1 :a.5 . JsValue.0.@6)
+   (param@4 :b.4 . JsValue.0.@3))
+  (bool@H)
+  (pragmas@W
+   (inline 0 10 10)
+   (smry~W
+    (param 0 0 reads)
+    (param 1 0 reads)result 0))
+  (stmts@j
+   (var@B :result.1 .
+    (bool~f,~p).)
+   (var@B :`x.2 .
+    (bool~f,~p)
+    (call rawStrictEq.0.~B
+     (dot@2 a.5~1 h.0 0)
+     (dot@7 b.4~1 h.0 0)))
+   (asgn@B result.1 `x.2)
+   (ret~j result.1)))
+ (proc@,1N :isNil.0.@5
+  (params@B
+   (param@1 :v.3 . JsValue.0.@3))
+  (bool@E)
+  (pragmas@U
+   (inline 0 30)
+   (smry~U
+    (param 0 0 reads)))
+  (stmts@h
+   (var@4 :result.2 .
+    (bool~W,~r).)
+   (asgn@4 result.2
+    (eq
+     (dot~3 v.3~1 h.0 0)0@3))
+   (ret~h result.2)))
+ (proc@,1g :toJs.0.@5
+  (params@A
+   (param@1 :x.4 .
+    (i@3 32)))JsValue.0.@A
+  (pragmas@S
+   (inline 0 10)
+   (smry~S readGlobal
+    (param 0 0 reads)))
+  (stmts@f
+   (var@7 :result.6 . JsValue.0.~T,~Y .)
+   (call@7 =destroy.0. result.6)
+   (var@L :`x.4 .
+    (i~q,~13 32)
+    (call rawNumToJs.0.~A x.4@1))
+   (asgn@7 result.6
+    (oconstr JsValue.0.~T,~Y
+     (kv@2 h.0~1 `x.4@C)))
+   (ret~f result.6)))
+ (proc@,1i :toInt.0.@5
+  (params@B
+   (param@1 :v.5 . JsValue.0.@3))
+  (i@E 32)
+  (pragmas@T
+   (inline 0 10)
+   (smry~T
+    (param 0 0 reads)result 0))
+  (stmts@g
+   (var@8 :result.7 .
+    (i~h,~1H 32).)
+   (var@8 :`x.5 .
+    (i~c,~14 32)
+    (call rawToNum.0.~8
+     (dot@2 v.5~1 h.0 0)))
+   (asgn@8 result.7 `x.5)
+   (ret~g result.7)))
+ (proc@,1o :toJs.2.@5
+  (params@A
+   (param@1 :b.5 .
+    (bool@3)))JsValue.0.@B
+  (pragmas@T
+   (inline 0 10)
+   (smry~T readGlobal
+    (param 0 0 reads)))
+  (stmts@g
+   (var@7 :result.10 . JsValue.0.~U,~g .)
+   (call@7 =destroy.0. result.10)
+   (var@M :`x.8 .
+    (i~r,~17 32)
+    (call rawBoolToJs.0.~B b.5@1))
+   (asgn@7 result.10
+    (oconstr JsValue.0.~U,~g
+     (kv@2 h.0~1 `x.8@D)))
+   (ret~g result.10)))
+ (proc@,1p :toBool.0.@5
+  (params@C
+   (param@1 :v.7 . JsValue.0.@3))
+  (bool@E)
+  (pragmas@V
+   (inline 0 10)
+   (smry~V
+    (param 0 0 reads)result 0))
+  (stmts@i
+   (var@9 :result.11 .
+    (bool~c,~1J).)
+   (var@9 :`x.9 .
+    (bool~f,~17)
+    (call rawToBool.0.~9
+     (dot@2 v.7~1 h.0 0)))
+   (asgn@9 result.11 `x.9)
+   (ret~i result.11)))
+ (proc@,1r :toJs.3.@5
+  (params@A
+   (param@1 :s.0 . string.0.sysvq0asl@3))JsValue.0.@D
+  (pragmas
+   (smry readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var :result.12 . JsValue.0.@H,~k .)
+   (var@4,1 :t.0 . string.0.sysvq0asl@8,~2
+    (call@4 =dup.2.sysvq0asl s.0))
+   (call@7,2 =destroy.0. result.12)
+   (var@V,2 :`x.10 .
+    (ptr@H,C9,../nimony-js/lib/std/system/stringimpl.nim
+     (c 8))
+    (call toCString.0.sysvq0asl~9
+     (addr@1 t.0)))
+   (var@b,2 :`x.11 .
+    (i@D,1A,../nimony-js/lib/std/system/stringimpl.nim 32)
+    (call len.4.sysvq0asl@1 t.0~1))
+   (var@L,2 :`x.12 .
+    (i~1,~1L 32)
+    (call rawStrToJs.0.~A `x.10@A `x.11@G))
+   (asgn@7,2 result.12
+    (oconstr JsValue.0.@A,~m
+     (kv@2 h.0~1 `x.12@C)))
+   (call =destroy.2.sysvq0asl t.0)
+   (ret~2,~1 result.12)
+   (call =destroy.2.sysvq0asl t.0)
+   (ret result.12)))
+ (proc@,1w :toStr.0.@5
+  (params@B
+   (param@1 :v.8 . JsValue.0.@3))string.0.sysvq0asl@E
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)result 0))
+  (stmts@2,1
+   (var :result.13 . string.0.sysvq0asl@C,~6 .)
+   (call =wasMoved.2.sysvq0asl
+    (addr result.13))
+   (var@4,1 :n.1 .
+    (i@1,~1X 32)
+    (call@D rawStrLen.0.~9
+     (dot@2 v.8~1 h.0 0)))
+   (if@,2
+    (elif@3
+     (le@2 n.1~2 0@3)
+     (stmts@8
+      (ret
+       (oconstr@7 string.0.sysvq0asl
+        (kv bytes.0 0u)
+        (kv more.0
+         (nil)))))))
+   (call@,3 =destroy.2.sysvq0asl result.13)
+   (var@I,3 :`x.13 . string.0.sysvq0asl@C,AP,../nimony-js/lib/std/system/stringimpl.nim
+    (call newString.0.sysvq0asl~9 n.1@1))
+   (asgn@7,3 result.13~7 `x.13@B)
+   (var@P,4 :`x.14 .
+    (ptr@H,C9,../nimony-js/lib/std/system/stringimpl.nim
+     (c 8))
+    (call toCString.0.sysvq0asl~9
+     (addr@1 result.13)))
+   (call@A,4 rawStrInto.0.~A
+    (dot@2 v.8~1 h.0 0)`x.14@F)
+   (ret~2,~1 result.13)))
+ (proc@,25 :newJsObject.0.@5
+  (params@H)JsValue.0.@4
+  (pragmas@T
+   (inline 0)
+   (smry~T readGlobal))
+  (stmts@g
+   (var@7 :result.15 . JsValue.0.~U,~x .)
+   (call@7 =destroy.0. result.15)
+   (var@N :`x.16 .
+    (i~z,~13 32)
+    (call rawNewObject.0.~C))
+   (asgn@7 result.15
+    (oconstr JsValue.0.~U,~x
+     (kv@2 h.0~1 `x.16@E)))
+   (ret~g result.15)))
+ (type@B,2N :JsProc0.0.~9 . `t.0.ISEAnimcallZAfalseZAR11.@6)
+ (type@B,2O :JsProc1.0.~9 . `t.0.ISX4asX56alue0jsfc0lwq21SEAnimcallZAfalseZAR34.@6)
+ (proc@,2b :global.0.@5
+  (params@C
+   (param@1 :name.8 . string.0.sysvq0asl@6))JsValue.0.@G
+  (pragmas
+   (smry readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var :result.21 . JsValue.0.@H,~1U .)
+   (var@4,1 :n.2 . JsValue.0.@D,~1V
+    (call@8 toJs.3.~4 name.8@1))
+   (call@7,2 =destroy.0. result.21)
+   (var@L,2 :`x.22 .
+    (i~7,~1j 32)
+    (call rawGlobalH.0.~A
+     (dot@2 n.2~1 h.0 0)))
+   (asgn@7,2 result.21
+    (oconstr JsValue.0.@A,~1W
+     (kv@2 h.0~1 `x.22@C)))
+   (call =destroy.0. n.2)
+   (ret~2,~1 result.21)
+   (call =destroy.0. n.2)
+   (ret result.21)))
+ (proc@,2g :get.0.@5
+  (params@9
+   (param@1 :obj.8 . JsValue.0.@5)
+   (param@F :name.9 . string.0.sysvq0asl@6))JsValue.0.@U
+  (pragmas
+   (smry readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)))
+  (stmts@2,1
+   (var :result.22 . JsValue.0.@H,~1Z .)
+   (var@4,1 :n.3 . JsValue.0.@D,~1a
+    (call@8 toJs.3.~4 name.9@1))
+   (call@7,2 =destroy.0. result.22)
+   (var@L,2 :`x.23 .
+    (i~3,~1n 32)
+    (call rawGetProp.0.~A
+     (dot@4 obj.8~3 h.0 0)
+     (dot@9 n.3~1 h.0 0)))
+   (asgn@7,2 result.22
+    (oconstr JsValue.0.@A,~1b
+     (kv@2 h.0~1 `x.23@C)))
+   (call =destroy.0. n.3)
+   (ret~2,~1 result.22)
+   (call =destroy.0. n.3)
+   (ret result.22)))
+ (proc@,2l :set.0.@5
+  (params@9
+   (param@1 :obj.9 . JsValue.0.@5)
+   (param@F :name.10 . string.0.sysvq0asl@6)
+   (param@T :val.3 . JsValue.0.@5)).
+  (pragmas
+   (smry readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (var@4,1 :n.4 . JsValue.0.@D,~1f
+    (call@8 toJs.3.~4 name.10@1))
+   (call@A,2 rawSetProp.0.~A
+    (dot@4 obj.9~3 h.0 0)
+    (dot@9 n.4~1 h.0 0)
+    (dot@G val.3~3 h.0 0))
+   (call =destroy.0. n.4)))
+ (proc@,2v :call.1.@5
+  (params@A
+   (param@1 :obj.11 . JsValue.0.@5)
+   (param@F :name.12 . string.0.sysvq0asl@6)
+   (param@T :a.6 . JsValue.0.@3))JsValue.0.@g
+  (pragmas
+   (smry readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (var :result.24 . JsValue.0.@H,~1o .)
+   (var@4,1 :n.6 . JsValue.0.@D,~1p
+    (call@8 toJs.3.~4 name.12@1))
+   (call@7,2 =destroy.0. result.24)
+   (var@J,2 :`x.25 .
+    (i@2,~1z 32)
+    (call rawCall1.0.~8
+     (dot@4 obj.11~3 h.0 0)
+     (dot@9 n.6~1 h.0 0)
+     (dot@E a.6~1 h.0 0)))
+   (asgn@7,2 result.24
+    (oconstr JsValue.0.@A,~1q
+     (kv@2 h.0~1 `x.25@A)))
+   (call =destroy.0. n.6)
+   (ret~2,~1 result.24)
+   (call =destroy.0. n.6)
+   (ret result.24)))
+ (proc@,30 :call.2.@5
+  (params@A
+   (param@1 :obj.12 . JsValue.0.@5)
+   (param@F :name.13 . string.0.sysvq0asl@6)
+   (param@T :a.7 . JsValue.0.@6)
+   (param@W :b.6 . JsValue.0.@3))JsValue.0.@j
+  (pragmas
+   (smry readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)
+    (param 2 2 reads)
+    (param 3 3 reads)))
+  (stmts@2,1
+   (var :result.25 . JsValue.0.@H,~1t .)
+   (var@4,1 :n.7 . JsValue.0.@D,~1u
+    (call@8 toJs.3.~4 name.13@1))
+   (call@7,2 =destroy.0. result.25)
+   (var@J,2 :`x.26 .
+    (i@5,~23 32)
+    (call rawCall2.0.~8
+     (dot@4 obj.12~3 h.0 0)
+     (dot@9 n.7~1 h.0 0)
+     (dot@E a.7~1 h.0 0)
+     (dot@J b.6~1 h.0 0)))
+   (asgn@7,2 result.25
+    (oconstr JsValue.0.@A,~1v
+     (kv@2 h.0~1 `x.26@A)))
+   (call =destroy.0. n.7)
+   (ret~2,~1 result.25)
+   (call =destroy.0. n.7)
+   (ret result.25)))
+ (proc@,35 :call.3.@5
+  (params@A
+   (param@1 :obj.13 . JsValue.0.@5)
+   (param@F :name.14 . string.0.sysvq0asl@6)
+   (param@T :a.8 . JsValue.0.@9)
+   (param@W :b.7 . JsValue.0.@6)
+   (param@Z :c.1 . JsValue.0.@3))JsValue.0.@m
+  (pragmas
+   (smry readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)
+    (param 2 2 reads)
+    (param 3 3 reads)
+    (param 4 4 reads)))
+  (stmts@2,1
+   (var :result.26 . JsValue.0.@H,~1y .)
+   (var@4,1 :n.8 . JsValue.0.@D,~1z
+    (call@8 toJs.3.~4 name.14@1))
+   (call@7,2 =destroy.0. result.26)
+   (var@J,2 :`x.27 .
+    (i@8,~27 32)
+    (call rawCall3.0.~8
+     (dot@4 obj.13~3 h.0 0)
+     (dot@9 n.8~1 h.0 0)
+     (dot@E a.8~1 h.0 0)
+     (dot@J b.7~1 h.0 0)
+     (dot@O c.1~1 h.0 0)))
+   (asgn@7,2 result.26
+    (oconstr JsValue.0.@A,~20
+     (kv@2 h.0~1 `x.27@A)))
+   (call =destroy.0. n.8)
+   (ret~2,~1 result.26)
+   (call =destroy.0. n.8)
+   (ret result.26)))
+ (proc@4,p,../nimony-js/lib/std/system/openarrays.nim :inc.1.I6wjjge.
+  (params@L,E,../nimony-js/lib/std/system/arithmetics.nim
+   (param@1 :x.11 .
+    (ptr@3
+     (i@7,S,jsffi.nim 32)))).@,E,../nimony-js/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../nimony-js/lib/std/system/arithmetics.nim
+   (inline 0 20)
+   (smry@4,p,../nimony-js/lib/std/system/openarrays.nim
+    (param 0 0 reads writes)))
+  (stmts@2,F,../nimony-js/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (deref~2 x.11)
+    (add@6
+     (i@7,S,jsffi.nim 32)
+     (deref@1 x.11)
+     (conv@U,~F
+      (i@7,S,jsffi.nim 32)1@1)))))
+ (type@j,3K :openArray.0.I2ybnlf. .
+  (object@R,6,../nimony-js/lib/std/system/openarrays.nim .
+   (fld~N,1 :a.0 .
+    (ptr@3 JsValue.0.@k,3L,jsffi.nim))
+   (fld~N,2 :len.0 .
+    (i@5 32))))
+ (type@H,2N :`t.0.ISEAnimcallZAfalseZAR11. .
+  (proctype .
+   (params).
+   (pragmas@3
+    (nimcall))))
+ (type@H,2O :`t.0.ISX4asX56alue0jsfc0lwq21SEAnimcallZAfalseZAR34. .
+  (proctype .
+   (params
+    (param@1 :ev.0 . JsValue.0.@4)).
+   (pragmas@E
+    (nimcall))))
+ (gvar :`iniGuard.0. .
+  (bool).)
+ (proc :`ini.0.
+  (params).
+  (pragmas
+   (smry callsUnknown))
+  (stmts
+   (if
+    (elif `iniGuard.0.
+     (stmts
+      (ret .))))
+   (asgn `iniGuard.0.
+    (true))
+   (call `ini.0.sysvq0asl))))(.index@,1,jsffi.nim
+ (h JsValue.0. 57)
+ (x rawRelease.0. 76)
+ (x rawStrictEq.0. 155)
+ (x rawStrToJs.0. 216)
+ (x rawStrLen.0. 222)
+ (x rawStrInto.0. 163)
+ (x rawNumToJs.0. 216)
+ (x rawToNum.0. 163)
+ (x rawBoolToJs.0. 161)
+ (x rawToBool.0. 165)
+ (x rawGlobalH.0. 163)
+ (x rawGetProp.0. 169)
+ (x rawSetProp.0. 219)
+ (x rawCall1.0. 260)
+ (x rawCall2.0. 264)
+ (x rawCall3.0. 314)
+ (x rawNewObject.0. 363)
+ (x =destroy.0. 121)
+ (x ==.0. 184)
+ (x isNil.0. 420)
+ (x toJs.0. 276)
+ (x toInt.0. 408)
+ (x toJs.2. 339)
+ (x toBool.0. 413)
+ (x toJs.3. 344)
+ (x toStr.0. 875)
+ (x newJsObject.0. 988)
+ (h JsProc0.0. 359)
+ (h JsProc1.0. 61)
+ (x global.0. 84)
+ (x get.0. 604)
+ (x set.0. 685)
+ (x call.1. 494)
+ (x call.2. 768)
+ (x call.3. 848)
+ (x inc.1.I6wjjge. 928)
+ (h openArray.0.I2ybnlf. 596)
+ (h `t.0.ISEAnimcallZAfalseZAR11. 190)
+ (h `t.0.ISX4asX56alue0jsfc0lwq21SEAnimcallZAfalseZAR34. 103)
+ (h `iniGuard.0. 161)
+ (x `ini.0. 34))

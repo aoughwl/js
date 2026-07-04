@@ -1,0 +1,1417 @@
+(.nif27)
+(.indexat 34983            )
+(stmts@,1,../nimony-js/lib/std/syncio.nim
+ (const@4,6 :strlit.0.I2517909358977490171. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 6)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "fmRead")))
+ (const@4,9 :strlit.0.I14170574506565772206. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 7)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "fmWrite")))
+ (const@4,C :strlit.0.I13914417572039368080. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 11)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "fmReadWrite")))
+ (const@4,F :strlit.0.I10839966292305497433. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 19)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "fmReadWriteExisting")))
+ (const@4,I :strlit.0.I11005284886174568392. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 8)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "fmAppend")))
+ (const@4,P :strlit.0.I12582063311690551448. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 6)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "fspSet")))
+ (const@4,Q :strlit.0.I761972010239645958. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 6)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "fspCur")))
+ (const@4,R :strlit.0.I5371342142208118032. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 6)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "fspEnd")))
+ (const@H,47 :strlit.0.I8572766038233537570. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 4)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "true")))
+ (const@H,48 :strlit.0.I3372626016653902757. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 5)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "false")))
+ (const@9,7I :strlit.0.I4513651157703468414. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 13)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "cannot open\3A ")))
+ (type@C,5 :FileMode.0.~A .
+  (enum@2
+   (u 8)
+   (efld~A,1 :fmRead.0. 0)
+   (efld~A,4 :fmWrite.0. 1)
+   (efld~A,7 :fmReadWrite.0. 2)
+   (efld~A,A :fmReadWriteExisting.0. 3)
+   (efld~A,D :fmAppend.0. 4)))
+ (proc@2,5 :dollar`.FileMode.0.
+  (params
+   (param :e.0 . FileMode.0.))string.0.sysvq0asl
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads)))
+  (stmts
+   (var@C :result.0 . string.0.sysvq0asl .)
+   (call@C =wasMoved.2.sysvq0asl
+    (addr result.0))
+   (case@C e.0
+    (of~A,1
+     (ranges 0)
+     (stmts
+      (ret
+       (oconstr string.0.sysvq0asl
+        (kv bytes.0 1382901502u)
+        (kv more.0
+         (addr strlit.0.I2517909358977490171.))))))
+    (of~A,4
+     (ranges 1)
+     (stmts
+      (ret
+       (oconstr string.0.sysvq0asl
+        (kv bytes.0 1466787582u)
+        (kv more.0
+         (addr strlit.0.I14170574506565772206.))))))
+    (of~A,7
+     (ranges 2)
+     (stmts
+      (ret
+       (oconstr string.0.sysvq0asl
+        (kv bytes.0 1382901502u)
+        (kv more.0
+         (addr strlit.0.I13914417572039368080.))))))
+    (of~A,A
+     (ranges 3)
+     (stmts
+      (ret
+       (oconstr string.0.sysvq0asl
+        (kv bytes.0 1382901502u)
+        (kv more.0
+         (addr strlit.0.I10839966292305497433.))))))
+    (of~A,D
+     (ranges 4)
+     (stmts
+      (ret
+       (oconstr string.0.sysvq0asl
+        (kv bytes.0 1097688830u)
+        (kv more.0
+         (addr strlit.0.I11005284886174568392.)))))))
+   (ret result.0)))
+ (type@F,M :FileSeekPos.0.~D .
+  (enum@2
+   (u 8)
+   (efld~D,3 :fspSet.0. 0)
+   (efld~D,4 :fspCur.0. 1)
+   (efld~D,5 :fspEnd.0. 2)))
+ (proc@2,M :dollar`.FileSeekPos.0.
+  (params
+   (param :e.1 . FileSeekPos.0.))string.0.sysvq0asl
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads)))
+  (stmts
+   (var@F :result.1 . string.0.sysvq0asl .)
+   (call@F =wasMoved.2.sysvq0asl
+    (addr result.1))
+   (case@F e.1
+    (of~D,3
+     (ranges 0)
+     (stmts
+      (ret
+       (oconstr string.0.sysvq0asl
+        (kv bytes.0 1886611198u)
+        (kv more.0
+         (addr strlit.0.I12582063311690551448.))))))
+    (of~D,4
+     (ranges 1)
+     (stmts
+      (ret
+       (oconstr string.0.sysvq0asl
+        (kv bytes.0 1886611198u)
+        (kv more.0
+         (addr strlit.0.I761972010239645958.))))))
+    (of~D,5
+     (ranges 2)
+     (stmts
+      (ret
+       (oconstr string.0.sysvq0asl
+        (kv bytes.0 1886611198u)
+        (kv more.0
+         (addr strlit.0.I5371342142208118032.)))))))
+   (ret result.1)))
+ (type@p,13 :CFile.0.~l
+  (pragmas~f
+   (importc "FILE")
+   (header "<stdio.h>"))
+  (object@2 .))
+ (type@A,14 :File.0.~6 .
+  (ptr@2 CFile.0.@4))
+ (gvar@D,3k :stdin.0.~7
+  (pragmas
+   (importc "stdin")
+   (header "<stdio.h>"))
+  (ptr~1,~2g CFile.0.@4).)
+ (gvar@E,3m :stdout.0.~8
+  (pragmas
+   (importc "stdout")
+   (header "<stdio.h>"))
+  (ptr~2,~2i CFile.0.@4).)
+ (gvar@E,3o :stderr.0.~8
+  (pragmas
+   (importc "stderr")
+   (header "<stdio.h>"))
+  (ptr~2,~2k CFile.0.@4).)
+ (proc@2,3r :c_fputc.0.@5
+  (params@C
+   (param@1 :c.0 .
+    (i@3 32))
+   (param@B :f.0 .
+    (ptr~D,~2n CFile.0.@4)))
+  (i@L 32)
+  (pragmas@d
+   (importc "fputc")
+   (header "<stdio.h>")
+   (smry~d
+    (param 0 0)
+    (param 1 1)))
+  (stmts .))
+ (proc@2,3t :c_fwrite.0.@5
+  (params@D
+   (param@1 :buf.0 .
+    (ptr@5
+     (void)))
+   (param@F :size.0 .
+    (u@9 32))
+   (param@L :n.0 .
+    (u@3 32))
+   (param@U :f.1 .
+    (ptr~X,~2p CFile.0.@4)))
+  (u@e 32)
+  (pragmas@w
+   (importc "fwrite")
+   (header "<stdio.h>")
+   (smry~w
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)
+    (param 3 3)))
+  (stmts .))
+ (proc@2,3v :c_fread.0.@5
+  (params@C
+   (param@1 :buf.1 .
+    (ptr@5
+     (void)))
+   (param@F :size.1 .
+    (u@9 32))
+   (param@L :n.1 .
+    (u@3 32))
+   (param@U :f.2 .
+    (ptr~W,~2r CFile.0.@4)))
+  (u@e 32)
+  (pragmas@v
+   (importc "fread")
+   (header "<stdio.h>")
+   (smry~v
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)
+    (param 3 3)))
+  (stmts .))
+ (proc@2,3y :fprintf.0.@5
+  (params@C
+   (param@1 :f.3 .
+    (ptr~3,~2u CFile.0.@4))
+   (param@A :fmt.0 .
+    (ptr@5
+     (c 8)))
+   (param@Q :vanon.0 .
+    (varargs))).
+  (pragmas@a
+   (importc "fprintf")
+   (header "<stdio.h>")
+   (smry~a
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)))
+  (stmts .))
+ (proc@,40 :write.0.@5
+  (params@B
+   (param@1 :f.4 .
+    (ptr@,~2w CFile.0.@4))
+   (param@A :s.0 . string.0.sysvq0asl@3)).
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)))
+  (stmts@2,1
+   (stmts@2,3
+    (var@S :`x.1 .
+     (ptr@Y,1U,../nimony-js/lib/std/system/stringimpl.nim
+      (c@J 8))
+     (call readRawData.0.sysvq0asl~B
+      (addr@1 s.0)0@l,1U,../nimony-js/lib/std/system/stringimpl.nim))
+    (var@d :`x.2 .
+     (i@D,1A,../nimony-js/lib/std/system/stringimpl.nim 32)
+     (call len.4.sysvq0asl@1 s.0~1))
+    (var :`x.3 .
+     (u@g,3u,../nimony-js/lib/std/syncio.nim 32)
+     (call@K,45,../nimony-js/lib/std/syncio.nim c_fwrite.0.~8
+      (conv@C
+       (ptr~B,~B
+        (void))`x.1)1u@H
+      (conv@R
+       (u@1 32)`x.2~4)f.4@Y)))))
+ (proc@,46 :write.1.@5
+  (params@B
+   (param@1 :f.5 .
+    (ptr@,~32 CFile.0.@4))
+   (param@A :b.0 .
+    (bool@3))).
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@2,1
+   (if
+    (elif@3 b.0
+     (stmts@3
+      (call write.0. f.5@6
+       (oconstr@9 string.0.sysvq0asl
+        (kv bytes.0 1970435326u)
+        (kv more.0
+         (addr strlit.0.I8572766038233537570.))))))
+    (else
+     (stmts
+      (stmts
+       (stmts
+        (stmts@6,1
+         (call write.0. f.5@6
+          (oconstr@9 string.0.sysvq0asl
+           (kv bytes.0 1818322686u)
+           (kv more.0
+            (addr strlit.0.I3372626016653902757.))))))))))))
+ (proc@,4A :write.2.@5
+  (params@B
+   (param@1 :f.6 .
+    (ptr@,~36 CFile.0.@4))
+   (param@A :x.0 .
+    (i@3 64))).
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@2,1
+   (stmts@2,3
+    (call@7 fprintf.0.~7 f.6@1 "%lld" x.0@J))))
+ (proc@,4G :write.3.@5
+  (params@B
+   (param@1 :f.7 .
+    (ptr@,~3C CFile.0.@4))
+   (param@A :x.1 .
+    (i@3 32))).
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@2,1
+   (call write.2. f.7@6
+    (conv@F
+     (i~6 64)x.1))))
+ (proc@,4J :write.4.@5
+  (params@B
+   (param@1 :f.8 .
+    (ptr@,~3F CFile.0.@4))
+   (param@A :x.2 .
+    (u@3 64))).
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@2,1
+   (stmts@2,3
+    (call@7 fprintf.0.~7 f.8@1 "%llu" x.2@J))))
+ (proc@,4P :write.5.@5
+  (params@B
+   (param@1 :f.9 .
+    (ptr@,~3L CFile.0.@4))
+   (param@A :x.3 .
+    (u@3 32))).
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@2,1
+   (call write.4. f.9@6
+    (conv@G
+     (u~7 64)x.3))))
+ (proc@,4V :write.7.@5
+  (params@B
+   (param@1 :f.11 .
+    (ptr@,~3R CFile.0.@4))
+   (param@A :c.1 .
+    (c@3 8))).
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@2,1
+   (stmts@2,4
+    (var :`x.4 .
+     (i@N,3s,../nimony-js/lib/std/syncio.nim 32)
+     (call@J,4b,../nimony-js/lib/std/syncio.nim c_fputc.0.~7
+      (conv@6
+       (i~5 32)c.1@1)f.11@B)))))
+ (proc@,4c :write.8.@5
+  (params@B
+   (param@1 :f.12 .
+    (ptr@,~3Y CFile.0.@4))
+   (param@A :x.5 .
+    (f@3 64))).
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)))
+  (stmts@2,1
+   (var@4,4 :s.4 . string.0.sysvq0asl
+    (oconstr@4 string.0.sysvq0asl
+     (kv bytes.0 0u)
+     (kv more.0
+      (nil))))
+   (call@1,5 addFloat.0.sysvq0asl@1
+    (addr~1 s.4)x.5@A)
+   (call@,6 write.0. f.12@6 s.4@9)
+   (call =destroy.2.sysvq0asl s.4)))
+ (proc@2,4y :fclose.0.@5
+  (params@B
+   (param@1 :f.13 .
+    (ptr~2,~3u CFile.0.@4)))
+  (i@B 32)
+  (pragmas@S
+   (importc "fclose")
+   (header "<stdio.h>")
+   (smry~S
+    (param 0 0)))
+  (stmts .))
+ (proc@2,50 :close.0.@5
+  (params@B
+   (param@1 :f.14 .
+    (ptr~2,~3w CFile.0.@4))).
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :`x.5 .
+    (i@D,4z,../nimony-js/lib/std/syncio.nim 32)
+    (call@I,53,../nimony-js/lib/std/syncio.nim fclose.0.~6 f.14@1))))
+ (proc@2,54 :fopen.0.@5
+  (params@A
+   (param@1 :filename.0 .
+    (ptr@G
+     (c 8)))
+   (param@B :mode.0 .
+    (ptr@6
+     (c 8))))
+  (ptr@A,~40 CFile.0.@4)
+  (pragmas@g
+   (importc "fopen")
+   (header "<stdio.h>")
+   (smry~g
+    (param 0 0)
+    (param 1 1)))
+  (stmts .))
+ (proc@,56 :writeBuffer.0.@5
+  (params@H
+   (param@1 :f.15 .
+    (ptr~6,~42 CFile.0.@4))
+   (param@A :buffer.0 .
+    (ptr@8
+     (void)))
+   (param@R :size.2 .
+    (i@6 32)))
+  (i@d 32)
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 0 reads)
+    (param 2 0 reads)result 0))
+  (stmts@2,1
+   (var :result.2 .
+    (i@G,~1G 32).)
+   (stmts@2,5
+    (var@R :`x.6 .
+     (u@B,~1J 32)
+     (call c_fwrite.0.~8 buffer.0@1 1u@9
+      (cast@E
+       (u@5 32)size.2@B)f.15@W))
+    (asgn@7 result.2~7
+     (cast@2
+      (i@5 32)`x.6@I)))
+   (ret~2,~1 result.2)))
+ (proc@,5E :readBuffer.0.@5
+  (params@G
+   (param@1 :f.16 .
+    (ptr~5,~4A CFile.0.@4))
+   (param@A :buffer.1 .
+    (ptr@8
+     (void)))
+   (param@R :size.3 .
+    (i@6 32)))
+  (i@d 32)
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 0 reads)
+    (param 2 0 reads)result 0))
+  (stmts@2,1
+   (var :result.3 .
+    (i@G,~1O 32).)
+   (stmts@2,D
+    (var@Q :`x.7 .
+     (u@C,~1X 32)
+     (call c_fread.0.~7 buffer.1@1 1u@9
+      (cast@E
+       (u@5 32)size.3@B)f.16@W))
+    (asgn@7 result.3~7
+     (cast@2
+      (i@5 32)`x.7@H)))
+   (ret~2,~1 result.3)))
+ (proc@2,5Z :c_ferror.0.@5
+  (params@D
+   (param@1 :f.17 .
+    (ptr~4,~4V CFile.0.@4)))
+  (i@B 32)
+  (pragmas@U
+   (importc "ferror")
+   (header "<stdio.h>")
+   (smry~U
+    (param 0 0)))
+  (stmts .))
+ (proc@2,5c :failed.0.@5
+  (params@C
+   (param@1 :f.18 .
+    (ptr~3,~4Y CFile.0.@4)))
+  (bool@B)
+  (pragmas@S
+   (inline 0 10)
+   (smry~S
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.4 .
+    (bool@E,1H,../nimony-js/lib/std/system/basic_types.nim).)
+   (var@8,1 :`x.8 .
+    (i@1,~5 32)
+    (call c_ferror.0.~8 f.18@1))
+   (asgn@C,1 result.4
+    (not@2,1m,../nimony-js/lib/std/system/comparisons.nim
+     (eq@7 `x.8@C,5f,../nimony-js/lib/std/syncio.nim 0@J,5f,../nimony-js/lib/std/syncio.nim)))
+   (ret~2,~1 result.4)))
+ (proc@2,5g :c_setvbuf.0.@5
+  (params@E
+   (param@1 :f.19 .
+    (ptr~5,~4c CFile.0.@4))
+   (param@A :buffer.2 .
+    (ptr@8
+     (void)))
+   (param@R :mode.1 .
+    (i@6 32))
+   (param@e :size.4 .
+    (u@6 32)))
+  (i@r 32)
+  (pragmas@1B
+   (importc "setvbuf")
+   (header "<stdio.h>")
+   (smry~1B
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)
+    (param 3 3)))
+  (stmts .))
+ (const@A,5k :IOFBF.0. .
+  (i@8,~1t 32)
+  (suf@8 0 "i32"))
+ (proc@,5o :open.0.@5
+  (params@A
+   (param@1 :f.20 .
+    (ptr@3
+     (ptr~2,~4k CFile.0.@4)))
+   (param@E :filename.1 . string.0.sysvq0asl@A)
+   (param@1,1 :mode.2 . FileMode.0.~9,~5k)
+   (param@1,2 :bufSize.0 .
+    (i@7,~1z 32)))
+  (bool@L,2)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes)
+    (param 1 0 reads writes escapes)
+    (param 2 2 reads)
+    (param 3 3 reads)))
+  (stmts@2,3
+   (var :result.5 .
+    (bool@E,1H,../nimony-js/lib/std/system/basic_types.nim).)
+   (stmts@2,y
+    (var@2,1 :`x.0 .
+     (ptr@9,~2c
+      (c 8)).)
+    (case@2,1 mode.2@5
+     (of@,1
+      (ranges@3 0~5,~6l)
+      (stmts@,~1
+       (asgn@B,1 `x.0 "rb")))
+     (of@,2
+      (ranges@3 1~5,~6j)
+      (stmts@,~2
+       (asgn@C,2 `x.0 "wb")))
+     (of@,3
+      (ranges@3 2~5,~6h)
+      (stmts@,~3
+       (asgn@G,3 `x.0 "w+b")))
+     (of@,4
+      (ranges@3 3~5,~6f)
+      (stmts@,~4
+       (asgn@O,4 `x.0 "r+b")))
+     (of@,5
+      (ranges@3 4~5,~6d)
+      (stmts@,~5
+       (asgn@D,5 `x.0 "ab"))))
+    (var@4 :m.0 .
+     (ptr@7,~2b
+      (c 8))`x.0~2,1)
+    (var@4,9 :tmpFilename.0 . string.0.sysvq0asl
+     (call@c terminatingZero.0.sysvq0asl~F filename.1~O))
+    (var@h,A :`x.9 .
+     (ptr@Y,1U,../nimony-js/lib/std/system/stringimpl.nim
+      (c@J 8))
+     (call readRawData.0.sysvq0asl~B
+      (addr@1 tmpFilename.0)0@l,1U,../nimony-js/lib/std/system/stringimpl.nim))
+    (var@4,A :rawFilename.0 .
+     (ptr@L,~31
+      (c 8))
+     (cast@E
+      (ptr@5
+       (c 8))`x.9@P))
+    (var@9,B :`x.10 .
+     (ptr~1,~5w CFile.0.@4)
+     (call fopen.0.~5 rawFilename.0@1 m.0@E))
+    (asgn@2,B
+     (deref~2 f.20)`x.10@7)
+    (if@,C
+     (elif@3
+      (not@2,1m,../nimony-js/lib/std/system/comparisons.nim
+       (eq@7
+        (deref@7,72,../nimony-js/lib/std/syncio.nim f.20)
+        (nil)))
+      (stmts~1,1
+       (asgn@7 result.5~7
+        (true@2))
+       (if@,1
+        (elif@3
+         (le@4,1q,../nimony-js/lib/std/system/comparisons.nim 0@K,74,../nimony-js/lib/std/syncio.nim bufSize.0@9,74,../nimony-js/lib/std/syncio.nim)
+         (stmts~1,1
+          (var :`x.11 .
+           (i@t,5h,../nimony-js/lib/std/syncio.nim 32)
+           (call@P,75,../nimony-js/lib/std/syncio.nim c_setvbuf.0.~9
+            (deref@1 f.20)
+            (nil)
+            (suf~7,~1K 0 "i32")
+            (cast@G
+             (u@5 32)bufSize.0@B))))))))
+     (else
+      (stmts
+       (stmts
+        (stmts
+         (stmts@2,5
+          (asgn@7 result.5~7
+           (false@2)))))))))
+   (call =destroy.2.sysvq0asl tmpFilename.0)
+   (ret~2,~3 result.5)
+   (call =destroy.2.sysvq0asl tmpFilename.0)
+   (ret result.5)))
+ (proc@,78 :open.1.@5
+  (params@A
+   (param@1 :filename.2 . string.0.sysvq0asl@A)
+   (param@2,1 :mode.3 . FileMode.0.~A,~74)
+   (param@R,1 :bufSize.1 .
+    (i~J,~3I 32)))
+  (ptr@C,~64 CFile.0.@4)
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 1 reads)
+    (param 2 2 reads)))
+  (stmts@2,2
+   (var :result.6 .
+    (ptr@A,~66 CFile.0.@4).)
+   (asgn@7,4 result.6~7
+    (conv@s,L,../nimony-js/lib/std/system/defaults.nim
+     (ptr@C,15,../nimony-js/lib/std/syncio.nim CFile.0.@4)
+     (nil)))
+   (var@B,5 :`x.12 .
+    (bool@8,~1P)
+    (call open.0.~4
+     (addr@1 result.6)filename.2@9 mode.3@J bufSize.1@P))
+   (if@,5
+    (elif@3
+     (not `x.12@8)
+     (stmts~1,3
+      (stmts@L
+       (var :`tmp.0 . string.0.sysvq0asl@G,Ay,../nimony-js/lib/std/system/stringimpl.nim
+        (call &.0.sysvq0asl
+         (oconstr~G string.0.sysvq0asl
+          (kv bytes.0 1851876350u)
+          (kv more.0
+           (addr strlit.0.I4513651157703468414.)))filename.2@2)))
+      (call quit.1. `tmp.0@L)
+      (call =destroy.2.sysvq0asl `tmp.0))))
+   (ret~2,~2 result.6)))
+ (proc@,7Q :writeLine.0.@5
+  (params@F
+   (param@1 :f.21 .
+    (ptr~4,~6M CFile.0.@4))
+   (param@A :s.1 . string.0.sysvq0asl@3)).
+  (pragmas
+   (smry readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)))
+  (stmts@2,1
+   (call@,1 write.0. f.21@6 s.1@9)
+   (call@,2 write.7. f.21@6 '\0A'@9)))
+ (const@8,7g :bufsize.0. .
+  (i@A,~3p 32)
+  (suf@A 80 "i32"))
+ (proc@2,7i :fgets.0.@5
+  (params@A
+   (param@1 :str.0 .
+    (ptr@5 `t.0.IAarrayAcS8ZS80.@9))
+   (param@W :n.2 .
+    (i@3 32))
+   (param@g :f.22 .
+    (ptr~g,~6e CFile.0.@4)))
+  (ptr@q
+   (c 8))
+  (pragmas@18
+   (importc "fgets")
+   (header "<stdio.h>")
+   (smry~18
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)))
+  (stmts .))
+ (proc@2,7l :addReadLine.0.@5
+  (params@H
+   (param@1 :f.23 .
+    (ptr~8,~6h CFile.0.@4))
+   (param@A :s.2 .
+    (ptr@3 string.0.sysvq0asl@4)))
+  (bool@Q)
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)))
+  (stmts@2,1
+   (var :result.7 .
+    (bool@E,1H,../nimony-js/lib/std/system/basic_types.nim).)
+   (asgn@7,1 result.7~7
+    (false@2))
+   (var@4,2 :buf.2 . `t.0.IAarrayAcS8ZS80.@A .)
+   (scope@,3
+    (stmts
+     (while
+      (true)
+      (stmts
+       (var@B :`x.13 .
+        (ptr@d,~7
+         (c 8))
+        (call fgets.0.~5
+         (addr@1 buf.2)
+         (conv@D
+          (i~8,~3F 32)
+          (suf~A,~9 80 "i32"))f.23@L))
+       (if
+        (elif
+         (not@2,1m,../nimony-js/lib/std/system/comparisons.nim
+          (eq@7
+           (conv@F,7q,../nimony-js/lib/std/syncio.nim
+            (ptr@L,B,../nimony-js/lib/std/system/comparisons.nim
+             (void))`x.13)
+           (nil)))
+         (stmts@2,1
+          (asgn@7 result.7~7
+           (true@2))
+          (var@4,1 :done.0 .
+           (bool@C,h,../nimony-js/lib/std/system/basic_types.nim)
+           (false@7))
+          (scope@4,2
+           (stmts
+            (var@S,1,../nimony-js/lib/std/system/iterators.nim :`lf.0 .
+             (i 32)0@F,7t,../nimony-js/lib/std/syncio.nim)
+            (var@V,1,../nimony-js/lib/std/system/iterators.nim :`lf.1 .
+             (i 32)
+             (suf@I,7h,../nimony-js/lib/std/syncio.nim 80 "i32"))
+            (stmts@2,2,../nimony-js/lib/std/system/iterators.nim
+             (var@4 :`lf.2 .
+              (i@I,3s,../nimony-js/lib/std/syncio.nim 32)`lf.0@4)
+             (scope@,1
+              (stmts
+               (while
+                (lt@8 `lf.2~2 `lf.1@2)
+                (stmts@2,1
+                 (scope
+                  (stmts
+                   (var@B,7u,../nimony-js/lib/std/syncio.nim :`x.14 .
+                    (i@D,1T,../nimony-js/lib/std/system/panics.nim 32)
+                    (call nimIcheckB.0.sysvq0asl `lf.2@4 79@7,~5))
+                   (if@8,7u,../nimony-js/lib/std/syncio.nim
+                    (elif@3
+                     (eq@7
+                      (at~7 buf.2 `x.14)'\0A'@3)
+                     (stmts~1,1
+                      (asgn@5 done.0~5
+                       (true@2))
+                      (jmp@,1 forStmtLabel.1))))
+                   (var@E,7x,../nimony-js/lib/std/syncio.nim :`x.15 .
+                    (i@D,1T,../nimony-js/lib/std/system/panics.nim 32)
+                    (call nimIcheckB.0.sysvq0asl `lf.2@4 79@4,~8))
+                   (call@9,7x,../nimony-js/lib/std/syncio.nim add.1.sysvq0asl@1 s.2~1
+                    (at@5 buf.2 `x.15))))
+                 (call@,1 inc.1.I6wjjge.
+                  (addr@4 `lf.2))))))
+             (lab@,1 :whileStmtLabel.2))))
+          (lab@4,2 :forStmtLabel.1)
+          (if@,7
+           (elif@3 done.0
+            (stmts@6
+             (jmp whileStmtLabel.0))))))
+        (else
+         (stmts
+          (break))))))))
+   (lab@,3 :whileStmtLabel.0)
+   (ret~2,~1 result.7)))
+ (proc@,7z :readLine.0.@5
+  (params@E
+   (param@1 :f.24 .
+    (ptr~3,~6v CFile.0.@4))
+   (param@A :s.3 .
+    (ptr@3 string.0.sysvq0asl@4)))
+  (bool@Q)
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 0 reads writes escapes)result 0))
+  (stmts@2,1
+   (var :result.8 .
+    (bool@E,1H,../nimony-js/lib/std/system/basic_types.nim).)
+   (call@1,1 shrink.1.sysvq0asl@1 s.3~1 0@8)
+   (var@,2 :`x.16 .
+    (bool@Q,~H)
+    (call addReadLine.0. f.24@C s.3@F))
+   (asgn@,2 result.8 `x.16)
+   (ret~2,~1 result.8)))
+ (proc@,8K :quit.0.@5
+  (params@A
+   (param@1 :value.0 .
+    (i@7 32))).
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (call@5,2 cExit.0.sysvq0asl~5 value.0@1)))
+ (const@D,8Q :QuitSuccess.0.~B .
+  (i@5,~4Z 32)
+  (suf@4 0 "i32"))
+ (const@D,8R :QuitFailure.0.~B .
+  (i@5,~4a 32)
+  (suf@4 1 "i32"))
+ (proc@,8T :quit.1.@5
+  (params@A
+   (param@1 :msg.0 . string.0.sysvq0asl@5)).
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (stmts@,~19
+    (stmts@2,2
+     (call write.0. stdout.0.@6 msg.0@3,17))
+    (call@,3 write.7. stdout.0.@6 '\0A'@E))
+   (call@,1 quit.0.
+    (suf@F,~4 1 "i32"))))
+ (proc@,8X :quit.2.@5
+  (params@A
+   (param@1 :msg.1 . string.0.sysvq0asl@5)
+   (param@E :errorcode.0 .
+    (i@B 32))).
+  (pragmas
+   (smry readGlobal callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 1 reads writes escapes)))
+  (stmts@2,1
+   (stmts@,~1D
+    (stmts@2,2
+     (call write.0. stdout.0.@6 msg.1@3,1F))
+    (call@,3 write.7. stdout.0.@6 '\0A'@E))
+   (call@,5 quit.0. errorcode.0@5)))
+ (const@6,8f :ReadBufSize.0. .
+  (i@C,~4o 32)
+  (suf@E 4000 "i32"))
+ (proc@,8h :readAll.0.@5
+  (params@D
+   (param@1 :f.26 .
+    (ptr~2,~7d CFile.0.@4)))`t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var@7 :result.9 . `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20. .)
+   (asgn@7
+    (dot result.9 fld.0 0)0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim).@7 .
+   (asgn@7 result.9~7
+    (oconstr@2 `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.
+     (kv fld.0 0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+     (kv fld.1
+      (oconstr string.0.sysvq0asl
+       (kv bytes.0 0u)
+       (kv more.0
+        (nil))))))
+   (var@4,1 :buffer.3 . string.0.sysvq0asl
+    (call@I newString.0.sysvq0asl~9
+     (suf~4,~4 4000 "i32")))
+   (scope@,2
+    (stmts
+     (while
+      (true@6)
+      (stmts@2,1
+       (var@e :`x.17 .
+        (ptr@f,3x,../nimony-js/lib/std/system/stringimpl.nim
+         (c@J 8))
+        (call beginStore.0.sysvq0asl~A
+         (addr@1 buffer.3)
+         (suf~O,~6 4000 "i32")0@r,3x,../nimony-js/lib/std/system/stringimpl.nim))
+       (var@4 :bytesRead.0 .
+        (i@A,~4u 32)
+        (call@M readBuffer.0.~A f.26@1
+         (conv@E
+          (ptr~A,~3X
+           (void))`x.17)
+         (suf~A,~6 4000 "i32")))
+       (call@8,1 endStore.0.sysvq0asl~8
+        (addr@1 buffer.3))
+       (if@,2
+        (elif@3
+         (eq@A bytesRead.0~A
+          (suf@3,~8 4000 "i32"))
+         (stmts~1,1
+          (call@6 add.2.sysvq0asl@1
+           (addr~6
+            (dot result.9 fld.1 0))buffer.3@5)))
+        (else
+         (stmts
+          (stmts
+           (stmts
+            (stmts@2,3
+             (call@6 setLen.1.sysvq0asl@1
+              (addr~6 buffer.3)bytesRead.0@8)
+             (call@6,1 add.2.sysvq0asl@1
+              (addr~6
+               (dot result.9 fld.1 0))buffer.3@5)
+             (jmp@,2 whileStmtLabel.0)))))))))))
+   (lab@,2 :whileStmtLabel.0)
+   (var@9,B :`x.18 .
+    (bool@2,~3H)
+    (call failed.0.~6 f.26@1))
+   (if@,B
+    (elif@3 `x.18@6
+     (stmts@B
+      (call =destroy.2.sysvq0asl buffer.3)
+      (ret
+       (oconstr@6 `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.
+        (kv fld.0 11@4,G,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+        (kv fld.1
+         (dot result.9 fld.1 0)))))))
+   (call =destroy.2.sysvq0asl buffer.3)
+   (ret~2,~1
+    (oconstr `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.
+     (kv fld.0 0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+     (kv fld.1
+      (dot result.9 fld.1 0))))
+   (call =destroy.2.sysvq0asl buffer.3)
+   (ret result.9)))
+ (proc@,8v :readFile.0.@5
+  (params@E
+   (param@1 :filename.4 . string.0.sysvq0asl@A))`t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var :result.10 . `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20. .)
+   (asgn
+    (dot result.10 fld.0 0)0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim). .@,2
+   (asgn@7,2 result.10~7
+    (oconstr@2 `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.
+     (kv fld.0 0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+     (kv fld.1
+      (oconstr string.0.sysvq0asl
+       (kv bytes.0 0u)
+       (kv more.0
+        (nil))))))
+   (var@4,3 :f.35 .
+    (ptr@6,~7v CFile.0.@4).)
+   (var@7,4 :`x.19 .
+    (bool@C,~3A)
+    (call open.0.~4
+     (addr@1 f.35)filename.4@4 0~5,~8u -1@H,~3A))
+   (if@,4
+    (elif@3 `x.19@4
+     (stmts~1,1
+      (stmts@2,1
+       (stmts@G
+        (var :`canRaise.0 . `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.~B,~L
+         (call readAll.0.~7 f.35@1))
+        (if
+         (elif
+          (dot `canRaise.0 fld.0 0)
+          (stmts
+           (stmts~G,2
+            (call@5 close.0.~5 f.35@1))
+           (ret
+            (oconstr `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.
+             (kv fld.0
+              (dot `canRaise.0 fld.0 0))
+             (kv fld.1
+              (dot result.10 fld.1 0))))))))
+       (call =destroy.2.sysvq0asl
+        (dot result.10 fld.1 0))
+       (var@G :`x.20 . string.0.sysvq0asl@D,28,../nimony-js/lib/std/system/stringimpl.nim
+        (call =dup.2.sysvq0asl
+         (dot `canRaise.0 fld.1 0)))
+       (asgn@7 result.10~7
+        (oconstr@9 `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.
+         (kv fld.0 0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+         (kv fld.1 `x.20))))
+      (stmts@2,3
+       (call@5 close.0.~5 f.35@1))))
+    (else
+     (stmts
+      (stmts
+       (stmts
+        (stmts@2,6
+         (ret
+          (oconstr@6 `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.
+           (kv fld.0 11@4,G,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+           (kv fld.1
+            (dot result.10 fld.1 0))))))))))
+   (ret~2,~1
+    (oconstr `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.
+     (kv fld.0 0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+     (kv fld.1
+      (dot result.10 fld.1 0))))))
+ (proc@,98 :writeFile.0.@5
+  (params@F
+   (param@1 :filename.5 . string.0.sysvq0asl@J)
+   (param@B :content.0 . string.0.sysvq0asl@9))ErrorCode.0.sysvq0asl
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 1 reads writes escapes)))
+  (stmts@2,1
+   (var@4,2 :f.36 .
+    (ptr@6,~87 CFile.0.@4).)
+   (var@7,3 :`x.21 .
+    (bool@C,~3M)
+    (call open.0.~4
+     (addr@1 f.36)filename.5@4 1~5,~93 -1@H,~3M))
+   (if@,3
+    (elif@3 `x.21@4
+     (stmts~1,1
+      (stmts@2,1
+       (call@1 write.0.@1 f.36~1 content.0@7))
+      (stmts@2,3
+       (call@5 close.0.~5 f.36@1))))
+    (else
+     (stmts
+      (stmts
+       (stmts
+        (stmts@2,6
+         (ret 11@4,G,../nimony-js/lib/std/errorcodes/errorcodes.nim)))))))
+   (ret 0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim)))
+ (proc@,9K :tryWriteFile.0.@5
+  (params@I
+   (param@1 :file.0 . string.0.sysvq0asl@F)
+   (param@7 :content.1 . string.0.sysvq0asl@9))
+  (bool@P)
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 1 reads writes escapes)))
+  (stmts@2,1
+   (var :result.11 .
+    (bool@E,1H,../nimony-js/lib/std/system/basic_types.nim).)
+   (var@4,1 :f.37 .
+    (ptr@6,~8I CFile.0.@4).)
+   (var@7,2 :`x.22 .
+    (bool@C,~3X)
+    (call open.0.~4
+     (addr@1 f.37)file.0@4 1~5,~9E -1@H,~3X))
+   (if@,2
+    (elif@3 `x.22@4
+     (stmts~1,1
+      (call@1 write.0.@1 f.37~1 content.1@7)
+      (var@J,1 :`x.23 .
+       (bool~A,~3n)
+       (call failed.0.~6 f.37@1))
+      (asgn@7,1 result.11~7
+       (not@2 `x.23@A))
+      (var@9,2 :`x.24 .
+       (i@,~4S 32)
+       (call fclose.0.~6 f.37@1))
+      (if@,2
+       (elif@3
+        (not@2,1m,../nimony-js/lib/std/system/comparisons.nim
+         (eq@7 `x.24@D,9R,../nimony-js/lib/std/syncio.nim
+          (suf@K,9R,../nimony-js/lib/std/syncio.nim 0 "i32")))
+        (stmts~1,1
+         (asgn@7 result.11~7
+          (false@2)))))))
+    (else
+     (stmts
+      (stmts
+       (stmts
+        (stmts@2,6
+         (asgn@7 result.11~7
+          (false@2))))))))
+   (ret~2,~1 result.11)))
+ (proc@2,9z :flushFile.0.@5
+  (params@F
+   (param@1 :f.27 .
+    (ptr~6,~8v CFile.0.@4))).
+  (pragmas@P
+   (importc "fflush")
+   (header "<stdio.h>")
+   (smry~P
+    (param 0 0)))
+  (stmts .))
+ (proc@2,A2 :c_fgetc.0.@5
+  (params@C
+   (param@1 :stream.0 .
+    (ptr~3,~8y CFile.0.@4)))
+  (i@G 32)
+  (pragmas@Y
+   (importc "fgetc")
+   (header "<stdio.h>")
+   (smry~Y
+    (param 0 0)))
+  (stmts .))
+ (proc@2,A4 :c_ungetc.0.@5
+  (params@D
+   (param@1 :c.2 .
+    (i@3 32))
+   (param@B :f.28 .
+    (ptr~E,~90 CFile.0.@4)))
+  (i@L 32)
+  (pragmas@e
+   (importc "ungetc")
+   (header "<stdio.h>")
+   (smry~e
+    (param 0 0)
+    (param 1 1)))
+  (stmts .))
+ (proc@4,AJ :c_fseek.0.@5
+  (params@C
+   (param@1 :f.29 .
+    (ptr~5,~9F CFile.0.@4))
+   (param@A :offset.0 .
+    (i@8 64))
+   (param@P :whence.0 .
+    (i@8 32)))
+  (i@f 32)
+  (pragmas@x
+   (importc "fseeko")
+   (header "<stdio.h>")
+   (smry~x
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)))
+  (stmts .))
+ (proc@4,AL :c_ftell.0.@5
+  (params@C
+   (param@1 :f.30 .
+    (ptr~5,~9H CFile.0.@4)))
+  (i@B 64)
+  (pragmas@T
+   (importc "ftello")
+   (header "<stdio.h>")
+   (smry~T
+    (param 0 0)))
+  (stmts .))
+ (proc@2,AO :endOfFile.0.@5
+  (params@F
+   (param@1 :f.31 .
+    (ptr~6,~9K CFile.0.@4)))
+  (bool@B)
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.12 .
+    (bool@E,1H,../nimony-js/lib/std/system/basic_types.nim).)
+   (var@4,1 :c.3 .
+    (i@A,~6Z 32)
+    (call@B c_fgetc.0.~7 f.31@1))
+   (var :`x.25 .
+    (i@N,A5,../nimony-js/lib/std/syncio.nim 32)
+    (call@K,AS,../nimony-js/lib/std/syncio.nim c_ungetc.0.~8 c.3@1 f.31@4))
+   (asgn@7,3 result.12~7
+    (lt@4 c.3~2
+     (suf@2 0 "i32")))
+   (ret~2,~1 result.12)))
+ (proc@2,AU :getFilePos.0.@5
+  (params@G
+   (param@1 :f.32 .
+    (ptr~7,~9Q CFile.0.@4)))`t.0.IAtupleSX45rrorX43ode0sysvq0aslAiS64.
+  (pragmas
+   (smry writeGlobal
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.13 . `t.0.IAtupleSX45rrorX43ode0sysvq0aslAiS64.@K,~6L .)
+   (asgn
+    (dot result.13 fld.0 0)0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+   (var@G,2 :`x.26 .
+    (i~5,~C 64)
+    (call c_ftell.0.~7 f.32@1))
+   (asgn@7,2 result.13~7
+    (oconstr@9 `t.0.IAtupleSX45rrorX43ode0sysvq0aslAiS64.
+     (kv fld.0 0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+     (kv fld.1 `x.26)))
+   (if@,3
+    (elif@3
+     (lt@7
+      (dot~7 result.13 fld.1 0)
+      (conv@2
+       (i@G,1H,../nimony-js/lib/std/system/comparisons.nim 64)0))
+     (stmts@C
+      (ret
+       (oconstr@6 `t.0.IAtupleSX45rrorX43ode0sysvq0aslAiS64.
+        (kv fld.0 11@4,G,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+        (kv fld.1
+         (dot result.13 fld.1 0)))))))
+   (ret~2,~1
+    (oconstr `t.0.IAtupleSX45rrorX43ode0sysvq0aslAiS64.
+     (kv fld.0 0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim)
+     (kv fld.1
+      (dot result.13 fld.1 0))))))
+ (proc@2,Aa :setFilePos.0.@5
+  (params@G
+   (param@1 :f.33 .
+    (ptr~7,~9W CFile.0.@4))
+   (param@A :pos.0 .
+    (i@5 64))
+   (param@M :relativeTo.0 . FileSeekPos.0.~c,~AE))ErrorCode.0.sysvq0asl
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (var@A,2 :`x.27 .
+    (i@V,~K 32)
+    (call c_fseek.0.~7 f.33@1 pos.0@4
+     (conv@E
+      (i~8,~63 32)relativeTo.0@1)))
+   (if@,2
+    (elif@3
+     (not@2,1m,../nimony-js/lib/std/system/comparisons.nim
+      (eq@7 `x.27@E,Ae,../nimony-js/lib/std/syncio.nim
+       (suf@j,Ae,../nimony-js/lib/std/syncio.nim 0 "i32")))
+     (stmts~1,1
+      (ret 11@4,G,../nimony-js/lib/std/errorcodes/errorcodes.nim))))
+   (ret 0@4,5,../nimony-js/lib/std/errorcodes/errorcodes.nim)))
+ (proc@,Ag :slurp.0.@5
+  (params@B
+   (param@1 :path.0 . string.0.sysvq0asl@6))string.0.sysvq0asl@G
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var :result.14 . string.0.sysvq0asl .)
+   (call =wasMoved.2.sysvq0asl
+    (addr result.14))
+   (stmts@2,2
+    (stmts@H
+     (var :`canRaise.0 . `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20.~1,~1o
+      (call readFile.0.~8 path.0@1))
+     (if
+      (elif
+       (dot `canRaise.0 fld.0 0)
+       (stmts
+        (jmp `exlab.0)))))
+    (call =destroy.2.sysvq0asl result.14)
+    (var@H :`x.28 . string.0.sysvq0asl@D,28,../nimony-js/lib/std/system/stringimpl.nim
+     (call =dup.2.sysvq0asl
+      (dot `canRaise.0 fld.1 0)))
+    (asgn@7 result.14~7 `x.28@A))
+   (if@,3
+    (elif
+     (false)
+     (stmts
+      (lab :`exlab.0)
+      (stmts@2,1
+       (call =destroy.2.sysvq0asl result.14)
+       (asgn@7 result.14~7
+        (oconstr@2 string.0.sysvq0asl
+         (kv bytes.0 0u)
+         (kv more.0
+          (nil))))))))
+   (ret~2,~1 result.14)))
+ (proc@4,5,../nimony-js/lib/std/system/iterators.nim :inc.1.I6wjjge.
+  (params@L,E,../nimony-js/lib/std/system/arithmetics.nim
+   (param@1 :x.8 .
+    (ptr@3
+     (i@I,3s,../nimony-js/lib/std/syncio.nim 32)))).@,E,../nimony-js/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../nimony-js/lib/std/system/arithmetics.nim
+   (inline 0 20)
+   (smry@4,5,../nimony-js/lib/std/system/iterators.nim
+    (param 0 0 reads writes)))
+  (stmts@2,F,../nimony-js/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (deref~2 x.8)
+    (add@6
+     (i@I,3s,../nimony-js/lib/std/syncio.nim 32)
+     (deref@1 x.8)
+     (conv@U,~F
+      (i@I,3s,../nimony-js/lib/std/syncio.nim 32)1@1)))))
+ (type@R,7i :`t.0.IAarrayAcS8ZS80. .
+  (array
+   (c@A 8)80))
+ (type :`t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20. .
+  (object .
+   (fld :fld.0 . ErrorCode.0.sysvq0asl)
+   (fld@B,8i,../nimony-js/lib/std/syncio.nim :fld.1 . string.0.sysvq0asl)))
+ (type :`t.0.IAtupleSX45rrorX43ode0sysvq0aslAiS64. .
+  (object .
+   (fld :fld.0 . ErrorCode.0.sysvq0asl)
+   (fld@D,AV,../nimony-js/lib/std/syncio.nim :fld.1 .
+    (i 64))))
+ (gvar :`iniGuard.0. .
+  (bool).)
+ (proc :`ini.0.
+  (params).
+  (pragmas
+   (smry callsUnknown))
+  (stmts
+   (if
+    (elif `iniGuard.0.
+     (stmts
+      (ret .))))
+   (asgn `iniGuard.0.
+    (true))
+   (call `ini.0.sysvq0asl)
+   (call `ini.0.for2ybv4p1))))(.index@,1,../nimony-js/lib/std/syncio.nim
+ (h strlit.0.I2517909358977490171. 79)
+ (h strlit.0.I14170574506565772206. 184)
+ (h strlit.0.I13914417572039368080. 186)
+ (h strlit.0.I10839966292305497433. 191)
+ (h strlit.0.I11005284886174568392. 199)
+ (h strlit.0.I12582063311690551448. 187)
+ (h strlit.0.I761972010239645958. 185)
+ (h strlit.0.I5371342142208118032. 183)
+ (h strlit.0.I8572766038233537570. 184)
+ (h strlit.0.I3372626016653902757. 183)
+ (h strlit.0.I4513651157703468414. 184)
+ (h FileMode.0. 195)
+ (x@E,5 fmRead.0. 47)
+ (x@E,5 fmWrite.0. 27)
+ (x@E,5 fmReadWrite.0. 28)
+ (x@E,5 fmReadWriteExisting.0. 32)
+ (x@E,5 fmAppend.0. 40)
+ (x dollar`.FileMode.0. 31)
+ (h FileSeekPos.0. 1245)
+ (x@H,M fspSet.0. 50)
+ (x@H,M fspCur.0. 27)
+ (x@H,M fspEnd.0. 27)
+ (x dollar`.FileSeekPos.0. 29)
+ (x CFile.0. 867)
+ (h File.0. 98)
+ (x stdin.0. 47)
+ (x stdout.0. 108)
+ (x stderr.0. 110)
+ (x c_fputc.0. 110)
+ (x c_fwrite.0. 246)
+ (x c_fread.0. 362)
+ (x fprintf.0. 360)
+ (x write.0. 304)
+ (x write.1. 791)
+ (x write.2. 693)
+ (x write.3. 257)
+ (x write.4. 252)
+ (x write.5. 257)
+ (x write.7. 252)
+ (x write.8. 383)
+ (x fclose.0. 502)
+ (x close.0. 198)
+ (x fopen.0. 277)
+ (x writeBuffer.0. 274)
+ (x readBuffer.0. 558)
+ (x c_ferror.0. 556)
+ (x failed.0. 200)
+ (x c_setvbuf.0. 526)
+ (h IOFBF.0. 373)
+ (x open.0. 59)
+ (x open.1. 2597)
+ (x writeLine.0. 1113)
+ (h bufsize.0. 322)
+ (x fgets.0. 62)
+ (x addReadLine.0. 329)
+ (x readLine.0. 3060)
+ (x quit.0. 545)
+ (h QuitSuccess.0. 204)
+ (h QuitFailure.0. 67)
+ (x quit.1. 67)
+ (x quit.2. 352)
+ (h ReadBufSize.0. 409)
+ (x readAll.0. 68)
+ (x readFile.0. 2592)
+ (x writeFile.0. 2358)
+ (x tryWriteFile.0. 829)
+ (x flushFile.0. 1259)
+ (x c_fgetc.0. 191)
+ (x c_ungetc.0. 202)
+ (x c_fseek.0. 249)
+ (x c_ftell.0. 307)
+ (x endOfFile.0. 199)
+ (x getFilePos.0. 541)
+ (x setFilePos.0. 1158)
+ (x slurp.0. 766)
+ (x inc.1.I6wjjge. 1056)
+ (h `t.0.IAarrayAcS8ZS80. 660)
+ (h `t.0.IAtupleSX45rrorX43ode0sysvq0aslSstring0R20. 61)
+ (h `t.0.IAtupleSX45rrorX43ode0sysvq0aslAiS64. 187)
+ (h `iniGuard.0. 173)
+ (x `ini.0. 34))

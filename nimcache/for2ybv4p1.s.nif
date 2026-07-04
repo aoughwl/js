@@ -1,0 +1,5 @@
+(.nif27)
+(.indexat 146              )
+(stmts@,1,../nimony-js/lib/std/formatfloat.nim
+ (import
+  (kv sysvq0asl "../nimony-js/lib/std/system.nim")))(.index@,1,../nimony-js/lib/std/formatfloat.nim)

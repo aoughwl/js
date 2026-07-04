@@ -1,0 +1,4 @@
+(.nif27)
+(.indexat 99               )
+(stmts
+ (import "/home/savant/nimony-js/lib/std/system.nim"))(.index)

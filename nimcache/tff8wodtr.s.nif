@@ -1,0 +1,98 @@
+(.nif27)
+(.indexat 4195             )
+(stmts@,1,tests/tffi.nim
+ (import
+  (kv sysvq0asl "../nimony-js/lib/std/system.nim")
+  (kv syn1lfpjv "../nimony-js/lib/std/syncio.nim")
+  (kv jsfc0lwq21 "jsffi.nim"))
+ (glet@4,7 :console.0. . . JsValue.0.jsfc0lwq21@G,2c,jsffi.nim
+  (call@G global.0.jsfc0lwq21~6 "console"@1))
+ (discard@,8
+  (call@K call.1.jsfc0lwq21~4 console.0.~C "log"@1
+   (call@C toJs.3.jsfc0lwq21~4 "hello from Nim through a real JS string"@1)))
+ (glet@4,B :m.0. . . JsValue.0.jsfc0lwq21@G,2c,jsffi.nim
+  (call@A global.0.jsfc0lwq21~6 "Math"@1))
+ (stmts@2,7M,../nimony-js/lib/std/syncio.nim
+  (stmts@2,2
+   (cmd write.0.syn1lfpjv stdout.0.syn1lfpjv@6
+    (infix@S,D,tests/tffi.nim &.0.sysvq0asl "Math.max\283, 7\29    = "~N
+     (prefix@2 $.2.sysvq0asl
+      (call@6 toInt.0.jsfc0lwq21~5
+       (call@7 call.2.jsfc0lwq21~4 m.0.~6 "max"@1
+        (call@C toJs.0.jsfc0lwq21~4 3@1)
+        (call@L toJs.0.jsfc0lwq21~4 7@1)))))))
+  (cmd@,3 write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E))
+ (stmts@2,7M,../nimony-js/lib/std/syncio.nim
+  (stmts@2,2
+   (cmd write.0.syn1lfpjv stdout.0.syn1lfpjv@6
+    (infix@S,E,tests/tffi.nim &.0.sysvq0asl "Math.max\283, 7, 5\29 = "~N
+     (prefix@2 $.2.sysvq0asl
+      (call@6 toInt.0.jsfc0lwq21~5
+       (call@7 call.3.jsfc0lwq21~4 m.0.~6 "max"@1
+        (call@C toJs.0.jsfc0lwq21~4 3@1)
+        (call@L toJs.0.jsfc0lwq21~4 7@1)
+        (call@U toJs.0.jsfc0lwq21~4 5@1)))))))
+  (cmd@,3 write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E))
+ (stmts@2,7M,../nimony-js/lib/std/syncio.nim
+  (stmts@2,2
+   (cmd write.0.syn1lfpjv stdout.0.syn1lfpjv@6
+    (infix@L,H,tests/tffi.nim &.0.sysvq0asl "back in Nim\3A "~G
+     (call@K toStr.0.jsfc0lwq21@1
+      (call~E toJs.3.jsfc0lwq21~4 "round-trip"@1)))))
+  (cmd@,3 write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E))
+ (glet@4,J :o.0. . . JsValue.0.jsfc0lwq21@G,2c,jsffi.nim
+  (call@F newJsObject.0.jsfc0lwq21~B))
+ (call@5,K set.0.jsfc0lwq21~3 o.0.~5 "name"@1
+  (call@D toJs.3.jsfc0lwq21~4 "nimony"@1))
+ (call@5,L set.0.jsfc0lwq21~3 o.0.~5 "year"@1
+  (call@D toJs.0.jsfc0lwq21~4 2026@1))
+ (stmts@2,7M,../nimony-js/lib/std/syncio.nim
+  (stmts@2,2
+   (cmd write.0.syn1lfpjv stdout.0.syn1lfpjv@6
+    (infix@P,N,tests/tffi.nim &.0.sysvq0asl "o.year via get = "~K
+     (prefix@2 $.2.sysvq0asl
+      (call@6 toInt.0.jsfc0lwq21~5
+       (call@6 get.0.jsfc0lwq21~3 o.0.~5 "year"@1))))))
+  (cmd@,3 write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E))
+ (stmts@2,7M,../nimony-js/lib/std/syncio.nim
+  (stmts@2,2
+   (cmd write.0.syn1lfpjv stdout.0.syn1lfpjv@6
+    (call@e,O,tests/tffi.nim toStr.0.jsfc0lwq21@1
+     (call~G call.1.jsfc0lwq21~4
+      (call~D global.0.jsfc0lwq21~6 "JSON"@1)"stringify"@1 o.0.@E))))
+  (cmd@,3 write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E))
+ (stmts@2,7M,../nimony-js/lib/std/syncio.nim
+  (stmts@2,2
+   (cmd write.0.syn1lfpjv stdout.0.syn1lfpjv@6
+    (infix@r,R,tests/tffi.nim &.0.sysvq0asl
+     (infix~6 &.0.sysvq0asl
+      (infix~M &.0.sysvq0asl "bool round-trip\3A "~K
+       (prefix@2 $.3.sysvq0asl
+        (call@7 toBool.0.jsfc0lwq21~6
+         (call@5 toJs.2.jsfc0lwq21~4
+          (true@1)))))" "@2)
+     (prefix@2 $.3.sysvq0asl
+      (call@7 toBool.0.jsfc0lwq21~6
+       (call@5 toJs.2.jsfc0lwq21~4
+        (false@1)))))))
+  (cmd@,3 write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E))
+ (stmts@2,7M,../nimony-js/lib/std/syncio.nim
+  (stmts@2,2
+   (cmd write.0.syn1lfpjv stdout.0.syn1lfpjv@6
+    (infix@S,S,tests/tffi.nim &.0.sysvq0asl "missing prop isNil\3A "~N
+     (prefix@2 $.3.sysvq0asl
+      (call@E isNil.0.jsfc0lwq21@1
+       (call~8 get.0.jsfc0lwq21~3 o.0.~5 "nope"@1))))))
+  (cmd@,3 write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E))
+ (stmts@2,7M,../nimony-js/lib/std/syncio.nim
+  (stmts@2,2
+   (cmd write.0.syn1lfpjv stdout.0.syn1lfpjv@6
+    (infix@N,T,tests/tffi.nim &.0.sysvq0asl "self === self\3A "~I
+     (prefix@2 $.3.sysvq0asl
+      (infix@4 ==.0.jsfc0lwq21 m.0.~2
+       (call@9 global.0.jsfc0lwq21~6 "Math"@1))))))
+  (cmd@,3 write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E))
+ (comment@,C echo.0.syn1lfpjv echo.0.syn1lfpjv@,1 echo.0.syn1lfpjv@,4 echo.0.syn1lfpjv@,A echo.0.syn1lfpjv@,B true.0.sysvq0asl@e,E false.0.sysvq0asl@16,E echo.0.syn1lfpjv@,E echo.0.syn1lfpjv@,F echo.0.syn1lfpjv@,G))(.index@,1,tests/tffi.nim
+ (h console.0. 204)
+ (h m.0. 251)
+ (h o.0. 1335))

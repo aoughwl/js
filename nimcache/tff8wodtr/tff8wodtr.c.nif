@@ -1,0 +1,486 @@
+(.nif27)
+(.indexat 16167            )
+(stmts@,1,tests/tffi.nim
+ (const@L,7 :strlit.0.I4512127154334175537. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 7)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "console")))
+ (const@X,8 :strlit.0.I5853397530369228807. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 39)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "hello from Nim through a real JS string")))
+ (const@F,B :strlit.0.I12935728853510326435. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 4)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "Math")))
+ (const@5,C :strlit.0.I2301975825215568994. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 20)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "Math.max\283, 7\29    = ")))
+ (const@5,D :strlit.0.I6208868947491189530. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 20)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "Math.max\283, 7, 5\29 = ")))
+ (const@S,G :strlit.0.I12805258542531914732. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 10)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "round-trip")))
+ (const@5,G :strlit.0.I15421062535947656287. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 13)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "back in Nim\3A ")))
+ (const@J,K :strlit.0.I834269026986168554. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 6)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "nimony")))
+ (const@6,K :strlit.0.I407209193152762291. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 4)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "name")))
+ (const@6,L :strlit.0.I6393444175955872624. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 4)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "year")))
+ (const@5,M :strlit.0.I6644378417582681152. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 17)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "o.year via get = ")))
+ (const@C,N :strlit.0.I6373137695046429832. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 4)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "JSON")))
+ (const@P,N :strlit.0.I7519307887382905868. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 9)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "stringify")))
+ (const@5,Q :strlit.0.I14551632781070332322. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 17)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "bool round-trip\3A ")))
+ (const@b,R :strlit.0.I933664836153361417. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 4)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "nope")))
+ (const@5,R :strlit.0.I6074055191300679588. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 20)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "missing prop isNil\3A ")))
+ (const@5,S :strlit.0.I11663264536865316071. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 15)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "self === self\3A ")))
+ (gvar@4,7 :console.0. . JsValue.0.jsfc0lwq21@G,2c,jsffi.nim .)
+ (gvar@4,B :m.0. . JsValue.0.jsfc0lwq21@G,2c,jsffi.nim .)
+ (gvar@4,J :o.0. . JsValue.0.jsfc0lwq21@G,2c,jsffi.nim .)
+ (gvar :`iniGuard.0. .
+  (bool).)
+ (proc :`ini.0.
+  (params).
+  (pragmas
+   (smry callsUnknown))
+  (stmts
+   (if
+    (elif `iniGuard.0.
+     (stmts
+      (ret .))))
+   (asgn `iniGuard.0.
+    (true))
+   (call `ini.0.sysvq0asl)
+   (call `ini.0.syn1lfpjv)
+   (call `ini.0.jsfc0lwq21)
+   (asgn@4,7 console.0.
+    (call@G global.0.jsfc0lwq21~6
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1852793854u)
+      (kv more.0
+       (addr strlit.0.I4512127154334175537.)))))
+   (var@W,8 :`tmp.1 . JsValue.0.jsfc0lwq21@D,1s,jsffi.nim
+    (call toJs.3.jsfc0lwq21~4
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1818585342u)
+      (kv more.0
+       (addr strlit.0.I5853397530369228807.)))))
+   (var@K,8 :`tmp.0 . JsValue.0.jsfc0lwq21@g,2w,jsffi.nim
+    (call call.1.jsfc0lwq21~4 console.0.~C
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1735355395u)
+      (kv more.0
+       (nil)))`tmp.1@C))
+   (var :`x.0 . JsValue.0.jsfc0lwq21@g,2w,jsffi.nim `tmp.0@K,8)
+   (asgn@4,B m.0.
+    (call@A global.0.jsfc0lwq21~6
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1952534014u)
+      (kv more.0
+       (addr strlit.0.I12935728853510326435.)))))
+   (var@t,C :`tmp.5 . JsValue.0.jsfc0lwq21@A,1h,jsffi.nim
+    (call toJs.0.jsfc0lwq21~4 3@1))
+   (var@12,C :`tmp.6 . JsValue.0.jsfc0lwq21@A,1h,jsffi.nim
+    (call toJs.0.jsfc0lwq21~4 7@1))
+   (var@h,C :`tmp.4 . JsValue.0.jsfc0lwq21@j,31,jsffi.nim
+    (call call.2.jsfc0lwq21~4 m.0.~6
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 2019650819u)
+      (kv more.0
+       (nil)))`tmp.5@C `tmp.6@L))
+   (var@a,C :`x.1 .
+    (i@E,1j,jsffi.nim 32)
+    (call toInt.0.jsfc0lwq21~5 `tmp.4@7))
+   (var@U,C :`tmp.3 . string.0.sysvq0asl@C,1j,../nimony-js/lib/std/system.nim
+    (call $.2.sysvq0asl `x.1@6))
+   (var@S,C :`tmp.2 . string.0.sysvq0asl@G,Ay,../nimony-js/lib/std/system/stringimpl.nim
+    (call &.0.sysvq0asl
+     (oconstr~N string.0.sysvq0asl
+      (kv bytes.0 1952534014u)
+      (kv more.0
+       (addr strlit.0.I2301975825215568994.)))`tmp.3@2))
+   (call@4,7O,../nimony-js/lib/std/syncio.nim write.0.syn1lfpjv stdout.0.syn1lfpjv@6 `tmp.2@S,D,tests/tffi.nim)
+   (call@2,7P,../nimony-js/lib/std/syncio.nim write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E)
+   (var@t,D :`tmp.10 . JsValue.0.jsfc0lwq21@A,1h,jsffi.nim
+    (call toJs.0.jsfc0lwq21~4 3@1))
+   (var@12,D :`tmp.11 . JsValue.0.jsfc0lwq21@A,1h,jsffi.nim
+    (call toJs.0.jsfc0lwq21~4 7@1))
+   (var@1B,D :`tmp.12 . JsValue.0.jsfc0lwq21@A,1h,jsffi.nim
+    (call toJs.0.jsfc0lwq21~4 5@1))
+   (var@h,D :`tmp.9 . JsValue.0.jsfc0lwq21@m,36,jsffi.nim
+    (call call.3.jsfc0lwq21~4 m.0.~6
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 2019650819u)
+      (kv more.0
+       (nil)))`tmp.10@C `tmp.11@L `tmp.12@U))
+   (var@a,D :`x.2 .
+    (i@E,1j,jsffi.nim 32)
+    (call toInt.0.jsfc0lwq21~5 `tmp.9@7))
+   (var@U,D :`tmp.8 . string.0.sysvq0asl@C,1j,../nimony-js/lib/std/system.nim
+    (call $.2.sysvq0asl `x.2@6))
+   (var@S,D :`tmp.7 . string.0.sysvq0asl@G,Ay,../nimony-js/lib/std/system/stringimpl.nim
+    (call &.0.sysvq0asl
+     (oconstr~N string.0.sysvq0asl
+      (kv bytes.0 1952534014u)
+      (kv more.0
+       (addr strlit.0.I6208868947491189530.)))`tmp.8@2))
+   (call@4,7O,../nimony-js/lib/std/syncio.nim write.0.syn1lfpjv stdout.0.syn1lfpjv@6 `tmp.7@S,E,tests/tffi.nim)
+   (call@2,7P,../nimony-js/lib/std/syncio.nim write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E)
+   (var@R,G :`tmp.15 . JsValue.0.jsfc0lwq21@D,1s,jsffi.nim
+    (call toJs.3.jsfc0lwq21~4
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1970238206u)
+      (kv more.0
+       (addr strlit.0.I12805258542531914732.)))))
+   (var@f,G :`tmp.14 . string.0.sysvq0asl@E,1x,jsffi.nim
+    (call toStr.0.jsfc0lwq21@1 `tmp.15~E))
+   (var@L,G :`tmp.13 . string.0.sysvq0asl@G,Ay,../nimony-js/lib/std/system/stringimpl.nim
+    (call &.0.sysvq0asl
+     (oconstr~G string.0.sysvq0asl
+      (kv bytes.0 1667326718u)
+      (kv more.0
+       (addr strlit.0.I15421062535947656287.)))`tmp.14@K))
+   (call@4,7O,../nimony-js/lib/std/syncio.nim write.0.syn1lfpjv stdout.0.syn1lfpjv@6 `tmp.13@L,H,tests/tffi.nim)
+   (call@2,7P,../nimony-js/lib/std/syncio.nim write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E)
+   (asgn@4,J o.0.
+    (call@F newJsObject.0.jsfc0lwq21~B))
+   (var@I,K :`tmp.16 . JsValue.0.jsfc0lwq21@D,1s,jsffi.nim
+    (call toJs.3.jsfc0lwq21~4
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1835626238u)
+      (kv more.0
+       (addr strlit.0.I834269026986168554.)))))
+   (call@5,K set.0.jsfc0lwq21~3 o.0.~5
+    (oconstr@1 string.0.sysvq0asl
+     (kv bytes.0 1835101950u)
+     (kv more.0
+      (addr strlit.0.I407209193152762291.)))`tmp.16@D)
+   (var@I,L :`tmp.17 . JsValue.0.jsfc0lwq21@A,1h,jsffi.nim
+    (call toJs.0.jsfc0lwq21~4 2026@1))
+   (call@5,L set.0.jsfc0lwq21~3 o.0.~5
+    (oconstr@1 string.0.sysvq0asl
+     (kv bytes.0 1634040318u)
+     (kv more.0
+      (addr strlit.0.I6393444175955872624.)))`tmp.17@D)
+   (var@d,M :`tmp.20 . JsValue.0.jsfc0lwq21@U,2h,jsffi.nim
+    (call get.0.jsfc0lwq21~3 o.0.~5
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1634040318u)
+      (kv more.0
+       (addr strlit.0.I6393444175955872624.)))))
+   (var@X,M :`x.3 .
+    (i@E,1j,jsffi.nim 32)
+    (call toInt.0.jsfc0lwq21~5 `tmp.20@6))
+   (var@R,M :`tmp.19 . string.0.sysvq0asl@C,1j,../nimony-js/lib/std/system.nim
+    (call $.2.sysvq0asl `x.3@6))
+   (var@P,M :`tmp.18 . string.0.sysvq0asl@G,Ay,../nimony-js/lib/std/system/stringimpl.nim
+    (call &.0.sysvq0asl
+     (oconstr~K string.0.sysvq0asl
+      (kv bytes.0 2033086462u)
+      (kv more.0
+       (addr strlit.0.I6644378417582681152.)))`tmp.19@2))
+   (call@4,7O,../nimony-js/lib/std/syncio.nim write.0.syn1lfpjv stdout.0.syn1lfpjv@6 `tmp.18@P,N,tests/tffi.nim)
+   (call@2,7P,../nimony-js/lib/std/syncio.nim write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E)
+   (var@B,N :`tmp.23 . JsValue.0.jsfc0lwq21@G,2c,jsffi.nim
+    (call global.0.jsfc0lwq21~6
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1330858750u)
+      (kv more.0
+       (addr strlit.0.I6373137695046429832.)))))
+   (var@O,N :`tmp.22 . JsValue.0.jsfc0lwq21@g,2w,jsffi.nim
+    (call call.1.jsfc0lwq21~4 `tmp.23~D
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1920234494u)
+      (kv more.0
+       (addr strlit.0.I7519307887382905868.)))o.0.@E))
+   (var@e,N :`tmp.21 . string.0.sysvq0asl@E,1x,jsffi.nim
+    (call toStr.0.jsfc0lwq21@1 `tmp.22~G))
+   (call@4,7O,../nimony-js/lib/std/syncio.nim write.0.syn1lfpjv stdout.0.syn1lfpjv@6 `tmp.21@e,O,tests/tffi.nim)
+   (call@2,7P,../nimony-js/lib/std/syncio.nim write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E)
+   (var@d,Q :`tmp.24 . JsValue.0.jsfc0lwq21@B,1p,jsffi.nim
+    (call toJs.2.jsfc0lwq21~4
+     (true@1)))
+   (var@Y,Q :`x.4 .
+    (bool@E,1q,jsffi.nim)
+    (call toBool.0.jsfc0lwq21~6 `tmp.24@5))
+   (var@R,Q :`desugar.0 . string.0.sysvq0asl
+    (call $.3.sysvq0asl `x.4@7))
+   (var@15,Q :`tmp.25 . JsValue.0.jsfc0lwq21@B,1p,jsffi.nim
+    (call toJs.2.jsfc0lwq21~4
+     (false@1)))
+   (var@10,Q :`x.5 .
+    (bool@E,1q,jsffi.nim)
+    (call toBool.0.jsfc0lwq21~6 `tmp.25@5))
+   (var@t,Q :`desugar.1 . string.0.sysvq0asl
+    (call $.3.sysvq0asl `x.5@7))
+   (var@r,Q :`x.6 .
+    (i@D,1A,../nimony-js/lib/std/system/stringimpl.nim 32)
+    (call len.4.sysvq0asl
+     (oconstr~m string.0.sysvq0asl
+      (kv bytes.0 1869570814u)
+      (kv more.0
+       (addr strlit.0.I14551632781070332322.)))))
+   (var@r,Q :`x.7 .
+    (i@D,1A,../nimony-js/lib/std/system/stringimpl.nim 32)
+    (call len.4.sysvq0asl `desugar.0~Q))
+   (var@r,Q :`x.8 .
+    (i@D,1A,../nimony-js/lib/std/system/stringimpl.nim 32)
+    (call len.4.sysvq0asl
+     (oconstr~4 string.0.sysvq0asl
+      (kv bytes.0 8193u)
+      (kv more.0
+       (nil)))))
+   (var@r,Q :`x.9 .
+    (i@D,1A,../nimony-js/lib/std/system/stringimpl.nim 32)
+    (call len.4.sysvq0asl `desugar.1@2))
+   (var@r,Q :`desugar.2 . string.0.sysvq0asl
+    (call newStringOfCap.0.sysvq0asl
+     (add
+      (i -1)
+      (add
+       (i -1)
+       (add
+        (i -1)`x.6 `x.7)`x.8)`x.9)))
+   (call@r,Q add.2.sysvq0asl
+    (addr `desugar.2)
+    (oconstr~m string.0.sysvq0asl
+     (kv bytes.0 1869570814u)
+     (kv more.0
+      (addr strlit.0.I14551632781070332322.))))
+   (call@r,Q add.2.sysvq0asl
+    (addr `desugar.2)`desugar.0~Q)
+   (call@r,Q add.2.sysvq0asl
+    (addr `desugar.2)
+    (oconstr~4 string.0.sysvq0asl
+     (kv bytes.0 8193u)
+     (kv more.0
+      (nil))))
+   (call@r,Q add.2.sysvq0asl
+    (addr `desugar.2)`desugar.1@2)
+   (call@4,7O,../nimony-js/lib/std/syncio.nim write.0.syn1lfpjv stdout.0.syn1lfpjv@6 `desugar.2@r,R,tests/tffi.nim)
+   (call@2,7P,../nimony-js/lib/std/syncio.nim write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E)
+   (var@a,R :`tmp.28 . JsValue.0.jsfc0lwq21@U,2h,jsffi.nim
+    (call get.0.jsfc0lwq21~3 o.0.~5
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1886351102u)
+      (kv more.0
+       (addr strlit.0.I933664836153361417.)))))
+   (var@i,R :`x.10 .
+    (bool@E,1O,jsffi.nim)
+    (call isNil.0.jsfc0lwq21@1 `tmp.28~8))
+   (var@U,R :`tmp.27 . string.0.sysvq0asl@B,1s,../nimony-js/lib/std/system.nim
+    (call $.3.sysvq0asl `x.10@E))
+   (var@S,R :`tmp.26 . string.0.sysvq0asl@G,Ay,../nimony-js/lib/std/system/stringimpl.nim
+    (call &.0.sysvq0asl
+     (oconstr~N string.0.sysvq0asl
+      (kv bytes.0 1936289278u)
+      (kv more.0
+       (addr strlit.0.I6074055191300679588.)))`tmp.27@2))
+   (call@4,7O,../nimony-js/lib/std/syncio.nim write.0.syn1lfpjv stdout.0.syn1lfpjv@6 `tmp.26@S,S,tests/tffi.nim)
+   (call@2,7P,../nimony-js/lib/std/syncio.nim write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E)
+   (var@c,S :`tmp.31 . JsValue.0.jsfc0lwq21@G,2c,jsffi.nim
+    (call global.0.jsfc0lwq21~6
+     (oconstr@1 string.0.sysvq0asl
+      (kv bytes.0 1952534014u)
+      (kv more.0
+       (addr strlit.0.I12935728853510326435.)))))
+   (var@T,S :`x.11 .
+    (bool@H,1M,jsffi.nim)
+    (call ==.0.jsfc0lwq21 m.0.~2 `tmp.31@9))
+   (var@P,S :`tmp.30 . string.0.sysvq0asl@B,1s,../nimony-js/lib/std/system.nim
+    (call $.3.sysvq0asl `x.11@4))
+   (var@N,S :`tmp.29 . string.0.sysvq0asl@G,Ay,../nimony-js/lib/std/system/stringimpl.nim
+    (call &.0.sysvq0asl
+     (oconstr~I string.0.sysvq0asl
+      (kv bytes.0 1818588158u)
+      (kv more.0
+       (addr strlit.0.I11663264536865316071.)))`tmp.30@2))
+   (call@4,7O,../nimony-js/lib/std/syncio.nim write.0.syn1lfpjv stdout.0.syn1lfpjv@6 `tmp.29@N,T,tests/tffi.nim)
+   (call@2,7P,../nimony-js/lib/std/syncio.nim write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E)
+   (call =destroy.2.sysvq0asl `tmp.29)
+   (call =destroy.2.sysvq0asl `tmp.30)
+   (call =destroy.0.jsfc0lwq21 `tmp.31)
+   (call =destroy.2.sysvq0asl `tmp.26)
+   (call =destroy.2.sysvq0asl `tmp.27)
+   (call =destroy.0.jsfc0lwq21 `tmp.28)
+   (call =destroy.2.sysvq0asl `desugar.2)
+   (call =destroy.2.sysvq0asl `desugar.1)
+   (call =destroy.0.jsfc0lwq21 `tmp.25)
+   (call =destroy.2.sysvq0asl `desugar.0)
+   (call =destroy.0.jsfc0lwq21 `tmp.24)
+   (call =destroy.2.sysvq0asl `tmp.21)
+   (call =destroy.0.jsfc0lwq21 `tmp.22)
+   (call =destroy.0.jsfc0lwq21 `tmp.23)
+   (call =destroy.2.sysvq0asl `tmp.18)
+   (call =destroy.2.sysvq0asl `tmp.19)
+   (call =destroy.0.jsfc0lwq21 `tmp.20)
+   (call =destroy.0.jsfc0lwq21 `tmp.17)
+   (call =destroy.0.jsfc0lwq21 `tmp.16)
+   (call =destroy.2.sysvq0asl `tmp.13)
+   (call =destroy.2.sysvq0asl `tmp.14)
+   (call =destroy.0.jsfc0lwq21 `tmp.15)
+   (call =destroy.2.sysvq0asl `tmp.7)
+   (call =destroy.2.sysvq0asl `tmp.8)
+   (call =destroy.0.jsfc0lwq21 `tmp.9)
+   (call =destroy.0.jsfc0lwq21 `tmp.12)
+   (call =destroy.0.jsfc0lwq21 `tmp.11)
+   (call =destroy.0.jsfc0lwq21 `tmp.10)
+   (call =destroy.2.sysvq0asl `tmp.2)
+   (call =destroy.2.sysvq0asl `tmp.3)
+   (call =destroy.0.jsfc0lwq21 `tmp.4)
+   (call =destroy.0.jsfc0lwq21 `tmp.6)
+   (call =destroy.0.jsfc0lwq21 `tmp.5)
+   (call =destroy.0.jsfc0lwq21 `tmp.0)
+   (call =destroy.0.jsfc0lwq21 `tmp.1)))
+ (type :`cchar.0.
+  (pragmas
+   (importc "char")
+   (nodecl))
+  (i 8))
+ (gvar :`cmdCount.0.
+  (pragmas
+   (exportc "cmdCount"))
+  (i 32).)
+ (gvar :`cmdLine.0.
+  (pragmas
+   (exportc "cmdLine"))
+  (ptr
+   (ptr
+    (c 8))).)
+ (gvar :`nimEnviron.0.
+  (pragmas
+   (exportc "nimEnviron"))
+  (ptr
+   (ptr
+    (c 8))).)
+ (proc :`main.0.
+  (params
+   (param :`argc.0. .
+    (i 32))
+   (param :`argv.0. .
+    (ptr
+     (ptr `cchar.0.)))
+   (param :`envp.0. .
+    (ptr
+     (ptr `cchar.0.))))
+  (i 32)
+  (pragmas
+   (exportc "main")
+   (smry callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads)
+    (param 2 2 reads)))
+  (stmts
+   (asgn `cmdCount.0. `argc.0.)
+   (asgn `cmdLine.0.
+    (cast
+     (ptr
+      (ptr
+       (c 8)))`argv.0.))
+   (asgn `nimEnviron.0.
+    (cast
+     (ptr
+      (ptr
+       (c 8)))`envp.0.))
+   (call `ini.0.)
+   (call nimFlushStdStreams.0.sysvq0asl)
+   (ret 0))))(.index@,1,tests/tffi.nim
+ (h strlit.0.I4512127154334175537. 62)
+ (h strlit.0.I5853397530369228807. 185)
+ (h strlit.0.I12935728853510326435. 218)
+ (h strlit.0.I2301975825215568994. 183)
+ (h strlit.0.I6208868947491189530. 203)
+ (h strlit.0.I12805258542531914732. 203)
+ (h strlit.0.I15421062535947656287. 190)
+ (h strlit.0.I834269026986168554. 195)
+ (h strlit.0.I407209193152762291. 183)
+ (h strlit.0.I6393444175955872624. 181)
+ (h strlit.0.I6644378417582681152. 182)
+ (h strlit.0.I6373137695046429832. 196)
+ (h strlit.0.I7519307887382905868. 182)
+ (h strlit.0.I14551632781070332322. 187)
+ (h strlit.0.I933664836153361417. 199)
+ (h strlit.0.I6074055191300679588. 181)
+ (h strlit.0.I11663264536865316071. 201)
+ (h console.0. 197)
+ (h m.0. 64)
+ (h o.0. 58)
+ (h `iniGuard.0. 58)
+ (x `ini.0. 34)
+ (x `cchar.0. 11741)
+ (x `cmdCount.0. 71)
+ (x `cmdLine.0. 68)
+ (x `nimEnviron.0. 84)
+ (x `main.0. 90)
+ (h `argc.0. 27)
+ (h `argv.0. 34)
+ (h `envp.0. 54))

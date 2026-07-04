@@ -1,0 +1,652 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,jsffi.nim
+ (comment)
+ (type@B,O JsValue~9 x . .
+  (object@2 .
+   (fld~9,3 h . . int32@3 .)))
+ (proc@,U rawRelease@5 . . .
+  (params@F
+   (param@1 h . . int32@3 .)).
+  (pragmas@Q
+   (kv@9 importc~7 "_jsRelease"@2)). .)
+ (proc@,V rawDup@5 . . .
+  (params@B
+   (param@1 h . . int32@3 .))int32@C
+  (pragmas@T
+   (kv@9 importc~7 "_jsvDup"@2)). .)
+ (proc@,W rawStrictEq@5 . . .
+  (params@G
+   (param@1 a . . int32@6 .)
+   (param@4 b . . int32@3 .))bool@F
+  (pragmas@a
+   (kv@9 importc~7 "_jsStrictEq"@2)). .)
+ (proc@,X rawLive@5 . . .
+  (params@C)int@4
+  (pragmas@K
+   (kv@9 importc~7 "_jsvLive"@2)). .)
+ (proc@,Z rawStrToJs@5 . . .
+  (params@F
+   (param@1 p . . cstring@3 .)
+   (param@D n . . int@3 .))int32@M
+  (pragmas@h
+   (kv@9 importc~7 "_strToJs"@2)). .)
+ (proc@,a rawStrLen@5 . . .
+  (params@E
+   (param@1 h . . int32@3 .))int@C
+  (pragmas@U
+   (kv@9 importc~7 "_jsStrLen"@2)). .)
+ (proc@,b rawStrInto@5 . . .
+  (params@F
+   (param@1 h . . int32@3 .)
+   (param@B dst . . cstring@5 .)).
+  (pragmas@e
+   (kv@9 importc~7 "_jsStrInto"@2)). .)
+ (proc@,d rawNumToJs@5 . . .
+  (params@F
+   (param@1 x . . int@3 .))int32@A
+  (pragmas@V
+   (kv@9 importc~7 "_numToJs"@2)). .)
+ (proc@,e rawToNum@5 . . .
+  (params@D
+   (param@1 h . . int32@3 .))int@C
+  (pragmas@T
+   (kv@9 importc~7 "_jsToNum"@2)). .)
+ (proc@,f rawFloatToJs@5 . . .
+  (params@H
+   (param@1 x . . float@3 .))int32@C
+  (pragmas@Z
+   (kv@9 importc~7 "_numToJs"@2)). .)
+ (proc@,g rawToFloat@5 . . .
+  (params@F
+   (param@1 h . . int32@3 .))float@C
+  (pragmas@X
+   (kv@9 importc~7 "_jsToNum"@2)). .)
+ (proc@,h rawBoolToJs@5 . . .
+  (params@G
+   (param@1 b . . bool@3 .))int32@B
+  (pragmas@X
+   (kv@9 importc~7 "_boolToJs"@2)). .)
+ (proc@,i rawToBool@5 . . .
+  (params@E
+   (param@1 h . . int32@3 .))bool@C
+  (pragmas@V
+   (kv@9 importc~7 "_jsToBool"@2)). .)
+ (proc@,k rawNewArray@5 . . .
+  (params@G)int32@4
+  (pragmas@Q
+   (kv@9 importc~7 "_jsNewArray"@2)). .)
+ (proc@,l rawArrLen@5 . . .
+  (params@E
+   (param@1 h . . int32@3 .))int@C
+  (pragmas@U
+   (kv@9 importc~7 "_jsArrLen"@2)). .)
+ (proc@,m rawArrPush@5 . . .
+  (params@F
+   (param@1 h . . int32@6 .)
+   (param@4 v . . int32@3 .)).
+  (pragmas@T
+   (kv@9 importc~7 "_jsArrPush"@2)). .)
+ (proc@,n rawArrGet@5 . . .
+  (params@E
+   (param@1 h . . int32@3 .)
+   (param@B i . . int@3 .))int32@K
+  (pragmas@e
+   (kv@9 importc~7 "_jsArrGet"@2)). .)
+ (proc@,o rawArrSet@5 . . .
+  (params@E
+   (param@1 h . . int32@3 .)
+   (param@B i . . int@3 .)
+   (param@J v . . int32@3 .)).
+  (pragmas@h
+   (kv@9 importc~7 "_jsArrSet"@2)). .)
+ (proc@,q rawTypeof@5 . . .
+  (params@E
+   (param@1 h . . int32@3 .))int32@C
+  (pragmas@W
+   (kv@9 importc~7 "_jsTypeof"@2)). .)
+ (proc@,r rawHasProp@5 . . .
+  (params@F
+   (param@1 obj . . int32@B .)
+   (param@6 name . . int32@6 .))bool@K
+  (pragmas@e
+   (kv@9 importc~7 "_jsHasProp"@2)). .)
+ (proc@,s rawInstanceOf@5 . . .
+  (params@I
+   (param@1 v . . int32@9 .)
+   (param@4 ctor . . int32@6 .))bool@I
+  (pragmas@f
+   (kv@9 importc~7 "_jsInstanceOf"@2)). .)
+ (proc@,t rawApply@5 . . .
+  (params@D
+   (param@1 obj . . int32@H .)
+   (param@6 name . . int32@C .)
+   (param@C args . . int32@6 .))int32@Q
+  (pragmas@j
+   (kv@9 importc~7 "_jsApply"@2)). .)
+ (proc@,v rawGlobalH@5 . . .
+  (params@F
+   (param@1 nameH . . int32@7 .))int32@G
+  (pragmas@b
+   (kv@9 importc~7 "_jsGlobalH"@2)). .)
+ (proc@,w rawGetProp@5 . . .
+  (params@F
+   (param@1 obj . . int32@B .)
+   (param@6 name . . int32@6 .))int32@K
+  (pragmas@f
+   (kv@9 importc~7 "_jsGetProp"@2)). .)
+ (proc@,x rawSetProp@5 . . .
+  (params@F
+   (param@1 obj . . int32@G .)
+   (param@6 name . . int32@B .)
+   (param@C val . . int32@5 .)).
+  (pragmas@d
+   (kv@9 importc~7 "_jsSetProp"@2)). .)
+ (proc@,y rawCall0@5 . . .
+  (params@D
+   (param@1 obj . . int32@B .)
+   (param@6 name . . int32@6 .))int32@K
+  (pragmas@d
+   (kv@9 importc~7 "_jsCall0"@2)). .)
+ (proc@,z rawCall1@5 . . .
+  (params@D
+   (param@1 obj . . int32@E .)
+   (param@6 name . . int32@9 .)
+   (param@C a . . int32@3 .))int32@N
+  (pragmas@g
+   (kv@9 importc~7 "_jsCall1"@2)). .)
+ (proc@,10 rawCall2@5 . . .
+  (params@D
+   (param@1 obj . . int32@H .)
+   (param@6 name . . int32@C .)
+   (param@C a . . int32@6 .)
+   (param@F b . . int32@3 .))int32@Q
+  (pragmas@j
+   (kv@9 importc~7 "_jsCall2"@2)). .)
+ (proc@,11 rawCall3@5 . . .
+  (params@D
+   (param@1 obj . . int32@K .)
+   (param@6 name . . int32@F .)
+   (param@C a . . int32@9 .)
+   (param@F b . . int32@6 .)
+   (param@I c . . int32@3 .))int32@T
+  (pragmas@m
+   (kv@9 importc~7 "_jsCall3"@2)). .)
+ (proc@,12 rawNewObject@5 . . .
+  (params@H)int32@4
+  (pragmas@R
+   (kv@9 importc~7 "_jsNewObject"@2)). .)
+ (proc@,13 rawCtor0@5 . . .
+  (params@D
+   (param@1 ctor . . int32@6 .))int32@F
+  (pragmas@Y
+   (kv@9 importc~7 "_jsCtor0"@2)). .)
+ (proc@,14 rawCtor1@5 . . .
+  (params@D
+   (param@1 ctor . . int32@9 .)
+   (param@7 a . . int32@3 .))int32@I
+  (pragmas@b
+   (kv@9 importc~7 "_jsCtor1"@2)). .)
+ (proc@,15 rawCtorN@5 . . .
+  (params@D
+   (param@1 ctor . . int32@C .)
+   (param@7 args . . int32@6 .))int32@L
+  (pragmas@e
+   (kv@9 importc~7 "_jsCtorN"@2)). .)
+ (proc@,18
+  (quoted@5 =@1 destroy@2). . .
+  (params@F
+   (param@1 x . . JsValue@3 .)). . .
+  (stmts@2,1
+   (call@A rawRelease~A
+    (dot@2 x~1 h@1))))
+ (proc@,1A
+  (quoted@5 =@1 dup@2). . .
+  (params@B
+   (param@1 x . . JsValue@3 .))JsValue@E
+  (pragmas@X nodestroy@2).
+  (stmts@2,1
+   (oconstr@7 JsValue~7
+    (kv@2 h~1
+     (call@8 rawDup~6
+      (dot@2 x~1 h@1))))))
+ (proc@,1C
+  (quoted@5 =@1 copy@2). . .
+  (params@C
+   (param@1 dest . .
+    (mut@6 JsValue@4).)
+   (param@K src . . JsValue@5 .)).
+  (pragmas@k nodestroy@2).
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 !=
+      (dot~3 dest~4 h@1)
+      (dot@6 src~3 h@1))
+     (stmts~1,1
+      (call@A rawRelease~A
+       (dot@5 dest~4 h@1))
+      (asgn@5,1 dest~5
+       (oconstr@9 JsValue~7
+        (kv@2 h~1
+         (call@8 rawDup~6
+          (dot@4 src~3 h@1))))))))))
+ (const@F,1J undefined~9 x . .
+  (oconstr@B JsValue~7
+   (kv@2 h~1 0@2)))
+ (proc@,1L
+  (quoted@5 ==@1) x . .
+  (params@A
+   (param@1 a . . JsValue@6 .)
+   (param@4 b . . JsValue@3 .))bool@H
+  (pragmas@W inline@2).
+  (stmts@j
+   (call@B rawStrictEq~B
+    (dot@2 a~1 h@1)
+    (dot@7 b~1 h@1))))
+ (proc@,1N isNil@5 x . .
+  (params@B
+   (param@1 v . . JsValue@3 .))bool@E
+  (pragmas@U inline@2).
+  (stmts@h
+   (infix@4 ==
+    (dot~3 v~1 h@1)0@3)))
+ (proc@,1Q liveHandles@5 x . .
+  (params@H)int@4
+  (pragmas@P inline@2).
+  (stmts@c
+   (call@7 rawLive~7)))
+ (proc@,1Y unsafeHandle@5 x . .
+  (params@I
+   (param@1 v . . JsValue@3 .))int32@E
+  (pragmas@c inline@2).
+  (stmts@p
+   (dot@1 v~1 h@1)))
+ (proc@,1b unsafeFromHandle@5 x . .
+  (params@M
+   (param@1 h . . int32@3 .))JsValue@C
+  (pragmas@g inline@2).
+  (stmts@t
+   (oconstr@7 JsValue~7
+    (kv@2 h~1 h@2))))
+ (proc@,1g toJs@5 x . .
+  (params@A
+   (param@1 x . . int@3 .))JsValue@A
+  (pragmas@S inline@2).
+  (stmts@f
+   (oconstr@7 JsValue~7
+    (kv@2 h~1
+     (call@C rawNumToJs~A x@1)))))
+ (proc@,1i toInt@5 x . .
+  (params@B
+   (param@1 v . . JsValue@3 .))int@E
+  (pragmas@T inline@2).
+  (stmts@g
+   (call@8 rawToNum~8
+    (dot@2 v~1 h@1))))
+ (proc@,1k toJs@5 x . .
+  (params@A
+   (param@1 x . . float@3 .))JsValue@C
+  (pragmas@U inline@2).
+  (stmts@h
+   (oconstr@7 JsValue~7
+    (kv@2 h~1
+     (call@E rawFloatToJs~C x@1)))))
+ (proc@,1m toFloat@5 x . .
+  (params@D
+   (param@1 v . . JsValue@3 .))float@E
+  (pragmas@X inline@2).
+  (stmts@k
+   (call@A rawToFloat~A
+    (dot@2 v~1 h@1))))
+ (proc@,1o toJs@5 x . .
+  (params@A
+   (param@1 b . . bool@3 .))JsValue@B
+  (pragmas@T inline@2).
+  (stmts@g
+   (oconstr@7 JsValue~7
+    (kv@2 h~1
+     (call@D rawBoolToJs~B b@1)))))
+ (proc@,1p toBool@5 x . .
+  (params@C
+   (param@1 v . . JsValue@3 .))bool@E
+  (pragmas@V inline@2).
+  (stmts@i
+   (call@9 rawToBool~9
+    (dot@2 v~1 h@1))))
+ (proc@,1r toJs@5 x . .
+  (params@A
+   (param@1 s . . string@3 .))JsValue@D . .
+  (stmts@2,1
+   (comment)
+   (var@4,1 t . . . s@4)
+   (oconstr@7,2 JsValue~7
+    (kv@2 h~1
+     (call@C rawStrToJs~A
+      (call@A toCString~9 t@1)
+      (dot@G t~1 len@1))))))
+ (proc@,1w toStr@5 x . .
+  (params@B
+   (param@1 v . . JsValue@3 .))string@E . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 n . . .
+    (call@D rawStrLen~9
+     (dot@2 v~1 h@1)))
+   (if@,2
+    (elif@3
+     (infix@2 <= n~2 0@3)
+     (stmts@8
+      (ret ""@7))))
+   (asgn@7,3 result~7
+    (call@B newString~9 n@1))
+   (call@A,4 rawStrInto~A
+    (dot@2 v~1 h@1)
+    (call@F toCString~9 result@1))))
+ (proc@,23
+  (quoted@5 $@1) x . .
+  (params@9
+   (param@1 v . . JsValue@3 .))string@E
+  (pragmas@U inline@2).
+  (stmts@h
+   (call@5 toStr~5 v@1)))
+ (proc@,25 newJsObject@5 x . .
+  (params@H)JsValue@4
+  (pragmas@T inline@2).
+  (stmts@g
+   (oconstr@7 JsValue~7
+    (kv@2 h~1
+     (call@E rawNewObject~C)))))
+ (proc@,29 newJsArray@5 x . .
+  (params@G)JsValue@4
+  (pragmas@S inline@2).
+  (stmts@f
+   (oconstr@7 JsValue~7
+    (kv@2 h~1
+     (call@D rawNewArray~B)))))
+ (proc@,2B len@5 x . .
+  (params@9
+   (param@1 arr . . JsValue@5 .))int@G
+  (pragmas@T inline@2).
+  (stmts@g
+   (call@9 rawArrLen~9
+    (dot@4 arr~3 h@1))))
+ (proc@,2D add@5 x . .
+  (params@9
+   (param@1 arr . . JsValue@5 .)
+   (param@F val . . JsValue@5 .)).
+  (pragmas@c inline@2).
+  (stmts@p
+   (call@A rawArrPush~A
+    (dot@4 arr~3 h@1)
+    (dot@B val~3 h@1))))
+ (proc@,2G
+  (quoted@5 \5B\5D@1) x . .
+  (params@A
+   (param@1 arr . . JsValue@5 .)
+   (param@F i . . int@3 .))JsValue@O
+  (pragmas@g inline@2).
+  (stmts@t
+   (oconstr@7 JsValue~7
+    (kv@2 h~1
+     (call@B rawArrGet~9
+      (dot@4 arr~3 h@1)i@8)))))
+ (proc@,2I
+  (quoted@5 \5B\5D=@1) x . .
+  (params@B
+   (param@1 arr . . JsValue@5 .)
+   (param@F i . . int@3 .)
+   (param@N val . . JsValue@5 .)).
+  (pragmas@m inline@2).
+  (stmts@z
+   (call@9 rawArrSet~9
+    (dot@4 arr~3 h@1)i@8
+    (dot@E val~3 h@1))))
+ (type@B,2N JsProc0~9 x . .
+  (proctype@6 ....
+   (params).
+   (pragmas@3 nimcall@2)..))
+ (type@B,2O JsProc1~9 x . .
+  (proctype@6 ....
+   (params
+    (param@1 ev . . JsValue@4 .)).
+   (pragmas@E nimcall@2)..))
+ (proc@,2T rawFnToJs0@5 . . .
+  (params@F
+   (param@1 p . . JsProc0@3 .))int32@E
+  (pragmas@Z
+   (kv@9 importc~7 "_fnToJs0"@2)). .)
+ (proc@,2U rawFnToJs1@5 . . .
+  (params@F
+   (param@1 p . . JsProc1@3 .))int32@E
+  (pragmas@Z
+   (kv@9 importc~7 "_fnToJs1"@2)). .)
+ (proc@,2V toJs@5 x . .
+  (params@A
+   (param@1 p . . JsProc0@3 .))JsValue@E
+  (pragmas@W inline@2).
+  (stmts@j
+   (oconstr@7 JsValue~7
+    (kv@2 h~1
+     (call@C rawFnToJs0~A p@1)))))
+ (proc@,2X toJs@5 x . .
+  (params@A
+   (param@1 p . . JsProc1@3 .))JsValue@E
+  (pragmas@W inline@2).
+  (stmts@j
+   (oconstr@7 JsValue~7
+    (kv@2 h~1
+     (call@C rawFnToJs1~A p@1)))))
+ (proc@,2b global@5 x . .
+  (params@C
+   (param@1 name . . string@6 .))JsValue@G . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 n . . .
+    (call@8 toJs~4 name@1))
+   (oconstr@7,2 JsValue~7
+    (kv@2 h~1
+     (call@C rawGlobalH~A
+      (dot@2 n~1 h@1))))))
+ (proc@,2g get@5 x . .
+  (params@9
+   (param@1 obj . . JsValue@5 .)
+   (param@F name . . string@6 .))JsValue@U . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 n . . .
+    (call@8 toJs~4 name@1))
+   (oconstr@7,2 JsValue~7
+    (kv@2 h~1
+     (call@C rawGetProp~A
+      (dot@4 obj~3 h@1)
+      (dot@9 n~1 h@1))))))
+ (proc@,2l set@5 x . .
+  (params@9
+   (param@1 obj . . JsValue@5 .)
+   (param@F name . . string@6 .)
+   (param@T val . . JsValue@5 .)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 n . . .
+    (call@8 toJs~4 name@1))
+   (call@A,2 rawSetProp~A
+    (dot@4 obj~3 h@1)
+    (dot@9 n~1 h@1)
+    (dot@G val~3 h@1))))
+ (proc@,2q call@5 x . .
+  (params@A
+   (param@1 obj . . JsValue@5 .)
+   (param@F name . . string@6 .))JsValue@U . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 n . . .
+    (call@8 toJs~4 name@1))
+   (oconstr@7,2 JsValue~7
+    (kv@2 h~1
+     (call@A rawCall0~8
+      (dot@4 obj~3 h@1)
+      (dot@9 n~1 h@1))))))
+ (proc@,2v call@5 x . .
+  (params@A
+   (param@1 obj . . JsValue@5 .)
+   (param@F name . . string@6 .)
+   (param@T a . . JsValue@3 .))JsValue@g . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 n . . .
+    (call@8 toJs~4 name@1))
+   (oconstr@7,2 JsValue~7
+    (kv@2 h~1
+     (call@A rawCall1~8
+      (dot@4 obj~3 h@1)
+      (dot@9 n~1 h@1)
+      (dot@E a~1 h@1))))))
+ (proc@,30 call@5 x . .
+  (params@A
+   (param@1 obj . . JsValue@5 .)
+   (param@F name . . string@6 .)
+   (param@T a . . JsValue@6 .)
+   (param@W b . . JsValue@3 .))JsValue@j . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 n . . .
+    (call@8 toJs~4 name@1))
+   (oconstr@7,2 JsValue~7
+    (kv@2 h~1
+     (call@A rawCall2~8
+      (dot@4 obj~3 h@1)
+      (dot@9 n~1 h@1)
+      (dot@E a~1 h@1)
+      (dot@J b~1 h@1))))))
+ (proc@,35 call@5 x . .
+  (params@A
+   (param@1 obj . . JsValue@5 .)
+   (param@F name . . string@6 .)
+   (param@T a . . JsValue@9 .)
+   (param@W b . . JsValue@6 .)
+   (param@Z c . . JsValue@3 .))JsValue@m . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 n . . .
+    (call@8 toJs~4 name@1))
+   (oconstr@7,2 JsValue~7
+    (kv@2 h~1
+     (call@A rawCall3~8
+      (dot@4 obj~3 h@1)
+      (dot@9 n~1 h@1)
+      (dot@E a~1 h@1)
+      (dot@J b~1 h@1)
+      (dot@O c~1 h@1))))))
+ (proc@,3A newOf@5 x . .
+  (params@B
+   (param@1 ctorName . . string@A .))JsValue@K . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 c . . .
+    (call@A global~6 ctorName@1))
+   (oconstr@7,2 JsValue~7
+    (kv@2 h~1
+     (call@A rawCtor0~8
+      (dot@2 c~1 h@1))))))
+ (proc@,3F newOf@5 x . .
+  (params@B
+   (param@1 ctorName . . string@A .)
+   (param@J a . . JsValue@3 .))JsValue@W . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 c . . .
+    (call@A global~6 ctorName@1))
+   (oconstr@7,2 JsValue~7
+    (kv@2 h~1
+     (call@A rawCtor1~8
+      (dot@2 c~1 h@1)
+      (dot@7 a~1 h@1))))))
+ (proc@,3K newOf@5 x . .
+  (params@B
+   (param@1 ctorName . . string@A .)
+   (param@J args . .
+    (at@F openArray~9 JsValue@1).))JsValue@k . .
+  (stmts@2,1
+   (comment)
+   (let@4,2 arr . . .
+    (call@G newJsArray~A))
+   (for@4,3 args@5
+    (unpackflat
+     (let x . . ..))
+    (stmts~2,1
+     (call@7
+      (dot~4 arr~3 add@1)x@1)))
+   (let@4,5 c . . .
+    (call@A global~6 ctorName@1))
+   (oconstr@7,6 JsValue~7
+    (kv@2 h~1
+     (call@A rawCtorN~8
+      (dot@2 c~1 h@1)
+      (dot@9 arr~3 h@1))))))
+ (proc@,3U jsTypeof@5 x . .
+  (params@E
+   (param@1 v . . JsValue@3 .))string@E . .
+  (stmts@2,1
+   (comment)
+   (call@5,2 toStr~5
+    (oconstr@8 JsValue~7
+     (kv@2 h~1
+      (call@B rawTypeof~9
+       (dot@2 v~1 h@1)))))))
+ (proc@,3Z hasProp@5 x . .
+  (params@D
+   (param@1 obj . . JsValue@5 .)
+   (param@F name . . string@6 .))bool@U . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 n . . .
+    (call@8 toJs~4 name@1))
+   (call@A,2 rawHasProp~A
+    (dot@4 obj~3 h@1)
+    (dot@9 n~1 h@1))))
+ (proc@,3e instanceOf@5 x . .
+  (params@G
+   (param@1 v . . JsValue@3 .)
+   (param@D ctorName . . string@A .))bool@W . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 c . . .
+    (call@A global~6 ctorName@1))
+   (call@D,2 rawInstanceOf~D
+    (dot@2 v~1 h@1)
+    (dot@7 c~1 h@1))))
+ (proc@,3j applyArgs@5 x . .
+  (params@F
+   (param@1 obj . . JsValue@5 .)
+   (param@F name . . string@6 .)
+   (param@T argsArray . . JsValue@B .))JsValue@o . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 n . . .
+    (call@8 toJs~4 name@1))
+   (oconstr@7,4 JsValue~7
+    (kv@2 h~1
+     (call@A rawApply~8
+      (dot@4 obj~3 h@1)
+      (dot@9 n~1 h@1)
+      (dot@M argsArray~9 h@1))))))
+ (proc@,3q apply@5 x . .
+  (params@B
+   (param@1 obj . . JsValue@5 .)
+   (param@F name . . string@6 .)
+   (param@T args . .
+    (at@F openArray~9 JsValue@1).))JsValue@u . .
+  (stmts@2,1
+   (comment)
+   (let@4,2 arr . . .
+    (call@G newJsArray~A))
+   (for@4,3 args@5
+    (unpackflat
+     (let x . . ..))
+    (stmts~2,1
+     (call@7
+      (dot~4 arr~3 add@1)x@1)))
+   (call@D,5
+    (dot~A obj~3 applyArgs@1)name@1 arr@7))))

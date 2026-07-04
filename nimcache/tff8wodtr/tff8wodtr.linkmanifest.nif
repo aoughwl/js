@@ -1,0 +1,14 @@
+(.nif27)
+(link
+ (apptype "console")
+ (output "/home/savant/aoughwl-js/nimcache/tff8wodtr/tffi")
+ (file "/home/savant/aoughwl-js/nimcache/tff8wodtr/tff8wodtr.o"
+  (kind "obj"))
+ (file "/home/savant/aoughwl-js/nimcache/tff8wodtr/sysvq0asl.o"
+  (kind "obj"))
+ (file "/home/savant/aoughwl-js/nimcache/tff8wodtr/syn1lfpjv.o"
+  (kind "obj"))
+ (file "/home/savant/aoughwl-js/nimcache/tff8wodtr/for2ybv4p1.o"
+  (kind "obj"))
+ (file "/home/savant/aoughwl-js/nimcache/tff8wodtr/jsfc0lwq21.o"
+  (kind "obj")))

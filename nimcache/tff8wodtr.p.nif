@@ -1,0 +1,78 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,tests/tffi.nim
+ (comment)
+ (import@,3
+  (infix@A / std~3 syncio@1))
+ (import@,4 jsffi@7)
+ (let@4,7 console . . .
+  (call@G global~6 "console"@1))
+ (discard@,8
+  (call@K
+   (dot~5 console~7 call@1)"log"@1
+   (call@C toJs~4 "hello from Nim through a real JS string"@1)))
+ (let@4,B m . . .
+  (call@A global~6 "Math"@1))
+ (cmd@,C echo
+  (infix@S & "Math.max\283, 7\29    = "~N
+   (prefix@2 $
+    (call@6 toInt~5
+     (call@7
+      (dot~5 m~1 call@1)"max"@1
+      (call@C toJs~4 3@1)
+      (call@L toJs~4 7@1))))))
+ (cmd@,D echo
+  (infix@S & "Math.max\283, 7, 5\29 = "~N
+   (prefix@2 $
+    (call@6 toInt~5
+     (call@7
+      (dot~5 m~1 call@1)"max"@1
+      (call@C toJs~4 3@1)
+      (call@L toJs~4 7@1)
+      (call@U toJs~4 5@1))))))
+ (cmd@,G echo
+  (infix@L & "back in Nim\3A "~G
+   (dot@K
+    (call~E toJs~4 "round-trip"@1)toStr@1)))
+ (let@4,J o . . .
+  (call@F newJsObject~B))
+ (call@5,K
+  (dot~4 o~1 set@1)"name"@1
+  (call@D toJs~4 "nimony"@1))
+ (call@5,L
+  (dot~4 o~1 set@1)"year"@1
+  (call@D toJs~4 2026@1))
+ (cmd@,M echo
+  (infix@P & "o.year via get = "~K
+   (prefix@2 $
+    (call@6 toInt~5
+     (call@6
+      (dot~4 o~1 get@1)"year"@1)))))
+ (cmd@,N echo
+  (dot@e
+   (call~G
+    (dot~5
+     (call~8 global~6 "JSON"@1)call@1)"stringify"@1 o@E)toStr@1))
+ (cmd@,Q echo
+  (infix@r &
+   (infix~6 &
+    (infix~M & "bool round-trip\3A "~K
+     (prefix@2 $
+      (call@7 toBool~6
+       (call@5 toJs~4 true@1))))" "@2)
+   (prefix@2 $
+    (call@7 toBool~6
+     (call@5 toJs~4 false@1)))))
+ (cmd@,R echo
+  (infix@S & "missing prop isNil\3A "~N
+   (prefix@2 $
+    (dot@E
+     (call~8
+      (dot~4 o~1 get@1)"nope"@1)isNil@1))))
+ (cmd@,S echo
+  (infix@N & "self === self\3A "~I
+   (prefix@2 $
+    (par@1
+     (infix@3 == m~2
+      (call@9 global~6 "Math"@1)))))))
