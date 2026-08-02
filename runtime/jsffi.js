@@ -182,3 +182,21 @@ function _fnToJs1(idx){
     _jsRelease(h);
   });
 }
+// A Nim proc BOUND to a context value, called as a zero-argument JS function.
+//
+// Nim callbacks here are `{.nimcall.}` — they carry no captured environment — so
+// a callback that must act on a particular object (the DOM node this binding
+// updates, say) has nowhere to put it. This is the C answer: an explicit
+// userdata pointer instead of a closure. The context is captured BY VALUE, as
+// `_effectNew` captures its function, so releasing the handle that carried it in
+// never disturbs the live callback; each call hands Nim a fresh borrowed handle
+// and releases it after, exactly like `_fnToJs1`.
+function _fnToJsCtx(idx, ctxH){
+  const ctx = _jsv[ctxH];
+  return _jsNew(() => {
+    const h = _jsNew(ctx);
+    const p = allocFixed(4); mem.setI32(p, h);
+    _fns[idx](p);
+    _jsRelease(h);
+  });
+}

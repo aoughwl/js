@@ -158,6 +158,18 @@ proc toJs*(p: JsProc0): JsValue {.inline.} = JsValue(h: rawFnToJs0(p))
 proc toJs*(p: JsProc1): JsValue {.inline.} = JsValue(h: rawFnToJs1(p))
   ## A Nim proc as a JS function taking one argument (marshalled to a handle).
 
+proc rawFnToJsCtx(p: JsProc1; ctxH: int32): int32 {.importc: "_fnToJsCtx".}
+proc toJsWith*(p: JsProc1; ctx: JsValue): JsValue {.inline.} =
+  ## A Nim proc BOUND to `ctx`, as a JS function taking **no** arguments: calling
+  ## it invokes `p(ctx)`.
+  ##
+  ## Callbacks here are `{.nimcall.}` and so carry no captured environment. A
+  ## callback that must act on one particular object therefore has nowhere to put
+  ## it — this is the C answer, an explicit userdata argument rather than a
+  ## closure. `ctx` is captured by value, so the handle passed in may be released
+  ## immediately; each call borrows a fresh handle for the duration of the call.
+  JsValue(h: rawFnToJsCtx(p, ctx.h))
+
 # ── globals, properties, methods, construction ───────────────────────────────
 proc global*(name: string): JsValue =
   ## `globalThis[name]` — e.g. `global("document")`, `global("Math")`.
