@@ -26,17 +26,17 @@ const _u8 = new Uint8Array(_ab);
 // it. Measured on one such page: 30 MiB at boot, +15 MiB per interaction.
 //
 // The obvious fix — save the pointer at a call boundary and restore it after —
-// was tried and crashed on a dangling reference. The reason was the SHARED
-// pointer: restoring it also un-mapped heap pages the Nim allocator still
-// owned, so the failure looked like "value aggregates escape their frame" when
-// it was really "this rolls back the heap". Splitting the two makes a frame
-// reset mean only what it says, and `_leaveFrame` below is then safe.
+// was tried once before and crashed on a dangling reference. The reason was the
+// SHARED pointer: restoring it also un-mapped heap pages the Nim allocator
+// still owned, so the failure looked like "value aggregates escape their frame"
+// when it was really "this rolls back the heap". Splitting the two makes a
+// frame reset mean only what it says.
+//
 // The arena only has to hold what is allocated OUTSIDE a frame — module init,
-// and whatever the main line does before it hands control to the event loop.
+// and whatever the main line does before handing control to the event loop.
 // Framed work returns its storage, so an interactive page reaches a steady
-// state instead of growing; this bound therefore constrains straight-line code,
-// which is why it is generous. A harness that reconciles ten thousand times
-// from `main` with no callback in sight is the case that sets it.
+// state. A harness that reconciles ten thousand times from `main`, with no
+// callback in sight, is the case that sets this bound.
 const _FIXED_CAP = 1 << 27;                     // 128 MiB of value-aggregate arena
 let _fbrk = 8;                                  // offset 0 reserved as nil
 let _mbrk = _FIXED_CAP;                         // the Nim heap starts above it
@@ -55,14 +55,37 @@ function allocFixed(n){
 // ── FRAMES ──────────────────────────────────────────────────────────────────
 //
 // The one place the codegen's stack model can be made true is the JS -> Nim
-// callback boundary: the runtime ALREADY declares that lifetime, three lines
+// callback boundary: the runtime ALREADY declares that lifetime a few lines
 // down, where it releases the argument handle because "an event object is only
 // valid for the duration of dispatch". Everything allocFixed'd during that
 // dispatch has the same lifetime, so the arena pointer is saved on the way in
 // and restored on the way out.
 //
-// Only at depth 0: a dispatch that occurs inside another dispatch must not
+// Only at depth 0: a dispatch occurring inside another dispatch must not
 // reclaim storage its caller is still using.
+//
+// ── a wrong verdict, recorded because it was nearly acted on ────────────────
+//
+// This was briefly disabled again after a browser reported
+//
+//   TypeError: Cannot read properties of undefined (reading 'push')
+//       at _jsArrPush ... at paintRegions
+//   TypeError: Cannot read properties of undefined (reading 'range')
+//       at _deltaDecorationsImpl ... at createDecorationsCollection
+//
+// which reads exactly like a value aggregate outliving its frame, and the
+// timing pointed here because frames had just landed. It was not this. The
+// caller had a proc RETURNING a `JsValue`, whose local released the handle on
+// the way out, so the array was being filled with slots that had already been
+// freed — a bug that predates frames and that reproduces with them off.
+//
+// The lesson is about method rather than about either bug: two candidate causes
+// were live at once, and the new one was assumed on timing alone. The way it
+// was settled was to make the test re-entrant — the mock for
+// `createDecorationsCollection` now runs client code underneath itself, as the
+// real one does — at which point the failure reproduced with frames disabled
+// and named its true cause. Suspicion is not evidence; a test that can tell the
+// two apart is.
 let _frameDepth = 0;
 function _enterFrame(){ _frameDepth++; return _fbrk; }
 function _leaveFrame(mark){ if(--_frameDepth === 0) _fbrk = mark; }
