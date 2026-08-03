@@ -4,14 +4,68 @@
 // compiled to JS through lengjs like any other module; the runtime provides only
 // `mmap`/`munmap` as the page primitives it sits on (Araq's boundary), so `alloc`/
 // `dealloc`/`realloc` and their free-list reuse all run as real Nim code.
-const _ab = new ArrayBuffer(1 << 26);           // 64 MiB linear memory
+const _ab = new ArrayBuffer(1 << 29);           // 512 MiB linear memory
 const _dv = new DataView(_ab);
 const _u8 = new Uint8Array(_ab);
-let _brk = 8;                                   // offset 0 reserved as nil
 
-// `allocFixed(n)` is the codegen's own storage for value aggregates (a C-stack
-// model: never freed), distinct from the Nim heap that sits on `mmap` below.
-function allocFixed(n){ const p=(_brk+7)&~7; _brk=p+n; _u8.fill(0,p,p+n); return p; }
+// ── TWO ARENAS, NOT ONE BUMP POINTER ────────────────────────────────────────
+//
+// `allocFixed` is the codegen's storage for value aggregates and `mmap` hands
+// pages to the Nim allocator. They used to share `_brk`, and that is what made
+// this leak unfixable rather than merely present.
+//
+// The leak: `allocFixed` is described as "a C-stack model", but a C stack is
+// RECLAIMED on return and this was not — every call to a Nim proc holding a
+// value aggregate bumped the pointer forever. In an interactive page that is
+// per EVENT, so linear memory ran out after a fixed number of interactions and
+// the tab died with
+//
+//   RangeError: Offset is outside the bounds of the DataView
+//
+// which is a pointer past the end of memory with no bounds check in front of
+// it. Measured on one such page: 30 MiB at boot, +15 MiB per interaction.
+//
+// The obvious fix — save the pointer at a call boundary and restore it after —
+// was tried and crashed on a dangling reference. The reason was the SHARED
+// pointer: restoring it also un-mapped heap pages the Nim allocator still
+// owned, so the failure looked like "value aggregates escape their frame" when
+// it was really "this rolls back the heap". Splitting the two makes a frame
+// reset mean only what it says, and `_leaveFrame` below is then safe.
+// The arena only has to hold what is allocated OUTSIDE a frame — module init,
+// and whatever the main line does before it hands control to the event loop.
+// Framed work returns its storage, so an interactive page reaches a steady
+// state instead of growing; this bound therefore constrains straight-line code,
+// which is why it is generous. A harness that reconciles ten thousand times
+// from `main` with no callback in sight is the case that sets it.
+const _FIXED_CAP = 1 << 27;                     // 128 MiB of value-aggregate arena
+let _fbrk = 8;                                  // offset 0 reserved as nil
+let _mbrk = _FIXED_CAP;                         // the Nim heap starts above it
+
+function allocFixed(n){
+  const p=(_fbrk+7)&~7; _fbrk=p+n;
+  // A NAMED failure. Running off the end used to surface as a DataView range
+  // error from whichever store happened to be first past the boundary, which
+  // named neither the arena nor the cause.
+  if(_fbrk>_FIXED_CAP) throw new RangeError(
+    "lengjs: allocFixed arena exhausted ("+_FIXED_CAP+" bytes). A value "+
+    "aggregate is being allocated outside any frame, or a frame is never left.");
+  _u8.fill(0,p,p+n); return p;
+}
+
+// ── FRAMES ──────────────────────────────────────────────────────────────────
+//
+// The one place the codegen's stack model can be made true is the JS -> Nim
+// callback boundary: the runtime ALREADY declares that lifetime, three lines
+// down, where it releases the argument handle because "an event object is only
+// valid for the duration of dispatch". Everything allocFixed'd during that
+// dispatch has the same lifetime, so the arena pointer is saved on the way in
+// and restored on the way out.
+//
+// Only at depth 0: a dispatch that occurs inside another dispatch must not
+// reclaim storage its caller is still using.
+let _frameDepth = 0;
+function _enterFrame(){ _frameDepth++; return _fbrk; }
+function _leaveFrame(mark){ if(--_frameDepth === 0) _fbrk = mark; }
 
 // Page primitives for `system/osalloc.nim`: `mmap` hands the Nim allocator a
 // page-aligned, zero-filled region carved from the same buffer (MAP_FAILED = -1
@@ -21,9 +75,9 @@ function allocFixed(n){ const p=(_brk+7)&~7; _brk=p+n; _u8.fill(0,p,p+n); return
 const _PAGE = 4096;
 function mmap(adr, len, prot, flags, fildes, off){
   len = Number(len);
-  const p = (_brk + _PAGE - 1) & ~(_PAGE - 1);  // page-align
+  const p = (_mbrk + _PAGE - 1) & ~(_PAGE - 1);  // page-align
   if (p + len > _u8.length) return -1;          // MAP_FAILED
-  _brk = p + len;
+  _mbrk = p + len;
   _u8.fill(0, p, p + len);                      // MAP_ANONYMOUS: zero-filled
   return p;
 }
@@ -173,13 +227,24 @@ function _jsApply(oH, nameH, argsH){ const o = _jsv[oH]; return _jsNew(o[_jsv[na
 // Nim `proc(ev: JsValue)` expects). The Nim callback borrows the argument, so we
 // release the handle after it returns; an event object is only valid for the
 // duration of dispatch, matching the DOM contract.
-function _fnToJs0(idx){ return _jsNew(() => { _fns[idx](); }); }
+// Each of these is a FRAME (see `_enterFrame` above). The handle release below
+// already says the argument's lifetime is the dispatch; the frame says the same
+// thing about the linear memory the dispatch used, which is the only reason an
+// interactive page does not grow without bound. `finally`, so a throw inside a
+// Nim callback -- which is a normal thing for an event handler to do -- does not
+// leak the frame and slowly reintroduce the problem.
+function _fnToJs0(idx){ return _jsNew(() => {
+  const m = _enterFrame();
+  try { _fns[idx](); } finally { _leaveFrame(m); }
+}); }
 function _fnToJs1(idx){
   return _jsNew((a) => {
+    const m = _enterFrame();
     const h = _jsNew(a);
-    const p = allocFixed(4); mem.setI32(p, h);   // a JsValue {h} object for the ABI
-    _fns[idx](p);
-    _jsRelease(h);
+    try {
+      const p = allocFixed(4); mem.setI32(p, h); // a JsValue {h} object for the ABI
+      _fns[idx](p);
+    } finally { _jsRelease(h); _leaveFrame(m); }
   });
 }
 // A Nim proc BOUND to a context value, called as a zero-argument JS function.
@@ -194,9 +259,11 @@ function _fnToJs1(idx){
 function _fnToJsCtx(idx, ctxH){
   const ctx = _jsv[ctxH];
   return _jsNew(() => {
+    const m = _enterFrame();
     const h = _jsNew(ctx);
-    const p = allocFixed(4); mem.setI32(p, h);
-    _fns[idx](p);
-    _jsRelease(h);
+    try {
+      const p = allocFixed(4); mem.setI32(p, h);
+      _fns[idx](p);
+    } finally { _jsRelease(h); _leaveFrame(m); }
   });
 }
