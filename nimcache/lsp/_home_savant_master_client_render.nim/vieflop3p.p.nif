@@ -1,0 +1,159 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../master/client/viewtree.nim
+ (comment)
+ (type@9,D VKind~7 x . .
+  (enum@2 .
+   (efld~7,1 vElem . . . .)
+   (efld~7,2 vText . . . .)
+   (efld~7,3 vList . . . .)
+   (efld~7,4 vWhen . . . .)
+   (efld~7,5 vWidget . . . .)))
+ (type@8,K Prop~6 x . .
+  (object@2 .
+   (fld~2,1 name~4 x . string@3 .)
+   (fld~1,2 value~5 x . string@3 .)))
+ (type@9,O VNode~7 x . .
+  (object@2 .
+   (fld~3,1 kind~4 x . VKind@3 .)
+   (fld~4,2 key~3 x . string@3 .)
+   (fld~2,3 props~5 x .
+    (at@6 seq~3 Prop@1).)
+   (fld~1,4 events~6 x .
+    (at@6 seq~3 Prop@1).)
+   (fld~3,5 kids~4 x .
+    (at@6 seq~3 VNode@1).)))
+ (proc@,V prop@5 x . .
+  (params@A
+   (param@1 n . . VNode@3 .)
+   (param@B name . . string@6 .))string@Q . .
+  (stmts@2,1
+   (for@4
+    (dot@6 n~1 props@1)
+    (unpackflat
+     (let p . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@7 ==
+        (dot~6 p~1 name@1)name@3)
+       (stmts@G
+        (ret
+         (dot@8 p~1 value@1)))))))""@,2))
+ (proc@,a hasProp@5 x . .
+  (params@D
+   (param@1 n . . VNode@3 .)
+   (param@B name . . string@6 .))bool@Q . .
+  (stmts@2,1
+   (for@4
+    (dot@6 n~1 props@1)
+    (unpackflat
+     (let p . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@7 ==
+        (dot~6 p~1 name@1)name@3)
+       (stmts@G
+        (ret true@7))))))false@,2))
+ (proc@,f elem@5 x . .
+  (params@A
+   (param@1 tag . . string@5 .)
+   (param@E kids . .
+    (at@9 seq~3 VNode@1)
+    (prefix@J \40
+     (bracket@1))))VNode@d . .
+  (stmts@2,1
+   (oconstr@5 VNode~5
+    (kv@5 kind~4 vElem@2)
+    (kv@H key~3 ""@2)
+    (kv@S props~5
+     (prefix@2 \40
+      (bracket@1
+       (oconstr@5 Prop~4
+        (kv@5 name~4 "tag"@2)
+        (kv@J value~5 tag@2)))))
+    (kv@7,1 events~6
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@I,1 kids~4 kids@2))))
+ (proc@,j text@5 x . .
+  (params@A
+   (param@1 s . . string@3 .))VNode@D . .
+  (stmts@2,1
+   (oconstr@5 VNode~5
+    (kv@5 kind~4 vText@2)
+    (kv@H key~3 ""@2)
+    (kv@S props~5
+     (prefix@2 \40
+      (bracket@1
+       (oconstr@5 Prop~4
+        (kv@5 name~4 "value"@2)
+        (kv@L value~5 s@2)))))
+    (kv@7,1 events~6
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@I,1 kids~4
+     (prefix@2 \40
+      (bracket@1))))))
+ (proc@,n withKey@5 x . .
+  (params@D
+   (param@1 n . . VNode@3 .)
+   (param@B k . . string@3 .))VNode@N . .
+  (stmts@2,1
+   (oconstr@5 VNode~5
+    (kv@5 kind~4
+     (dot@3 n~1 kind@1))
+    (kv@I key~3 k@2)
+    (kv@S props~5
+     (dot@3 n~1 props@1))
+    (kv@j events~6
+     (dot@3 n~1 events@1))
+    (kv@z kids~4
+     (dot@3 n~1 kids@1)))))
+ (proc@,q withProp@5 x . .
+  (params@E
+   (param@1 n . . VNode@3 .)
+   (param@B name . . string@D .)
+   (param@H value . . string@7 .))VNode@X . .
+  (stmts@2,1
+   (var@4 ps . . .
+    (dot@6 n~1 props@1))
+   (cmd@2,1
+    (dot ps~2 add@1)
+    (oconstr@9 Prop~4
+     (kv@5 name~4 name@2)
+     (kv@I value~5 value@2)))
+   (oconstr@5,2 VNode~5
+    (kv@5 kind~4
+     (dot@3 n~1 kind@1))
+    (kv@I key~3
+     (dot@3 n~1 key@1))
+    (kv@W props~5 ps@2)
+    (kv@i events~6
+     (dot@3 n~1 events@1))
+    (kv@y kids~4
+     (dot@3 n~1 kids@1)))))
+ (comment@,v)
+ (proc@,1B identityAt@5 x . .
+  (params@G
+   (param@1 n . . VNode@3 .)
+   (param@B index . . int@7 .))string@O . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A >
+      (dot~5
+       (dot~4 n~1 key@1)len@1)0@2)
+     (stmts@F
+      (ret
+       (infix@C & "k\3A"~5
+        (dot@3 n~1 key@1))))))
+   (infix@K,1 &
+    (infix~6 &
+     (infix~9 & "p\3A"~5
+      (prefix@2 $ index@1))"\3A"@2)
+    (prefix@2 $
+     (call@4 ord~3
+      (dot@2 n~1 kind@1)))))))

@@ -1,0 +1,505 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../master/client/render.nim
+ (comment)
+ (import@,O
+  (infix@A / std~3 syncio@1))
+ (import@,P jsffi@7)
+ (import@,Q web_state@7)
+ (import@,R viewtree@7)
+ (type@B,U Mounted~9 x . .
+  (object@2 .
+   (fld~7,3 id~2 x . string@3 .)
+   (fld~5,4 node~4 x . VNode@3 .)
+   (fld~6,5 dom~3 x . DomRef@3 .)
+   (fld~5,6 kids~4 x .
+    (at@6 seq~3 Mounted@1).)))
+ (type@9,c Stats~7 x . .
+  (object@2 .
+   (fld@,3 created~7 x . int@3 .)
+   (fld@2,4 destroyed~9 x . int@3 .)
+   (fld~2,5 moved~5 x . int@3 .)
+   (fld@,6 patched~7 x . int@3 .)))
+ (var@9,k stats~5 x . Stats@3 .)
+ (proc@,m resetStats@5 x . .
+  (params@G). . .
+  (stmts@2,1
+   (asgn@6 stats~6
+    (oconstr@7 Stats~5
+     (kv@8 created~7 0@2)
+     (kv@M destroyed~9 0@2)
+     (kv@W moved~5 0@2)
+     (kv@i patched~7 0@2)))))
+ (proc@,p isTruthy@5 . . .
+  (params@D
+   (param@1 s . . string@3 .))bool@D . .
+  (stmts@2,1
+   (infix@R and
+    (infix~H and
+     (infix~4 >
+      (dot~5 s~1 len@1)0@2)
+     (infix@6 != s~2 "false"@3))
+    (infix@6 != s~2 "0"@3))))
+ (proc@,s find@5 . . .
+  (params@9
+   (param@1 ms . .
+    (at@7 seq~3 Mounted@1).)
+   (param@J id . . string@4 .)
+   (param@V used . .
+    (at@9 seq~3 bool@1).)
+   (param@m outIx . .
+    (mut@7 int@4).))bool@13 . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@4 ms~2 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C and
+        (prefix~C not
+         (at@8 used~4 i@1))
+        (infix@D ==
+         (dot~4
+          (at~3 ms~2 i@1)id@1)id@3))
+       (stmts~1,1
+        (asgn@6 outIx~6 i@2)
+        (ret@,1 true@7))))
+     (cmd@,3 inc i@4)))false@,6))
+ (proc@,11 create@5 . . .
+  (params@B
+   (param@1 n . . VNode@3 .))Mounted@C . . .)
+ (proc@,13 childrenOf@5 . . .
+  (params@F
+   (param@1 n . . VNode@3 .))
+  (at@F seq~3 VNode@1). .
+  (stmts@2,1
+   (comment)
+   (asgn@7,4 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (case@,5
+    (dot@6 n~1 kind@1)
+    (of@,1
+     (ranges vWhen@3)
+     (stmts@2,1
+      (if
+       (elif@3
+        (call@8 isTruthy~8
+         (call@7
+          (dot~5 n~1 prop@1)"cond"@1))
+        (stmts~1,1
+         (for@4
+          (dot@6 n~1 kids@1)
+          (unpackflat
+           (let k . . ..))
+          (stmts@D
+           (cmd@6
+            (dot result~6 add@1)k@5))))))))
+    (of@,4
+     (ranges vList@3)
+     (stmts@2,1
+      (for@4
+       (dot@6 n~1 kids@1)
+       (unpackflat
+        (let k . . ..))
+       (stmts@D
+        (cmd@6
+         (dot result~6 add@1)k@5)))))
+    (else@,6
+     (stmts@2,1
+      (cmd@6
+       (dot result~6 add@1)n@5))))))
+ (proc@,1I flatten@5 x . .
+  (params@D
+   (param@1 kids . .
+    (at@9 seq~3 VNode@1).))
+  (at@N seq~3 VNode@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (for@4,1 kids@5
+    (unpackflat
+     (let k . . ..))
+    (stmts~2,1
+     (for@4
+      (call@F childrenOf~A k@1)
+      (unpackflat
+       (let f . . ..))
+      (stmts~2,1
+       (cmd@6
+        (dot result~6 add@1)f@5)))))))
+ (proc@,1O reconcile@5 x . .
+  (params@F
+   (param@1 parent . . DomRef@8 .)
+   (param@H prev . .
+    (at@9 seq~3 Mounted@1).)
+   (param@b next . .
+    (at@9 seq~3 VNode@1).))
+  (at@x seq~3 Mounted@1). . .)
+ (proc@,1Q patch@5 . . .
+  (params@A
+   (param@1 m . . Mounted@3 .)
+   (param@D n . . VNode@3 .))Mounted@O . .
+  (stmts@2,1
+   (comment)
+   (case@,1
+    (dot@6 n~1 kind@1)
+    (of@,1
+     (ranges vText@3)
+     (stmts@2,1
+      (let@4 nv . . .
+       (call@B
+        (dot~5 n~1 prop@1)"value"@1))
+      (if@,1
+       (elif@3
+        (infix@L !=
+         (call~A
+          (dot~5
+           (dot~5 m~1 node@1)prop@1)"value"@1)nv@3)
+        (stmts~1,1
+         (call@8 setTextR~8
+          (dot@2 m~1 dom@1)nv@8)
+         (cmd@,1 inc
+          (dot@9 stats~5 patched@1)))))
+      (ret@,4
+       (oconstr@E Mounted~7
+        (kv@3 id~2
+         (dot@3 m~1 id@1))
+        (kv@F node~4 n@2)
+        (kv@N dom~3
+         (dot@3 m~1 dom@1))
+        (kv@a kids~4
+         (prefix@2 \40
+          (bracket@1)))))))
+    (of@,7
+     (ranges vWidget@3)
+     (stmts@2,8
+      (for@4
+       (dot@6 n~1 props@1)
+       (unpackflat
+        (let p . . ..))
+       (stmts~2,1
+        (if
+         (elif@3
+          (infix@b and
+           (infix~L and
+            (infix~9 !=
+             (dot~6 p~1 name@1)"tag"@3)
+            (infix@B !=
+             (dot~6 p~1 name@1)"name"@3))
+           (infix@O !=
+            (call~9
+             (dot~5
+              (dot~5 m~1 node@1)prop@1)
+             (dot@2 p~1 name@1))
+            (dot@4 p~1 value@1)))
+          (stmts~1,1
+           (call@8 setAttrR~8
+            (dot@2 m~1 dom@1)
+            (dot@9 p~1 name@1)
+            (dot@H p~1 value@1))
+           (cmd@,1 inc
+            (dot@9 stats~5 patched@1)))))))
+      (ret@,4
+       (oconstr@E Mounted~7
+        (kv@3 id~2
+         (dot@3 m~1 id@1))
+        (kv@F node~4 n@2)
+        (kv@N dom~3
+         (dot@3 m~1 dom@1))
+        (kv@a kids~4
+         (dot@3 m~1 kids@1))))))
+    (else@,K
+     (stmts@2,1
+      (for@4
+       (dot@6 n~1 props@1)
+       (unpackflat
+        (let p . . ..))
+       (stmts~2,1
+        (if
+         (elif@3
+          (infix@G and
+           (infix~9 !=
+            (dot~6 p~1 name@1)"tag"@3)
+           (infix@O !=
+            (call~9
+             (dot~5
+              (dot~5 m~1 node@1)prop@1)
+             (dot@2 p~1 name@1))
+            (dot@4 p~1 value@1)))
+          (stmts~1,1
+           (call@8 setAttrR~8
+            (dot@2 m~1 dom@1)
+            (dot@9 p~1 name@1)
+            (dot@H p~1 value@1))
+           (cmd@,1 inc
+            (dot@9 stats~5 patched@1)))))))
+      (let@4,4 kids . . .
+       (call@G reconcile~9
+        (dot@2 m~1 dom@1)
+        (dot@9 m~1 kids@1)
+        (call@N flatten~7
+         (dot@2 n~1 kids@1))))
+      (ret@,5
+       (oconstr@E Mounted~7
+        (kv@3 id~2
+         (dot@3 m~1 id@1))
+        (kv@F node~4 n@2)
+        (kv@N dom~3
+         (dot@3 m~1 dom@1))
+        (kv@a kids~4 kids@2))))))))
+ (proc@,1u create@5 . . .
+  (params@B
+   (param@1 n . . VNode@3 .))Mounted@C . .
+  (stmts@2,1
+   (cmd inc
+    (dot@9 stats~5 created@1))
+   (case@,1
+    (dot@6 n~1 kind@1)
+    (of@,1
+     (ranges vText@3)
+     (stmts@2,1
+      (ret
+       (oconstr@E Mounted~7
+        (kv@3 id~2 ""@2)
+        (kv@D node~4 n@2)
+        (kv@L dom~3
+         (call@A newTextR~8
+          (call@7
+           (dot~5 n~1 prop@1)"value"@1)))
+        (kv@s kids~4
+         (prefix@2 \40
+          (bracket@1)))))))
+    (of@,3
+     (ranges vWidget@3)
+     (stmts@2,4
+      (let@4 el . . .
+       (call@B newElR~6 "div"@1))
+      (call@8,1 setAttrR~8 el@1 "data-widget"@5
+       (call@Q
+        (dot~5 n~1 prop@1)"name"@1))
+      (for@4,2
+       (dot@6 n~1 props@1)
+       (unpackflat
+        (let p . . ..))
+       (stmts~2,1
+        (if
+         (elif@3
+          (infix@G and
+           (infix~9 !=
+            (dot~6 p~1 name@1)"tag"@3)
+           (infix@B !=
+            (dot~6 p~1 name@1)"name"@3))
+          (stmts@c
+           (call@8 setAttrR~8 el@1
+            (dot@6 p~1 name@1)
+            (dot@E p~1 value@1)))))))
+      (ret@,4
+       (oconstr@E Mounted~7
+        (kv@3 id~2 ""@2)
+        (kv@D node~4 n@2)
+        (kv@L dom~3 el@2)
+        (kv@V kids~4
+         (prefix@2 \40
+          (bracket@1)))))))
+    (else@,C
+     (stmts@2,1
+      (let@4 el . . .
+       (call@B newElR~6
+        (call@7
+         (dot~5 n~1 prop@1)"tag"@1)))
+      (for@4,1
+       (dot@6 n~1 props@1)
+       (unpackflat
+        (let p . . ..))
+       (stmts~2,1
+        (if
+         (elif@3
+          (infix@7 !=
+           (dot~6 p~1 name@1)"tag"@3)
+          (stmts@H
+           (call@8 setAttrR~8 el@1
+            (dot@6 p~1 name@1)
+            (dot@E p~1 value@1)))))))
+      (var@4,3 kids . .
+       (at@9 seq~3 Mounted@1)
+       (prefix@L \40
+        (bracket@1)))
+      (let@4,4 flat . . .
+       (call@E flatten~7
+        (dot@2 n~1 kids@1)))
+      (var@4,5 ci . . . 0@5)
+      (while@,6
+       (infix@9 < ci~3
+        (dot@6 flat~4 len@1))
+       (stmts@2,4
+        (var@4 cm . . .
+         (call@B create~6
+          (at@5 flat~4 ci@1)))
+        (asgn@6,1
+         (dot~4 cm~2 id@1)
+         (call@C identityAt~A
+          (at@5 flat~4 ci@1)ci@B))
+        (call@7,2 appendR~7 el@1
+         (dot@7 cm~2 dom@1))
+        (cmd@4,3
+         (dot kids~4 add@1)cm@5)
+        (cmd@,4 inc ci@4)))
+      (ret@,F
+       (oconstr@E Mounted~7
+        (kv@3 id~2 ""@2)
+        (kv@D node~4 n@2)
+        (kv@L dom~3 el@2)
+        (kv@V kids~4 kids@2))))))))
+ (proc@,2Q reconcile@5 x . .
+  (params@F
+   (param@1 parent . . DomRef@8 .)
+   (param@H prev . .
+    (at@9 seq~3 Mounted@1).)
+   (param@b next . .
+    (at@9 seq~3 VNode@1).))
+  (at@x seq~3 Mounted@1). .
+  (stmts@2,1
+   (comment)
+   (var@4,1 used . .
+    (at@9 seq~3 bool@1)
+    (prefix@I \40
+     (bracket@1)))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 prev~4 len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot used~4 add@1)false@5)
+     (cmd@,1 inc i@4)))
+   (var@4,B a . . . 0@4)
+   (while@,C
+    (infix@8 < a~2
+     (dot@6 next~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G >
+        (dot~5
+         (dot~4
+          (at~3 next~4 a@1)key@1)len@1)0@2)
+       (stmts~1,1
+        (var@4 b . . .
+         (infix@6 \2B a~2 1@2))
+        (while@,1
+         (infix@8 < b~2
+          (dot@6 next~4 len@1))
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@C ==
+             (dot~5
+              (at~3 next~4 b@1)key@1)
+             (dot@A
+              (at~3 next~4 a@1)key@1))
+            (stmts~1,1
+             (cmd echo "RENDER ERROR\3A duplicate key \27"@5
+              (dot@j
+               (at~3 next~4 a@1)key@1)"\27 among siblings; keys must be unique"@5,1)
+             (cmd@,2 quit 1@5))))
+          (cmd@,4 inc b@4))))))
+     (cmd@,8 inc a@4)))
+   (asgn@7,N result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,O acc . .
+    (at@8 seq~3 Mounted@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,P k . . . 0@4)
+   (while@,Q
+    (infix@8 < k~2
+     (dot@6 next~4 len@1))
+    (stmts@2,1
+     (let@4 want . . .
+      (at@B next~4 k@1))
+     (let@4,1 id . . .
+      (call@F identityAt~A want@1 k@7))
+     (var@4,2 ix . . . 0@5)
+     (if@,3
+      (elif@3
+       (call@4 find~4 prev@1 id@7 used@B ix@H)
+       (stmts~1,1
+        (asgn@9
+         (at~5 used~4 ix@1)true@2)
+        (var@4,1 m . . .
+         (call@9 patch~5
+          (at@5 prev~4 ix@1)want@B))
+        (asgn@5,2
+         (dot~4 m~1 id@1)id@2)
+        (cmd@3,3
+         (dot acc~3 add@1)m@5)))
+      (else@,5
+       (stmts@2,1
+        (var@4 m . . .
+         (call@A create~6 want@1))
+        (asgn@5,1
+         (dot~4 m~1 id@1)id@2)
+        (cmd@3,2
+         (dot acc~3 add@1)m@5))))
+     (cmd@,C inc k@4)))
+   (var@4,g pos . . . 0@6)
+   (while@,h
+    (infix@A < pos~4
+     (dot@5 acc~3 len@1))
+    (stmts@2,6
+     (let@4 cur . . .
+      (call@E childAtR~8 parent@1 pos@9))
+     (if@,1
+      (elif@3
+       (infix@A or
+        (dot~7 cur~3 isNil@1)
+        (infix@C !=
+         (call~6 rid~3 cur@1)
+         (call@6 rid~3
+          (dot@9
+           (at~5 acc~3 pos@1)dom@1))))
+       (stmts~1,1
+        (call@D insertBeforeR~D parent@1
+         (dot@H
+          (at~5 acc~3 pos@1)dom@1)cur@N)
+        (cmd@,1 inc
+         (dot@9 stats~5 moved@1)))))
+     (call@8,4 releaseR~8 cur@1)
+     (cmd@,5 inc pos@4)))
+   (var@4,v d . . . 0@4)
+   (while@,w
+    (infix@8 < d~2
+     (dot@6 prev~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (prefix not
+        (at@8 used~4 d@1))
+       (stmts~1,1
+        (call@C removeChildR~C parent@1
+         (dot@G
+          (at~3 prev~4 d@1)dom@1))
+        (call@8,B releaseR~8
+         (dot@8
+          (at~3 prev~4 d@1)dom@1))
+        (cmd@,C inc
+         (dot@9 stats~5 destroyed@1)))))
+     (cmd@,E inc d@4)))acc@,1D))
+ (proc@,3g mount@5 x . .
+  (params@B
+   (param@1 parent . . DomRef@8 .)
+   (param@H tree . . VNode@6 .))
+  (at@Y seq~3 Mounted@1). .
+  (stmts@2,1
+   (call@9 reconcile~9 parent@1
+    (prefix@9 \40
+     (bracket@1))
+    (call@L flatten~7
+     (prefix@1 \40
+      (bracket@1 tree@1)))))))

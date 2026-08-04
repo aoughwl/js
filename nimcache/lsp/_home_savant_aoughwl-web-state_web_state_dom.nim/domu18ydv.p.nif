@@ -1,0 +1,465 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../aoughwl-web-state/web_state/dom.nim
+ (comment)
+ (import@,F jsffi@7)
+ (import@,G reactive@7)
+ (proc@,J rawCreateEl@5 . . .
+  (params@G
+   (param@1 tagH . . int32@6 .))int32@F
+  (pragmas@b
+   (kv@9 importc~7 "_domCreateEl"@2)). .)
+ (proc@,K rawCreateText@5 . . .
+  (params@I
+   (param@1 sH . . int32@4 .))int32@D
+  (pragmas@b
+   (kv@9 importc~7 "_domCreateText"@2)). .)
+ (proc@,L rawAppend@5 . . .
+  (params@E
+   (param@1 pH . . int32@8 .)
+   (param@5 cH . . int32@4 .)).
+  (pragmas@U
+   (kv@9 importc~7 "_domAppend"@2)). .)
+ (proc@,M rawSetAttr@5 . . .
+  (params@F
+   (param@1 nH . . int32@C .)
+   (param@5 kH . . int32@8 .)
+   (param@9 vH . . int32@4 .)).
+  (pragmas@Z
+   (kv@9 importc~7 "_domSetAttr"@2)). .)
+ (proc@,N rawSetText@5 . . .
+  (params@F
+   (param@1 nH . . int32@8 .)
+   (param@5 sH . . int32@4 .)).
+  (pragmas@V
+   (kv@9 importc~7 "_domSetText"@2)). .)
+ (proc@,O rawQuery@5 . . .
+  (params@D
+   (param@1 selH . . int32@6 .))int32@F
+  (pragmas@Y
+   (kv@9 importc~7 "_domQuery"@2)). .)
+ (proc@,P rawClear@5 . . .
+  (params@D
+   (param@1 nH . . int32@4 .)).
+  (pragmas@P
+   (kv@9 importc~7 "_domClear"@2)). .)
+ (proc@,Q rawSerialize@5 . . .
+  (params@H
+   (param@1 nH . . int32@4 .))int32@D
+  (pragmas@a
+   (kv@9 importc~7 "_domSerialize"@2)). .)
+ (type@B,T DomNode~9 x . .
+  (object@2 .
+   (fld~9,2 node . . JsValue@6 .)))
+ (proc@,X isNil@5 x . .
+  (params@B
+   (param@1 n . . DomNode@3 .))bool@E . .
+  (stmts@W
+   (infix@L ==
+    (call~9 unsafeHandle~C
+     (dot@2 n~1 node@1))
+    (suf@3 0 "i32"))))
+ (proc@,a createEl@5 x . .
+  (params@E
+   (param@1 tag . . string@5 .))DomNode@F . .
+  (stmts@2,1
+   (oconstr@7 DomNode~7
+    (kv@5 node~4
+     (call@I unsafeFromHandle~G
+      (call@C rawCreateEl~B
+       (call@D unsafeHandle~C
+        (call@5 toJs~4 tag@1))))))))
+ (proc@,d createText@5 x . .
+  (params@G
+   (param@1 s . . string@3 .))DomNode@D . .
+  (stmts@2,1
+   (oconstr@7 DomNode~7
+    (kv@5 node~4
+     (call@I unsafeFromHandle~G
+      (call@E rawCreateText~D
+       (call@D unsafeHandle~C
+        (call@5 toJs~4 s@1))))))))
+ (proc@,g append@5 x . .
+  (params@C
+   (param@1 parent . . DomNode@8 .)
+   (param@I child . . DomNode@7 .)). . .
+  (stmts@2,1
+   (call@9 rawAppend~9
+    (call@D unsafeHandle~C
+     (dot@7 parent~6 node@1))
+    (call@e unsafeHandle~C
+     (dot@6 child~5 node@1)))))
+ (proc@,j setAttr@5 x . .
+  (params@D
+   (param@1 n . . DomNode@3 .)
+   (param@D name . . string@D .)
+   (param@J value . . string@7 .)). . .
+  (stmts@2,1
+   (call@A rawSetAttr~A
+    (call@D unsafeHandle~C
+     (dot@2 n~1 node@1))
+    (call@Z unsafeHandle~C
+     (call@5 toJs~4 name@1))
+    (call@z unsafeHandle~C
+     (call@5 toJs~4 value@1)))))
+ (proc@,m setText@5 x . .
+  (params@D
+   (param@1 n . . DomNode@3 .)
+   (param@D s . . string@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@A,2 rawSetText~A
+    (call@D unsafeHandle~C
+     (dot@2 n~1 node@1))
+    (call@Z unsafeHandle~C
+     (call@5 toJs~4 s@1)))))
+ (proc@,r query@5 x . .
+  (params@B
+   (param@1 selector . . string@A .))DomNode@K . .
+  (stmts@2,1
+   (comment)
+   (oconstr@7,1 DomNode~7
+    (kv@5 node~4
+     (call@I unsafeFromHandle~G
+      (call@9 rawQuery~8
+       (call@D unsafeHandle~C
+        (call@5 toJs~4 selector@1))))))))
+ (proc@,v clear@5 x . .
+  (params@B
+   (param@1 n . . DomNode@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@8,1 rawClear~8
+    (call@D unsafeHandle~C
+     (dot@2 n~1 node@1)))))
+ (proc@,z serialize@5 x . .
+  (params@F
+   (param@1 n . . DomNode@3 .))string@E . .
+  (stmts@2,1
+   (comment)
+   (prefix@,2 $
+    (call@H unsafeFromHandle~G
+     (call@D rawSerialize~C
+      (call@D unsafeHandle~C
+       (dot@2 n~1 node@1)))))))
+ (proc@,14 asJs@5 x . .
+  (params@A
+   (param@1 n . . DomNode@3 .))JsValue@E . .
+  (stmts@Y
+   (dot@1 n~1 node@1)))
+ (proc@,17 asNode@5 x . .
+  (params@C
+   (param@1 v . . JsValue@3 .))DomNode@E . .
+  (stmts@a
+   (oconstr@7 DomNode~7
+    (kv@5 node~4 v@2))))
+ (proc@,1C bindText@5 x . .
+  (params@E
+   (param@1 target . . DomNode@8 .)
+   (param@I update . . JsProc1@8 .))Effect@a
+  (pragmas@v discardable@2).
+  (stmts@2,1
+   (comment)
+   (call@A,7 effectWith~A update@1
+    (dot@F target~6 node@1))))
+ (proc@,1M bindNode@5 x . .
+  (params@E
+   (param@1 target . . DomNode@8 .)
+   (param@I update . . JsProc1@8 .))Effect@a
+  (pragmas@v discardable@2).
+  (stmts@2,1
+   (comment)
+   (call@A,6 effectWith~A update@1
+    (dot@F target~6 node@1))))
+ (proc@,1a rawInsertBefore@5 . . .
+  (params@K
+   (param@1 pH . . int32@C .)
+   (param@5 cH . . int32@8 .)
+   (param@9 rH . . int32@4 .)).
+  (pragmas@e
+   (kv@9 importc~7 "_domInsertBefore"@2)). .)
+ (proc@,1b rawRemoveChild@5 . . .
+  (params@J
+   (param@1 pH . . int32@8 .)
+   (param@5 cH . . int32@4 .)).
+  (pragmas@Z
+   (kv@9 importc~7 "_domRemoveChild"@2)). .)
+ (proc@,1c rawChildCount@5 . . .
+  (params@I
+   (param@1 pH . . int32@4 .))int32@D
+  (pragmas@b
+   (kv@9 importc~7 "_domChildCount"@2)). .)
+ (proc@,1d rawChildAt@5 . . .
+  (params@F
+   (param@1 pH . . int32@4 .)
+   (param@C i . . int32@3 .))int32@N
+  (pragmas@i
+   (kv@9 importc~7 "_domChildAt"@2)). .)
+ (proc@,1e rawNid@5 . . .
+  (params@B
+   (param@1 nH . . int32@4 .))int32@D
+  (pragmas@U
+   (kv@9 importc~7 "_domNid"@2)). .)
+ (proc@,1f rawFocus@5 . . .
+  (params@D
+   (param@1 nH . . int32@4 .)).
+  (pragmas@P
+   (kv@9 importc~7 "_domFocus"@2)). .)
+ (proc@,1g rawActiveNid@5 . . .
+  (params@H)int32@4
+  (pragmas@R
+   (kv@9 importc~7 "_domActiveNid"@2)). .)
+ (proc@,1h rawSetCaret@5 . . .
+  (params@G
+   (param@1 nH . . int32@A .)
+   (param@5 a . . int32@6 .)
+   (param@8 b . . int32@3 .)).
+  (pragmas@Y
+   (kv@9 importc~7 "_domSetCaret"@2)). .)
+ (proc@,1i rawCaretStart@5 . . .
+  (params@I
+   (param@1 nH . . int32@4 .))int32@D
+  (pragmas@b
+   (kv@9 importc~7 "_domCaretStart"@2)). .)
+ (proc@,1k insertBefore@5 x . .
+  (params@I
+   (param@1 parent . . DomNode@O .)
+   (param@9 child . . DomNode@G .)
+   (param@G refNode . . DomNode@9 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@F,1 rawInsertBefore~F
+    (call@D unsafeHandle~C
+     (call@5 asJs~4 parent@1))
+    (call@f unsafeHandle~C
+     (call@5 asJs~4 child@1))
+    (if@1,1
+     (elif@3
+      (dot@7 refNode~7 isNil@1)
+      (stmts@F
+       (suf 0 "i32")))
+     (else@O
+      (stmts@6
+       (call@C unsafeHandle~C
+        (call@5 asJs~4 refNode@1))))))))
+ (proc@,1p removeChild@5 x . .
+  (params@H
+   (param@1 parent . . DomNode@F .)
+   (param@9 child . . DomNode@7 .)). . .
+  (stmts@2,1
+   (call@E rawRemoveChild~E
+    (call@D unsafeHandle~C
+     (call@5 asJs~4 parent@1))
+    (call@f unsafeHandle~C
+     (call@5 asJs~4 child@1)))))
+ (proc@,1s childCount@5 x . .
+  (params@G
+   (param@1 parent . . DomNode@8 .))int@J . .
+  (stmts@f
+   (call@3 int~3
+    (call@E rawChildCount~D
+     (call@D unsafeHandle~C
+      (call@5 asJs~4 parent@1))))))
+ (proc@,1u childAt@5 x . .
+  (params@D
+   (param@1 parent . . DomNode@8 .)
+   (param@I i . . int@3 .))DomNode@R . .
+  (stmts@2,1
+   (call@6 asNode~6
+    (call@H unsafeFromHandle~G
+     (call@B rawChildAt~A
+      (call@D unsafeHandle~C
+       (call@5 asJs~4 parent@1))
+      (call@Y int32~5 i@1))))))
+ (proc@,1x nid@5 x . .
+  (params@9
+   (param@1 n . . DomNode@3 .))int@E . .
+  (stmts@2,1
+   (comment)
+   (if@,1
+    (elif@3
+     (dot@1 n~1 isNil@1)
+     (stmts@9 0))
+    (else@E
+     (stmts@6
+      (call@3 int~3
+       (call@7 rawNid~6
+        (call@D unsafeHandle~C
+         (call@5 asJs~4 n@1)))))))))
+ (proc@,21 focus@5 x . .
+  (params@B
+   (param@1 n . . DomNode@3 .)). . .
+  (stmts@Q
+   (call@8 rawFocus~8
+    (call@D unsafeHandle~C
+     (call@5 asJs~4 n@1)))))
+ (proc@,22 activeNid@5 x . .
+  (params@F)int@4 . .
+  (stmts@P
+   (call@3 int~3
+    (call@D rawActiveNid~C))))
+ (proc@,23 setCaret@5 x . .
+  (params@E
+   (param@1 n . . DomNode@3 .)
+   (param@D a . . int@6 .)
+   (param@G b . . int@3 .)). . .
+  (stmts@2,1
+   (call@B rawSetCaret~B
+    (call@D unsafeHandle~C
+     (call@5 asJs~4 n@1))
+    (call@T int32~5 a@1)
+    (call@d int32~5 b@1))))
+ (proc@,25 caretStart@5 x . .
+  (params@G
+   (param@1 n . . DomNode@3 .))int@E . .
+  (stmts@a
+   (call@3 int~3
+    (call@E rawCaretStart~D
+     (call@D unsafeHandle~C
+      (call@5 asJs~4 n@1))))))
+ (type@D,2I DomRef~8 x . .
+  (distinct@2 int32@9))
+ (proc@,2K href@5 x . .
+  (params@A
+   (param@1 n . . DomNode@3 .))DomRef@E . .
+  (stmts@X
+   (call@6 DomRef~6
+    (call@D unsafeHandle~C
+     (dot@2 n~1 node@1)))))
+ (proc@,2N isNil@5 x . .
+  (params@B
+   (param@1 r . . DomRef@3 .))bool@D . .
+  (stmts@V
+   (infix@9 ==
+    (call~4 int32~5 r@1)
+    (suf@3 0 "i32"))))
+ (proc@,2O rid@5 x . .
+  (params@9
+   (param@1 r . . DomRef@3 .))int@D . .
+  (stmts@S
+   (call@3 int~3
+    (call@7 rawNid~6
+     (call@6 int32~5 r@1)))))
+ (proc@,2Q appendR@5 x . .
+  (params@D
+   (param@1 parent . . DomRef@F .)
+   (param@9 child . . DomRef@7 .)). . .
+  (stmts@d
+   (call@9 rawAppend~9
+    (call@6 int32~5 parent@1)
+    (call@L int32~5 child@1))))
+ (proc@,2R insertBeforeR@5 x . .
+  (params@J
+   (param@1 parent . . DomRef@O .)
+   (param@9 child . . DomRef@G .)
+   (param@G refNode . . DomRef@9 .)). . .
+  (stmts@2,1
+   (call@F rawInsertBefore~F
+    (call@6 int32~5 parent@1)
+    (call@L int32~5 child@1)
+    (call@Z int32~5 refNode@1))))
+ (proc@,2T rawRelease@5 . . .
+  (params@F
+   (param@1 h . . int32@3 .)).
+  (pragmas@Q
+   (kv@9 importc~7 "_domRelease"@2)). .)
+ (proc@,2V releaseR@5 x . .
+  (params@E
+   (param@1 r . . DomRef@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@A,C rawRelease~A
+    (call@6 int32~5 r@1))))
+ (proc@,2k removeChildR@5 x . .
+  (params@I
+   (param@1 parent . . DomRef@F .)
+   (param@9 child . . DomRef@7 .)). . .
+  (stmts@i
+   (call@E rawRemoveChild~E
+    (call@6 int32~5 parent@1)
+    (call@L int32~5 child@1))))
+ (proc@,2l childCountR@5 x . .
+  (params@H
+   (param@1 parent . . DomRef@8 .))int@I . .
+  (stmts@f
+   (call@3 int~3
+    (call@E rawChildCount~D
+     (call@6 int32~5 parent@1)))))
+ (proc@,2m childAtR@5 x . .
+  (params@E
+   (param@1 parent . . DomRef@8 .)
+   (param@H i . . int@3 .))DomRef@Q . .
+  (stmts@2,1
+   (call@6 DomRef~6
+    (call@B rawChildAt~A
+     (call@6 int32~5 parent@1)
+     (call@L int32~5 i@1)))))
+ (proc@,2o setAttrR@5 x . .
+  (params@E
+   (param@1 r . . DomRef@3 .)
+   (param@C name . . string@D .)
+   (param@I value . . string@7 .)). . .
+  (stmts@2,1
+   (call@A rawSetAttr~A
+    (call@6 int32~5 r@1)
+    (call@N unsafeHandle~C
+     (call@5 toJs~4 name@1))
+    (call@n unsafeHandle~C
+     (call@5 toJs~4 value@1)))))
+ (proc@,2q setTextR@5 x . .
+  (params@E
+   (param@1 r . . DomRef@3 .)
+   (param@C s . . string@3 .)). . .
+  (stmts@d
+   (call@A rawSetText~A
+    (call@6 int32~5 r@1)
+    (call@N unsafeHandle~C
+     (call@5 toJs~4 s@1)))))
+ (proc@,2r serializeR@5 x . .
+  (params@G
+   (param@1 r . . DomRef@3 .))string@D . .
+  (stmts@c
+   (call@5 toStr~5
+    (call@H unsafeFromHandle~G
+     (call@D rawSerialize~C
+      (call@6 int32~5 r@1))))))
+ (proc@,2s focusR@5 x . .
+  (params@C
+   (param@1 r . . DomRef@3 .)). . .
+  (stmts@Q
+   (call@8 rawFocus~8
+    (call@6 int32~5 r@1))))
+ (proc@,2t setCaretR@5 x . .
+  (params@F
+   (param@1 r . . DomRef@3 .)
+   (param@C a . . int@6 .)
+   (param@F b . . int@3 .)). . .
+  (stmts@e
+   (call@B rawSetCaret~B
+    (call@6 int32~5 r@1)
+    (call@G int32~5 a@1)
+    (call@Q int32~5 b@1))))
+ (proc@,2u caretStartR@5 x . .
+  (params@H
+   (param@1 r . . DomRef@3 .))int@D . .
+  (stmts@a
+   (call@3 int~3
+    (call@E rawCaretStart~D
+     (call@6 int32~5 r@1)))))
+ (proc@,32 newElR@5 x . .
+  (params@C
+   (param@1 tag . . string@5 .))DomRef@F . .
+  (stmts@a
+   (call@6 DomRef~6
+    (call@C rawCreateEl~B
+     (call@D unsafeHandle~C
+      (call@5 toJs~4 tag@1))))))
+ (proc@,33 newTextR@5 x . .
+  (params@E
+   (param@1 s . . string@3 .))DomRef@D . .
+  (stmts@a
+   (call@6 DomRef~6
+    (call@E rawCreateText~D
+     (call@D unsafeHandle~C
+      (call@5 toJs~4 s@1)))))))

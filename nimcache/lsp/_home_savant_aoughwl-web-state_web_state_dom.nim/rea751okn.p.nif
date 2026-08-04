@@ -1,0 +1,246 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../aoughwl-web-state/web_state/reactive.nim
+ (comment)
+ (import@,M jsffi@7)
+ (proc@,P rawSigNew@5 . . .
+  (params@E
+   (param@1 vH . . int32@4 .))int32@D
+  (pragmas@X
+   (kv@9 importc~7 "_sigNew"@2)). .)
+ (proc@,Q rawSigGet@5 . . .
+  (params@E
+   (param@1 sH . . int32@4 .))int32@D
+  (pragmas@X
+   (kv@9 importc~7 "_sigGet"@2)). .)
+ (proc@,R rawSigSet@5 . . .
+  (params@E
+   (param@1 sH . . int32@8 .)
+   (param@5 vH . . int32@4 .)).
+  (pragmas@U
+   (kv@9 importc~7 "_sigSet"@2)). .)
+ (proc@,S rawEffectNew@5 . . .
+  (params@H
+   (param@1 fnH . . int32@5 .))int32@E
+  (pragmas@b
+   (kv@9 importc~7 "_effectNew"@2)). .)
+ (proc@,T rawEffectDispose@5 . . .
+  (params@L
+   (param@1 oH . . int32@4 .)).
+  (pragmas@X
+   (kv@9 importc~7 "_effectDispose"@2)). .)
+ (proc@,U rawSigPeek@5 . . .
+  (params@F
+   (param@1 sH . . int32@4 .))int32@D
+  (pragmas@Y
+   (kv@9 importc~7 "_sigPeek"@2)). .)
+ (proc@,V rawComputedNew@5 . . .
+  (params@J
+   (param@1 fnH . . int32@5 .))int32@E
+  (pragmas@d
+   (kv@9 importc~7 "_computedNew"@2)). .)
+ (proc@,W rawComputedGet@5 . . .
+  (params@J
+   (param@1 oH . . int32@4 .))int32@D
+  (pragmas@c
+   (kv@9 importc~7 "_computedGet"@2)). .)
+ (proc@,X rawOnCleanup@5 . . .
+  (params@H
+   (param@1 fnH . . int32@5 .)).
+  (pragmas@U
+   (kv@9 importc~7 "_onCleanup"@2)). .)
+ (proc@,Y rawYieldValue@5 . . .
+  (params@I
+   (param@1 vH . . int32@4 .)).
+  (pragmas@U
+   (kv@9 importc~7 "_yieldValue"@2)). .)
+ (proc@,Z rawBatchBegin@5 . . .
+  (params@I).
+  (pragmas@L
+   (kv@9 importc~7 "_batchBegin"@2)). .)
+ (proc@,a rawBatchEnd@5 . . .
+  (params@G).
+  (pragmas@J
+   (kv@9 importc~7 "_batchEnd"@2)). .)
+ (proc@,b rawObsDepth@5 . . .
+  (params@G
+   (param@1 oH . . int32@4 .))int32@D
+  (pragmas@Z
+   (kv@9 importc~7 "_obsDepth"@2)). .)
+ (proc@,c rawObsChildCount@5 . . .
+  (params@L
+   (param@1 oH . . int32@4 .))int32@D
+  (pragmas@e
+   (kv@9 importc~7 "_obsChildCount"@2)). .)
+ (proc@,d rawObsDisposed@5 . . .
+  (params@J
+   (param@1 oH . . int32@4 .))int32@D
+  (pragmas@c
+   (kv@9 importc~7 "_obsDisposed"@2)). .)
+ (type@A,g Signal~8 x . .
+  (object@2 .
+   (fld~8,3 cell . . JsValue@6 .)))
+ (type@A,l Effect~8 x . .
+  (object@2 .
+   (fld~8,3 obs . . JsValue@5 .)))
+ (proc@,q signal@5 x . .
+  (params@C
+   (param@1 v . . JsValue@3 .))Signal@E . .
+  (stmts@2,1
+   (comment)
+   (oconstr@6,1 Signal~6
+    (kv@5 cell~4
+     (call@I unsafeFromHandle~G
+      (call@A rawSigNew~9
+       (call@D unsafeHandle~C v@1)))))))
+ (proc@,u get@5 x . .
+  (params@9
+   (param@1 s . . Signal@3 .))JsValue@D . .
+  (stmts@2,1
+   (comment)
+   (call@G,2 unsafeFromHandle~G
+    (call@A rawSigGet~9
+     (call@D unsafeHandle~C
+      (dot@2 s~1 cell@1))))))
+ (proc@,z set@5 x . .
+  (params@9
+   (param@1 s . . Signal@3 .)
+   (param@C v . . JsValue@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@9,2 rawSigSet~9
+    (call@D unsafeHandle~C
+     (dot@2 s~1 cell@1))
+    (call@Z unsafeHandle~C v@1))))
+ (proc@,14 effect@5 x . .
+  (params@C
+   (param@1 fn . . JsProc0@4 .))Effect@F
+  (pragmas@Y discardable@2).
+  (stmts@2,1
+   (comment)
+   (oconstr@6,2 Effect~6
+    (kv@4 obs~3
+     (call@I unsafeFromHandle~G
+      (call@D rawEffectNew~C
+       (call@D unsafeHandle~C
+        (call@5 toJs~4 fn@1))))))))
+ (proc@,19 effectWith@5 x . .
+  (params@G
+   (param@1 fn . . JsProc1@4 .)
+   (param@E ctx . . JsValue@5 .))Effect@T
+  (pragmas@q discardable@2).
+  (stmts@2,1
+   (comment)
+   (oconstr@6,8 Effect~6
+    (kv@4 obs~3
+     (call@I unsafeFromHandle~G
+      (call@D rawEffectNew~C
+       (call@D unsafeHandle~C
+        (call@9 toJsWith~8 fn@1 ctx@5))))))))
+ (proc@,1K dispose@5 x . .
+  (params@D
+   (param@1 e . . Effect@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@G,3 rawEffectDispose~G
+    (call@D unsafeHandle~C
+     (dot@2 e~1 obs@1)))))
+ (proc@,1Q peek@5 x . .
+  (params@A
+   (param@1 s . . Signal@3 .))JsValue@D . .
+  (stmts@2,1
+   (comment)
+   (call@G,3 unsafeFromHandle~G
+    (call@B rawSigPeek~A
+     (call@D unsafeHandle~C
+      (dot@2 s~1 cell@1))))))
+ (type@C,1X Computed~A x . .
+  (object@2 .
+   (fld~A,4 obs . . JsValue@5 .)))
+ (proc@,1d produce@5 x . .
+  (params@D
+   (param@1 v . . JsValue@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@D,7 rawYieldValue~D
+    (call@D unsafeHandle~C v@1))))
+ (proc@,1n computed@5 x . .
+  (params@E
+   (param@1 fn . . JsProc0@4 .))Computed@F . .
+  (stmts@2,1
+   (comment)
+   (oconstr@8,1 Computed~8
+    (kv@4 obs~3
+     (call@I unsafeFromHandle~G
+      (call@F rawComputedNew~E
+       (call@D unsafeHandle~C
+        (call@5 toJs~4 fn@1))))))))
+ (proc@,1r get@5 x . .
+  (params@9
+   (param@1 c . . Computed@3 .))JsValue@F . .
+  (stmts@2,1
+   (comment)
+   (call@G,2 unsafeFromHandle~G
+    (call@F rawComputedGet~E
+     (call@D unsafeHandle~C
+      (dot@2 c~1 obs@1))))))
+ (proc@,1w dispose@5 x . .
+  (params@D
+   (param@1 c . . Computed@3 .)). . .
+  (stmts@2,1
+   (call@G rawEffectDispose~G
+    (call@D unsafeHandle~C
+     (dot@2 c~1 obs@1)))))
+ (proc@,1z onCleanup@5 x . .
+  (params@F
+   (param@1 fn . . JsProc0@4 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@C,3 rawOnCleanup~C
+    (call@D unsafeHandle~C
+     (call@5 toJs~4 fn@1)))))
+ (template@,25 batch@9 x . .
+  (params@F
+   (param@1 body . . untyped@6 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@D,2 rawBatchBegin~D)
+   (try@,3
+    (stmts@2,1 body)
+    (fin@,2
+     (stmts@2,1
+      (call@B rawBatchEnd~B))))))
+ (proc@,2F depth@5 x . .
+  (params@B
+   (param@1 e . . Effect@3 .))int@D . .
+  (stmts@U
+   (call@3 int~3
+    (call@C rawObsDepth~B
+     (call@D unsafeHandle~C
+      (dot@2 e~1 obs@1))))))
+ (proc@,2G childCount@5 x . .
+  (params@G
+   (param@1 e . . Effect@3 .))int@D . .
+  (stmts@Z
+   (call@3 int~3
+    (call@H rawObsChildCount~G
+     (call@D unsafeHandle~C
+      (dot@2 e~1 obs@1))))))
+ (proc@,2H disposed@5 x . .
+  (params@E
+   (param@1 e . . Effect@3 .))bool@D . .
+  (stmts@Y
+   (infix@a !=
+    (call~M rawObsDisposed~E
+     (call@D unsafeHandle~C
+      (dot@2 e~1 obs@1)))
+    (suf@3 0 "i32"))))
+ (proc@,2I depth@5 x . .
+  (params@B
+   (param@1 c . . Computed@3 .))int@F . .
+  (stmts@W
+   (call@3 int~3
+    (call@C rawObsDepth~B
+     (call@D unsafeHandle~C
+      (dot@2 c~1 obs@1)))))))

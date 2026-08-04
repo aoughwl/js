@@ -1,0 +1,1 @@
+--base:/home/savant/aoughwl-web-state/web_state -d:nimony --bits:64 --cpu:amd64 --os:Linux /home/savant/aoughwl-web-state/web_state/dom.nim --passC: --passL:

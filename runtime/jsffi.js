@@ -54,7 +54,14 @@ globalThis.__lengMem = () => ({
   fixedUsed: _fbrk,          // value aggregates; reclaimed per callback frame
   heapUsed: _mbrk - _FIXED_CAP,  // pages handed to the Nim allocator
   frameDepth: _frameDepth,
-  handles: _jsv ? _jsv.length : 0,
+  // LIVE handles, and separately the table's high-water mark. Reporting only
+  // `_jsv.length` was misleading: the table never shrinks, so it shows the
+  // largest number of handles ever alive at once and climbs whenever a bigger
+  // peak happens -- which reads as a leak whether or not there is one. `live`
+  // is the number that answers the question, and a rising `live` across the
+  // same repeated action is a real leak.
+  live: _jsvLive(),
+  handleTable: _jsv.length - 1,
 });
 
 function allocFixed(n){
