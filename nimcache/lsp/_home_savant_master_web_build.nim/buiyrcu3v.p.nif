@@ -1,0 +1,117 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../master/web/build.nim
+ (comment)
+ (import@,O
+  (infix@A / std~3 syncio@1))
+ (import@,P kit@7)
+ (import@,Q web@7)
+ (proc@,S main@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (cmd useStylesheet
+    (call@M kitSheet~8))
+   (var@4,2 root . . .
+    (call@9 el~2 "div"@1))
+   (call@C,3
+    (dot~8 root~4 setAttr@1)"id"@1 "app"@7)
+   (var@4,C names . . . ""@8)
+   (let@4,D ts . . .
+    (call@F themeNames~A))
+   (var@4,E t . . . 0@4)
+   (while@,F
+    (infix@8 < t~2
+     (dot@4 ts~2 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > t~2 0@2)
+       (stmts@7
+        (cmd@5
+         (dot names~5 add@1)","@5))))
+     (cmd@5,1
+      (dot names~5 add@1)
+      (at@7 ts~2 t@1))
+     (cmd@,2 inc t@4)))
+   (call@C,J
+    (dot~8 root~4 setAttr@1)"data-themes"@1 names@G)
+   (let@4,X hostCss . . . "\23app\7Bheight\3A100%;min-height\3A0\7D\0A"@A)
+   (var@4,Z page . . .
+    (call@F document~8 "master"@1
+     (prefix@B \40
+      (bracket@1 root@1))
+     (vv@5,1 css~4
+      (infix@W &
+       (infix~G &
+        (call~3 renderTheme~B)
+        (call@D renderReset~B))hostCss@2))
+     (vv@B,2 useStyles~A true@2)))
+   (let@4,o loading . . .
+    (infix@t,3 &
+     (infix~P,~1 &
+      (infix@6,~1 & "<div class=\22loading\22 id=\22boot\22>"~c "<div class=\22spinner\22></div>"~c,1)"<div class=\22loading-label\22>deriving the chrome</div>"~W,1)"</div>\0A"~v,1))
+   (let@4,u scripts . . .
+    (infix@l,7 &
+     (infix@m,~6 &
+      (infix~1F,~1 & loading~8 "<script src=\22https\3A//cdn.jsdelivr.net/npm/monaco-editor\400.52.2/min/vs/loader.js\22></script>\0A"~K,1)"<script src=\22/widgets/memory.js\22></script>\0A"~1Z,6)"<script src=\22/master.js\22></script>\0A"~n,1))
+   (let@4,13 closing . . . "</body>"@A)
+   (var@4,14 cut . . . -1@6)
+   (var@4,15 i . . . 0@4)
+   (while@,16
+    (infix@M <=
+     (infix~E \2B i~2
+      (dot@9 closing~7 len@1))
+     (dot@7 page~4 len@1))
+    (stmts@2,1
+     (var@4 j . . . 0@4)
+     (var@4,1 same . . . true@7)
+     (while@,2
+      (infix@8 < j~2
+       (dot@9 closing~7 len@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@C !=
+          (at~8 page~4
+           (infix@3 \2B i~2 j@2))
+          (at@A closing~7 j@1))
+         (stmts~1,1
+          (asgn@5 same~5 false@2)
+          (asgn@2,1 j~2
+           (dot@9 closing~7 len@1))))
+        (else@,3
+         (stmts@2,1
+          (cmd inc j@4))))))
+     (if@,8
+      (elif@3 same
+       (stmts@6
+        (asgn@4 cut~4 i@2))))
+     (cmd@,9 inc i@4)))
+   (if@,1H
+    (elif@3
+     (infix@4 >= cut~4 0@3)
+     (stmts~1,1
+      (asgn@5 page~5
+       (infix@a &
+        (infix~A &
+         (call~D
+          (dot~7 page~4 substr@1)0@1
+          (infix@8 \2D cut~4 1@2))scripts@2)
+        (call@D
+         (dot~7 page~4 substr@1)cut@1)))))
+    (else@,2
+     (stmts@2,1
+      (cmd@4
+       (dot page~4 add@1)scripts@5))))
+   (try@,1M
+    (stmts@2,1
+     (call@9 writeFile~9 "/home/savant/master/web/index.html"@1 page@d)
+     (cmd@,1 echo "wrote web/index.html \28"@5
+      (prefix@V $
+       (dot@5 page~4 len@1))" bytes\29"@g))
+    (except@,3 .
+     (stmts@2,1
+      (cmd echo "could not write web/index.html"@5)
+      (cmd@,1 quit 1@5))))))
+ (call@4,1w main~4))

@@ -1,0 +1,520 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../master/observe/obsingest.nim
+ (comment)
+ (import@,Q
+  (infix@A / std~3 syncio@1))
+ (import@,R aifcas@7)
+ (type@A,U ObsLog~8 x . .
+  (object@2 .
+   (fld~6,3 st~2 x . Store@3 .)
+   (fld~1,4 entries~7 x .
+    (at@6 seq~3 AtomId@1).)
+   (fld@,5 declined~8 x . int@3 .)))
+ (proc@,b newObsLog@5 x . .
+  (params@F
+   (param@1 st . . Store@4 .))ObsLog@D . .
+  (stmts@2,1
+   (oconstr@6 ObsLog~6
+    (kv@3 st~2 st@2)
+    (kv@G entries~7
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@V declined~8 0@2))))
+ (proc@,e splitTabs@5 . . .
+  (params@E
+   (param@1 line . . string@6 .))
+  (at@J seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 cur . . . ""@6)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 line~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==
+        (at~4 line~4 i@1)'\09'@3)
+       (stmts~1,1
+        (cmd@6
+         (dot result~6 add@1)cur@5)
+        (asgn@4,1 cur~4 ""@2)))
+      (else@,3
+       (stmts@2,1
+        (cmd@3
+         (dot cur~3 add@1)
+         (at@9 line~4 i@1)))))
+     (cmd@,5 inc i@4)))
+   (cmd@6,A
+    (dot result~6 add@1)cur@5)))
+ (proc@,r ingestLine@5 x . .
+  (params@G
+   (param@1 log . .
+    (mut@5 ObsLog@4).)
+   (param@I line . . string@6 .)). . .
+  (stmts@2,1
+   (let@4 f . . .
+    (call@D splitTabs~9 line@1))
+   (if@,1
+    (elif@3
+     (infix@6 <
+      (dot~5 f~1 len@1)2@2)
+     (stmts@B
+      (ret .))))
+   (if@,2
+    (elif@3
+     (infix@E and
+      (infix~9 ==
+       (at~4 f~1 0@1)"val"@3)
+      (infix@A >=
+       (dot~5 f~1 len@1)4@3))
+     (stmts~1,5
+      (if
+       (elif@3
+        (infix@5 ==
+         (at~4 f~1 2@1)"?"@3)
+        (stmts@D
+         (cmd inc
+          (dot@7 log~3 declined@1)))))
+      (cmd@B,1
+       (dot
+        (dot~8 log~3 entries@1)add@1)
+       (call@G
+        (dot~5
+         (dot~3 log~3 st@1)node@1)"obsval"@1
+        (prefix@B \40
+         (bracket@1
+          (call~O,1
+           (dot~7
+            (dot~3 log~3 st@1)strLit@1)
+           (at@2 f~1 1@1))
+          (call~3,1
+           (dot~7
+            (dot~3 log~3 st@1)strLit@1)
+           (at@2 f~1 2@1))
+          (call@I,1
+           (dot~7
+            (dot~3 log~3 st@1)strLit@1)
+           (at@2 f~1 3@1))))))))
+    (elif@5,8
+     (infix@F and
+      (infix~A ==
+       (at~4 f~1 0@1)"edge"@3)
+      (infix@A >=
+       (dot~5 f~1 len@1)3@3))
+     (stmts~3,1
+      (cmd@B
+       (dot
+        (dot~8 log~3 entries@1)add@1)
+       (call@G
+        (dot~5
+         (dot~3 log~3 st@1)node@1)"obsedge"@1
+        (prefix@C \40
+         (bracket@1
+          (call~P,1
+           (dot~7
+            (dot~3 log~3 st@1)strLit@1)
+           (at@2 f~1 1@1))
+          (call~4,1
+           (dot~7
+            (dot~3 log~3 st@1)strLit@1)
+           (at@2 f~1 2@1))))))))
+    (elif@5,B
+     (infix@6 >=
+      (dot~5 f~1 len@1)4@3)
+     (stmts~3,1
+      (cmd@B
+       (dot
+        (dot~8 log~3 entries@1)add@1)
+       (call@G
+        (dot~5
+         (dot~3 log~3 st@1)node@1)"obsnote"@1
+        (prefix@C \40
+         (bracket@1
+          (call~P,1
+           (dot~7
+            (dot~3 log~3 st@1)strLit@1)
+           (at@2 f~1 0@1))
+          (call~4,1
+           (dot~7
+            (dot~3 log~3 st@1)strLit@1)
+           (at@2 f~1 1@1))
+          (call@H,1
+           (dot~7
+            (dot~3 log~3 st@1)strLit@1)
+           (at@2 f~1 3@1)))))))))))
+ (proc@,19 ingest@5 x . .
+  (params@C
+   (param@1 log . .
+    (mut@5 ObsLog@4).)
+   (param@I report . . string@8 .))int@Z . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7 0@2)
+   (var@4,2 line . . . ""@7)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 <= i~2
+     (dot@9 report~6 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G or
+        (infix~E == i~2
+         (dot@9 report~6 len@1))
+        (infix@D ==
+         (at~4 report~6 i@1)'\0A'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@9 >
+           (dot~5 line~4 len@1)0@2)
+          (stmts~1,1
+           (call@E
+            (dot~B log~3 ingestLine@1)line@1)
+           (cmd@,1 inc result@4))))
+        (asgn@5,3 line~5 ""@2)))
+      (else@,5
+       (stmts@2,1
+        (cmd@4
+         (dot line~4 add@1)
+         (at@B report~6 i@1)))))
+     (cmd@,7 inc i@4)))))
+ (proc@,1Q fieldOf@5 . . .
+  (params@C
+   (param@1 log . . ObsLog@5 .)
+   (param@E e . . AtomId@3 .)
+   (param@P tag . . string@5 .)
+   (param@c ix . . int@4 .))string@m . .
+  (stmts@2,1
+   (let@4 a . . .
+    (call@E
+     (dot~4
+      (dot~3 log~3 st@1)get@1)e@1))
+   (if@,1
+    (elif@3
+     (infix@W or
+      (infix~G or
+       (infix~9 !=
+        (dot~6 a~1 kind@1)kNode@3)
+       (infix@9 !=
+        (dot~5 a~1 tag@1)tag@3))
+      (infix@E <=
+       (dot~5
+        (dot~5 a~1 kids@1)len@1)ix@3))
+     (stmts@r
+      (ret ""@7))))
+   (dot@M,2
+    (call~C
+     (dot~4
+      (dot~3 log~3 st@1)get@1)
+     (at@7
+      (dot~5 a~1 kids@1)ix@1))text@1)))
+ (proc@,1V latest@5 x . .
+  (params@C
+   (param@1 log . . ObsLog@5 .)
+   (param@E name . . string@6 .))string@T . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7 ""@2)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@D
+      (dot~8 log~3 entries@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@f ==
+        (call~U
+         (dot~8 log~3 fieldOf@1)
+         (at@C
+          (dot~8 log~3 entries@1)i@1)"obsval"@H 0@R)name@3)
+       (stmts~1,1
+        (asgn@7 result~7
+         (infix@n &
+          (infix~6 &
+           (call~U
+            (dot~8 log~3 fieldOf@1)
+            (at@C
+             (dot~8 log~3 entries@1)i@1)"obsval"@H 1@R)" "@2)
+          (call~a,1
+           (dot~8 log~3 fieldOf@1)
+           (at@C
+            (dot~8 log~3 entries@1)i@1)"obsval"@H 2@R))))))
+     (cmd@,3 inc i@4)))))
+ (proc@,1f historyOf@5 x . .
+  (params@F
+   (param@1 log . . ObsLog@5 .)
+   (param@E name . . string@6 .))
+  (at@W seq~3 string@1). .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@D
+      (dot~8 log~3 entries@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@f ==
+        (call~U
+         (dot~8 log~3 fieldOf@1)
+         (at@C
+          (dot~8 log~3 entries@1)i@1)"obsval"@H 0@R)name@3)
+       (stmts~1,1
+        (let@4 v . . .
+         (call@F
+          (dot~8 log~3 fieldOf@1)
+          (at@C
+           (dot~8 log~3 entries@1)i@1)"obsval"@H 2@R))
+        (var@4,1 dup . . . false@6)
+        (var@4,2 j . . . 0@4)
+        (while@,3
+         (infix@8 < j~2
+          (dot@8 result~6 len@1))
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@A ==
+             (at~4 result~6 j@1)v@3)
+            (stmts@G
+             (asgn@4 dup~4 true@2))))
+          (cmd@,1 inc j@4)))
+        (if@,6
+         (elif@3
+          (prefix not dup@4)
+          (stmts@9
+           (cmd@6
+            (dot result~6 add@1)v@5)))))))
+     (cmd@,8 inc i@4)))))
+ (proc@,1u reads@5 x . .
+  (params@B
+   (param@1 log . . ObsLog@5 .)
+   (param@E reader . . string@8 .))
+  (at@Y seq~3 string@1). .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@D
+      (dot~8 log~3 entries@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@g ==
+        (call~V
+         (dot~8 log~3 fieldOf@1)
+         (at@C
+          (dot~8 log~3 entries@1)i@1)"obsedge"@H 0@S)reader@3)
+       (stmts~1,1
+        (let@4 r . . .
+         (call@F
+          (dot~8 log~3 fieldOf@1)
+          (at@C
+           (dot~8 log~3 entries@1)i@1)"obsedge"@H 1@S))
+        (var@4,1 dup . . . false@6)
+        (var@4,2 j . . . 0@4)
+        (while@,3
+         (infix@8 < j~2
+          (dot@8 result~6 len@1))
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@A ==
+             (at~4 result~6 j@1)r@3)
+            (stmts@G
+             (asgn@4 dup~4 true@2))))
+          (cmd@,1 inc j@4)))
+        (if@,6
+         (elif@3
+          (prefix not dup@4)
+          (stmts@9
+           (cmd@6
+            (dot result~6 add@1)r@5)))))))
+     (cmd@,8 inc i@4)))))
+ (proc@,2A readers@5 x . .
+  (params@D
+   (param@1 log . . ObsLog@5 .)
+   (param@E name . . string@6 .))
+  (at@W seq~3 string@1). .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@D
+      (dot~8 log~3 entries@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@g ==
+        (call~V
+         (dot~8 log~3 fieldOf@1)
+         (at@C
+          (dot~8 log~3 entries@1)i@1)"obsedge"@H 1@S)name@3)
+       (stmts~1,1
+        (let@4 r . . .
+         (call@F
+          (dot~8 log~3 fieldOf@1)
+          (at@C
+           (dot~8 log~3 entries@1)i@1)"obsedge"@H 0@S))
+        (var@4,1 dup . . . false@6)
+        (var@4,2 j . . . 0@4)
+        (while@,3
+         (infix@8 < j~2
+          (dot@8 result~6 len@1))
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@A ==
+             (at~4 result~6 j@1)r@3)
+            (stmts@G
+             (asgn@4 dup~4 true@2))))
+          (cmd@,1 inc j@4)))
+        (if@,6
+         (elif@3
+          (prefix not dup@4)
+          (stmts@9
+           (cmd@6
+            (dot result~6 add@1)r@5)))))))
+     (cmd@,8 inc i@4)))))
+ (proc@,2P why@5 x . .
+  (params@9
+   (param@1 log . . ObsLog@5 .)
+   (param@E name . . string@6 .))string@T . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,5 result~7
+    (infix@7 & name~5 "\0A"@2))
+   (let@4,6 cur . . .
+    (call@G
+     (dot~7 log~3 latest@1)name@1))
+   (let@4,7 hist . . .
+    (call@K
+     (dot~A log~3 historyOf@1)name@1))
+   (let@4,8 rd0 . . .
+    (call@F
+     (dot~6 log~3 reads@1)name@1))
+   (let@4,9 rs0 . . .
+    (call@H
+     (dot~8 log~3 readers@1)name@1))
+   (if@,E
+    (elif@3
+     (infix@U and
+      (infix~H and
+       (infix~5 ==
+        (dot~5 cur~3 len@1)0@3)
+       (infix@C ==
+        (dot~5 rd0~3 len@1)0@3))
+      (infix@C ==
+       (dot~5 rs0~3 len@1)0@3))
+     (stmts~1,1
+      (ret
+       (infix@C & name~5 "\0A  never seen\0A"@2)))))
+   (if@,G
+    (elif@3
+     (infix@8 >
+      (dot~5 cur~3 len@1)0@2)
+     (stmts~1,1
+      (cmd@6
+       (dot result~6 add@1)
+       (infix@S &
+        (infix~6 & "  is now      "~H cur@2)"\0A"@2))
+      (cmd@6,1
+       (dot result~6 add@1)
+       (infix@b &
+        (infix~C & "  passed through "~K
+         (prefix@2 $
+          (dot@5 hist~4 len@1)))" distinct value\28s\29"@2))
+      (if@,2
+       (elif@3
+        (infix@9 >
+         (dot~5 hist~4 len@1)0@2)
+        (stmts~1,1
+         (cmd@6
+          (dot result~6 add@1)"\3A "@5)
+         (var@4,1 i . . . 0@4)
+         (while@,2
+          (infix@8 < i~2
+           (dot@6 hist~4 len@1))
+          (stmts@2,1
+           (if
+            (elif@3
+             (infix@2 > i~2 0@2)
+             (stmts@7
+              (cmd@6
+               (dot result~6 add@1)" -> "@5))))
+           (cmd@6,1
+            (dot result~6 add@1)
+            (at@9 hist~4 i@1))
+           (cmd@,2 inc i@4))))))
+      (cmd@6,9
+       (dot result~6 add@1)"\0A"@5)))
+    (else@,B
+     (stmts@2,1
+      (cmd@6
+       (dot result~6 add@1)"  holds no value of its own\0A"@5))))
+   (let@4,T rd . . .
+    (call@E
+     (dot~6 log~3 reads@1)name@1))
+   (if@,U
+    (elif@3
+     (infix@7 >
+      (dot~5 rd~2 len@1)0@2)
+     (stmts~1,1
+      (cmd@6
+       (dot result~6 add@1)"  because it read\0A"@5)
+      (var@4,1 i . . . 0@4)
+      (while@,2
+       (infix@8 < i~2
+        (dot@4 rd~2 len@1))
+       (stmts@2,1
+        (cmd@6
+         (dot result~6 add@1)
+         (infix@m &
+          (infix~K &
+           (infix~8 &
+            (infix~8 & "    "~7
+             (at@4 rd~2 i@1))" = "@2)
+           (call@C
+            (dot~7 log~3 latest@1)
+            (at@3 rd~2 i@1)))"\0A"@2))
+        (cmd@,1 inc i@4))))))
+   (let@4,a rs . . .
+    (call@G
+     (dot~8 log~3 readers@1)name@1))
+   (if@,b
+    (elif@3
+     (infix@7 >
+      (dot~5 rs~2 len@1)0@2)
+     (stmts~1,1
+      (cmd@6
+       (dot result~6 add@1)"  and re-runs\0A"@5)
+      (var@4,1 i . . . 0@4)
+      (while@,2
+       (infix@8 < i~2
+        (dot@4 rs~2 len@1))
+       (stmts@2,1
+        (cmd@6
+         (dot result~6 add@1)
+         (infix@K &
+          (infix~8 & "    "~7
+           (at@4 rs~2 i@1))"\0A"@2))
+        (cmd@,1 inc i@4)))))))))

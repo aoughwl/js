@@ -1,0 +1,382 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../master/client/vparse.nim
+ (comment)
+ (import@,K
+  (infix@A / std~3 syncio@1))
+ (import@,L viewtree@7)
+ (type@6,O Tok~4 . . .
+  (object@2 .
+   (fld~4,1 text . . string@6 .)
+   (fld~4,2 isStr . . bool@7 .)))
+ (proc@,S tokenize@5 . . .
+  (params@D
+   (param@1 s . . string@3 .))
+  (at@G seq~3 Tok@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@3 s~1 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@5 s~1 i@1))
+     (if@,1
+      (elif@3
+       (infix@Z or
+        (infix~D or
+         (infix~D or
+          (infix~7 == c~2 ' '@3)
+          (infix@5 == c~2 '\09'@3))
+         (infix@5 == c~2 '\0D'@3))
+        (infix@5 == c~2 '\0A'@3))
+       (stmts~1,1
+        (cmd inc i@4)))
+      (elif@5,2
+       (infix@9 or
+        (infix~7 == c~2 '\28'@3)
+        (infix@5 == c~2 '\29'@3))
+       (stmts~3,1
+        (var@4 t . . . ""@4)
+        (cmd@1,1
+         (dot t~1 add@1)c@5)
+        (cmd@6,2
+         (dot result~6 add@1)
+         (oconstr@8 Tok~3
+          (kv@5 text~4 t@2)
+          (kv@F isStr~5 false@2)))
+        (cmd@,3 inc i@4)))
+      (elif@5,7
+       (infix@2 == c~2 '\22'@3)
+       (stmts~3,1
+        (cmd inc i@4)
+        (var@4,1 t . . . ""@4)
+        (while@,2
+         (infix@G and
+          (infix~8 < i~2
+           (dot@3 s~1 len@1))
+          (infix@9 !=
+           (at~4 s~1 i@1)'\22'@3))
+         (stmts@2,1
+          (cmd@1
+           (dot t~1 add@1)
+           (at@6 s~1 i@1))
+          (cmd@,1 inc i@4)))
+        (cmd@,5 inc i@4)
+        (cmd@6,A
+         (dot result~6 add@1)
+         (oconstr@8 Tok~3
+          (kv@5 text~4 t@2)
+          (kv@F isStr~5 true@2)))))
+      (else@,J
+       (stmts@2,1
+        (var@4 t . . . ""@4)
+        (while@,1
+         (infix@Z,1 and
+          (infix~G and
+           (infix@l,~1 and
+            (infix~H and
+             (infix~H and
+              (infix~G and
+               (infix~8 < i~2
+                (dot@3 s~1 len@1))
+               (infix@9 !=
+                (at~4 s~1 i@1)' '@3))
+              (infix@9 !=
+               (at~4 s~1 i@1)'\09'@3))
+             (infix@9 !=
+              (at~4 s~1 i@1)'\0D'@3))
+            (infix~t,1 !=
+             (at~4 s~1 i@1)'\0A'@3))
+           (infix@9 !=
+            (at~4 s~1 i@1)'\28'@3))
+          (infix@9 !=
+           (at~4 s~1 i@1)'\29'@3))
+         (stmts@2,2
+          (cmd@1
+           (dot t~1 add@1)
+           (at@6 s~1 i@1))
+          (cmd@,1 inc i@4)))
+        (cmd@6,5
+         (dot result~6 add@1)
+         (oconstr@8 Tok~3
+          (kv@5 text~4 t@2)
+          (kv@F isStr~5 false@2))))))))))
+ (type@5,z Sx~3 . . .
+  (object@2 .
+   (fld~3,1 tag . . string@5 .)
+   (fld~3,2 isLeaf . . bool@8 .)
+   (fld~3,3 text . . string@6 .)
+   (fld~3,4 kids . .
+    (at@9 seq~3 Sx@1).)))
+ (proc@,15 parseSx@5 . . .
+  (params@C
+   (param@1 toks . .
+    (at@9 seq~3 Tok@1).)
+   (param@H pos . .
+    (mut@5 int@4).))Sx@W . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@4 >= pos~4
+      (dot@7 toks~4 len@1))
+     (stmts~1,1
+      (ret
+       (oconstr@9 Sx~2
+        (kv@4 tag~3 ""@2)
+        (kv@G isLeaf~6 true@2)
+        (kv@S text~4 ""@2)
+        (kv@c kids~4
+         (prefix@2 \40
+          (bracket@1))))))))
+   (if@,2
+    (elif@3
+     (infix@G or
+      (dot~7
+       (at~5 toks~4 pos@1)isStr@1)
+      (infix@I !=
+       (dot~6
+        (at~5 toks~4 pos@1)text@1)"\28"@3))
+     (stmts~1,1
+      (let@4 t . . .
+       (at@8 toks~4 pos@1))
+      (cmd@,1 inc pos@4)
+      (ret@,2
+       (oconstr@9 Sx~2
+        (kv@4 tag~3 ""@2)
+        (kv@G isLeaf~6 true@2)
+        (kv@S text~4
+         (dot@3 t~1 text@1))
+        (kv@g kids~4
+         (prefix@2 \40
+          (bracket@1))))))))
+   (cmd@,6 inc pos@4)
+   (var@4,7 tag . . . ""@6)
+   (if@,8
+    (elif@3
+     (infix@4 < pos~4
+      (dot@6 toks~4 len@1))
+     (stmts~1,1
+      (asgn@4 tag~4
+       (dot@B
+        (at~5 toks~4 pos@1)text@1))
+      (cmd@,1 inc pos@4))))
+   (var@4,B kids . .
+    (at@9 seq~3 Sx@1)
+    (prefix@G \40
+     (bracket@1)))
+   (while@,C
+    (infix@L and
+     (infix~B < pos~4
+      (dot@6 toks~4 len@1))
+     (par@4
+      (infix@H or
+       (dot~7
+        (at~5 toks~4 pos@1)isStr@1)
+       (infix@I !=
+        (dot~6
+         (at~5 toks~4 pos@1)text@1)"\29"@3))))
+    (stmts@2,1
+     (cmd@4
+      (dot kids~4 add@1)
+      (call@C parseSx~7 toks@1 pos@7))))
+   (if@,E
+    (elif@3
+     (infix@4 < pos~4
+      (dot@6 toks~4 len@1))
+     (stmts@G
+      (cmd inc pos@4))))
+   (oconstr@2,F Sx~2
+    (kv@4 tag~3 tag@2)
+    (kv@H isLeaf~6 false@2)
+    (kv@U text~4 ""@2)
+    (kv@e kids~4 kids@2))))
+ (proc@,1N kindOf@5 . . .
+  (params@B
+   (param@1 s . . string@3 .)
+   (param@C ok . .
+    (mut@4 bool@4).))VKind@R . .
+  (stmts@2,1
+   (asgn@3 ok~3 true@2)
+   (if@,1
+    (elif@3
+     (infix@2 == s~2 "elem"@3)
+     (stmts@D
+      (ret vElem@7))))
+   (if@,2
+    (elif@3
+     (infix@2 == s~2 "text"@3)
+     (stmts@D
+      (ret vText@7))))
+   (if@,3
+    (elif@3
+     (infix@2 == s~2 "list"@3)
+     (stmts@D
+      (ret vList@7))))
+   (if@,4
+    (elif@3
+     (infix@2 == s~2 "when"@3)
+     (stmts@D
+      (ret vWhen@7))))
+   (if@,5
+    (elif@3
+     (infix@2 == s~2 "widget"@3)
+     (stmts@F
+      (ret vWidget@7))))
+   (asgn@3,6 ok~3 false@2)vElem@,7))
+ (proc@,1X toVNode@5 . . .
+  (params@C
+   (param@1 x . . Sx@3 .)
+   (param@8 err . .
+    (mut@5 string@4).))VNode@Q . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@7 VNode~5
+     (kv@5 kind~4 vElem@2)
+     (kv@H key~3 ""@2)
+     (kv@S props~5
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@f events~6
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@q kids~4
+      (prefix@2 \40
+       (bracket@1)))))
+   (if@,1
+    (elif@3
+     (infix@T or
+      (infix~K or
+       (dot~8 x~1 isLeaf@1)
+       (infix@9 !=
+        (dot~5 x~1 tag@1)"vnode"@3))
+      (infix@E <
+       (dot~5
+        (dot~5 x~1 kids@1)len@1)3@2))
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@8 ==
+         (dot~5 err~3 len@1)0@3)
+        (stmts@E
+         (asgn@4 err~4
+          (infix@I & "not a vnode\3A "~G
+           (dot@3 x~1 tag@1))))))
+      (ret@,1 .))))
+   (var@4,4 ok . . . false@5)
+   (let@4,5 k . . .
+    (call@A kindOf~6
+     (dot@A
+      (at~3
+       (dot~5 x~1 kids@1)0@1)text@1)ok@H))
+   (if@,6
+    (elif@3
+     (prefix not ok@4)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@8 ==
+         (dot~5 err~3 len@1)0@3)
+        (stmts~1,1
+         (asgn@4 err~4
+          (infix@e &
+           (infix~H & "unsaturated kind \27"~L
+            (dot@B
+             (at~3
+              (dot~5 x~1 kids@1)0@1)text@1))"\27 reached the client -- saturation did not finish"~c,1)))))
+      (ret@,3 .))))
+   (var@4,B props . .
+    (at@A seq~3 Prop@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,C key . . . ""@6)
+   (let@4,D ps . . .
+    (at@B
+     (dot~5 x~1 kids@1)1@1))
+   (var@4,E i . . . 0@4)
+   (while@,F
+    (infix@8 < i~2
+     (dot@9
+      (dot~5 ps~2 kids@1)len@1))
+    (stmts@2,1
+     (let@4 p . . .
+      (at@B
+       (dot~5 ps~2 kids@1)i@1))
+     (if@,1
+      (elif@3
+       (infix@U and
+        (infix~H and
+         (prefix~D not
+          (dot@5 p~1 isLeaf@1))
+         (infix@A ==
+          (dot~5 p~1 tag@1)"p"@3))
+        (infix@F >=
+         (dot~5
+          (dot~5 p~1 kids@1)len@1)2@3))
+       (stmts~1,1
+        (let@4 nm . . .
+         (dot@E
+          (at~3
+           (dot~5 p~1 kids@1)0@1)text@1))
+        (let@4,1 vl . . .
+         (dot@E
+          (at~3
+           (dot~5 p~1 kids@1)1@1)text@1))
+        (if@,2
+         (elif@3
+          (infix@3 == nm~3 "key"@3)
+          (stmts@D
+           (asgn@4 key~4 vl@2)))
+         (else@,1
+          (stmts@6
+           (cmd@5
+            (dot props~5 add@1)
+            (oconstr@9 Prop~4
+             (kv@5 name~4 nm@2)
+             (kv@G value~5 vl@2)))))))))
+     (cmd@,6 inc i@4)))
+   (var@4,N kids . .
+    (at@9 seq~3 VNode@1)
+    (prefix@J \40
+     (bracket@1)))
+   (let@4,O ks . . .
+    (at@B
+     (dot~5 x~1 kids@1)2@1))
+   (var@4,P j . . . 0@4)
+   (while@,Q
+    (infix@8 < j~2
+     (dot@9
+      (dot~5 ks~2 kids@1)len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot kids~4 add@1)
+      (call@C toVNode~7
+       (at@8
+        (dot~5 ks~2 kids@1)j@1)err@D))
+     (cmd@,1 inc j@4)))
+   (oconstr@5,T VNode~5
+    (kv@5 kind~4 k@2)
+    (kv@D key~3 key@2)
+    (kv@P props~5 props@2)
+    (kv@e events~6
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@p kids~4 kids@2))))
+ (proc@,23 parseView@5 x . .
+  (params@F
+   (param@1 src . . string@5 .)
+   (param@E err . .
+    (mut@5 string@4).))VNode@W . .
+  (stmts@2,1
+   (comment)
+   (asgn@4,3 err~4 ""@2)
+   (var@4,4 toks . . .
+    (call@F tokenize~8 src@1))
+   (var@4,5 pos . . . 0@6)
+   (let@4,6 x . . .
+    (call@B parseSx~7 toks@1 pos@7))
+   (call@7,7 toVNode~7 x@1 err@4))))

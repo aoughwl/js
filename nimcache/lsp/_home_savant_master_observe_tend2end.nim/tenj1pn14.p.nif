@@ -1,0 +1,88 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../master/observe/tend2end.nim
+ (comment)
+ (import@,A
+  (infix@A / std~3 syncio@1))
+ (import@,B aifcas@7)
+ (import@,C obsingest@7)
+ (var@4,E ok . . . true@5)
+ (proc@,F bad@5 . . .
+  (params@8
+   (param@1 m . . string@3 .)). . .
+  (stmts@2,1
+   (cmd echo "FAIL\3A "@5 m@F)
+   (asgn@3,1 ok~3 false@2)))
+ (var@4,J src . . . ""@6)
+ (try@,K
+  (stmts@2,6
+   (asgn@4 src~4
+    (call@A readFile~8 "/home/savant/master/observe/last.report"@1)))
+  (except@,7 .
+   (stmts@2,1
+    (cmd echo
+     (infix@1F & "FAIL\3A no report at observe/last.report — run observe/e2e.sh, which "~1A "produces it and then runs this"~1A,1))
+    (cmd@,2 quit 1@5))))
+ (let@4,W st . . .
+  (call@D newStore~8))
+ (var@4,X log . . .
+  (call@F newObsLog~9 st@1))
+ (let@4,Y n . . .
+  (call@E
+   (dot~7 log~3 ingest@1)src@1))
+ (cmd@,Z echo "ingested "@5 n@I " lines from a real run"@L)
+ (cmd@,a echo "atoms\3A   "@5
+  (call@Q
+   (dot~6 st~2 count@1)))
+ (if@,b
+  (elif@3
+   (infix@2 < n~2 5@2)
+   (stmts@7
+    (call@3 bad~3 "a real run produced almost nothing"@1))))
+ (cmd@,d echo ""@5)
+ (cmd@,e echo
+  (call@C
+   (dot~4 log~3 why@1)"total"@1))
+ (cmd@,f echo
+  (call@C
+   (dot~4 log~3 why@1)"label"@1))
+ (let@4,m h . . .
+  (call@H
+   (dot~A log~3 historyOf@1)"total"@1))
+ (cmd@,n echo "total history\3A "@5
+  (prefix@O $
+   (dot@2 h~1 len@1))" distinct"@W)
+ (if@,o
+  (elif@3
+   (infix@6 <
+    (dot~5 h~1 len@1)3@2)
+   (stmts@B
+    (call@3 bad~3 "total\27s history does not show the writes the program made"@1))))
+ (if@,p
+  (elif@3
+   (infix@K !=
+    (call~A
+     (dot~7 log~3 latest@1)"total"@1)"int 21"@3)
+   (stmts~1,1
+    (call@3 bad~3
+     (infix@o &
+      (infix~M & "final value of total is "~R
+       (call@C
+        (dot~7 log~3 latest@1)"total"@1))", want int 21"@2)))))
+ (if@,r
+  (elif@3
+   (infix@N ==
+    (dot~5
+     (call~9
+      (dot~6 log~3 reads@1)"label"@1)len@1)0@3)
+   (stmts@T
+    (call@3 bad~3 "no dependency was recovered for label"@1))))
+ (cmd@,t echo ""@5)
+ (if@,u
+  (elif@3 ok
+   (stmts~1,1
+    (cmd echo "END-TO-END GATE GREEN"@5)))
+  (else@,2
+   (stmts@2,1
+    (cmd quit 1@5)))))

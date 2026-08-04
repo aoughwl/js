@@ -1,0 +1,13 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-deps")
+(stmts
+ (import
+  (infix / std syncio))
+ (import jsffi)
+ (import web_state)
+ (import viewtree)
+ (import vparse)
+ (import render)
+ (import widgets)
+ (import chromeui))

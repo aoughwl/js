@@ -1,0 +1,1546 @@
+(.nif27)
+(.indexat 45915            )
+(stmts@,2,../nimony/lib/std/tables.nim
+ (import
+  (kv sysvq0asl "../nimony/lib/std/system.nim")
+  (kv has9tn57v "../nimony/lib/std/hashes.nim")
+  (kv assy765wm "../nimony/lib/std/assertions.nim"))
+ (type@B,3 :Keyable.0.~9 x . .
+  (concept@2 . . .
+   (typevar~9,1 :Self.0. . . . .)
+   (stmts~9,1
+    (func :==.0.@5 . . .
+     (params@9
+      (param@1 :a.0 . . Self.0.@6 .)
+      (param@4 :b.0 . . Self.0.@3 .))
+     (bool@E). . .)
+    (func@,1 :hash.0.@5 . . .
+     (params@9
+      (param@1 :a.1 . . Self.0.@3 .))
+     (u@A,2,../nimony/lib/std/hashes.nim 64). . .))))
+ (type@C,7 :HashEntry.0.~A . .
+  (pragmas)
+  (object@2 .
+   (fld~A,1 :fullhash.0 . .
+    (u@A,2,../nimony/lib/std/hashes.nim 64).)
+   (fld~A,2 :position.0 . .
+    (i@A 64).)))
+ (type@F,A :Table.0.~D x
+  (typevars~7
+   (typevar@1 :K.0. . . . .)
+   (typevar@4 :V.0. . . . .)).
+  (object@2 .
+   (fld~D,1 :data.0 . .
+    (at@9 seq.0.sysvq0asl~3
+     (tuple@1 K.0.@1 V.0.@4)).)
+   (fld~D,2 :hashes.0 . . seq.0.Ikxuplm1.@B .)))
+ (func@,E :mustRehash.0.@5 . . .
+  (params@F
+   (param@1 :length.0 . .
+    (i@H 64).)
+   (param@9 :counter.0 . .
+    (i@9 64).))
+  (bool@O)
+  (pragmas@i
+   (inline@2)).
+  (stmts@2,1
+   (result@7 :result.0 . .
+    (bool@9,~B).)
+   (asgn@7 result.0~7
+    (or@b
+     (lt~R
+      (i 64)length.0~7
+      (add@G
+       (i 64)
+       (div~6
+        (i 64)counter.0~8 2@4)counter.0@2))
+     (lt@L
+      (i 64)
+      (sub~A
+       (i 64)length.0~7 counter.0@2)4@2)))
+   (ret~2,~1 result.0)))
+ (func@,H :isFilled.0.@5 . . .
+  (params@D
+   (param@1 :a.2 . . HashEntry.0.@3 .))
+  (bool@G)
+  (pragmas@Y
+   (inline@2)).
+  (stmts@l
+   (result@B :result.1 . .
+    (bool~e,~D).)
+   (asgn@B result.1
+    (expr@2,1t,../nimony/lib/std/system/comparisons.nim
+     (lt@2,1
+      (i 64)0@y,J,../nimony/lib/std/tables.nim
+      (dot@m,J,../nimony/lib/std/tables.nim a.2~1 position.0 0 "x"))))
+   (ret~l result.1)))
+ (func@,J :resize.0.@5 . . .
+  (params@B
+   (param@1 :t.0 . .
+    (mut@3 seq.0.Ikxuplm1.@7).)). . .
+  (stmts@2,2
+   (let@4 :newLen.0 . .
+    (i 64)
+    (if@9
+     (elif@3
+      (eq@6
+       (i 64)
+       (call~5 len.3.Iiefpcc1.@1
+        (hderef~1 t.0))0@3)
+      (expr@C 4))
+     (else@H
+      (expr@6
+       (mul@6
+        (i 64)
+        (call~5 len.3.Iiefpcc1.@1
+         (hderef~1 t.0))2@2)))))
+   (var@4,1 :s.1 . . seq.0.Ikxuplm1.@9,~A
+    (call@L newSeq.0.Iv3lu2h1.~H newLen.0@1))
+   (for@4,2
+    (infix@7 \2E.<.0.Inpqkww1. 0~2
+     (call@5 len.3.Iiefpcc1.@1
+      (hderef~1 t.0)))
+    (unpackflat
+     (let :i.0 . .
+      (i@8,~E 64).))
+    (stmts~2,1
+     (if
+      (elif@3
+       (call@8 isFilled.0.~8
+        (hderef@1
+         (call \5B\5D.7.Iv5vlve1.
+          (hderef t.0)i.0@2)))
+       (stmts~1,1
+        (var@4 :h.1 . .
+         (u@A,2,../nimony/lib/std/hashes.nim 64)
+         (bitand@I
+          (u 64)
+          (dot~A
+           (hderef~4
+            (call \5B\5D.7.Iv5vlve1.
+             (hderef t.0)i.0@2))fullhash.0 0 "x")
+          (conv@B
+           (u@1 64)
+           (call~3 high.3.Iyuup9h1.~4 s.1@1))))
+        (while@,1
+         (call@E isFilled.0.~8
+          (hderef@1
+           (call \5B\5D.8.Imt2zi01. s.1 h.1@2)))
+         (stmts@M
+          (asgn@2 h.1~2
+           (call@9 nextTry.0.has9tn57v~7 h.1@1
+            (call@8 high.3.Iyuup9h1.~4 s.1@1)))))
+        (call@,2 \5B\5D=.8.Ipchg2a.
+         (haddr s.1)h.1@2
+         (hderef@7
+          (call \5B\5D.7.Iv5vlve1.
+           (hderef t.0)i.0@2))))))))
+   (asgn@2,7
+    (hderef~2 t.0)
+    (emove@D s.1))))
+ (const@2,V :HashThreshold.0. . .
+  (i@C,~M 64)
+  (suf@G 4 "i64"))
+ (func@,X :fillHashPart.0.@5 . .
+  (typevars@H
+   (typevar@1 :K.2. . . Keyable.0.@3 .)
+   (typevar@D :V.2. . . . .))
+  (params@W
+   (param@1 :t.1 . .
+    (mut@3
+     (at@9 Table.0.~5 K.2.@1 V.2.@4)).)). . .
+  (stmts@2,1
+   (asgn@9
+    (dot~8 t.1~1 hashes.0 0 "x")
+    (call@J
+     (at~H newSeq.0.sysvq0asl HashEntry.0.@7)
+     (mul@E
+      (i 64)HashThreshold.0.~D 2@1)))
+   (for@4,1
+    (infix@7 \2E.<.0.sysvq0asl 0~2
+     (call@A len.3.sysvq0asl@1
+      (dot~5 t.1~1 data.0 0 "x")))
+    (unpackflat
+     (let :i.4 . .
+      (i@8,~Q 64).))
+    (stmts~2,1
+     (let@4 :fullhash.0 . .
+      (u@A,2,../nimony/lib/std/hashes.nim 64)
+      (call@F
+       (ochoice~4 hash.2.has9tn57v hash.1.has9tn57v hash.10.has9tn57v hash.11.has9tn57v hash.7.has9tn57v hash.3.has9tn57v hash.8.has9tn57v hash.9.has9tn57v hash.4.has9tn57v hash.5.has9tn57v hash.6.has9tn57v)
+       (tupat@2
+        (call \5B\5D.7.sysvq0asl
+         (dot t.1~1 data.0 0 "x")i.4@6)0@9)))
+     (var@4,1 :hi.0 . .
+      (u@A,2,../nimony/lib/std/hashes.nim 64)
+      (bitand@E
+       (u 64)fullhash.0~9
+       (conv@H
+        (u@1,~C 64)
+        (call~5 high.3.sysvq0asl@1
+         (dot~7 t.1~1 hashes.0 0 "x")))))
+     (while@,2
+      (call@E isFilled.0.~8
+       (call@2 \5B\5D.8.sysvq0asl
+        (dot t.1~1 hashes.0 0 "x")hi.0@8))
+      (stmts@U
+       (asgn@3 hi.0~3
+        (call@9 nextTry.0.has9tn57v~7 hi.0@1
+         (call@9 high.3.sysvq0asl~4
+          (dot@2 t.1~1 hashes.0 0 "x"))))))
+     (call@1,3 \5B\5D=.8.sysvq0asl
+      (dot t.1~1 hashes.0 0 "x")hi.0@8
+      (oconstr@N HashEntry.0.~B,~M
+       (kv@9 fullhash.0~8 fullhash.0@2)
+       (kv@T position.0~8
+        (add@3
+         (i 64)i.4~1 1@1))))))))
+ (func@,f :rawGet.0.@5 . .
+  (typevars@B
+   (typevar@1 :K.3. . . Keyable.0.@3 .)
+   (typevar@D :V.3. . . . .))
+  (params@Q
+   (param@1 :t.2 . .
+    (at@8 Table.0.~5 K.3.@1 V.3.@4).)
+   (param@H :k.0 . . K.3.@3 .)
+   (param@N :kh.0 . .
+    (u@A,2,../nimony/lib/std/hashes.nim 64).))
+  (i@Y 64). .
+  (stmts@2,1
+   (result :result.2 . .
+    (i@C,~X 64).)
+   (if
+    (elif@3
+     (le@B
+      (i 64)
+      (call~5 len.3.sysvq0asl@1
+       (dot~5 t.2~1 data.0 0 "x"))HashThreshold.0.@3)
+     (stmts~1,1
+      (for@4
+       (infix@7 \2E.<.0.sysvq0asl 0~2
+        (call@A len.3.sysvq0asl@1
+         (dot~5 t.2~1 data.0 0 "x")))
+       (unpackflat
+        (let :i.5 . .
+         (i@6,~Y 64).))
+       (stmts~2,1
+        (if
+         (elif@3
+          (infix@D
+           (ochoice ==.22.sysvq0asl ==.13.sysvq0asl ==.14.sysvq0asl ==.17.sysvq0asl ==.0.sysvq0asl ==.5.sysvq0asl ==.18.sysvq0asl ==.8.sysvq0asl ==.4.sysvq0asl ==.11.sysvq0asl ==.23.sysvq0asl ==.3.sysvq0asl ==.7.sysvq0asl ==.15.sysvq0asl ==.20.sysvq0asl ==.16.sysvq0asl ==.24.sysvq0asl ==.9.sysvq0asl ==.6.sysvq0asl ==.10.sysvq0asl ==.12.sysvq0asl ==.2.sysvq0asl ==.1.sysvq0asl)
+           (tupat~C
+            (call \5B\5D.7.sysvq0asl
+             (dot t.2~1 data.0 0 "x")i.5@6)0@9)k.0@3)
+          (stmts@J
+           (ret i.5@7))))))))
+    (else@,3
+     (stmts@2,1
+      (var@4 :h.2 . .
+       (u@A,2,../nimony/lib/std/hashes.nim 64)
+       (bitand@7
+        (u 64)kh.0~3
+        (conv@H
+         (u@8,~L 64)
+         (call~5 high.3.sysvq0asl@1
+          (dot~7 t.2~1 hashes.0 0 "x")))))
+      (while@,1
+       (call@E isFilled.0.~8
+        (call@2 \5B\5D.8.sysvq0asl
+         (dot t.2~1 hashes.0 0 "x")h.2@8))
+       (stmts@2,1
+        (let@4 :d.0 . . HashEntry.0.@6,~a
+         (call@5 \5B\5D.8.sysvq0asl
+          (dot t.2~1 hashes.0 0 "x")h.2@8))
+        (if@,1
+         (elif@3
+          (and@H
+           (eq~6
+            (u 64)
+            (dot~A d.0~1 fullhash.0 0 "x")kh.0@3)
+           (infix@S
+            (ochoice ==.22.sysvq0asl ==.13.sysvq0asl ==.14.sysvq0asl ==.17.sysvq0asl ==.0.sysvq0asl ==.5.sysvq0asl ==.18.sysvq0asl ==.8.sysvq0asl ==.4.sysvq0asl ==.11.sysvq0asl ==.23.sysvq0asl ==.3.sysvq0asl ==.7.sysvq0asl ==.15.sysvq0asl ==.20.sysvq0asl ==.16.sysvq0asl ==.24.sysvq0asl ==.9.sysvq0asl ==.6.sysvq0asl ==.10.sysvq0asl ==.12.sysvq0asl ==.2.sysvq0asl ==.1.sysvq0asl)
+            (tupat~N
+             (call \5B\5D.7.sysvq0asl
+              (dot t.2~1 data.0 0 "x")
+              (sub@G
+               (i 64)
+               (dot~9 d.0~1 position.0 0 "x")1@1))0@K)k.0@3))
+          (stmts~1,1
+           (ret
+            (sub@H
+             (i 64)
+             (dot~9 d.0~1 position.0 0 "x")1@1)))))
+        (asgn@2,3 h.2~2
+         (call@9 nextTry.0.has9tn57v~7 h.2@1
+          (call@8 high.3.sysvq0asl~4
+           (dot@2 t.2~1 hashes.0 0 "x")))))))))
+   (asgn@7,A result.2~7 -1@2)
+   (ret~2,~1 result.2)))
+ (func@,s :contains.0.@5 x .
+  (typevars@E
+   (typevar@1 :K.4. . . Keyable.0.@3 .)
+   (typevar@D :V.4. . . . .))
+  (params@T
+   (param@1 :t.3 . .
+    (at@8 Table.0.~5 K.4.@1 V.4.@4).)
+   (param@H :k.1 . . K.4.@3 .))
+  (bool@O)
+  (pragmas@w
+   (inline@2)).
+  (stmts@2,1
+   (result :result.3 . .
+    (bool@G,~p).)
+   (asgn@M,1 result.3
+    (expr@2,1p,../nimony/lib/std/system/comparisons.nim
+     (le@2,1
+      (i 64)0@R,w,../nimony/lib/std/tables.nim
+      (call@8,w,../nimony/lib/std/tables.nim rawGet.0.~6 t.3@1 k.1@4
+       (call@B
+        (ochoice~4 hash.2.has9tn57v hash.1.has9tn57v hash.10.has9tn57v hash.11.has9tn57v hash.7.has9tn57v hash.3.has9tn57v hash.8.has9tn57v hash.9.has9tn57v hash.4.has9tn57v hash.5.has9tn57v hash.6.has9tn57v)k.1@1)))))
+   (ret~2,~1 result.3)))
+ (func@,w :hasKey.0.@5 x .
+  (typevars@C
+   (typevar@1 :K.5. . . Keyable.0.@3 .)
+   (typevar@D :V.5. . . . .))
+  (params@R
+   (param@1 :t.4 . .
+    (at@8 Table.0.~5 K.5.@1 V.5.@4).)
+   (param@H :k.2 . . K.5.@3 .))
+  (bool@O)
+  (pragmas@u
+   (inline@2)).
+  (stmts@2,1
+   (result :result.4 . .
+    (bool@G,~t).)
+   (asgn@8,1 result.4
+    (call contains.0.~8 t.4@1 k.2@4))
+   (ret~2,~1 result.4)))
+ (func@,10 :getOrDefault.0.@5 x .
+  (typevars@I
+   (typevar@1 :K.6. . . Keyable.0.@3 .)
+   (typevar@D :V.6. . . HasDefault.0.sysvq0asl@3 .))
+  (params@j
+   (param@1 :t.5 . .
+    (at@8 Table.0.~5 K.6.@1 V.6.@4).)
+   (param@H :k.3 . . K.6.@3 .))V.6.@O . .
+  (stmts@2,1
+   (result@4 :result.5 . . V.6.@I,~1 .)
+   (let@4 :idx.0 . .
+    (i@8,~s 64)
+    (call@C rawGet.0.~6 t.5@1 k.3@4
+     (call@B
+      (ochoice~4 hash.2.has9tn57v hash.1.has9tn57v hash.10.has9tn57v hash.11.has9tn57v hash.7.has9tn57v hash.3.has9tn57v hash.8.has9tn57v hash.9.has9tn57v hash.4.has9tn57v hash.5.has9tn57v hash.6.has9tn57v)k.3@1)))
+   (asgn@,1 result.5
+    (if
+     (elif@3
+      (expr@2,1p,../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)0@C,14,../nimony/lib/std/tables.nim idx.0@5,14,../nimony/lib/std/tables.nim))
+      (expr~1,1
+       (tupat@1
+        (call \5B\5D.7.sysvq0asl
+         (dot t.5~1 data.0 0 "x")idx.0@6)1@B)))
+     (else@,2
+      (expr@2,1
+       (call@7
+        (ochoice~7 default.13.sysvq0asl default.9.sysvq0asl default.1.sysvq0asl default.24.sysvq0asl default.2.sysvq0asl default.17.sysvq0asl default.21.sysvq0asl default.23.sysvq0asl default.11.sysvq0asl default.16.sysvq0asl default.15.sysvq0asl default.3.sysvq0asl default.22.sysvq0asl default.7.sysvq0asl default.6.sysvq0asl default.20.sysvq0asl default.5.sysvq0asl default.12.sysvq0asl default.10.sysvq0asl default.4.sysvq0asl default.18.sysvq0asl default.25.sysvq0asl default.14.sysvq0asl default.19.sysvq0asl default.8.sysvq0asl)V.6.@1)))))
+   (ret~2,~1 result.5)))
+ (func@,17 :getOrDefault.1.@5 x .
+  (typevars@I
+   (typevar@1 :K.7. . . Keyable.0.@3 .)
+   (typevar@D :V.7. . . . .))
+  (params@X
+   (param@1 :t.6 . .
+    (at@8 Table.0.~5 K.7.@1 V.7.@4).)
+   (param@H :k.4 . . K.7.@3 .)
+   (param@N :fallback.0 . . V.7.@A .))V.7.@b . .
+  (stmts@2,1
+   (result :result.6 . . V.7.@12,~1 .)
+   (let@4,1 :idx.1 . .
+    (i@8,~10 64)
+    (call@C rawGet.0.~6 t.6@1 k.4@4
+     (call@B
+      (ochoice~4 hash.2.has9tn57v hash.1.has9tn57v hash.10.has9tn57v hash.11.has9tn57v hash.7.has9tn57v hash.3.has9tn57v hash.8.has9tn57v hash.9.has9tn57v hash.4.has9tn57v hash.5.has9tn57v hash.6.has9tn57v)k.4@1)))
+   (asgn@,2 result.6
+    (if
+     (elif@3
+      (expr@2,1p,../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)0@C,1C,../nimony/lib/std/tables.nim idx.1@5,1C,../nimony/lib/std/tables.nim))
+      (expr~1,1
+       (tupat@1
+        (call \5B\5D.7.sysvq0asl
+         (dot t.6~1 data.0 0 "x")idx.1@6)1@B)))
+     (else@,2
+      (expr@2,1 fallback.0))))
+   (ret~2,~1 result.6)))
+ (func@,1F :getOrQuit.0.@5 x .
+  (typevars@F
+   (typevar@1 :K.8. . . Keyable.0.@3 .)
+   (typevar@D :V.8. . . . .))
+  (params@U
+   (param@1 :t.7 . .
+    (at@8 Table.0.~5 K.8.@1 V.8.@4).)
+   (param@H :k.5 . . K.8.@3 .))
+  (mut@O V.8.@4). .
+  (stmts@2,1
+   (result :result.7 . .
+    (mut@M,~1 V.8.@4).)
+   (let@4,1 :idx.2 . .
+    (i@8,~18 64)
+    (call@C rawGet.0.~6 t.7@1 k.5@4
+     (call@B
+      (ochoice~4 hash.2.has9tn57v hash.1.has9tn57v hash.10.has9tn57v hash.11.has9tn57v hash.7.has9tn57v hash.3.has9tn57v hash.8.has9tn57v hash.9.has9tn57v hash.4.has9tn57v hash.5.has9tn57v hash.6.has9tn57v)k.5@1)))
+   (pragmax@,2
+    (pragmas
+     (cast@2
+      (pragmas
+       (noSideEffect@5))))
+    (stmts@2,1
+     (stmts@2,4,../nimony/lib/std/assertions.nim
+      (if
+       (elif@3
+        (not
+         (expr@2,1p,../nimony/lib/std/system/comparisons.nim
+          (le@2,1
+           (i 64)0@I,1L,../nimony/lib/std/tables.nim idx.2@B,1L,../nimony/lib/std/tables.nim)))
+        (stmts~1,1
+         (stmts@2,7a,../nimony/lib/std/syncio.nim
+          (stmts@2,2
+           (cmd write.0.syn1lfpjv stdout.0.syn1lfpjv@6 "\5BAssertion Failure\5D "@9,5,../nimony/lib/std/assertions.nim))
+          (stmts@2,2
+           (cmd write.0.syn1lfpjv stdout.0.syn1lfpjv@6 ""@Z,3,../nimony/lib/std/assertions.nim))
+          (cmd@,3 write.7.syn1lfpjv stdout.0.syn1lfpjv@6 '\0A'@E))
+         (cmd@,1 quit.0.syn1lfpjv 1@5)))))))
+   (asgn@B,4 result.7
+    (tupat~A
+     (call \5B\5D.7.sysvq0asl
+      (dot t.7~1 data.0 0 "x")idx.2@6)1@B))
+   (ret~2,~1 result.7)))
+ (stmts@2,1N
+  (func :\5B\5D.0.@5 x .
+   (typevars@A
+    (typevar@1 :K.9. . . Keyable.0.@3 .)
+    (typevar@D :V.9. . . . .))
+   (params@P
+    (param@1 :t.8 . .
+     (at@8 Table.0.~5 K.9.@1 V.9.@4).)
+    (param@H :k.6 . . K.9.@3 .))
+   (mut@O V.9.@4)
+   (pragmas@t
+    (raises@2 ErrorCode.0.sysvq0asl~2)).
+   (stmts@2,1
+    (result :result.8 . .
+     (mut@M,~1 V.9.@4).)
+    (let@4,1 :idx.3 . .
+     (i@6,~1G 64)
+     (call@C rawGet.0.~6 t.8@1 k.6@4
+      (call@B
+       (ochoice~4 hash.2.has9tn57v hash.1.has9tn57v hash.10.has9tn57v hash.11.has9tn57v hash.7.has9tn57v hash.3.has9tn57v hash.8.has9tn57v hash.9.has9tn57v hash.4.has9tn57v hash.5.has9tn57v hash.6.has9tn57v)k.6@1)))
+    (if@,2
+     (elif@3
+      (lt@4
+       (i 64)idx.3~4 0@2)
+      (stmts~1,1
+       (raise KeyError.0.sysvq0asl@6))))
+    (asgn@B,4 result.8
+     (tupat~A
+      (call \5B\5D.7.sysvq0asl
+       (dot t.8~1 data.0 0 "x")idx.3@6)1@B))
+    (ret~2,~1 result.8))))
+ (func@,1h :rawPut.0.@5 . .
+  (typevars@B
+   (typevar@1 :K.10. . . Keyable.0.@3 .)
+   (typevar@D :V.10. . . . .))
+  (params@Q
+   (param@1 :t.9 . .
+    (mut@3
+     (at@9 Table.0.~5 K.10.@1 V.10.@4)).)
+   (param@L :k.7 . .
+    (sink@3 K.10.@5).)
+   (param@W :v.0 . .
+    (sink~8 V.10.@G).)
+   (param@h :h.0 . .
+    (u@A,2,../nimony/lib/std/hashes.nim 64).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@B
+      (i 64)
+      (call~5 len.3.sysvq0asl@1
+       (dot~5 t.9~1 data.0 0 "x"))HashThreshold.0.@3)
+     (stmts~1,1
+      (cmd fillHashPart.0. t.9@D)))
+    (elif@5,2
+     (call@A mustRehash.0.~A
+      (call@9 len.3.sysvq0asl@1
+       (dot~7 t.9~1 hashes.0 0 "x"))
+      (call@L len.3.sysvq0asl@1
+       (dot~5 t.9~1 data.0 0 "x")))
+     (stmts~3,1
+      (cmd resize.0.
+       (dot@8 t.9~1 hashes.0 0 "x")))))
+   (cmd@6,4 add.0.sysvq0asl@1
+    (dot~5 t.9~1 data.0 0 "x")
+    (tupconstr@5
+     (tuple@1 K.10.@f,~5 V.10.@q,~5)k.7@1 v.0@4))
+   (var@4,5 :hi.1 . .
+    (u@A,2,../nimony/lib/std/hashes.nim 64)
+    (bitand@7
+     (u 64)h.0~2
+     (conv@H
+      (u@A,~1O 64)
+      (call~5 high.3.sysvq0asl@1
+       (dot~7 t.9~1 hashes.0 0 "x")))))
+   (while@,6
+    (call@E isFilled.0.~8
+     (call@2 \5B\5D.8.sysvq0asl
+      (dot t.9~1 hashes.0 0 "x")hi.1@8))
+    (stmts@U
+     (asgn@3 hi.1~3
+      (call@9 nextTry.0.has9tn57v~7 hi.1@1
+       (call@9 high.3.sysvq0asl~4
+        (dot@2 t.9~1 hashes.0 0 "x"))))))
+   (call@1,7 \5B\5D=.8.sysvq0asl
+    (dot t.9~1 hashes.0 0 "x")hi.1@8
+    (oconstr@N HashEntry.0.~9,~1Y
+     (kv@9 fullhash.0~8 h.0@2)
+     (kv@M position.0~8
+      (call@8 len.3.sysvq0asl@1
+       (dot~5 t.9~1 data.0 0 "x")))))))
+ (func@,1r :\5B\5D=.0.@5 x .
+  (typevars@B
+   (typevar@1 :K.11. . . Keyable.0.@3 .)
+   (typevar@D :V.11. . . . .))
+  (params@Q
+   (param@1 :t.10 . .
+    (mut@3
+     (at@9 Table.0.~5 K.11.@1 V.11.@4)).)
+   (param@L :k.8 . .
+    (sink@3,~A K.11.@5,A).)
+   (param@W :v.1 . .
+    (sink~8,~A V.11.@G,A).)). . .
+  (stmts@2,1
+   (let@4,1 :h.3 . .
+    (u@A,2,../nimony/lib/std/hashes.nim 64)
+    (call@8
+     (ochoice~4 hash.2.has9tn57v hash.1.has9tn57v hash.10.has9tn57v hash.11.has9tn57v hash.7.has9tn57v hash.3.has9tn57v hash.8.has9tn57v hash.9.has9tn57v hash.4.has9tn57v hash.5.has9tn57v hash.6.has9tn57v)k.8@1))
+   (let@4,2 :idx.4 . .
+    (i@8,~1l 64)
+    (call@C rawGet.0.~6 t.10@1 k.8@4 h.3@7))
+   (if@,3
+    (elif@3
+     (expr@2,1p,../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@C,1x,../nimony/lib/std/tables.nim idx.4@5,1x,../nimony/lib/std/tables.nim))
+     (stmts~1,1
+      (stmts@2,S,../nimony/lib/std/system.nim
+       (asgn@7
+        (tupat~6
+         (call@5,1y,../nimony/lib/std/tables.nim \5B\5D.7.sysvq0asl
+          (dot t.10~1 data.0 0 "x")idx.4@6)1@G,1y,../nimony/lib/std/tables.nim)v.1@L,1y,../nimony/lib/std/tables.nim))))
+    (else@,2
+     (stmts@2,1
+      (call@6 rawPut.0.~6 t.10@1 k.8@4 v.1@7 h.3@A))))))
+ (func@,20 :mgetOrPut.0.@5 x .
+  (typevars@F
+   (typevar@1 :K.12. . . Keyable.0.@3 .)
+   (typevar@D :V.12. . . . .))
+  (params@U
+   (param@1 :t.11 . .
+    (mut@3
+     (at@9 Table.0.~5 K.12.@1 V.12.@4)).)
+   (param@L :k.9 . .
+    (sink~1,~J K.12.@9,J).)
+   (param@W :v.2 . .
+    (sink~C,~J V.12.@K,J).))
+  (mut@i V.12.@4). .
+  (stmts@2,1
+   (result :result.9 . .
+    (mut@g,~1 V.12.@4).)
+   (let@4,1 :h.4 . .
+    (u@A,2,../nimony/lib/std/hashes.nim 64)
+    (call@8
+     (ochoice~4 hash.2.has9tn57v hash.1.has9tn57v hash.10.has9tn57v hash.11.has9tn57v hash.7.has9tn57v hash.3.has9tn57v hash.8.has9tn57v hash.9.has9tn57v hash.4.has9tn57v hash.5.has9tn57v hash.6.has9tn57v)k.9@1))
+   (var@4,2 :idx.5 . .
+    (i@8,~1u 64)
+    (call@C rawGet.0.~6 t.11@1 k.9@4 h.4@7))
+   (if@,3
+    (elif@3
+     (lt@4
+      (i 64)idx.5~4 0@2)
+     (stmts~1,1
+      (call@6 rawPut.0.~6 t.11@1 k.9@4 v.2@7 h.4@A)
+      (asgn@4,1 idx.5~4
+       (sub@C
+        (i 64)
+        (call~4 len.3.sysvq0asl@1
+         (dot~5 t.11~1 data.0 0 "x"))1@1)))))
+   (asgn@7,6 result.9~7
+    (tupat@3
+     (call \5B\5D.7.sysvq0asl
+      (dot t.11~1 data.0 0 "x")idx.5@6)1@B))
+   (ret~2,~1 result.9)))
+ (func@,29 :len.0.@5 x .
+  (typevars@9
+   (typevar@1 :K.13. . . . .)
+   (typevar@4 :V.13. . . . .))
+  (params@F
+   (param@1 :t.12 . .
+    (at@8 Table.0.~5 K.13.@1 V.13.@4).))
+  (i@I 64)
+  (pragmas@b
+   (inline@2)).
+  (stmts@2,1
+   (result :result.10 . .
+    (i@C,~21 64).)
+   (asgn@6,1 result.10
+    (call len.3.sysvq0asl@1
+     (dot~5 t.12~1 data.0 0 "x")))
+   (ret~2,~1 result.10)))
+ (iterator@,2D :pairs.0.@9 x .
+  (typevars@F
+   (typevar@1 :K.14. . . . .)
+   (typevar@4 :V.14. . . . .))
+  (params@L
+   (param@1 :t.13 . .
+    (at@8 Table.0.~5 K.14.@1 V.14.@4).))
+  (tuple@I
+   (lent@1 K.14.@5)
+   (lent@1 V.14.@D)). .
+  (stmts@2,1
+   (for@4,1
+    (infix@7 \2E.<.0.sysvq0asl 0~2
+     (call@A len.3.sysvq0asl@1
+      (dot~5 t.13~1 data.0 0 "x")))
+    (unpackflat
+     (let :i.6 . .
+      (i@8,~26 64).))
+    (stmts~2,1
+     (yld
+      (tupconstr@6
+       (tuple@8,~3
+        (lent@1 K.14.@5)
+        (lent@1 V.14.@D))
+       (tupat@2
+        (call \5B\5D.7.sysvq0asl
+         (dot t.13~1 data.0 0 "x")i.6@6)0@9)
+       (tupat@G
+        (call \5B\5D.7.sysvq0asl
+         (dot t.13~1 data.0 0 "x")i.6@6)1@9)))))))
+ (iterator@,2I :mpairs.0.@9 x .
+  (typevars@G
+   (typevar@1 :K.15. . . . .)
+   (typevar@4 :V.15. . . . .))
+  (params@M
+   (param@1 :t.14 . .
+    (at@8 Table.0.~5 K.15.@1 V.15.@4).))
+  (tuple@I
+   (lent@1,~5 K.15.@5,5)
+   (mut@9 V.15.@4)). .
+  (stmts@2,1
+   (for@4,1
+    (infix@7 \2E.<.0.sysvq0asl 0~2
+     (call@A len.3.sysvq0asl@1
+      (dot~5 t.14~1 data.0 0 "x")))
+    (unpackflat
+     (let :i.7 . .
+      (i@8,~2B 64).))
+    (stmts~2,1
+     (yld
+      (tupconstr@6
+       (tuple@8,~3
+        (lent@1,~5 K.15.@5,5)
+        (mut@9 V.15.@4))
+       (tupat@2
+        (call \5B\5D.7.sysvq0asl
+         (dot t.14~1 data.0 0 "x")i.7@6)0@9)
+       (tupat@G
+        (call \5B\5D.7.sysvq0asl
+         (dot t.14~1 data.0 0 "x")i.7@6)1@9)))))))
+ (iterator@,2N :keys.0.@9 x .
+  (typevars@E
+   (typevar@1 :K.16. . . . .)
+   (typevar@4 :V.16. . . . .))
+  (params@K
+   (param@1 :t.15 . .
+    (at@8 Table.0.~5 K.16.@1 V.16.@4).))
+  (lent@J,~A K.16.@4,A). .
+  (stmts@2,1
+   (for@4
+    (infix@7 \2E.<.0.sysvq0asl 0~2
+     (call@A len.3.sysvq0asl@1
+      (dot~5 t.15~1 data.0 0 "x")))
+    (unpackflat
+     (let :i.8 . .
+      (i@8,~2F 64).))
+    (stmts~2,1
+     (yld
+      (tupat@7
+       (call \5B\5D.7.sysvq0asl
+        (dot t.15~1 data.0 0 "x")i.8@6)0@9))))))
+ (iterator@,2R :values.0.@9 x .
+  (typevars@G
+   (typevar@1 :K.17. . . . .)
+   (typevar@4 :V.17. . . . .))
+  (params@M
+   (param@1 :t.16 . .
+    (at@8 Table.0.~5 K.17.@1 V.17.@4).))
+  (lent@J,~E V.17.@4,E). .
+  (stmts@2,1
+   (for@4
+    (infix@7 \2E.<.0.sysvq0asl 0~2
+     (call@A len.3.sysvq0asl@1
+      (dot~5 t.16~1 data.0 0 "x")))
+    (unpackflat
+     (let :i.9 . .
+      (i@8,~2J 64).))
+    (stmts~2,1
+     (yld
+      (tupat@7
+       (call \5B\5D.7.sysvq0asl
+        (dot t.16~1 data.0 0 "x")i.9@6)1@9))))))
+ (iterator@,2V :mvalues.0.@9 x .
+  (typevars@H
+   (typevar@1 :K.18. . . . .)
+   (typevar@4 :V.18. . . . .))
+  (params@N
+   (param@1 :t.17 . .
+    (mut@3
+     (at@9 Table.0.~5 K.18.@1 V.18.@4)).))
+  (mut@M V.18.@4). .
+  (stmts@2,1
+   (for@4
+    (infix@7 \2E.<.0.sysvq0asl 0~2
+     (call@A len.3.sysvq0asl@1
+      (dot~5 t.17~1 data.0 0 "x")))
+    (unpackflat
+     (let :i.10 . .
+      (i@8,~2N 64).))
+    (stmts~2,1
+     (yld
+      (tupat@7
+       (call \5B\5D.7.sysvq0asl
+        (dot t.17~1 data.0 0 "x")i.10@6)1@9))))))
+ (func@,2Z :del.0.@5 x .
+  (typevars@9
+   (typevar@1 :K.19. . . Keyable.0.@3 .)
+   (typevar@D :V.19. . . . .))
+  (params@O
+   (param@1 :t.18 . .
+    (mut@3
+     (at@9 Table.0.~5 K.19.@1 V.19.@4)).)
+   (param@L :k.10 . . K.19.@3 .)). . .
+  (stmts@2,1
+   (let@4,3 :idx.6 . .
+    (i@8,~2U 64)
+    (call@C rawGet.0.~6 t.18@1 k.10@4
+     (call@B
+      (ochoice~4 hash.2.has9tn57v hash.1.has9tn57v hash.10.has9tn57v hash.11.has9tn57v hash.7.has9tn57v hash.3.has9tn57v hash.8.has9tn57v hash.9.has9tn57v hash.4.has9tn57v hash.5.has9tn57v hash.6.has9tn57v)k.10@1)))
+   (if@,4
+    (elif@3
+     (lt@4
+      (i 64)idx.6~4 0@2)
+     (stmts@9
+      (ret .))))
+   (var@4,5 :j.0 . .
+    (i@8,~2W 64)idx.6@4)
+   (while@,6
+    (lt@8
+     (i 64)j.0~2
+     (sub@D
+      (i 64)
+      (call~5 len.3.sysvq0asl@1
+       (dot~5 t.18~1 data.0 0 "x"))1@2))
+    (stmts@2,1
+     (let@4 :next.0 . .
+      (tuple@6,~2W K.19.@O,2O V.19.@R,2O)
+      (call@8 \5B\5D.7.sysvq0asl
+       (dot t.18~1 data.0 0 "x")
+       (add@7
+        (i 64)j.0~1 1@1)))
+     (call@1,1 \5B\5D=.7.sysvq0asl
+      (dot t.18~1 data.0 0 "x")j.0@6 next.0@B)
+     (cmd@,2 inc.1.sysvq0asl j.0@4)))
+   (call@D,A shrink.0.sysvq0asl~6
+    (dot~C t.18~1 data.0 0 "x")
+    (sub@C
+     (i 64)
+     (call~5 len.3.sysvq0asl@1
+      (dot~5 t.18~1 data.0 0 "x"))1@2))
+   (if@,B
+    (elif@3
+     (expr@2,1t,../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)HashThreshold.0.@I,2n,../nimony/lib/std/tables.nim
+       (dot@B,2n,../nimony/lib/std/tables.nim
+        (dot~5 t.18~1 data.0 0 "x")len.0 0 "x")))
+     (stmts~1,8
+      (var@4 :size.1 . .
+       (i@6,~2k 64)
+       (mul@L
+        (i 64)HashThreshold.0.~E 2@2))
+      (while@,1
+       (lt@B
+        (i 64)size.1~5
+        (mul@D
+         (i 64)
+         (call~5 len.3.sysvq0asl@1
+          (dot~5 t.18~1 data.0 0 "x"))2@2))
+       (stmts@2,1
+        (asgn@5 size.1~5
+         (mul@7
+          (i 64)size.1~5 2@2))))
+      (asgn@9,3
+       (dot~8 t.18~1 hashes.0 0 "x")
+       (call@J
+        (at~H newSeq.0.sysvq0asl HashEntry.0.@7)size.1@1))
+      (for@4,4
+       (infix@7 \2E.<.0.sysvq0asl 0~2
+        (call@A len.3.sysvq0asl@1
+         (dot~5 t.18~1 data.0 0 "x")))
+       (unpackflat
+        (let :i.11 . .
+         (i@6,~2o 64).))
+       (stmts~2,1
+        (let@4 :fullhash.1 . .
+         (u@A,2,../nimony/lib/std/hashes.nim 64)
+         (call@F
+          (ochoice~4 hash.2.has9tn57v hash.1.has9tn57v hash.10.has9tn57v hash.11.has9tn57v hash.7.has9tn57v hash.3.has9tn57v hash.8.has9tn57v hash.9.has9tn57v hash.4.has9tn57v hash.5.has9tn57v hash.6.has9tn57v)
+          (tupat@2
+           (call \5B\5D.7.sysvq0asl
+            (dot t.18~1 data.0 0 "x")i.11@6)0@9)))
+        (var@4,1 :hi.2 . .
+         (u@A,2,../nimony/lib/std/hashes.nim 64)
+         (bitand@E
+          (u 64)fullhash.1~9
+          (conv@H
+           (u~1,~2a 64)
+           (call~5 high.3.sysvq0asl@1
+            (dot~7 t.18~1 hashes.0 0 "x")))))
+        (while@,2
+         (call@E isFilled.0.~8
+          (call@2 \5B\5D.8.sysvq0asl
+           (dot t.18~1 hashes.0 0 "x")hi.2@8))
+         (stmts@U
+          (asgn@3 hi.2~3
+           (call@9 nextTry.0.has9tn57v~7 hi.2@1
+            (call@9 high.3.sysvq0asl~4
+             (dot@2 t.18~1 hashes.0 0 "x"))))))
+        (call@1,3 \5B\5D=.8.sysvq0asl
+         (dot t.18~1 hashes.0 0 "x")hi.2@8
+         (oconstr@N HashEntry.0.~D,~2k
+          (kv@9 fullhash.0~8 fullhash.1@2)
+          (kv@T position.0~8
+           (add@3
+            (i 64)i.11~1 1@1))))))))
+    (else@,H
+     (stmts@2,2
+      (call@F shrink.0.sysvq0asl~6
+       (dot~E t.18~1 hashes.0 0 "x")0@1))))))
+ (func@,36 :initTable.0.@5 x .
+  (typevars@F
+   (typevar@1 :K.20. . . . .)
+   (typevar@4 :V.20. . . . .))
+  (params@L)
+  (at@9 Table.0.~5 K.20.@1 V.20.@4). .
+  (stmts@2,1
+   (result :result.11 . .
+    (at@7,~1 Table.0.~5 K.20.@1 V.20.@4).)
+   (asgn@B,1 result.11
+    (oconstr
+     (at~4,~2 Table.0.~5 K.20.@1 V.20.@4)
+     (kv@5 data~4
+      (expr@2,32,../nimony/lib/std/system/seqimpl.nim
+       (call@F,1
+        (at~F newSeqUninit.0.sysvq0asl
+         (tuple@E,D,../nimony/lib/std/tables.nim K.20.~4,2v V.20.~1,2v))0@1)))
+     (kv@I hashes~6
+      (expr@2,32,../nimony/lib/std/system/seqimpl.nim
+       (call@F,1
+        (at~F newSeqUninit.0.sysvq0asl HashEntry.0.@G,E,../nimony/lib/std/tables.nim)0@1)))))
+   (ret~2,~1 result.11)))
+ (func@,3A :clear.0.@5 x .
+  (typevars@B
+   (typevar@1 :K.21. . . . .)
+   (typevar@4 :V.21. . . . .))
+  (params@H
+   (param@1 :t.19 . .
+    (mut@3
+     (at@9 Table.0.~5 K.21.@1 V.21.@4)).)). . .
+  (stmts@2,1
+   (call@D,1 shrink.0.sysvq0asl~6
+    (dot~C t.19~1 data.0 0 "x")0@1)
+   (asgn@9,2
+    (dot~8 t.19~1 hashes.0 0 "x")
+    (expr@2,32,../nimony/lib/std/system/seqimpl.nim
+     (call@F,1
+      (at~F newSeqUninit.0.sysvq0asl HashEntry.0.@G,E,../nimony/lib/std/tables.nim)0@1)))))
+ (type@M,3J :OrderedTable.0.~K x
+  (typevars~7
+   (typevar@1 :K.1. . . . .)
+   (typevar@4 :V.1. . . . .)).
+  (at@7 Table.0.~5 K.1.@1 V.1.@4))
+ (func@,3L :initOrderedTable.0.@5 x .
+  (typevars@M
+   (typevar@1 :K.22. . . . .)
+   (typevar@4 :V.22. . . . .))
+  (params@S)
+  (at@T,~2 Table.0.~5 K.22.~C,2 V.22.~9,2)
+  (pragmas@p
+   (inline@2)).
+  (stmts@12
+   (result@F :result.12 . .
+    (at~o,~2 Table.0.~5 K.22.~C,2 V.22.~9,2).)
+   (asgn@F result.12
+    (call
+     (at~F initTable.0. K.22.@A V.22.@D)))
+   (ret~12 result.12)))
+ (comment@I,4 bool.0.sysvq0asl int.0.sysvq0asl~4,5 int.0.sysvq0asl@F,A int.0.sysvq0asl@F,A bool.0.sysvq0asl@6,A bool.0.sysvq0asl~2,D int.0.sysvq0asl@G,b bool.0.sysvq0asl@6,o bool.0.sysvq0asl@6,s sink.0.sysvq0asl@W,1d sink.0.sysvq0asl@h,1d sink.0.sysvq0asl@W,1n sink.0.sysvq0asl@h,1n sink.0.sysvq0asl@a,1w sink.0.sysvq0asl@l,1w int.0.sysvq0asl@,25 lent.0.sysvq0asl@1,29 lent.0.sysvq0asl@9,29 lent.0.sysvq0asl@1,2E lent.0.sysvq0asl@,2J lent.0.sysvq0asl@,2N isMainModule.0.sysvq0asl~D,3J >.0.sysvq0asl@e,D uint.0.sysvq0asl@M,L uint.0.sysvq0asl@M,X uint.0.sysvq0asl@F,g >=.0.sysvq0asl@6,q >=.0.sysvq0asl~9,y >=.0.sysvq0asl~9,16 >=.0.sysvq0asl~3,1F assert.0.assy765wm~E,1F uint.0.sysvq0asl@D,1j >=.0.sysvq0asl~9,1r \5B\5D=.0.sysvq0asl~D,1s >.0.sysvq0asl~2,2h uint.0.sysvq0asl@O,2v \40.1.sysvq0asl@2,34 \40.1.sysvq0asl@F,34 \40.1.sysvq0asl~5,39)
+ (func@J,L :len.3.Iiefpcc1. . .@,2Z,../nimony/lib/std/system/seqimpl.nim
+  (at len.3.sysvq0asl HashEntry.0.~3,~9)
+  (params@C,2Z,../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.6 . . seq.0.Ikxuplm1.@6 .))
+  (i@D,2Z,../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@T,2Z,../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,2Z,../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2a,../nimony/lib/std/system/seqimpl.nim
+   (result :result.13 . .
+    (i@D,V,../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@1,1 result.13
+    (dot s.6~1 len.0 0 "x"))
+   (ret~2,~1 result.13)))
+ (func@R,M :newSeq.0.Iv3lu2h1. . .@,W,../nimony/lib/std/system/seqimpl.nim
+  (at newSeq.0.sysvq0asl HashEntry.0.~A)
+  (params@R,W,../nimony/lib/std/system/seqimpl.nim
+   (param@1 :size.2 . .
+    (i@E,B,../nimony/lib/std/tables.nim 64)0@C))seq.0.Ikxuplm1.@K,W,../nimony/lib/std/system/seqimpl.nim
+  (pragmas@p,W,../nimony/lib/std/system/seqimpl.nim
+   (nodestroy@2)).@,W,../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,X,../nimony/lib/std/system/seqimpl.nim
+   (result :result.14 . . seq.0.Ikxuplm1.@I,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.2~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.14~7
+       (oconstr@8 seq.0.Ikxuplm1.@F,E,../nimony/lib/std/tables.nim
+        (kv@4 len.0~3 size.2@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.0 . .
+       (i@E,B,../nimony/lib/std/tables.nim 64)
+       (call@R memSizeInBytes.0.Ilp7p16.~H size.2@1))
+      (asgn@7,1 result.14~7
+       (oconstr@8 seq.0.Ikxuplm1.@F,E,../nimony/lib/std/tables.nim
+        (kv@4 len.0~3 size.2@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I HashEntry.0.@H,O,../nimony/lib/std/tables.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.0@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray HashEntry.0.@H,O,../nimony/lib/std/tables.nim)
+            (unchecked))
+           (dot@D,d,../nimony/lib/std/system/seqimpl.nim result.14~6 data.0 0 "x")
+           (nil@M,d,../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (var@4 :i.12 . .
+          (i@E,B,../nimony/lib/std/tables.nim 64)0@4)
+         (while@,1
+          (lt@8
+           (i 64)i.12~2 size.2@2)
+          (stmts@2,1
+           (asgn@H
+            (pat~A
+             (dot result.14~6 data.0 0 "x")i.12@6)
+            (oconstr@9 HashEntry.0.@H,J,../nimony/lib/std/tables.nim
+             (kv fullhash.0
+              (expr@n,F,../nimony/lib/std/system/defaults.nim
+               (suf 0u "u64")))
+             (kv position.0
+              (expr@l,E,../nimony/lib/std/system/defaults.nim
+               (suf 0 "i64")))))
+           (cmd@,1 inc.1.Irn1g7r1.
+            (haddr@4 i.12))))))
+       (else@,5
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.14~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.0@B)))))))))
+   (ret~2,~1 result.14)))
+ (iterator@D,N :\2E.<.0.Inpqkww1. . .@,1,../nimony/lib/std/system/iterators.nim
+  (at \2E.<.0.sysvq0asl
+   (i 64))
+  (params@R,1,../nimony/lib/std/system/iterators.nim
+   (param@1 :a.4 . .
+    (i 64).)
+   (param@4 :b.2 . .
+    (i 64).))
+  (i 64)
+  (pragmas@e,1,../nimony/lib/std/system/iterators.nim
+   (inline@2)).@,1,../nimony/lib/std/system/iterators.nim
+  (stmts@2,2,../nimony/lib/std/system/iterators.nim
+   (var@4 :i.13 . .
+    (i@E,B,../nimony/lib/std/tables.nim 64)a.4@4)
+   (while@,1
+    (lt@8
+     (i 64)i.13~2 b.2@2)
+    (stmts@2,1
+     (yld i.13@6)
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.13))))))
+ (func@G,O :\5B\5D.7.Iv5vlve1. . .@,2h,../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.7.sysvq0asl HashEntry.0.@,~C)
+  (params@D,2h,../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.7 . . seq.0.Ikxuplm1.@6 .)
+   (param@C :i.14 . .
+    (i@3 64).))
+  (mut@L,2h,../nimony/lib/std/system/seqimpl.nim HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+  (pragmas@e,2h,../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.14~2
+      (dot@3 s.7~1 len.0 0 "x"))
+     (expr@2,1p,../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1A,2h,../nimony/lib/std/system/seqimpl.nim i.14@15,2h,../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)).@,2h,../nimony/lib/std/system/seqimpl.nim
+  (stmts@1P,2h,../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.15 . .
+    (mut~1A HashEntry.0.@G,E,../nimony/lib/std/tables.nim).)
+   (asgn@6 result.15
+    (haddr~5
+     (pat
+      (dot s.7~1 data.0 0 "x")i.14@6)))
+   (ret~1P result.15)))
+ (func@a,P :high.3.Iyuup9h1. . .@,41,../nimony/lib/std/system/seqimpl.nim
+  (at high.3.sysvq0asl HashEntry.0.~K,~D)
+  (params@D,41,../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.8 . . seq.0.Ikxuplm1.@6 .))
+  (i@D,41,../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@U,41,../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,41,../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,42,../nimony/lib/std/system/seqimpl.nim
+   (result :result.16 . .
+    (i@D,V,../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@6,1 result.16
+    (sub
+     (i 64)
+     (dot~5 s.8~1 len.0 0 "x")1@2))
+   (ret~2,~1 result.16)))
+ (func@L,Q :\5B\5D.8.Imt2zi01. . .@,2m,../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.8.sysvq0asl HashEntry.0.~5,~E)
+  (params@D,2m,../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.9 . . seq.0.Ikxuplm1.@6 .)
+   (param@C :i.15 . .
+    (u@3 64).))
+  (mut@M,2m,../nimony/lib/std/system/seqimpl.nim HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+  (pragmas@f,2m,../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (lt@D
+     (u 64)i.15~2
+     (conv@7
+      (u@U,F,../nimony/lib/std/system/defaults.nim 64)
+      (dot~4 s.9~1 len.0 0 "x"))))
+   (inline@U)).@,2m,../nimony/lib/std/system/seqimpl.nim
+  (stmts@1K,2m,../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.17 . .
+    (mut~14 HashEntry.0.@G,E,../nimony/lib/std/tables.nim).)
+   (asgn@6 result.17
+    (haddr~5
+     (pat
+      (dot s.9~1 data.0 0 "x")
+      (conv@A
+       (i@U,E,../nimony/lib/std/system/defaults.nim 64)i.15))))
+   (ret~1K result.17)))
+ (func@6,R :\5B\5D=.8.Ipchg2a. . .@,2o,../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D=.8.sysvq0asl HashEntry.0.@A,~F)
+  (params@E,2o,../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.10 . .
+    (mut@3 seq.0.Ikxuplm1.@7).)
+   (param@G :i.16 . .
+    (u@3 64).)
+   (param@P :elem.1 . .
+    (sink~5,~R HashEntry.0.@G,E,../nimony/lib/std/tables.nim).)).@,2o,../nimony/lib/std/system/seqimpl.nim
+  (pragmas@r,2o,../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (lt@D
+     (u 64)i.16~2
+     (conv@7
+      (u@U,F,../nimony/lib/std/system/defaults.nim 64)
+      (dot~4
+       (hderef~1 s.10)len.0 0 "x"))))
+   (inline@U)
+   (pragma@c linear.0.sysvq0asl)).@,2o,../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2p,../nimony/lib/std/system/seqimpl.nim
+   (asgn@G
+    (pat~E
+     (dot
+      (hderef~1 s.10)data.0 0 "x")
+     (conv@A
+      (i@U,E,../nimony/lib/std/system/defaults.nim 64)i.16))elem.1@2)))
+ (func@Z,b,../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.Ilp7p16. . .~Z,~C
+  (at memSizeInBytes.0.sysvq0asl HashEntry.0.@H,O,../nimony/lib/std/tables.nim)
+  (params~D,~C
+   (param@1 :size.4 . .
+    (i@6 64).))
+  (i~M,~C 64)
+  (pragmas@4,~C
+   (inline@2)).~Z,~C
+  (stmts~X,~B
+   (result :result.18 . .
+    (i@D,V,../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.18~7
+      (mul@7
+       (i 64)size.4~5
+       (sizeof@8 HashEntry.0.@H,O,../nimony/lib/std/tables.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.18~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.18)))
+ (func@8,h,../nimony/lib/std/system/seqimpl.nim :inc.1.Irn1g7r1. . .@,E,../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i@E,B,../nimony/lib/std/tables.nim 64))
+  (params@L,E,../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 . .
+    (mut@3
+     (i@E,B,../nimony/lib/std/tables.nim 64)).)).@,E,../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.1)
+    (add@6
+     (i@E,B,../nimony/lib/std/tables.nim 64)
+     (hderef@1 x.1)
+     (conv@U,~F
+      (i@E,B,../nimony/lib/std/tables.nim 64)1@1)))))
+ (type@F,C :seq.0.Ikxuplm1. .
+  (at seq.0.sysvq0asl HashEntry.0.@1)
+  (pragmas@A,6,../nimony/lib/std/system/seqimpl.nim
+   (destroy =destroy.1.I5skmro.)
+   (wasmoved =wasMoved.1.I8aeezd1.)
+   (dup =dup.1.I5fpbae.)
+   (copy =copy.1.Ipe8zjr.))
+  (object@C,6,../nimony/lib/std/system/seqimpl.nim .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+     (unchecked)).)))
+ (func@,D,../nimony/lib/std/system/seqimpl.nim :=destroy.1.I5skmro. . .
+  (at =destroy.1.sysvq0asl HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+  (params@J
+   (param@1 :s.13 . . seq.0.Ikxuplm1.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+         (unchecked))
+        (dot@6,E,../nimony/lib/std/system/seqimpl.nim s.13~1 data.0 0 "x")
+        (nil@F,E,../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.17 . .
+       (i@E,B,../nimony/lib/std/tables.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.17~2
+        (dot@3 s.13~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.13~1 data.0 0 "x")i.17@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.17))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,10,../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@D,r,../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.13~1 data.0 0 "x")))))))))
+ (func@,L,../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.I8aeezd1. . .
+  (at =wasMoved.1.sysvq0asl HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+  (params@K
+   (param@1 :s.14 . .
+    (mut@3 seq.0.Ikxuplm1.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.14)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.14)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../nimony/lib/std/system/seqimpl.nim :=dup.1.I5fpbae. . .
+  (at =dup.1.sysvq0asl HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+  (params@F
+   (param@1 :a.6 . . seq.0.Ikxuplm1.@6 .))seq.0.Ikxuplm1.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.19 . . seq.0.Ikxuplm1.@D,~1 .)
+   (asgn@7 result.19~7
+    (call@H newSeqUninit.0.Iie69x21.~F
+     (dot@2 a.6~1 len.0 0 "x")))
+   (var@4,1 :i.18 . .
+    (i@E,B,../nimony/lib/std/tables.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.18~2
+     (dot@3 a.6~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.19~6 data.0 0 "x")i.18@6)
+      (dup@8
+       (pat@2
+        (dot a.6~1 data.0 0 "x")i.18@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.18))))
+   (ret~2,~1 result.19)))
+ (func@,20,../nimony/lib/std/system/seqimpl.nim :=copy.1.Ipe8zjr. . .
+  (at =copy.1.sysvq0asl HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+  (params@G
+   (param@1 :dest.1 . .
+    (mut@6 seq.0.Ikxuplm1.@7).)
+   (param@J :src.1 . . seq.0.Ikxuplm1.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.1)data.0 0 "x")
+      (dot@6 src.1~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.1~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.1)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.19 . .
+       (i@E,B,../nimony/lib/std/tables.nim 64)
+       (dot@7 src.1~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.19~2
+        (dot@6
+         (hderef~4 dest.1)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.1)data.0 0 "x")i.19@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.19))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.In64myz.@1
+       (hderef~4 dest.1))
+      (mul@A
+       (i 64)
+       (dot~5 src.1~3 len.0 0 "x")
+       (sizeof@8 HashEntry.0.@G,E,../nimony/lib/std/tables.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.0 . .
+       (i@E,B,../nimony/lib/std/tables.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.In64myz.@1
+         (hderef~4 dest.1))
+        (sizeof@A HashEntry.0.@G,E,../nimony/lib/std/tables.nim)))
+      (let@4,1 :newCap.0 . .
+       (i@E,B,../nimony/lib/std/tables.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.0@1
+        (sub@H
+         (i 64)
+         (dot~5 src.1~3 len.0 0 "x")oldCap.0@2)))
+      (let@4,2 :memSize.1 . .
+       (i@E,B,../nimony/lib/std/tables.nim 64)
+       (call@R memSizeInBytes.0.Ilp7p16.~H newCap.0@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.1)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,x,../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@D,r,../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.1)data.0 0 "x")))memSize.1@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.1)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.1)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.1@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.1)len.0 0 "x")
+    (dot@5 src.1~3 len.0 0 "x"))
+   (var@4,H :i.20 . .
+    (i@E,B,../nimony/lib/std/tables.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.20~2
+     (dot@6
+      (hderef~4 dest.1)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.1)data.0 0 "x")i.20@E,2K,../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.1~3 data.0 0 "x")i.20@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.20))))))
+ (func@Q,1V,../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.Iie69x21. . .~Q,~R
+  (at newSeqUninit.0.sysvq0asl HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+  (params~5,~R
+   (param@1 :size.6 . .
+    (i@6 64).))seq.0.Ikxuplm1.~A,~R
+  (pragmas@F,~R
+   (nodestroy@2)
+   (inline@D)).~Q,~R
+  (stmts~O,~Q
+   (result :result.20 . . seq.0.Ikxuplm1.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.6~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.20~7
+       (oconstr@8 seq.0.Ikxuplm1.@F,E,../nimony/lib/std/tables.nim
+        (kv@4 len.0~3 size.6@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.2 . .
+       (i@E,B,../nimony/lib/std/tables.nim 64)
+       (call@R memSizeInBytes.0.Ilp7p16.~H size.6@1))
+      (asgn@7,1 result.20~7
+       (oconstr@8 seq.0.Ikxuplm1.@F,E,../nimony/lib/std/tables.nim
+        (kv@4 len.0~3 size.6@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.2@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+            (unchecked))
+           (dot@D,1B,../nimony/lib/std/system/seqimpl.nim result.20~6 data.0 0 "x")
+           (nil@M,1B,../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.20~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.2@B)))))))))
+   (ret~2,~1 result.20)))
+ (func@B,27,../nimony/lib/std/system/seqimpl.nim :capInBytes.0.In64myz. . .~B,~1x
+  (at capInBytes.0.sysvq0asl HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+  (params@7,~1x
+   (param@1 :s.16 . . seq.0.Ikxuplm1.@6 .))
+  (i@2,~1x 64)
+  (pragmas@O,~1x
+   (inline@2)).~B,~1x
+  (stmts~9,~1w
+   (result@7 :result.21 . .
+    (i@D,V,../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.21~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray HashEntry.0.@G,E,../nimony/lib/std/tables.nim)
+          (unchecked))
+         (dot@F,B,../nimony/lib/std/system/seqimpl.nim s.16~1 data.0 0 "x")
+         (nil@O,B,../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,13,../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@D,r,../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.16~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.21))))(.index@,2,../nimony/lib/std/tables.nim
+ (x Keyable.0. 234)
+ (h@D,3 Self.0. 50)
+ (h@4,4 ==.0. 48)
+ (h@4,4 hash.0. 135)
+ (h HashEntry.0. 137)
+ (x Table.0. 176)
+ (h@8,A K.0. 39)
+ (h@8,A V.0. 29)
+ (h mustRehash.0. 178)
+ (h isFilled.0. 483)
+ (h resize.0. 408)
+ (h HashThreshold.0. 1595)
+ (h fillHashPart.0. 67)
+ (h@H,X K.2. 47)
+ (h@H,X V.2. 40)
+ (h rawGet.0. 1589)
+ (h@B,f K.3. 41)
+ (h@B,f V.3. 40)
+ (x contains.0. 2799)
+ (h@E,s K.4. 43)
+ (h@E,s V.4. 40)
+ (x hasKey.0. 695)
+ (h@C,w K.5. 41)
+ (h@C,w V.5. 40)
+ (x getOrDefault.0. 314)
+ (h@I,10 K.6. 48)
+ (h@I,10 V.6. 40)
+ (x getOrDefault.1. 1457)
+ (h@I,17 K.7. 48)
+ (h@I,17 V.7. 40)
+ (x getOrQuit.0. 927)
+ (h@F,1F K.8. 45)
+ (h@F,1F V.8. 40)
+ (x@2,1N \5B\5D.0. 1467)
+ (h@C,1N K.9. 40)
+ (h@C,1N V.9. 41)
+ (h rawPut.0. 845)
+ (h@B,1h K.10. 42)
+ (h@B,1h V.10. 41)
+ (x \5B\5D=.0. 1554)
+ (h@B,1r K.11. 43)
+ (h@B,1r V.11. 41)
+ (x mgetOrPut.0. 1163)
+ (h@F,20 K.12. 45)
+ (h@F,20 V.12. 41)
+ (x len.0. 1072)
+ (h@9,29 K.13. 39)
+ (h@9,29 V.13. 30)
+ (x pairs.0. 316)
+ (h@F,2D K.14. 45)
+ (h@F,2D V.14. 30)
+ (x mpairs.0. 653)
+ (h@G,2I K.15. 46)
+ (h@G,2I V.15. 30)
+ (x keys.0. 661)
+ (h@E,2N K.16. 44)
+ (h@E,2N V.16. 30)
+ (x values.0. 436)
+ (h@G,2R K.17. 46)
+ (h@G,2R V.17. 30)
+ (x mvalues.0. 436)
+ (h@H,2V K.18. 47)
+ (h@H,2V V.18. 30)
+ (x del.0. 445)
+ (h@9,2Z K.19. 39)
+ (h@9,2Z V.19. 41)
+ (x initTable.0. 3509)
+ (h@F,36 K.20. 45)
+ (h@F,36 V.20. 30)
+ (x clear.0. 661)
+ (h@B,3A K.21. 41)
+ (h@B,3A V.21. 30)
+ (x OrderedTable.0. 413)
+ (h@F,3J K.1. 47)
+ (h@F,3J V.1. 29)
+ (x initOrderedTable.0. 66)
+ (h@M,3L K.22. 52)
+ (h@M,3L V.22. 30)
+ (h len.3.Iiefpcc1. 1141)
+ (h newSeq.0.Iv3lu2h1. 583)
+ (h \2E.<.0.Inpqkww1. 2591)
+ (h \5B\5D.7.Iv5vlve1. 616)
+ (h high.3.Iyuup9h1. 976)
+ (h \5B\5D.8.Imt2zi01. 613)
+ (h \5B\5D=.8.Ipchg2a. 922)
+ (h memSizeInBytes.0.Ilp7p16. 903)
+ (h inc.1.Irn1g7r1. 723)
+ (h seq.0.Ikxuplm1. 708)
+ (h =destroy.1.I5skmro. 452)
+ (h =wasMoved.1.I8aeezd1. 1160)
+ (h =dup.1.I5fpbae. 391)
+ (h =copy.1.Ipe8zjr. 780)
+ (h newSeqUninit.0.Iie69x21. 3592)
+ (h capInBytes.0.In64myz. 1846))

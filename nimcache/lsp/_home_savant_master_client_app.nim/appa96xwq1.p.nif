@@ -1,0 +1,1074 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../master/client/app.nim
+ (comment)
+ (import@,O
+  (infix@A / std~3 syncio@1))
+ (import@,P jsffi@7)
+ (import@,Q web_state@7)
+ (import@,R viewtree@7)
+ (import@,S vparse@7)
+ (import@,T render@7)
+ (import@,U widgets@7)
+ (import@,V chromeui@7)
+ (var@4,Y rootNode . . DomNode@A .)
+ (var@4,Z rootRef . . DomRef@9 .)
+ (var@4,a mounted . .
+  (at@C seq~3 Mounted@1)
+  (prefix@O \40
+   (bracket@1)))
+ (comment@,c)
+ (var@4,o activeDoc . . . "atom\3Achrome"@C)
+ (comment@,q)
+ (var@4,w foldNamed . . . false@C)
+ (var@4,x maxDepth . . . 0@B)
+ (var@4,11 rawRead . . . false@A)
+ (comment@,12)
+ (var@4,14 toolsOpen . . . false@C)
+ (comment@,16)
+ (var@4,1E query . . . ""@8)
+ (comment@,1G)
+ (var@4,1R hist . .
+  (at@9 seq~3 string@1)
+  (prefix@K \40
+   (bracket@1)))
+ (var@4,1S histIx . . . -1@9)
+ (var@4,1T preview . . . true@A)
+ (var@4,1U booted . . . false@9)
+ (type@6,1Y Req~4 . . .
+  (object@2 .
+   (fld~4,1 what . . string@6 .)
+   (fld~4,2 url . . string@5 .)
+   (fld~4,3 body . . string@6 .)
+   (fld~4,4 arg . . string@5 .)))
+ (var@4,1e queue . .
+  (at@A seq~3 Req@1)
+  (prefix@I \40
+   (bracket@1)))
+ (var@4,1f current . . .
+  (oconstr@D Req~3
+   (kv@5 what~4 ""@2)
+   (kv@E url~3 ""@2)
+   (kv@O body~4 ""@2)
+   (kv@X arg~3 ""@2)))
+ (var@4,1g inflight . . . false@B)
+ (comment@,1i)
+ (var@4,1v delivering . . . false@D)
+ (proc@,1x pump@5 . . .
+  (params@9). . . .)
+ (proc@,1y onText@5 . . .
+  (params@B
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@O nimcall@2). .)
+ (proc@,1z onResp@5 . . .
+  (params@B
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@O nimcall@2). .)
+ (proc@,20 onFail@5 . . .
+  (params@B
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@O nimcall@2). .)
+ (proc@,22 request@5 . . .
+  (params@C
+   (param@1 what . . string@M .)
+   (param@7 url . . string@G .)
+   (param@C body . . string@B .)
+   (param@I arg . . string@5 .)). . .
+  (stmts@2,1
+   (cmd@5
+    (dot queue~5 add@1)
+    (oconstr@8 Req~3
+     (kv@5 what~4 what@2)
+     (kv@G url~3 url@2)
+     (kv@R body~4 body@2)
+     (kv@c arg~3 arg@2)))
+   (if@,2
+    (elif@3
+     (prefix not delivering@4)
+     (stmts@G
+      (call@4 pump~4))))))
+ (proc@,27 copyOf@5 . . .
+  (params@B
+   (param@1 x . . string@3 .))string@D . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,5 result~7 ""@2)
+   (cmd@6,6
+    (dot result~6 add@1)x@5)))
+ (proc@,2G pump@5 . . .
+  (params@9). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 or inflight~9
+      (infix@D ==
+       (dot~5 queue~5 len@1)0@3))
+     (stmts@S
+      (ret .))))
+   (let@4,B w . . .
+    (call@A copyOf~6
+     (dot@9
+      (at~3 queue~5 0@1)what@1)))
+   (let@4,C u . . .
+    (call@A copyOf~6
+     (dot@9
+      (at~3 queue~5 0@1)url@1)))
+   (let@4,D b . . .
+    (call@A copyOf~6
+     (dot@9
+      (at~3 queue~5 0@1)body@1)))
+   (let@4,E ar . . .
+    (call@B copyOf~6
+     (dot@9
+      (at~3 queue~5 0@1)arg@1)))
+   (var@4,F rest . .
+    (at@9 seq~3 Req@1)
+    (prefix@H \40
+     (bracket@1)))
+   (var@4,G i . . . 1@4)
+   (while@,H
+    (infix@8 < i~2
+     (dot@7 queue~5 len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot rest~4 add@1)
+      (at@A queue~5 i@1))
+     (cmd@,1 inc i@4)))
+   (asgn@6,K queue~6 rest@2)
+   (asgn@8,L current~8
+    (oconstr@5 Req~3
+     (kv@5 what~4 w@2)
+     (kv@D url~3 u@2)
+     (kv@M body~4 b@2)
+     (kv@U arg~3 ar@2)))
+   (asgn@9,M inflight~9 true@2)
+   (var@4,N p . . . undefined@4)
+   (if@,O
+    (elif@3
+     (infix@H ==
+      (dot~5
+       (dot~5 current~7 body@1)len@1)0@3)
+     (stmts~1,1
+      (asgn@2 p~2
+       (call@A
+        (dot~5
+         (call~2 g~1)call@1)"fetch"@1
+        (call@E toJs~4
+         (dot@8 current~7 url@1))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 opt . . .
+       (call@H newJsObject~B))
+      (call@7,1
+       (dot~4 opt~3 set@1)"method"@1
+       (call@F toJs~4 "POST"@1))
+      (call@7,2
+       (dot~4 opt~3 set@1)"body"@1
+       (call@D toJs~4
+        (dot@8 current~7 body@1)))
+      (asgn@2,3 p~2
+       (call@B
+        (dot~6
+         (call~2 g~1)apply@1)"fetch"@1
+        (bracket@A
+         (call@5 toJs~4
+          (dot@8 current~7 url@1))opt@K))))))
+   (discard@,V
+    (call@f
+     (dot~5
+      (call~M
+       (dot~5 p~1 call@1)"then"@1
+       (call@D toJs~4 onResp@1))call@1)"catch"@1
+     (call@E toJs~4 onFail@1)))))
+ (proc@,2o onResp@5 . . .
+  (params@B
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@O nimcall@2).
+  (stmts@2,1
+   (discard
+    (call@s
+     (dot~5
+      (call~M
+       (dot~5
+        (call~8
+         (dot~5 v~1 call@1)"text"@1)call@1)"then"@1
+       (call@D toJs~4 onText@1))call@1)"catch"@1
+     (call@E toJs~4 onFail@1)))))
+ (proc@,2r onFail@5 . . .
+  (params@B
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@O nimcall@2).
+  (stmts@2,5
+   (call@3 log~3
+    (infix@K & "request failed\3A "~J
+     (call@8 copyOf~6
+      (dot@8 current~7 url@1)))"err"@h)
+   (call@6,1 status~6 "offline"@1 "err"@C)
+   (asgn@9,2 inflight~9 false@2)
+   (call@4,3 pump~4)))
+ (proc@,32 renderChrome@5 . . .
+  (params@H
+   (param@1 src . . string@5 .)). . .
+  (stmts@2,1
+   (var@4 err . . . ""@6)
+   (let@4,1 tree . . .
+    (call@G parseView~9 src@1 err@6))
+   (if@,2
+    (elif@3
+     (infix@8 >
+      (dot~5 err~3 len@1)0@2)
+     (stmts~1,1
+      (call@3 log~3
+       (infix@C & "chrome\3A "~B err@2)"err"@J)
+      (call@6,1 status~6 "chrome refused"@1 "err"@J)
+      (ret@,2 .))))
+   (call@A,6 resetStats~A)
+   (asgn@8,7 mounted~8
+    (call@B reconcile~9 rootRef@1 mounted@A
+     (call@Q flatten~7
+      (prefix@1 \40
+       (bracket@1 tree@1)))))
+   (call@8,B mountAll~8)))
+ (proc@,3H startsWith@5 . . .
+  (params@F
+   (param@1 s . . string@6 .)
+   (param@4 p . . string@3 .))bool@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 <
+      (dot~5 s~1 len@1)
+      (dot@3 p~1 len@1))
+     (stmts@F
+      (ret false@7))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@3 p~1 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@5 !=
+        (at~4 s~1 i@1)
+        (at@4 p~1 i@1))
+       (stmts@E
+        (ret false@7))))
+     (cmd@,1 inc i@4)))true@,5))
+ (proc@,3P hasWord@5 . . .
+  (params@C
+   (param@1 s . . string@6 .)
+   (param@4 w . . string@3 .))bool@G . .
+  (stmts@2,1
+   (comment)
+   (var@4,2 cur . . . ""@6)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 <= i~2
+     (dot@4 s~1 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@B or
+        (infix~9 == i~2
+         (dot@4 s~1 len@1))
+        (infix@8 ==
+         (at~4 s~1 i@1)' '@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@4 == cur~4 w@3)
+          (stmts@A
+           (ret true@7))))
+        (asgn@4,1 cur~4 ""@2)))
+      (else@,3
+       (stmts@2,1
+        (cmd@3
+         (dot cur~3 add@1)
+         (at@6 s~1 i@1)))))
+     (cmd@,5 inc i@4)))false@,B))
+ (proc@,3d parseIx@5 . . .
+  (params@C
+   (param@1 x . . string@3 .))int@D . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@3 x~1 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C and
+        (infix~7 >=
+         (at~4 x~1 i@1)'0'@3)
+        (infix@9 <=
+         (at~4 x~1 i@1)'9'@3))
+       (stmts@T
+        (asgn@7 result~7
+         (infix@E \2B
+          (infix~5 * result~7 10@2)
+          (par@2
+           (infix@B \2D
+            (call~7 ord~3
+             (at@2 x~1 i@1))
+            (call@5 ord~3 '0'@1))))))))
+     (cmd@,1 inc i@4)))))
+ (proc@,3k after@5 . . .
+  (params@A
+   (param@1 s . . string@3 .)
+   (param@C n . . int@3 .))string@L . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . n@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@3 s~1 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@6 s~1 i@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,3r foldParam@5 . . .
+  (params@E)string@4 . .
+  (stmts@2,1
+   (if
+    (elif@3 foldNamed
+     (stmts@B
+      (ret "1"@7))))"0"@,1))
+ (proc@,3v rawParam@5 . . .
+  (params@D)string@4 . .
+  (stmts@2,1
+   (if
+    (elif@3 rawRead
+     (stmts@9
+      (ret "1"@7))))"0"@,1))
+ (proc@,3z toolsParam@5 . . .
+  (params@F)string@4 . .
+  (stmts@2,1
+   (if
+    (elif@3 toolsOpen
+     (stmts@B
+      (ret "1"@7))))"0"@,1))
+ (proc@,43 readQuery@5 . . .
+  (params@E)string@4 . .
+  (stmts@2,1
+   (comment)
+   (infix@v,3 &
+    (infix~A &
+     (infix~C &
+      (infix~C &
+       (infix~E & "&fold="~9
+        (call@B foldParam~9))"&depth="@2)
+      (prefix@2 $ maxDepth@1))"&raw="@2)
+    (call@A rawParam~8))))
+ (proc@,49 refreshChrome@5 . . .
+  (params@I). . .
+  (stmts@2,5
+   (var@4 nav . . . ""@6)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 hist~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@3
+         (dot nav~3 add@1)","@5))))
+     (cmd@3,1
+      (dot nav~3 add@1)
+      (at@9 hist~4 i@1))
+     (cmd@,2 inc i@4)))
+   (var@4,6 pv . . . "0"@5)
+   (if@,7
+    (elif@3 preview
+     (stmts@9
+      (asgn@3 pv~3 "1"@2))))
+   (call@7,8 request~7 "chrome"@1
+    (infix@B,3 &
+     (infix@y,~1 &
+      (infix~D &
+       (infix~A &
+        (infix~C &
+         (infix~C &
+          (infix~E &
+           (infix@e,~1 &
+            (infix~A &
+             (infix~B &
+              (infix~6 &
+               (infix~A &
+                (infix~5 &
+                 (infix@o,~1 &
+                  (infix~8 &
+                   (infix~8 &
+                    (infix~C & "/api/chrome?doc="~J activeDoc@2)"&q="@2)query@2)"&pv="~v,1)pv@2)"&nav="@2)nav@2)"&navi="@2)
+             (prefix@2 $ histIx@1))"&fold="~n,1)
+           (call@B foldParam~9))"&depth="@2)
+         (prefix@2 $ maxDepth@1))"&raw="@2)
+       (call@A rawParam~8))"&tools="~18,1)
+     (call@C toolsParam~A))""@R,3 ""@V,3)))
+ (comment@,4R)
+ (var@4,4V pendingReveal . . . ""@G)
+ (proc@,4X splitHash@5 . . .
+  (params@E
+   (param@1 id . . string@4 .)
+   (param@D frag . .
+    (mut@6 string@4).))string@W . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7 ""@2)
+   (asgn@5,2 frag~5 ""@2)
+   (var@4,3 i . . . 0@4)
+   (var@4,4 seen . . . false@7)
+   (while@,5
+    (infix@8 < i~2
+     (dot@4 id~2 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@6 ==
+        (at~4 id~2 i@1)'\23'@3)
+       (stmts~1,1
+        (asgn@5 seen~5 true@2)))
+      (elif@5,2 seen
+       (stmts~3,1
+        (cmd@4
+         (dot frag~4 add@1)
+         (at@7 id~2 i@1))))
+      (else@,4
+       (stmts@2,1
+        (cmd@6
+         (dot result~6 add@1)
+         (at@7 id~2 i@1)))))
+     (cmd@,6 inc i@4)))))
+ (proc@,4m layerOf@5 . . .
+  (params@C
+   (param@1 id . . string@4 .))string@E . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@4 id~2 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@6 ==
+        (at~4 id~2 i@1)'\3A'@3)
+       (stmts@E
+        (ret result@7))))
+     (cmd@6,1
+      (dot result~6 add@1)
+      (at@7 id~2 i@1))
+     (cmd@,2 inc i@4)))
+   (asgn@7,6 result~7 ""@2)))
+ (proc@,4v pushHistory@5 . . .
+  (params@G
+   (param@1 id . . string@4 .)). . .
+  (stmts@2,1
+   (comment)
+   (if@,3
+    (elif@3
+     (infix@Y and
+      (infix~M and
+       (infix~5 >= histIx~7 0@3)
+       (infix@B < histIx~7
+        (dot@6 hist~4 len@1)))
+      (infix@H ==
+       (at~9 hist~4 histIx@1)id@3))
+     (stmts@w
+      (ret .))))
+   (var@4,4 kept . .
+    (at@9 seq~3 string@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@I and
+     (infix~A <= i~2 histIx@3)
+     (infix@6 < i~2
+      (dot@6 hist~4 len@1)))
+    (stmts@2,1
+     (cmd@4
+      (dot kept~4 add@1)
+      (at@9 hist~4 i@1))
+     (cmd@,1 inc i@4)))
+   (cmd@4,9
+    (dot kept~4 add@1)id@5)
+   (var@4,B trimmed . .
+    (at@C seq~3 string@1)
+    (prefix@N \40
+     (bracket@1)))
+   (var@4,C start . . . 0@8)
+   (if@,D
+    (elif@3
+     (infix@9 >
+      (dot~5 kept~4 len@1)8@2)
+     (stmts@E
+      (asgn@6 start~6
+       (infix@B \2D
+        (dot~5 kept~4 len@1)8@2)))))
+   (asgn@2,E i~2 start@2)
+   (while@,F
+    (infix@8 < i~2
+     (dot@6 kept~4 len@1))
+    (stmts@2,1
+     (cmd@7
+      (dot trimmed~7 add@1)
+      (at@9 kept~4 i@1))
+     (cmd@,1 inc i@4)))
+   (asgn@5,I hist~5 trimmed@2)
+   (asgn@7,J histIx~7
+    (infix@B \2D
+     (dot~5 hist~4 len@1)1@2))))
+ (proc@,5H openDoc@5 . . .
+  (params@C
+   (param@1 id . . string@4 .)). . .
+  (stmts@2,1
+   (asgn@A activeDoc~A id@2)
+   (call@B,3 pushHistory~B id@1)
+   (call@7,4 request~7 "doc"@1
+    (infix@V &
+     (infix~6 &
+      (infix~5 & "/api/doc/"~C id@2)"?"@2)
+     (call@B readQuery~9))""@k id@o)))
+ (proc@,5O goTo@5 . . .
+  (params@9
+   (param@1 ix . . int@4 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < ix~3 0@2)
+      (infix@6 >= ix~3
+       (dot@7 hist~4 len@1)))
+     (stmts@Q
+      (ret .))))
+   (asgn@7,1 histIx~7 ix@2)
+   (asgn@A,2 activeDoc~A
+    (call@8 copyOf~6
+     (at@5 hist~4 ix@1)))
+   (call@7,3 request~7 "doc"@1
+    (infix@c &
+     (infix~6 &
+      (infix~C & "/api/doc/"~C activeDoc@2)"?"@2)
+     (call@B readQuery~9))""@r activeDoc@v)))
+ (proc@,5U reread@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (comment)
+   (call@7,2 request~7 "doc"@1
+    (infix@c &
+     (infix~6 &
+      (infix~C & "/api/doc/"~C activeDoc@2)"?"@2)
+     (call@B readQuery~9))""@r activeDoc@v)))
+ (proc@,5Z doApply@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (comment)
+   (if@,7
+    (elif@3
+     (infix@J ==
+      (call~C layerOf~7 activeDoc@1)"atom"@3)
+     (stmts@U
+      (ret .))))
+   (call@7,8 request~7 "saved"@1 "/api/command"@A
+    (infix@V,1 &
+     (infix~7 &
+      (infix~C & "set-doc "~B activeDoc@2)"\0A"@2)
+     (call@C editorText~A))""@l,1)))
+ (proc@,5l onSave@5 . . .
+  (params@B).
+  (pragmas@E nimcall@2).
+  (stmts@S
+   (call@7 doApply~7)))
+ (proc@,5n jumpToAtom@5 . . .
+  (params@F
+   (param@1 id . . string@4 .)).
+  (pragmas@S nimcall@2).
+  (stmts@2,1
+   (comment)
+   (call@7,2 openDoc~7
+    (infix@9 & "atom\3A"~8 id@2))))
+ (proc@,5s dispatch@5 . . .
+  (params@D
+   (param@1 cmd . . string@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@A startsWith~A cmd@1 "open\3A"@6)
+     (stmts~1,1
+      (var@4 frag . . . ""@7)
+      (let@4,1 target . . .
+       (call@I splitHash~9
+        (call@6 after~5 cmd@1 5@6)frag@G))
+      (asgn@E,2 pendingReveal~E frag@2)
+      (call@7,3 openDoc~7 target@1)))
+    (elif@5,5
+     (call@A startsWith~A cmd@1 "nav\3A"@6)
+     (stmts~3,1
+      (call@4 goTo~4
+       (call@8 parseIx~7
+        (call@6 after~5 cmd@1 4@6)))))
+    (elif@5,7
+     (infix@4 == cmd~4 "back"@3)
+     (stmts~3,1
+      (call@4 goTo~4
+       (infix@8 \2D histIx~7 1@2))))
+    (elif@5,9
+     (infix@4 == cmd~4 "forward"@3)
+     (stmts~3,1
+      (call@4 goTo~4
+       (infix@8 \2B histIx~7 1@2))))
+    (elif@5,B
+     (infix@4 == cmd~4 "fold"@3)
+     (stmts~3,1
+      (asgn@A foldNamed~A
+       (prefix@2 not foldNamed@4))
+      (call@6,1 reread~6)))
+    (elif@5,E
+     (infix@4 == cmd~4 "raw"@3)
+     (stmts~3,1
+      (asgn@8 rawRead~8
+       (prefix@2 not rawRead@4))
+      (call@6,1 reread~6)))
+    (elif@5,H
+     (call@A startsWith~A cmd@1 "depth\3A"@6)
+     (stmts~3,1
+      (asgn@9 maxDepth~9
+       (call@9 parseIx~7
+        (call@6 after~5 cmd@1 6@6)))
+      (call@6,1 reread~6)))
+    (elif@5,K
+     (infix@4 == cmd~4 "tools"@3)
+     (stmts~3,1
+      (asgn@A toolsOpen~A
+       (prefix@2 not toolsOpen@4))
+      (call@D,1 refreshChrome~D)))
+    (elif@5,N
+     (infix@4 == cmd~4 "apply"@3)
+     (stmts~3,1
+      (call@7 doApply~7)))
+    (elif@5,P
+     (infix@4 == cmd~4 "run"@3)
+     (stmts~3,3
+      (call@6 status~6 "running..."@1 ""@F)
+      (call@7,1 request~7 "cmd"@1 "/api/command"@8
+       (infix@V & "run "~7 activeDoc@2)""@i)))
+    (elif@5,U
+     (infix@4 == cmd~4 "observe"@3)
+     (stmts~3,1
+      (call@6 status~6 "observing..."@1 ""@H)
+      (call@7,1 request~7 "cmd"@1 "/api/command"@8
+       (infix@Z & "observe "~B activeDoc@2)""@m)))
+    (elif@5,X
+     (infix@4 == cmd~4 "new"@3)
+     (stmts~3,1
+      (let@4 name . . .
+       (call@A ask~3 "new nim document"@1 "thing.nim"@L))
+      (if@,1
+       (elif@3
+        (infix@9 >
+         (dot~5 name~4 len@1)0@2)
+        (stmts~1,1
+         (call@7 request~7 "new"@1 "/api/command"@8
+          (infix@Z & "new nim\3A"~B name@2)
+          (infix@o & "nim\3A"~7 name@2)))))))
+    (elif@5,b
+     (infix@4 == cmd~4 "del"@3)
+     (stmts~3,1
+      (call@7 request~7 "cmd"@1 "/api/command"@8
+       (infix@Y & "delete "~A activeDoc@2)""@l)
+      (call@7,1 openDoc~7 "atom\3Achrome"@1)))
+    (elif@5,e
+     (infix@4 == cmd~4 "reset-chrome"@3)
+     (stmts~3,1
+      (call@7 request~7 "cmd"@1 "/api/command"@8 "reset-doc atoms\3Achrome"@O ""@o)))
+    (elif@5,g
+     (infix@4 == cmd~4 "reload"@3)
+     (stmts~3,1
+      (call@D refreshChrome~D)
+      (call@7,1 request~7 "atoms"@1 "/api/derived"@A ""@Q ""@U)
+      (call@7,2 request~7 "preview"@1 "/api/view"@C ""@P ""@T)))
+    (elif@5,k
+     (infix@4 == cmd~4 "theme"@3)
+     (stmts~3,3
+      (call@8 setTheme~8
+       (call@A nextTheme~9))
+      (call@6,1 status~6
+       (infix@B & "theme\3A "~A
+        (call@B themeName~9))""@Q)))
+    (else@,p
+     (stmts@2,1
+      (call@3 log~3
+       (infix@L & "no such command\3A "~K cmd@2)"warn"@S))))))
+ (proc@,6m deliver@5 . . .
+  (params@C
+   (param@1 what . . string@H .)
+   (param@7 arg . . string@B .)
+   (param@C text . . string@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == what~5 "chrome"@3)
+     (stmts~1,1
+      (call@C renderChrome~C text@1)
+      (if@,1
+       (elif@3
+        (prefix not booted@4)
+        (stmts~1,1
+         (asgn@7 booted~7 true@2)
+         (call@6,1 status~6 "ready"@1 ""@A)
+         (call@8,6 bootDone~8))))))
+    (elif@5,A
+     (infix@5 == what~5 "spans"@3)
+     (stmts~3,1
+      (call@A applySpans~A text@1)
+      (if@,3
+       (elif@3
+        (infix@I >
+         (dot~5 pendingReveal~D len@1)0@2)
+        (stmts~1,1
+         (call@A revealAtom~A pendingReveal@1)
+         (asgn@E,1 pendingReveal~E ""@2))))))
+    (elif@5,H
+     (infix@5 == what~5 "doc"@3)
+     (stmts~3,B
+      (var@4 lang . . . "nim"@7)
+      (if@,5
+       (elif@3
+        (infix@D !=
+         (call~6 layerOf~7 arg@1)"nim"@3)
+        (stmts@N
+         (asgn@5 lang~5 "atoms"@2))))
+      (call@9,6 setEditor~9 text@1 lang@7)
+      (call@B,9 setEditable~B
+       (infix@E !=
+        (call~6 layerOf~7 arg@1)"atom"@3))
+      (if@,D
+       (elif@3
+        (call@A startsWith~A arg@1 "atom\3A"@6)
+        (stmts~1,1
+         (call@7 request~7 "spans"@1
+          (infix@k &
+           (infix~6 &
+            (infix~G & "/api/spans/"~E
+             (call@7 after~5 arg@1 5@6))"?"@2)
+           (call@B readQuery~9))""@z ""@13)))
+       (else@,2
+        (stmts@2,1
+         (call@A clearSpans~A))))
+      (call@D,H refreshChrome~D)))
+    (elif@5,k
+     (infix@5 == what~5 "atoms"@3)
+     (stmts~3,1
+      (call@9 showAtoms~9 text@1)))
+    (elif@5,m
+     (infix@5 == what~5 "preview"@3)
+     (stmts~3,1
+      (call@B showPreview~B text@1)))
+    (elif@5,o
+     (infix@5 == what~5 "source"@3)
+     (stmts~3,1
+      (if
+       (elif@3
+        (infix@9 ==
+         (dot~5 text~4 len@1)0@3)
+        (stmts~1,1
+         (call@3 log~3
+          (infix@19 & "that atom is a part of something, or derived -- it has no document "~18 "of its own to edit"~18,1)"warn"@N,1)))
+       (else@,3
+        (stmts@2,1
+         (call@7 openDoc~7 text@1))))))
+    (elif@5,u
+     (infix@5 == what~5 "new"@3)
+     (stmts~3,1
+      (call@3 log~3 text@1 "ok"@7)
+      (call@7,1 openDoc~7 arg@1)))
+    (elif@5,x
+     (infix@5 == what~5 "saved"@3)
+     (stmts~3,1
+      (let@4 bad0 . . .
+       (infix@Z or
+        (call~I startsWith~A text@1 "refused"@7)
+        (call@D startsWith~A text@1 "could not"@7)))
+      (if@,1
+       (elif@3 bad0
+        (stmts~1,1
+         (call@3 log~3 text@1 "err"@7)
+         (call@6,1 status~6 "refused"@1 "err"@C)))
+       (else@,3
+        (stmts@2,1
+         (call@8 savedNow~8)
+         (call@6,1 status~6 "ok"@1 ""@7))))
+      (call@D,7 refreshChrome~D)
+      (call@7,8 request~7 "atoms"@1 "/api/derived"@A ""@Q ""@U)
+      (call@7,9 request~7 "preview"@1 "/api/view"@C ""@P ""@T)))
+    (elif@5,18
+     (infix@5 == what~5 "cmd"@3)
+     (stmts~3,1
+      (let@4 bad . . .
+       (infix@X,1 or
+        (infix@Y,~1 or
+         (infix~X or
+          (call~I startsWith~A text@1 "refused"@7)
+          (call@D startsWith~A text@1 "could not"@7))
+         (call~p,1 startsWith~A text@1 "DENIED"@7))
+        (call@D startsWith~A text@1 "KILLED"@7)))
+      (var@4,2 tone . . . "ok"@7)
+      (var@4,3 state . . . "ok"@8)
+      (if@,4
+       (elif@3 bad
+        (stmts~1,1
+         (asgn@5 tone~5 "err"@2)
+         (asgn@6,1 state~6 "refused"@2))))
+      (call@3,7 log~3 text@1 tone@7)
+      (call@6,8 status~6 state@1 tone@8)
+      (call@D,9 refreshChrome~D)
+      (call@7,A request~7 "atoms"@1 "/api/derived"@A ""@Q ""@U)
+      (call@7,B request~7 "preview"@1 "/api/view"@C ""@P ""@T))))))
+ (proc@,89 onText@5 . . .
+  (params@B
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@O nimcall@2).
+  (stmts@2,5
+   (let@4 what . . .
+    (call@D copyOf~6
+     (dot@8 current~7 what@1)))
+   (let@4,1 arg . . .
+    (call@C copyOf~6
+     (dot@8 current~7 arg@1)))
+   (asgn@9,2 inflight~9 false@2)
+   (asgn@B,3 delivering~B true@2)
+   (try@,D
+    (stmts@2,1
+     (call@7 deliver~7 what@1 arg@7
+      (prefix@C $ v@1)))
+    (except@,2 .
+     (stmts@2,1
+      (call@3 log~3
+       (infix@f &
+        (infix~7 & "a response handler failed on \27"~X what@2)"\27 -- continuing"@2)"err"@10)
+      (call@6,1 status~6 "handler failed"@1 "err"@J))))
+   (asgn@B,I delivering~B false@2)
+   (call@4,J pump~4)))
+ (proc@,8a swallow@5 . . .
+  (params@C
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@Q nimcall@2).
+  (stmts@2,1
+   (comment)
+   (let@4,5 b . . .
+    (call@9 toInt~5
+     (call@7
+      (dot~4 ev~2 get@1)"button"@1)))
+   (if@,6
+    (elif@3
+     (infix@7 and
+      (infix~5 != b~2 3@3)
+      (infix@6 != b~2 4@3))
+     (stmts@J
+      (ret .))))
+   (discard@,7
+    (call@F
+     (dot~5 ev~2 call@1)"preventDefault"@1))
+   (discard@,8
+    (call@F
+     (dot~5 ev~2 call@1)"stopPropagation"@1))))
+ (proc@,8l onMouseNav@5 . . .
+  (params@F
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@T nimcall@2).
+  (stmts@2,1
+   (let@4 b . . .
+    (call@9 toInt~5
+     (call@7
+      (dot~4 ev~2 get@1)"button"@1)))
+   (if@,1
+    (elif@3
+     (infix@7 and
+      (infix~5 != b~2 3@3)
+      (infix@6 != b~2 4@3))
+     (stmts@J
+      (ret .))))
+   (discard@,2
+    (call@F
+     (dot~5 ev~2 call@1)"preventDefault"@1))
+   (discard@,3
+    (call@F
+     (dot~5 ev~2 call@1)"stopPropagation"@1))
+   (if@,4
+    (elif@3
+     (infix@2 == b~2 3@3)
+     (stmts@8
+      (call@4 goTo~4
+       (infix@8 \2D histIx~7 1@2))))
+    (else@,1
+     (stmts@6
+      (call@4 goTo~4
+       (infix@8 \2B histIx~7 1@2)))))))
+ (proc@,8t onInput@5 . . .
+  (params@C
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@Q nimcall@2).
+  (stmts@2,1
+   (comment)
+   (let@4,4 target . . .
+    (call@F
+     (dot~4 ev~2 get@1)"target"@1))
+   (if@,5
+    (elif@3
+     (dot@6 target~6 isNil@1)
+     (stmts@E
+      (ret .))))
+   (let@4,8 rng . . .
+    (call@H
+     (dot~5 target~6 call@1)"closest"@1
+     (call@G toJs~4 "\5Bdata-range\5D"@1)))
+   (if@,9
+    (elif@3
+     (prefix not
+      (dot@7 rng~3 isNil@1))
+     (stmts~1,1
+      (asgn@9 maxDepth~9
+       (call@9 parseIx~7
+        (prefix@1 $
+         (call@8
+          (dot~4 rng~3 get@1)"value"@1))))
+      (call@6,1 reread~6)
+      (call@D,2 refreshChrome~D)
+      (ret@,3 .))))
+   (let@4,E el . . .
+    (call@G
+     (dot~5 target~6 call@1)"closest"@1
+     (call@G toJs~4 "\5Bdata-query\5D"@1)))
+   (if@,F
+    (elif@3
+     (dot@2 el~2 isNil@1)
+     (stmts@A
+      (ret .))))
+   (asgn@6,G query~6
+    (prefix@2 $
+     (call@7
+      (dot~4 el~2 get@1)"value"@1)))
+   (call@D,H refreshChrome~D)))
+ (proc@,9D onClick@5 . . .
+  (params@C
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@Q nimcall@2).
+  (stmts@2,1
+   (comment)
+   (let@4,4 target . . .
+    (call@F
+     (dot~4 ev~2 get@1)"target"@1))
+   (if@,5
+    (elif@3
+     (dot@6 target~6 isNil@1)
+     (stmts@E
+      (ret .))))
+   (let@4,6 el . . .
+    (call@G
+     (dot~5 target~6 call@1)"closest"@1
+     (call@G toJs~4 "\5Bdata-cmd\5D"@1)))
+   (if@,7
+    (elif@3
+     (dot@2 el~2 isNil@1)
+     (stmts@A
+      (ret .))))
+   (let@4,8 cmd . . .
+    (prefix@6 $
+     (call@8
+      (dot~5 el~2 call@1)"getAttribute"@1
+      (call@L toJs~4 "data-cmd"@1))))
+   (if@,9
+    (elif@3
+     (infix@8 ==
+      (dot~5 cmd~3 len@1)0@3)
+     (stmts@E
+      (ret .))))
+   (if@,M
+    (elif@3
+     (infix@E or
+      (infix~A == cmd~4 "fold"@3)
+      (infix@7 == cmd~4 "raw"@3))
+     (stmts~1,1
+      (let@4 cls . . .
+       (prefix@6 $
+        (call@8
+         (dot~5 el~2 call@1)"getAttribute"@1
+         (call@L toJs~4 "class"@1))))
+      (var@4,1 next . . . "check"@7)
+      (if@,2
+       (elif@3
+        (prefix not
+         (call@B hasWord~7 cls@1 "is-on"@6))
+        (stmts@R
+         (asgn@5 next~5 "check is-on"@2))))
+      (discard@,3
+       (call@F
+        (dot~5 el~2 call@1)"setAttribute"@1
+        (call@L toJs~4 "class"@1)
+        (call@a toJs~4 next@1))))))
+   (asgn@8,R preview~8
+    (infix@Q <
+     (call~J toInt~5
+      (call@7
+       (dot~4 ev~2 get@1)"detail"@1))2@2))
+   (call@8,S dispatch~8 cmd@1)))
+ (proc@,9i main@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@9 loadTheme~9)
+   (asgn@9,1 rootNode~9
+    (call@7 query~5 "\23app"@1))
+   (if@,2
+    (elif@3
+     (dot@8 rootNode~8 isNil@1)
+     (stmts~1,1
+      (cmd echo "master\3A no \23app to mount into"@5)
+      (ret@,1 .))))
+   (asgn@8,5 rootRef~8
+    (dot@A rootNode~8 href@1))
+   (discard@,6
+    (call@R
+     (dot~5
+      (call~A asJs~4 rootNode@1)call@1)"addEventListener"@1
+     (call@P toJs~4 "click"@1)
+     (call@e toJs~4 onClick@1)))
+   (discard@,7
+    (call@R
+     (dot~5
+      (call~A asJs~4 rootNode@1)call@1)"addEventListener"@1
+     (call@P toJs~4 "input"@1)
+     (call@e toJs~4 onInput@1)))
+   (discard@,A
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"addEventListener"@1
+     (call@P toJs~4 "mousedown"@1)
+     (call@i toJs~4 swallow@1)))
+   (discard@,B
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"addEventListener"@1
+     (call@P toJs~4 "auxclick"@1)
+     (call@h toJs~4 swallow@1)))
+   (discard@,D
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"addEventListener"@1
+     (call@P toJs~4 "mouseup"@1)
+     (call@g toJs~4 onMouseNav@1)))
+   (call@B,E setSaveHook~B onSave@1)
+   (call@7,F setJump~7 jumpToAtom@1)
+   (call@B,G watchResize~B)
+   (call@D,H watchModifier~D)
+   (call@C,I wireGestures~C)
+   (call@A,J loadMonaco~A)
+   (call@D,K refreshChrome~D)
+   (call@7,L openDoc~7 "atom\3Achrome"@1)
+   (call@7,M request~7 "atoms"@1 "/api/derived"@A ""@Q ""@U)
+   (call@7,N request~7 "preview"@1 "/api/view"@C ""@P ""@T)))
+ (call@4,A8 main~4))

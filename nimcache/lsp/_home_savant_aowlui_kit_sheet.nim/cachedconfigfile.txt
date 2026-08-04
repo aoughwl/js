@@ -1,0 +1,1 @@
+--base:/home/savant/aowlui/kit -d:nimony --bits:64 --cpu:amd64 --os:Linux /home/savant/aowlui/kit/sheet.nim --passC: --passL:

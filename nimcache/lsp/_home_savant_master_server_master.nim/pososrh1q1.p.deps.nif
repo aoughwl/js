@@ -1,0 +1,7 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-deps")
+(stmts
+ (include
+  (when
+   (call defined posix))posix_other))

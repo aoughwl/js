@@ -1,0 +1,19 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-deps")
+(stmts
+ (import
+  (infix / std
+   (bracket widestrs syncio)))
+ (import
+  (when
+   (call defined windows))
+  (infix / windows winlean))
+ (import
+  (when
+   (call defined posix))
+  (infix / posix posix))
+ (import
+  (when
+   (prefix not
+    (call defined createNimRtl)))strutils))

@@ -1,0 +1,4 @@
+(.nif27)
+(.indexat 182              )
+(stmts
+ (import "/home/savant/nimony/lib/std/system.nim" "/home/savant/nimony/lib/std/hashes.nim" "/home/savant/nimony/lib/std/assertions.nim"))(.index)

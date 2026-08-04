@@ -1,0 +1,818 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,2,../nimony/lib/std/tables.nim
+ (import hashes@7 assertions@F)
+ (type@B,3 Keyable~9 x . .
+  (concept@2 . . .
+   (stmts~9,1
+    (func
+     (quoted@5 ==@1). . .
+     (params@9
+      (param@1 a . . Self@6 .)
+      (param@4 b . . Self@3 .))bool@E . . .)
+    (func@,1 hash@5 . . .
+     (params@9
+      (param@1 a . . Self@3 .))Hash@B . . .))))
+ (type@C,7 HashEntry~A . . .
+  (object@2 .
+   (fld~A,1 fullhash . . Hash@A .)
+   (fld~A,2 position . . int@A .)))
+ (type@F,A Table~D x
+  (typevars~7
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .)).
+  (object@2 .
+   (fld~D,1 data . .
+    (at@9 seq~3
+     (tup@1 K@1 V@4)).)
+   (fld~D,2 hashes . .
+    (at@B seq~3 HashEntry@1).)))
+ (func@,E mustRehash@5 . . .
+  (params@F
+   (param@1 length . . int@H .)
+   (param@9 counter . . int@9 .))bool@O
+  (pragmas@i inline@2).
+  (stmts@2,1
+   (asgn@7 result~7
+    (infix@b or
+     (par~Z
+      (infix@8 < length~7
+       (infix@G \2B
+        (infix~6 div counter~8 2@4)counter@2)))
+     (par@3
+      (infix@I <
+       (infix~A \2D length~7 counter@2)4@2))))))
+ (func@,H isFilled@5 . . .
+  (params@D
+   (param@1 a . . HashEntry@3 .))bool@G
+  (pragmas@Y inline@2).
+  (stmts@l
+   (infix@B >
+    (dot~A a~1 position@1)0@2)))
+ (func@,J resize@5 . . .
+  (params@B
+   (param@1 t . .
+    (mut@3
+     (at@7 seq~3 HashEntry@1)).)). . .
+  (stmts@2,2
+   (let@4 newLen . . .
+    (if@9
+     (elif@3
+      (infix@6 ==
+       (dot~5 t~1 len@1)0@3)
+      (stmts@C 4))
+     (else@H
+      (stmts@6
+       (infix@6 *
+        (dot~5 t~1 len@1)2@2)))))
+   (var@4,1 s . . .
+    (call@L
+     (at~B newSeq~6 HashEntry@1)newLen@1))
+   (for@4,2
+    (infix@7 \2E\2E< 0~2
+     (dot@5 t~1 len@1))
+    (unpackflat
+     (let i . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (call@8 isFilled~8
+        (at@2 t~1 i@1))
+       (stmts~1,1
+        (var@4 h . . .
+         (infix@I and
+          (dot~A
+           (at~3 t~1 i@1)fullhash@1)
+          (dot@B
+           (call~3 high~4 s@1)uint@1)))
+        (while@,1
+         (call@E isFilled~8
+          (at@2 s~1 h@1))
+         (stmts@M
+          (asgn@2 h~2
+           (call@9 nextTry~7 h@1
+            (call@8 high~4 s@1)))))
+        (asgn@5,2
+         (at~4 s~1 h@1)
+         (at@3 t~1 i@1)))))))
+   (asgn@2,7 t~2
+    (cmd@D ensureMove~B s))))
+ (const@2,V HashThreshold . . . 4@G)
+ (func@,X fillHashPart@5 . .
+  (typevars@H
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . . .))
+  (params@W
+   (param@1 t . .
+    (mut@3
+     (at@9 Table~5 K@1 V@4)).)). . .
+  (stmts@2,1
+   (asgn@9
+    (dot~8 t~1 hashes@1)
+    (call@J
+     (at~B newSeq~6 HashEntry@1)
+     (infix@E * HashThreshold~D 2@1)))
+   (for@4,1
+    (infix@7 \2E\2E< 0~2
+     (dot@A
+      (dot~5 t~1 data@1)len@1))
+    (unpackflat
+     (let i . . ..))
+    (stmts~2,1
+     (let@4 fullhash . . .
+      (call@F hash~4
+       (at@A
+        (at~3
+         (dot~5 t~1 data@1)i@1)0@1)))
+     (var@4,1 hi . . .
+      (infix@E and fullhash~9
+       (dot@H
+        (dot~5
+         (dot~7 t~1 hashes@1)high@1)uint@1)))
+     (while@,2
+      (call@E isFilled~8
+       (at@9
+        (dot~7 t~1 hashes@1)hi@1))
+      (stmts@U
+       (asgn@3 hi~3
+        (call@9 nextTry~7 hi@1
+         (call@9 high~4
+          (dot@2 t~1 hashes@1))))))
+     (asgn@D,3
+      (at~5
+       (dot~7 t~1 hashes@1)hi@1)
+      (oconstr@B HashEntry~9
+       (kv@9 fullhash~8 fullhash@2)
+       (kv@T position~8
+        (infix@3 \2B i~1 1@1))))))))
+ (func@,f rawGet@5 . .
+  (typevars@B
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . . .))
+  (params@Q
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).)
+   (param@H k . . K@3 .)
+   (param@N kh . . Hash@4 .))int@Y . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B <=
+      (dot~5
+       (dot~5 t~1 data@1)len@1)HashThreshold@3)
+     (stmts~1,1
+      (for@4
+       (infix@7 \2E\2E< 0~2
+        (dot@A
+         (dot~5 t~1 data@1)len@1))
+       (unpackflat
+        (let i . . ..))
+       (stmts~2,1
+        (if
+         (elif@3
+          (infix@D ==
+           (at~4
+            (at~3
+             (dot~5 t~1 data@1)i@1)0@1)k@3)
+          (stmts@J
+           (ret i@7))))))))
+    (else@,3
+     (stmts@2,1
+      (var@4 h . . .
+       (infix@7 and kh~3
+        (dot@H
+         (dot~5
+          (dot~7 t~1 hashes@1)high@1)uint@1)))
+      (while@,1
+       (call@E isFilled~8
+        (at@9
+         (dot~7 t~1 hashes@1)h@1))
+       (stmts@2,1
+        (let@4 d . . .
+         (at@C
+          (dot~7 t~1 hashes@1)h@1))
+        (if@,1
+         (elif@3
+          (infix@H and
+           (infix~6 ==
+            (dot~A d~1 fullhash@1)kh@3)
+           (infix@S ==
+            (at~4
+             (at~E
+              (dot~5 t~1 data@1)
+              (infix@B \2D
+               (dot~9 d~1 position@1)1@1))0@1)k@3))
+          (stmts~1,1
+           (ret
+            (infix@H \2D
+             (dot~9 d~1 position@1)1@1)))))
+        (asgn@2,3 h~2
+         (call@9 nextTry~7 h@1
+          (call@8 high~4
+           (dot@2 t~1 hashes@1)))))))))
+   (asgn@7,A result~7 -1@2)))
+ (func@,s contains@5 x .
+  (typevars@E
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . . .))
+  (params@T
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).)
+   (param@H k . . K@3 .))bool@O
+  (pragmas@w inline@2).
+  (stmts@2,1
+   (comment)
+   (infix@M,1 >=
+    (call~G rawGet~6 t@1 k@4
+     (call@B hash~4 k@1))0@3)))
+ (func@,w hasKey@5 x .
+  (typevars@C
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . . .))
+  (params@R
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).)
+   (param@H k . . K@3 .))bool@O
+  (pragmas@u inline@2).
+  (stmts@2,1
+   (comment)
+   (call@8,1 contains~8 t@1 k@4)))
+ (func@,10 getOrDefault@5 x .
+  (typevars@I
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . HasDefault@3 .))
+  (params@j
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).)
+   (param@H k . . K@3 .))V@O . .
+  (stmts@2,1
+   (let@4 idx . . .
+    (call@C rawGet~6 t@1 k@4
+     (call@B hash~4 k@1)))
+   (if@,1
+    (elif@3
+     (infix@4 >= idx~4 0@3)
+     (stmts~1,1
+      (at@B
+       (at~5
+        (dot~5 t~1 data@1)idx@1)1@1)))
+    (else@,2
+     (stmts@2,1
+      (call@7 default~7 V@1))))))
+ (func@,17 getOrDefault@5 x .
+  (typevars@I
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . . .))
+  (params@X
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).)
+   (param@H k . . K@3 .)
+   (param@N fallback . . V@A .))V@b . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 idx . . .
+    (call@C rawGet~6 t@1 k@4
+     (call@B hash~4 k@1)))
+   (if@,2
+    (elif@3
+     (infix@4 >= idx~4 0@3)
+     (stmts~1,1
+      (at@B
+       (at~5
+        (dot~5 t~1 data@1)idx@1)1@1)))
+    (else@,2
+     (stmts@2,1 fallback)))))
+ (func@,1F getOrQuit@5 x .
+  (typevars@F
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . . .))
+  (params@U
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).)
+   (param@H k . . K@3 .))
+  (mut@O V@4). .
+  (stmts@2,1
+   (comment)
+   (let@4,1 idx . . .
+    (call@C rawGet~6 t@1 k@4
+     (call@B hash~4 k@1)))
+   (pragmax@,2
+    (pragmas
+     (cast@2 . noSideEffect@5))
+    (stmts@2,1
+     (cmd assert
+      (infix@B >= idx~4 0@3))))
+   (at@B,4
+    (at~5
+     (dot~5 t~1 data@1)idx@1)1@1)))
+ (when@,1M
+  (elif@5
+   (call@7 defined~7 nimony@1)
+   (stmts~3,1
+    (func
+     (quoted@5 \5B\5D@1) x .
+     (typevars@A
+      (typevar@1 K . . Keyable@3 .)
+      (typevar@D V . . . .))
+     (params@P
+      (param@1 t . .
+       (at@8 Table~5 K@1 V@4).)
+      (param@H k . . K@3 .))
+     (mut@O V@4)
+     (pragmas@t raises@2).
+     (stmts@2,1
+      (comment)
+      (let@4,1 idx . . .
+       (call@C rawGet~6 t@1 k@4
+        (call@B hash~4 k@1)))
+      (if@,2
+       (elif@3
+        (infix@4 < idx~4 0@2)
+        (stmts~1,1
+         (raise KeyError@6))))
+      (at@B,4
+       (at~5
+        (dot~5 t~1 data@1)idx@1)1@1)))))
+  (else@,8
+   (stmts@2,1
+    (func
+     (quoted@5 \5B\5D@1) x .
+     (typevars@A
+      (typevar@1 K . . . .)
+      (typevar@4 V . . . .))
+     (params@G
+      (param@1 t . .
+       (mut@3
+        (at@9 Table~5 K@1 V@4)).)
+      (param@L k . . K@3 .))
+     (mut@S V@4)
+     (pragmas@o raises@2).
+     (stmts@2,1
+      (let@4 idx . . .
+       (call@C rawGet~6 t@1 k@4
+        (call@B hash~4 k@1)))
+      (if@,1
+       (elif@3
+        (infix@4 < idx~4 0@2)
+        (stmts~1,1
+         (raise KeyError@6))))
+      (at@B,3
+       (at~5
+        (dot~5 t~1 data@1)idx@1)1@1)))
+    (func@,6
+     (quoted@5 \5B\5D@1) x .
+     (typevars@A
+      (typevar@1 K . . . .)
+      (typevar@4 V . . . .))
+     (params@G
+      (param@1 t . .
+       (at@8 Table~5 K@1 V@4).)
+      (param@H k . . K@3 .))V@O
+     (pragmas@g raises@2).
+     (stmts@2,1
+      (let@4 idx . . .
+       (call@C rawGet~6 t@1 k@4
+        (call@B hash~4 k@1)))
+      (if@,1
+       (elif@3
+        (infix@4 < idx~4 0@2)
+        (stmts~1,1
+         (raise KeyError@6))))
+      (at@B,3
+       (at~5
+        (dot~5 t~1 data@1)idx@1)1@1))))))
+ (func@,1h rawPut@5 . .
+  (typevars@B
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . . .))
+  (params@Q
+   (param@1 t . .
+    (mut@3
+     (at@9 Table~5 K@1 V@4)).)
+   (param@L k . .
+    (cmd@8 sink~5 K).)
+   (param@W v . .
+    (cmd@8 sink~5 V).)
+   (param@h h . . Hash@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B ==
+      (dot~5
+       (dot~5 t~1 data@1)len@1)HashThreshold@3)
+     (stmts~1,1
+      (cmd fillHashPart t@D)))
+    (elif@5,2
+     (call@A mustRehash~A
+      (dot@9
+       (dot~7 t~1 hashes@1)len@1)
+      (dot@L
+       (dot~5 t~1 data@1)len@1))
+     (stmts~3,1
+      (cmd resize
+       (dot@8 t~1 hashes@1)))))
+   (cmd@6,4
+    (dot
+     (dot~5 t~1 data@1)add@1)
+    (tup@5 k@1 v@4))
+   (var@4,5 hi . . .
+    (infix@7 and h~2
+     (dot@H
+      (dot~5
+       (dot~7 t~1 hashes@1)high@1)uint@1)))
+   (while@,6
+    (call@E isFilled~8
+     (at@9
+      (dot~7 t~1 hashes@1)hi@1))
+    (stmts@U
+     (asgn@3 hi~3
+      (call@9 nextTry~7 hi@1
+       (call@9 high~4
+        (dot@2 t~1 hashes@1))))))
+   (asgn@D,7
+    (at~5
+     (dot~7 t~1 hashes@1)hi@1)
+    (oconstr@B HashEntry~9
+     (kv@9 fullhash~8 h@2)
+     (kv@M position~8
+      (dot@8
+       (dot~5 t~1 data@1)len@1))))))
+ (func@,1r
+  (quoted@5 \5B\5D=@1) x .
+  (typevars@B
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . . .))
+  (params@Q
+   (param@1 t . .
+    (mut@3
+     (at@9 Table~5 K@1 V@4)).)
+   (param@L k . .
+    (cmd@8 sink~5 K).)
+   (param@W v . .
+    (cmd@8 sink~5 V).)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 h . . .
+    (call@8 hash~4 k@1))
+   (let@4,2 idx . . .
+    (call@C rawGet~6 t@1 k@4 h@7))
+   (if@,3
+    (elif@3
+     (infix@4 >= idx~4 0@3)
+     (stmts~1,1
+      (asgn@F
+       (at~4
+        (at~5
+         (dot~5 t~1 data@1)idx@1)1@1)v@2)))
+    (else@,2
+     (stmts@2,1
+      (call@6 rawPut~6 t@1 k@4 v@7 h@A))))))
+ (func@,20 mgetOrPut@5 x .
+  (typevars@F
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . . .))
+  (params@U
+   (param@1 t . .
+    (mut@3
+     (at@9 Table~5 K@1 V@4)).)
+   (param@L k . .
+    (cmd@8 sink~5 K).)
+   (param@W v . .
+    (cmd@8 sink~5 V).))
+  (mut@i V@4). .
+  (stmts@2,1
+   (comment)
+   (let@4,1 h . . .
+    (call@8 hash~4 k@1))
+   (var@4,2 idx . . .
+    (call@C rawGet~6 t@1 k@4 h@7))
+   (if@,3
+    (elif@3
+     (infix@4 < idx~4 0@2)
+     (stmts~1,1
+      (call@6 rawPut~6 t@1 k@4 v@7 h@A)
+      (asgn@4,1 idx~4
+       (infix@C \2D
+        (dot~4
+         (dot~5 t~1 data@1)len@1)1@1)))))
+   (asgn@7,6 result~7
+    (at@D
+     (at~5
+      (dot~5 t~1 data@1)idx@1)1@1))))
+ (func@,29 len@5 x .
+  (typevars@9
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .))
+  (params@F
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).))int@I
+  (pragmas@b inline@2).
+  (stmts@2,1
+   (comment)
+   (dot@6,1
+    (dot~5 t~1 data@1)len@1)))
+ (iterator@,2D pairs@9 x .
+  (typevars@F
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .))
+  (params@L
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).))
+  (tup@I
+   (cmd@6 lent~5 K)
+   (cmd@E lent~5 V)). .
+  (stmts@2,1
+   (comment)
+   (for@4,1
+    (infix@7 \2E\2E< 0~2
+     (dot@A
+      (dot~5 t~1 data@1)len@1))
+    (unpackflat
+     (let i . . ..))
+    (stmts~2,1
+     (yld
+      (tup@6
+       (at@A
+        (at~3
+         (dot~5 t~1 data@1)i@1)0@1)
+       (at@O
+        (at~3
+         (dot~5 t~1 data@1)i@1)1@1)))))))
+ (iterator@,2I mpairs@9 x .
+  (typevars@G
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .))
+  (params@M
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).))
+  (tup@I
+   (cmd@6 lent~5 K)
+   (mut@9 V@4)). .
+  (stmts@2,1
+   (comment)
+   (for@4,1
+    (infix@7 \2E\2E< 0~2
+     (dot@A
+      (dot~5 t~1 data@1)len@1))
+    (unpackflat
+     (let i . . ..))
+    (stmts~2,1
+     (yld
+      (tup@6
+       (at@A
+        (at~3
+         (dot~5 t~1 data@1)i@1)0@1)
+       (at@O
+        (at~3
+         (dot~5 t~1 data@1)i@1)1@1)))))))
+ (iterator@,2N keys@9 x .
+  (typevars@E
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .))
+  (params@K
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).))
+  (cmd@N lent~5 K). .
+  (stmts@2,1
+   (for@4
+    (infix@7 \2E\2E< 0~2
+     (dot@A
+      (dot~5 t~1 data@1)len@1))
+    (unpackflat
+     (let i . . ..))
+    (stmts~2,1
+     (yld
+      (at@F
+       (at~3
+        (dot~5 t~1 data@1)i@1)0@1))))))
+ (iterator@,2R values@9 x .
+  (typevars@G
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .))
+  (params@M
+   (param@1 t . .
+    (at@8 Table~5 K@1 V@4).))
+  (cmd@N lent~5 V). .
+  (stmts@2,1
+   (for@4
+    (infix@7 \2E\2E< 0~2
+     (dot@A
+      (dot~5 t~1 data@1)len@1))
+    (unpackflat
+     (let i . . ..))
+    (stmts~2,1
+     (yld
+      (at@F
+       (at~3
+        (dot~5 t~1 data@1)i@1)1@1))))))
+ (iterator@,2V mvalues@9 x .
+  (typevars@H
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .))
+  (params@N
+   (param@1 t . .
+    (mut@3
+     (at@9 Table~5 K@1 V@4)).))
+  (mut@M V@4). .
+  (stmts@2,1
+   (for@4
+    (infix@7 \2E\2E< 0~2
+     (dot@A
+      (dot~5 t~1 data@1)len@1))
+    (unpackflat
+     (let i . . ..))
+    (stmts~2,1
+     (yld
+      (at@F
+       (at~3
+        (dot~5 t~1 data@1)i@1)1@1))))))
+ (func@,2Z del@5 x .
+  (typevars@9
+   (typevar@1 K . . Keyable@3 .)
+   (typevar@D V . . . .))
+  (params@O
+   (param@1 t . .
+    (mut@3
+     (at@9 Table~5 K@1 V@4)).)
+   (param@L k . . K@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 idx . . .
+    (call@C rawGet~6 t@1 k@4
+     (call@B hash~4 k@1)))
+   (if@,4
+    (elif@3
+     (infix@4 < idx~4 0@2)
+     (stmts@9
+      (ret .))))
+   (var@4,5 j . . . idx@4)
+   (while@,6
+    (infix@8 < j~2
+     (infix@D \2D
+      (dot~5
+       (dot~5 t~1 data@1)len@1)1@2))
+    (stmts@2,1
+     (let@4 next . . .
+      (at@D
+       (dot~5 t~1 data@1)
+       (infix@2 \2B j~1 1@1)))
+     (asgn@A,1
+      (at~4
+       (dot~5 t~1 data@1)j@1)next@2)
+     (cmd@,2 inc j@4)))
+   (call@D,A
+    (dot~7
+     (dot~5 t~1 data@1)shrink@1)
+    (infix@C \2D
+     (dot~5
+      (dot~5 t~1 data@1)len@1)1@2))
+   (if@,B
+    (elif@3
+     (infix@B >
+      (dot~5
+       (dot~5 t~1 data@1)len@1)HashThreshold@2)
+     (stmts~1,8
+      (var@4 size . . .
+       (infix@L * HashThreshold~E 2@2))
+      (while@,1
+       (infix@B < size~5
+        (infix@D *
+         (dot~5
+          (dot~5 t~1 data@1)len@1)2@2))
+       (stmts@2,1
+        (asgn@5 size~5
+         (infix@7 * size~5 2@2))))
+      (asgn@9,3
+       (dot~8 t~1 hashes@1)
+       (call@J
+        (at~B newSeq~6 HashEntry@1)size@1))
+      (for@4,4
+       (infix@7 \2E\2E< 0~2
+        (dot@A
+         (dot~5 t~1 data@1)len@1))
+       (unpackflat
+        (let i . . ..))
+       (stmts~2,1
+        (let@4 fullhash . . .
+         (call@F hash~4
+          (at@A
+           (at~3
+            (dot~5 t~1 data@1)i@1)0@1)))
+        (var@4,1 hi . . .
+         (infix@E and fullhash~9
+          (dot@H
+           (dot~5
+            (dot~7 t~1 hashes@1)high@1)uint@1)))
+        (while@,2
+         (call@E isFilled~8
+          (at@9
+           (dot~7 t~1 hashes@1)hi@1))
+         (stmts@U
+          (asgn@3 hi~3
+           (call@9 nextTry~7 hi@1
+            (call@9 high~4
+             (dot@2 t~1 hashes@1))))))
+        (asgn@D,3
+         (at~5
+          (dot~7 t~1 hashes@1)hi@1)
+         (oconstr@B HashEntry~9
+          (kv@9 fullhash~8 fullhash@2)
+          (kv@T position~8
+           (infix@3 \2B i~1 1@1))))))))
+    (else@,H
+     (stmts@2,2
+      (call@F
+       (dot~7
+        (dot~7 t~1 hashes@1)shrink@1)0@1))))))
+ (func@,36 initTable@5 x .
+  (typevars@F
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .))
+  (params@L)
+  (at@9 Table~5 K@1 V@4). .
+  (stmts@2,1
+   (comment)
+   (oconstr@B,1
+    (at~6 Table~5 K@1 V@4)
+    (kv@5 data~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@I hashes~6
+     (prefix@2 \40
+      (bracket@1))))))
+ (func@,3A clear@5 x .
+  (typevars@B
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .))
+  (params@H
+   (param@1 t . .
+    (mut@3
+     (at@9 Table~5 K@1 V@4)).)). . .
+  (stmts@2,1
+   (comment)
+   (call@D,1
+    (dot~7
+     (dot~5 t~1 data@1)shrink@1)0@1)
+   (asgn@9,2
+    (dot~8 t~1 hashes@1)
+    (prefix@2 \40
+     (bracket@1)))))
+ (type@M,3J OrderedTable~K x
+  (typevars~7
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .)).
+  (at@7 Table~5 K@1 V@4))
+ (func@,3L initOrderedTable@5 x .
+  (typevars@M
+   (typevar@1 K . . . .)
+   (typevar@4 V . . . .))
+  (params@S)
+  (at@G OrderedTable~C K@1 V@4)
+  (pragmas@p inline@2).
+  (stmts@12
+   (call@F
+    (at~6 initTable~9 K@1 V@4))))
+ (when@,3N
+  (elif@5 isMainModule
+   (stmts~3,1
+    (import
+     (infix@A / std~3 syncio@1))
+    (var@4,2 tab . .
+     (at@A Table~5 string@1 int@9)
+     (call@m
+      (at~D initTable~9 string@1 int@9)))
+    (for@4,3
+     (infix@6 \2E\2E< 0~1 1000@3)
+     (unpackflat
+      (let i . . ..))
+     (stmts~2,1
+      (asgn@8
+       (at~5 tab~3
+        (prefix@1 $ i@1))i@2)
+      (cmd@,1 assert
+       (call@D hasKey~6 tab@1
+        (prefix@6 $ i@1)))
+      (cmd@,2 assert
+       (prefix@7 not
+        (call@A hasKey~6 tab@1
+         (prefix@6 $
+          (par@1
+           (infix@2 \2B i~1 1@1))))))
+      (cmd@,3 assert
+       (infix@F ==
+        (at~5 tab~3
+         (prefix@1 $ i@1))i@3))))
+    (cmd@,A assert
+     (call@H
+      (dot~7 tab~3 hasKey@1)"100"@1))
+    (cmd@,B echo
+     (call@L
+      (dot~D tab~3 getOrDefault@1)"500"@1))
+    (cmd@,C echo
+     (at@8 tab~3 "600"@1))
+    (asgn@Q,D
+     (call~D
+      (dot~A tab~3 mgetOrPut@1)"abc"@1 -12@8)-24@2)
+    (cmd@,E echo
+     (at@8 tab~3 "abc"@1))))))

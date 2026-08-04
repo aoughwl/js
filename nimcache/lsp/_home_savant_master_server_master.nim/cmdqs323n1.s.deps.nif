@@ -1,0 +1,4 @@
+(.nif27)
+(.indexat 269              )
+(stmts
+ (import "/home/savant/nimony/lib/std/system.nim" "/home/savant/nimony/lib/std/widestrs.nim" "/home/savant/nimony/lib/std/syncio.nim" "/home/savant/nimony/lib/std/posix/posix.nim" "/home/savant/nimony/lib/std/strutils.nim"))(.index)

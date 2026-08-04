@@ -1,0 +1,9 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-deps")
+(stmts
+ (fromimport
+  (infix / std syncio)quit)
+ (import
+  (infix / std
+   (bracket assertions))))

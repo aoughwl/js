@@ -1,0 +1,2282 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../master/client/widgets.nim
+ (comment)
+ (import@,S
+  (infix@A / std~3 syncio@1))
+ (import@,T jsffi@7)
+ (proc@,V g@5 x . .
+  (params@7)JsValue@4 . .
+  (stmts@L
+   (call@6 global~6 "globalThis"@1)))
+ (proc@,W doc@5 x . .
+  (params@9)JsValue@4 . .
+  (stmts@N
+   (call@6 global~6 "document"@1)))
+ (proc@,Y byClass@5 x . .
+  (params@D
+   (param@1 cls . . string@5 .))JsValue@F . .
+  (stmts@2,1
+   (call@A
+    (dot~5
+     (call~2 doc~3)call@1)"querySelector"@1
+    (call@M toJs~4
+     (infix@5 & "."~4 cls@2)))))
+ (proc@,b byWidget@5 x . .
+  (params@E
+   (param@1 name . . string@6 .))JsValue@G . .
+  (stmts@2,1
+   (call@A
+    (dot~5
+     (call~2 doc~3)call@1)"querySelector"@1
+    (call@M toJs~4
+     (infix@Q &
+      (infix~7 & "\5Bdata-widget=\22"~I name@2)"\22\5D"@2)))))
+ (proc@,e setText@5 x . .
+  (params@D
+   (param@1 el . . JsValue@4 .)
+   (param@E s . . string@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (dot@2 el~2 isNil@1)
+     (stmts@A
+      (ret .))))
+   (call@6,1
+    (dot~4 el~2 set@1)"textContent"@1
+    (call@K toJs~4 s@1))))
+ (var@4,j editor . . . undefined@9)
+ (var@4,k stage . . . 0@8)
+ (var@4,l pendingText . . . ""@E)
+ (var@4,m pendingLang . . . "plaintext"@E)
+ (var@4,n havePending . . . false@E)
+ (var@4,o loading . . . false@A)
+ (var@4,p editable . . . false@B)
+ (proc@,r themeName@5 x . .
+  (params@F)string@4 . .
+  (stmts@2,1
+   (let@4 t . . .
+    (prefix@4 $
+     (call@Y
+      (dot~5
+       (call~J
+        (dot~4
+         (call~2 doc~3)get@1)"documentElement"@1)call@1)"getAttribute"@1
+      (call@L toJs~4 "data-theme"@1))))
+   (if@,1
+    (elif@3
+     (infix@6 ==
+      (dot~5 t~1 len@1)0@3)
+     (stmts@C
+      (ret "dark"@7))))t@,2))
+ (comment@,w)
+ (proc@,12 themeList@5 x . .
+  (params@F)
+  (at@7 seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,1 app . . .
+    (call@G
+     (dot~5
+      (call~2 doc~3)call@1)"getElementById"@1
+     (call@N toJs~4 "app"@1)))
+   (if@,2
+    (elif@3
+     (dot@3 app~3 isNil@1)
+     (stmts@B
+      (ret
+       (prefix@7 \40
+        (bracket@1 "dark"@1 "light"@9))))))
+   (let@4,3 raw . . .
+    (prefix@6 $
+     (call@9
+      (dot~5 app~3 call@1)"getAttribute"@1
+      (call@L toJs~4 "data-themes"@1))))
+   (var@4,4 cur . . . ""@6)
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 <= i~2
+     (dot@6 raw~3 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@D or
+        (infix~B == i~2
+         (dot@6 raw~3 len@1))
+        (infix@A ==
+         (at~4 raw~3 i@1)','@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@8 >
+           (dot~5 cur~3 len@1)0@2)
+          (stmts@D
+           (cmd@6
+            (dot result~6 add@1)cur@5))))
+        (asgn@4,1 cur~4 ""@2)))
+      (else@,3
+       (stmts@2,1
+        (cmd@3
+         (dot cur~3 add@1)
+         (at@8 raw~3 i@1)))))
+     (cmd@,5 inc i@4)))
+   (if@,D
+    (elif@3
+     (infix@B ==
+      (dot~5 result~6 len@1)0@3)
+     (stmts@H
+      (asgn@7 result~7
+       (prefix@2 \40
+        (bracket@1 "dark"@1 "light"@9))))))))
+ (proc@,1I lightish@5 . . .
+  (params@D
+   (param@1 t . . string@3 .))bool@D . .
+  (stmts@2,1
+   (comment)
+   (infix@D,5 or
+    (infix~B == t~2 "light"@3)
+    (infix@5 == t~2 "solarized"@3))))
+ (proc@,1Q monacoTheme@5 . . .
+  (params@G)string@4 . .
+  (stmts@2,1
+   (comment)
+   (if@,4
+    (elif@3
+     (call@8 lightish~8
+      (call@A themeName~9))
+     (stmts@N
+      (ret "vs"@7))))"vs-dark"@,5))
+ (proc@,1Y finalTheme@5 . . .
+  (params@F)string@4 . .
+  (stmts@S "master-theme"))
+ (proc@,1a defineDarkTheme@5 . . .
+  (params@K). . . .)
+ (proc@,1c setTheme@5 x . .
+  (params@E
+   (param@1 t . . string@3 .)). . .
+  (stmts@2,1
+   (discard
+    (call@7,1
+     (dot~5
+      (call@F,~1
+       (dot~4
+        (call~2 doc~3)get@1)"documentElement"@1)call@1)"setAttribute"@1
+     (call@L toJs~4 "data-theme"@1)
+     (call@f toJs~4 t@1)))
+   (discard@,2
+    (call@a
+     (dot~5
+      (call~G
+       (dot~4
+        (call~2 g~1)get@1)"localStorage"@1)call@1)"setItem"@1
+     (call@G toJs~4 "master-theme"@1)
+     (call@c toJs~4 t@1)))
+   (if@,3
+    (elif@3
+     (dot@6 editor~6 isNil@1)
+     (stmts@E
+      (ret .))))
+   (call@F,7 defineDarkTheme~F)
+   (discard@,8
+    (call@h
+     (dot~5
+      (call~A
+       (dot~4
+        (call~A global~6 "monaco"@1)get@1)"editor"@1)call@1)"setTheme"@1
+     (call@H toJs~4
+      (call@B finalTheme~A))))))
+ (proc@,1n loadTheme@5 x . .
+  (params@F). . .
+  (stmts@2,1
+   (let@4 saved . . .
+    (prefix@8 $
+     (call@T
+      (dot~5
+       (call~G
+        (dot~4
+         (call~2 g~1)get@1)"localStorage"@1)call@1)"getItem"@1
+      (call@G toJs~4 "master-theme"@1))))
+   (var@4,1 t . . . "dark"@4)
+   (let@4,2 list . . .
+    (call@G themeList~9))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@6 list~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==
+        (at~4 list~4 i@1)saved@3)
+       (stmts@I
+        (asgn@2 t~2 saved@2))))
+     (cmd@,1 inc i@4)))
+   (discard@,7
+    (call@7,1
+     (dot~5
+      (call@F,~1
+       (dot~4
+        (call~2 doc~3)get@1)"documentElement"@1)call@1)"setAttribute"@1
+     (call@L toJs~4 "data-theme"@1)
+     (call@f toJs~4 t@1)))))
+ (proc@,1y nextTheme@5 x . .
+  (params@F)string@4 . .
+  (stmts@2,1
+   (comment)
+   (let@4,2 list . . .
+    (call@G themeList~9))
+   (if@,3
+    (elif@3
+     (infix@9 ==
+      (dot~5 list~4 len@1)0@3)
+     (stmts@F
+      (ret "dark"@7))))
+   (let@4,4 cur . . .
+    (call@F themeName~9))
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 < i~2
+     (dot@6 list~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==
+        (at~4 list~4 i@1)cur@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@6 <
+           (infix~4 \2B i~2 1@2)
+           (dot@6 list~4 len@1))
+          (stmts@I
+           (ret
+            (at@B list~4
+             (infix@3 \2B i~2 1@2))))))
+        (ret@,1
+         (at@B list~4 0@1)))))
+     (cmd@,3 inc i@4)))
+   (at@4,B list~4 0@1)))
+ (proc@,2D parseIntOr@5 . . .
+  (params@F
+   (param@1 x . . string@3 .))int@D . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7 0@2)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@3 x~1 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C and
+        (infix~7 >=
+         (at~4 x~1 i@1)'0'@3)
+        (infix@9 <=
+         (at~4 x~1 i@1)'9'@3))
+       (stmts@T
+        (asgn@7 result~7
+         (infix@E \2B
+          (infix~5 * result~7 10@2)
+          (par@2
+           (infix@B \2D
+            (call~7 ord~3
+             (at@2 x~1 i@1))
+            (call@5 ord~3 '0'@1))))))))
+     (cmd@,1 inc i@4)))))
+ (proc@,2M timeNow@5 . . .
+  (params@C)string@4 . .
+  (stmts@2,1
+   (let@4 d . . .
+    (call@9 newOf~5 "Date"@1))
+   (let@4,1 s . . .
+    (prefix@4 $
+     (call@7
+      (dot~5 d~1 call@1)"toTimeString"@1)))
+   (asgn@7,2 result~7 ""@2)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@G and
+     (infix~8 < i~2
+      (dot@3 s~1 len@1))
+     (infix@6 < i~2 8@2))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@6 s~1 i@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,2V logLine@5 . . .
+  (params@C
+   (param@1 box . . JsValue@5 .)
+   (param@F msg . . string@B .)
+   (param@K tone . . string@6 .)). . .
+  (stmts@2,1
+   (let@4 line . . .
+    (call@H
+     (dot~5
+      (call~2 doc~3)call@1)"createElement"@1
+     (call@M toJs~4 "div"@1)))
+   (var@4,1 cls . . . "log-line"@6)
+   (if@,2
+    (elif@3
+     (infix@9 >
+      (dot~5 tone~4 len@1)0@2)
+     (stmts@E
+      (asgn@4 cls~4
+       (infix@F &
+        (infix~9 & cls~4 " is-"@2)tone@2)))))
+   (call@8,3
+    (dot~4 line~4 set@1)"className"@1
+    (call@I toJs~4 cls@1))
+   (let@4,4 t . . .
+    (call@E
+     (dot~5
+      (call~2 doc~3)call@1)"createElement"@1
+     (call@M toJs~4 "span"@1)))
+   (call@5,5
+    (dot~4 t~1 set@1)"className"@1
+    (call@I toJs~4 "log-time"@1))
+   (call@5,6
+    (dot~4 t~1 set@1)"textContent"@1
+    (call@K toJs~4
+     (call@8 timeNow~7)))
+   (let@4,7 m . . .
+    (call@E
+     (dot~5
+      (call~2 doc~3)call@1)"createElement"@1
+     (call@M toJs~4 "span"@1)))
+   (call@5,8
+    (dot~4 m~1 set@1)"className"@1
+    (call@I toJs~4 "log-msg"@1))
+   (call@5,9
+    (dot~4 m~1 set@1)"textContent"@1
+    (call@K toJs~4 msg@1))
+   (discard@,A
+    (call@H
+     (dot~5 line~4 call@1)"appendChild"@1 t@G))
+   (discard@,B
+    (call@H
+     (dot~5 line~4 call@1)"appendChild"@1 m@G))
+   (discard@,C
+    (call@G
+     (dot~5 box~3 call@1)"appendChild"@1 line@G))))
+ (proc@,2k log@5 x . .
+  (params@9
+   (param@1 msg . . string@B .)
+   (param@6 tone . . string@6 .)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,2 box . . .
+    (call@E byWidget~8 "log"@1))
+   (if@,3
+    (elif@3
+     (dot@3 box~3 isNil@1)
+     (stmts@B
+      (ret .))))
+   (var@4,4 cur . . . ""@6)
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 <= i~2
+     (dot@6 msg~3 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@D or
+        (infix~B == i~2
+         (dot@6 msg~3 len@1))
+        (infix@A ==
+         (at~4 msg~3 i@1)'\0A'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@8 >
+           (dot~5 cur~3 len@1)0@2)
+          (stmts@D
+           (call@7 logLine~7 box@1 cur@6 tone@B))))
+        (asgn@4,1 cur~4 ""@2)))
+      (else@,3
+       (stmts@2,1
+        (cmd@3
+         (dot cur~3 add@1)
+         (at@8 msg~3 i@1)))))
+     (cmd@,5 inc i@4)))
+   (call@7,D
+    (dot~4 box~3 set@1)"scrollTop"@1
+    (call@I toJs~4
+     (call@6 toInt~5
+      (call@8
+       (dot~4 box~3 get@1)"scrollHeight"@1))))))
+ (proc@,30 status@5 x . .
+  (params@C
+   (param@1 text . . string@C .)
+   (param@7 tone . . string@6 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@7,3 setText~7
+    (call@8 byClass~7 "js-status"@1)text@N)
+   (let@4,4 dot . . .
+    (call@D byClass~7 "js-dot"@1))
+   (if@,5
+    (elif@3
+     (dot@3 dot~3 isNil@1)
+     (stmts@B
+      (ret .))))
+   (var@4,6 cls . . . "dot is-live js-dot"@6)
+   (if@,7
+    (elif@3
+     (infix@5 == tone~5 "err"@3)
+     (stmts@F
+      (asgn@4 cls~4 "dot is-danger js-dot"@2))))
+   (call@7,8
+    (dot~4 dot~3 set@1)"className"@1
+    (call@I toJs~4 cls@1))))
+ (proc@,3C prettyAtoms@5 . . .
+  (params@G
+   (param@1 src . . string@5 .))string@F . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7 ""@2)
+   (var@4,3 depth . . . 0@8)
+   (var@4,4 i . . . 0@4)
+   (var@4,5 inStr . . . false@8)
+   (while@,6
+    (infix@8 < i~2
+     (dot@5 src~3 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@7 src~3 i@1))
+     (if@,1
+      (elif@3 inStr
+       (stmts~1,1
+        (cmd@6
+         (dot result~6 add@1)c@5)
+        (if@,1
+         (elif@3
+          (infix@2 == c~2 '\22'@3)
+          (stmts@A
+           (asgn@6 inStr~6 false@2))))
+        (cmd@,2 inc i@4)))
+      (elif@5,4
+       (infix@2 == c~2 '\22'@3)
+       (stmts~3,1
+        (asgn@6 inStr~6 true@2)
+        (cmd@6,1
+         (dot result~6 add@1)c@5)
+        (cmd@,2 inc i@4)))
+      (elif@5,8
+       (infix@2 == c~2 '\28'@3)
+       (stmts~3,1
+        (cmd@6
+         (dot result~6 add@1)'\0A'@5)
+        (var@4,1 d . . . 0@4)
+        (while@,2
+         (infix@8 < d~2 depth@2)
+         (stmts@2,1
+          (cmd@6
+           (dot result~6 add@1)' '@5)
+          (cmd@6,1
+           (dot result~6 add@1)' '@5)
+          (cmd@,2 inc d@4)))
+        (cmd@6,6
+         (dot result~6 add@1)'\28'@5)
+        (cmd@,7 inc depth@4)
+        (cmd@,8 inc i@4)))
+      (elif@5,I
+       (infix@2 == c~2 '\29'@3)
+       (stmts~3,1
+        (if
+         (elif@3
+          (infix@6 > depth~6 0@2)
+          (stmts@B
+           (cmd dec depth@4))))
+        (cmd@6,1
+         (dot result~6 add@1)'\29'@5)
+        (cmd@,2 inc i@4)))
+      (elif@5,M
+       (infix@T and
+        (infix~K and
+         (infix~7 == c~2 ' '@3)
+         (infix@A <
+          (infix~4 \2B i~2 1@2)
+          (dot@5 src~3 len@1)))
+        (infix@D ==
+         (at~6 src~3
+          (infix@2 \2B i~1 1@1))'\28'@3))
+       (stmts~3,1
+        (cmd inc i@4)))
+      (else@,O
+       (stmts@2,1
+        (cmd@6
+         (dot result~6 add@1)c@5)
+        (cmd@,1 inc i@4))))))))
+ (proc@,3n showAtoms@5 x . .
+  (params@F
+   (param@1 src . . string@5 .)). . .
+  (stmts@2,1
+   (call@7 setText~7
+    (call@9 byWidget~8 "atoms"@1)
+    (call@V prettyAtoms~B src@1))))
+ (var@4,41 spanSl . .
+  (at@B seq~3 int@1)
+  (prefix@J \40
+   (bracket@1)))
+ (var@4,42 spanSc . .
+  (at@B seq~3 int@1)
+  (prefix@J \40
+   (bracket@1)))
+ (var@4,43 spanEl . .
+  (at@B seq~3 int@1)
+  (prefix@J \40
+   (bracket@1)))
+ (var@4,44 spanEc . .
+  (at@B seq~3 int@1)
+  (prefix@J \40
+   (bracket@1)))
+ (var@4,45 spanId . .
+  (at@B seq~3 string@1)
+  (prefix@M \40
+   (bracket@1)))
+ (comment@,46)
+ (var@4,49 headEl . .
+  (at@B seq~3 int@1)
+  (prefix@J \40
+   (bracket@1)))
+ (var@4,4A headEc . .
+  (at@B seq~3 int@1)
+  (prefix@J \40
+   (bracket@1)))
+ (comment@,4B)
+ (proc@,4S stash@5 . . .
+  (params@A
+   (param@1 name . . string@6 .)
+   (param@F v . . JsValue@3 .)). . .
+  (stmts@d
+   (call@7
+    (dot~4
+     (call~2 g~1)set@1)name@1 v@7)))
+ (proc@,4U stashed@5 . . .
+  (params@C
+   (param@1 name . . string@6 .))JsValue@G . .
+  (stmts@c
+   (call@7
+    (dot~4
+     (call~2 g~1)get@1)name@1)))
+ (proc@,4W dropStash@5 . . .
+  (params@E
+   (param@1 name . . string@6 .)). . .
+  (stmts@2,1
+   (let@4 v . . .
+    (call@B
+     (dot~4
+      (call~2 g~1)get@1)name@1))
+   (if@,3
+    (elif@3
+     (dot@1 v~1 isNil@1)
+     (stmts@9
+      (ret .))))
+   (if@,4
+    (elif@3
+     (prefix not
+      (call@B hasProp~7 v@1 "clear"@4))
+     (stmts@P
+      (ret .))))
+   (discard@,5
+    (call@E
+     (dot~5 v~1 call@1)"clear"@1))))
+ (comment@,4e)
+ (var@4,4r regionsOn . . . false@C)
+ (proc@,4t modOf@5 . . .
+  (params@A
+   (param@1 v . . JsValue@3 .))bool@E . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (dot@1 v~1 isNil@1)
+     (stmts@9
+      (ret false@7))))
+   (infix@P,1 or
+    (call~J toBool~6
+     (call@6
+      (dot~4 v~1 get@1)"ctrlKey"@1))
+    (call@9 toBool~6
+     (call@6
+      (dot~4 v~1 get@1)"metaKey"@1)))))
+ (proc@,4x modHeld@5 . . .
+  (params@C
+   (param@1 ev . . JsValue@4 .))bool@F . .
+  (stmts@2,1
+   (if
+    (elif@3 regionsOn
+     (stmts@B
+      (ret true@7))))
+   (if@,1
+    (elif@3
+     (call@5 modOf~5 ev@1)
+     (stmts@B
+      (ret true@7))))
+   (let@4,2 raw . . .
+    (call@C
+     (dot~4 ev~2 get@1)"event"@1))
+   (if@,3
+    (elif@3
+     (call@5 modOf~5 raw@1)
+     (stmts@C
+      (ret true@7))))
+   (if@,4
+    (elif@3
+     (dot@3 raw~3 isNil@1)
+     (stmts@B
+      (ret false@7))))
+   (call@5,5 modOf~5
+    (call@8
+     (dot~4 raw~3 get@1)"browserEvent"@1))))
+ (proc@,55 noJump@5 . . .
+  (params@B
+   (param@1 id . . string@4 .)).
+  (pragmas@O nimcall@2).
+  (stmts@c
+   (discard .)))
+ (var@4,56 onJump . .
+  (proctype@D ....
+   (params
+    (param@1 id . . string@4 .)).
+   (pragmas@D nimcall@2)..)noJump@e)
+ (proc@,57 setJump@5 x . .
+  (params@D
+   (param@1 f . .
+    (proctype@8 ....
+     (params
+      (param@1 id . . string@4 .)).
+     (pragmas@D nimcall@2)..).)). . .
+  (stmts@o
+   (asgn@7 onJump~7 f@2)))
+ (proc@,59 onJumpLater@5 . . .
+  (params@G
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@T nimcall@2).
+  (stmts@2,1
+   (comment)
+   (let@4,4 g0 . . .
+    (call@6 g~1))
+   (let@4,5 id . . .
+    (prefix@5 $
+     (call@7
+      (dot~4 g0~2 get@1)"__jumpTo"@1)))
+   (if@,6
+    (elif@3
+     (infix@7 ==
+      (dot~5 id~2 len@1)0@3)
+     (stmts@D
+      (ret .))))
+   (call@6,7
+    (dot~4 g0~2 set@1)"__jumpTo"@1
+    (call@H toJs~4 ""@1))
+   (call@6,8 onJump~6 id@1)))
+ (proc@,5K onEditorMouse@5 . . .
+  (params@I
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@W nimcall@2).
+  (stmts@2,1
+   (comment)
+   (let@4,A t0 . . .
+    (call@B
+     (dot~4 ev~2 get@1)"target"@1))
+   (if@,B
+    (elif@3
+     (dot@2 t0~2 isNil@1)
+     (stmts@A
+      (ret .))))
+   (let@4,C pos0 . . .
+    (call@D
+     (dot~4 t0~2 get@1)"position"@1))
+   (let@4,K raw0 . . .
+    (call@D
+     (dot~4 ev~2 get@1)"event"@1))
+   (var@4,L middle . . . false@9)
+   (if@,M
+    (elif@3
+     (prefix not
+      (dot@8 raw0~4 isNil@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@6 toBool~6
+         (call@9
+          (dot~4 raw0~4 get@1)"middleButton"@1))
+        (stmts@Y
+         (asgn@7 middle~7 true@2))))
+      (let@4,1 be . . .
+       (call@D
+        (dot~4 raw0~4 get@1)"browserEvent"@1))
+      (if@,2
+       (elif@3
+        (infix@D and
+         (prefix~D not
+          (dot@6 be~2 isNil@1))
+         (infix@S ==
+          (call~J toInt~5
+           (call@7
+            (dot~4 be~2 get@1)"button"@1))1@3))
+        (stmts@l
+         (asgn@7 middle~7 true@2)))))))
+   (if@,Q
+    (elif@3 middle
+     (stmts~1,1
+      (if
+       (elif@3
+        (dot@4 pos0~4 isNil@1)
+        (stmts@C
+         (ret .))))
+      (if@,1
+       (elif@3
+        (prefix not
+         (dot@8 raw0~4 isNil@1))
+        (stmts~1,1
+         (discard
+          (call@H
+           (dot~5 raw0~4 call@1)"preventDefault"@1))
+         (discard@,1
+          (call@H
+           (dot~5 raw0~4 call@1)"stopPropagation"@1)))))
+      (discard@,5
+       (call@J
+        (dot~5 editor~6 call@1)"setPosition"@1 pos0@G))
+      (discard@,6
+       (call@J
+        (dot~5 editor~6 call@1)"trigger"@1
+        (call@G toJs~4 "master"@1)
+        (call@W toJs~4 "editor.toggleFold"@1)
+        (call@C,1 newJsObject~B)))
+      (ret@,8 .))))
+   (if@,a
+    (elif@3
+     (prefix not
+      (call@B modHeld~7 ev@1))
+     (stmts@H
+      (ret .))))
+   (let@4,b t . . . t0@4)
+   (let@4,c pos . . . pos0@6)
+   (if@,d
+    (elif@3
+     (dot@3 pos~3 isNil@1)
+     (stmts@B
+      (ret .))))
+   (let@4,e ln . . .
+    (call@A toInt~5
+     (call@8
+      (dot~4 pos~3 get@1)"lineNumber"@1)))
+   (let@4,f cl . . .
+    (call@A toInt~5
+     (call@8
+      (dot~4 pos~3 get@1)"column"@1)))
+   (var@4,g hit . . . -1@6)
+   (var@4,h best . . . 0@7)
+   (var@4,i i . . . 0@4)
+   (while@,j
+    (infix@8 < i~2
+     (dot@8 spanId~6 len@1))
+    (stmts@2,1
+     (let@4 afterStart . . .
+      (infix@S or
+       (infix~C > ln~3
+        (at@8 spanSl~6 i@1))
+       (par@3
+        (infix@H and
+         (infix~D == ln~3
+          (at@9 spanSl~6 i@1))
+         (infix@7 >= cl~3
+          (at@9 spanSc~6 i@1))))))
+     (let@4,1 beforeEnd . . .
+      (infix@R or
+       (infix~C < ln~3
+        (at@8 spanEl~6 i@1))
+       (par@3
+        (infix@H and
+         (infix~D == ln~3
+          (at@9 spanEl~6 i@1))
+         (infix@7 <= cl~3
+          (at@9 spanEc~6 i@1))))))
+     (if@,2
+      (elif@3
+       (infix@B and afterStart~B beforeEnd@4)
+       (stmts~1,2
+        (let@4 size . . .
+         (infix@d \2B
+          (infix~8 *
+           (par~O
+            (infix@B \2D
+             (at~4 spanEl~6 i@1)
+             (at@8 spanSl~6 i@1)))10000@2)
+          (par@2
+           (infix@B \2D
+            (at~4 spanEc~6 i@1)
+            (at@8 spanSc~6 i@1)))))
+        (if@,1
+         (elif@3
+          (infix@8 or
+           (infix~4 < hit~4 0@2)
+           (infix@8 < size~5 best@2))
+          (stmts~1,1
+           (asgn@4 hit~4 i@2)
+           (asgn@5,1 best~5 size@2)))))))
+     (cmd@,8 inc i@4)))
+   (if@,17
+    (elif@3
+     (infix@4 < hit~4 0@2)
+     (stmts@9
+      (ret .))))
+   (call@7,18
+    (dot~4
+     (call~2 g~1)set@1)"__jumpTo"@1
+    (call@H toJs~4
+     (at@7 spanId~6 hit@1)))
+   (discard@,19
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"setTimeout"@1
+     (call@J toJs~4 onJumpLater@1)
+     (call@c toJs~4 0@1)))))
+ (proc@,6W addDeco@5 . . .
+  (params@C
+   (param@1 arr . . JsValue@5 .)
+   (param@F i . . int@3 .)
+   (param@N cls . . string@5 .)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,P rng . . .
+    (call@H newJsObject~B))
+   (call@7,Q
+    (dot~4 rng~3 set@1)"startLineNumber"@1
+    (call@O toJs~4
+     (at@7 spanSl~6 i@1)))
+   (call@7,R
+    (dot~4 rng~3 set@1)"startColumn"@1
+    (call@K toJs~4
+     (at@7 spanSc~6 i@1)))
+   (call@7,S
+    (dot~4 rng~3 set@1)"endLineNumber"@1
+    (call@M toJs~4
+     (at@7 headEl~6 i@1)))
+   (call@7,T
+    (dot~4 rng~3 set@1)"endColumn"@1
+    (call@I toJs~4
+     (at@7 headEc~6 i@1)))
+   (let@4,U opt . . .
+    (call@H newJsObject~B))
+   (call@7,V
+    (dot~4 opt~3 set@1)"inlineClassName"@1
+    (call@O toJs~4 cls@1))
+   (let@4,W d . . .
+    (call@F newJsObject~B))
+   (call@5,X
+    (dot~4 d~1 set@1)"range"@1 rng@A)
+   (call@5,Y
+    (dot~4 d~1 set@1)"options"@1 opt@C)
+   (cmd@3,Z
+    (dot arr~3 add@1)d@5)))
+ (comment@,78)
+ (proc@,7K paintRegions@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (dot@6 editor~6 isNil@1)
+     (stmts@E
+      (ret .))))
+   (call@9,1 dropStash~9 "__sxRegions"@1)
+   (let@4,2 arr . . .
+    (call@G newJsArray~A))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@8 spanId~6 len@1))
+    (stmts@2,1
+     (call@7 addDeco~7 arr@1 i@6 "sx-region"@9)
+     (cmd@,1 inc i@4)))
+   (call@5,7 stash~5 "__sxRegions"@1
+    (call@R
+     (dot~5 editor~6 call@1)"createDecorationsCollection"@1 arr@W))))
+ (proc@,7U clearRegions@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (asgn@A regionsOn~A false@2)
+   (call@9,1 dropStash~9 "__sxRegions"@1)))
+ (proc@,7Y onModDown@5 . . .
+  (params@E
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@S nimcall@2).
+  (stmts@2,1
+   (if
+    (elif@3 regionsOn
+     (stmts@B
+      (ret .))))
+   (if@,1
+    (elif@3
+     (infix@E and
+      (prefix~E not
+       (call@9 modOf~5 ev@1))
+      (prefix@4 not
+       (call@9 modOf~5
+        (call@7
+         (dot~4 ev~2 get@1)"browserEvent"@1))))
+     (stmts@r
+      (ret .))))
+   (asgn@A,2 regionsOn~A true@2)
+   (call@C,3 paintRegions~C)))
+ (proc@,7e onModUp@5 . . .
+  (params@C
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@Q nimcall@2).
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not regionsOn@4)
+     (stmts@F
+      (ret .))))
+   (if@,2
+    (elif@3
+     (infix@A or
+      (call~5 modOf~5 ev@1)
+      (call@8 modOf~5
+       (call@7
+        (dot~4 ev~2 get@1)"browserEvent"@1)))
+     (stmts@i
+      (ret .))))
+   (call@C,3 clearRegions~C)))
+ (proc@,7k onModBlur@5 . . .
+  (params@E
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@S nimcall@2).
+  (stmts@2,1
+   (comment)
+   (if@,2
+    (elif@3 regionsOn
+     (stmts@B
+      (call@C clearRegions~C))))))
+ (proc@,7p watchModifier@5 x . .
+  (params@J). . .
+  (stmts@2,1
+   (comment)
+   (discard@,B
+    (call@I
+     (dot~5
+      (call~2 doc~3)call@1)"addEventListener"@1
+     (call@P toJs~4 "keydown"@1)
+     (call@g toJs~4 onModDown@1)
+     (call@5,1 toJs~4 true@1)))
+   (discard@,D
+    (call@I
+     (dot~5
+      (call~2 doc~3)call@1)"addEventListener"@1
+     (call@P toJs~4 "keyup"@1)
+     (call@e toJs~4 onModUp@1)
+     (call@5,1 toJs~4 true@1)))
+   (discard@,H
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"addEventListener"@1
+     (call@P toJs~4 "blur"@1)
+     (call@d toJs~4 onModBlur@1)))))
+ (proc@,89 onCursor@5 . . .
+  (params@D
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@R nimcall@2). .)
+ (proc@,8B innermostAt@5 . . .
+  (params@G
+   (param@1 ln . . int@8 .)
+   (param@5 cl . . int@4 .))int@F . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7 -1@2)
+   (var@4,2 best . . . 0@7)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@8 spanId~6 len@1))
+    (stmts@2,1
+     (let@4 afterStart . . .
+      (infix@S or
+       (infix~C > ln~3
+        (at@8 spanSl~6 i@1))
+       (par@3
+        (infix@H and
+         (infix~D == ln~3
+          (at@9 spanSl~6 i@1))
+         (infix@7 >= cl~3
+          (at@9 spanSc~6 i@1))))))
+     (let@4,1 beforeEnd . . .
+      (infix@R or
+       (infix~C < ln~3
+        (at@8 spanEl~6 i@1))
+       (par@3
+        (infix@H and
+         (infix~D == ln~3
+          (at@9 spanEl~6 i@1))
+         (infix@7 <= cl~3
+          (at@9 spanEc~6 i@1))))))
+     (if@,2
+      (elif@3
+       (infix@B and afterStart~B beforeEnd@4)
+       (stmts~1,1
+        (let@4 size . . .
+         (infix@d \2B
+          (infix~8 *
+           (par~O
+            (infix@B \2D
+             (at~4 spanEl~6 i@1)
+             (at@8 spanSl~6 i@1)))10000@2)
+          (par@2
+           (infix@B \2D
+            (at~4 spanEc~6 i@1)
+            (at@8 spanSc~6 i@1)))))
+        (if@,1
+         (elif@3
+          (infix@B or
+           (infix~4 < result~7 0@2)
+           (infix@8 < size~5 best@2))
+          (stmts~1,1
+           (asgn@7 result~7 i@2)
+           (asgn@5,1 best~5 size@2)))))))
+     (cmd@,7 inc i@4)))))
+ (proc@,8Q onCursor@5 . . .
+  (params@D
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@R nimcall@2).
+  (stmts@2,1
+   (comment)
+   (if@,C
+    (elif@3
+     (dot@6 editor~6 isNil@1)
+     (stmts@E
+      (ret .))))
+   (let@4,D pos . . .
+    (call@C
+     (dot~4 ev~2 get@1)"position"@1))
+   (if@,E
+    (elif@3
+     (dot@3 pos~3 isNil@1)
+     (stmts@B
+      (ret .))))
+   (let@4,F ln . . .
+    (call@A toInt~5
+     (call@8
+      (dot~4 pos~3 get@1)"lineNumber"@1)))
+   (let@4,G cl . . .
+    (call@A toInt~5
+     (call@8
+      (dot~4 pos~3 get@1)"column"@1)))
+   (let@4,H ix . . .
+    (call@G innermostAt~B ln@1 cl@5))
+   (call@9,I dropStash~9 "__sxHere"@1)
+   (if@,J
+    (elif@3
+     (infix@3 < ix~3 0@2)
+     (stmts@8
+      (ret .))))
+   (let@4,K arr . . .
+    (call@G newJsArray~A))
+   (call@7,L addDeco~7 arr@1 ix@6 "sx-here"@A)
+   (call@5,M stash~5 "__sxHere"@1
+    (call@O
+     (dot~5 editor~6 call@1)"createDecorationsCollection"@1 arr@W))))
+ (proc@,8p revealAtom@5 x . .
+  (params@G
+   (param@1 id . . string@4 .)). . .
+  (stmts@2,1
+   (comment)
+   (if@,4
+    (elif@3
+     (dot@6 editor~6 isNil@1)
+     (stmts@E
+      (ret .))))
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 < i~2
+     (dot@8 spanId~6 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@A ==
+        (at~4 spanId~6 i@1)id@3)
+       (stmts~1,1
+        (let@4 sel . . .
+         (call@H newJsObject~B))
+        (call@7,1
+         (dot~4 sel~3 set@1)"startLineNumber"@1
+         (call@O toJs~4
+          (at@7 spanSl~6 i@1)))
+        (call@7,2
+         (dot~4 sel~3 set@1)"startColumn"@1
+         (call@K toJs~4
+          (at@7 spanSc~6 i@1)))
+        (call@7,3
+         (dot~4 sel~3 set@1)"endLineNumber"@1
+         (call@M toJs~4
+          (at@7 headEl~6 i@1)))
+        (call@7,4
+         (dot~4 sel~3 set@1)"endColumn"@1
+         (call@I toJs~4
+          (at@7 headEc~6 i@1)))
+        (discard@,5
+         (call@J
+          (dot~5 editor~6 call@1)"revealRangeInCenter"@1 sel@O))
+        (discard@,6
+         (call@J
+          (dot~5 editor~6 call@1)"setSelection"@1 sel@H))
+        (ret@,7 .))))
+     (cmd@,9 inc i@4)))))
+ (proc@,98 clearSpans@5 x . .
+  (params@G). . .
+  (stmts@2,1
+   (asgn@7 spanSl~7
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@7,1 spanSc~7
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@7,2 spanEl~7
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@7,3 spanEc~7
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@7,4 spanId~7
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@7,5 headEl~7
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@7,6 headEc~7
+    (prefix@2 \40
+     (bracket@1)))
+   (call@9,7 dropStash~9 "__sxAll"@1)
+   (call@9,8 dropStash~9 "__sxHere"@1)
+   (call@C,9 clearRegions~C)))
+ (proc@,9K applySpans@5 x . .
+  (params@G
+   (param@1 report . . string@8 .)). . .
+  (stmts@2,1
+   (comment)
+   (if@,1
+    (elif@3
+     (dot@6 editor~6 isNil@1)
+     (stmts@E
+      (ret .))))
+   (call@A,2 clearSpans~A)
+   (let@4,3 arr . . .
+    (call@G newJsArray~A))
+   (var@4,4 line . . . ""@7)
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 <= i~2
+     (dot@9 report~6 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G or
+        (infix~E == i~2
+         (dot@9 report~6 len@1))
+        (infix@D ==
+         (at~4 report~6 i@1)'\0A'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@9 >
+           (dot~5 line~4 len@1)0@2)
+          (stmts~1,1
+           (var@4 f . .
+            (at@6 seq~3 string@1)
+            (prefix@H \40
+             (bracket@1)))
+           (var@4,1 cur . . . ""@6)
+           (var@4,2 j . . . 0@4)
+           (while@,3
+            (infix@8 <= j~2
+             (dot@7 line~4 len@1))
+            (stmts@2,1
+             (if
+              (elif@3
+               (infix@E or
+                (infix~C == j~2
+                 (dot@7 line~4 len@1))
+                (infix@B ==
+                 (at~4 line~4 j@1)'\09'@3))
+               (stmts~1,1
+                (cmd@1
+                 (dot f~1 add@1)cur@5)
+                (asgn@4,1 cur~4 ""@2)))
+              (else@,3
+               (stmts@2,1
+                (cmd@3
+                 (dot cur~3 add@1)
+                 (at@9 line~4 j@1)))))
+             (cmd@,5 inc j@4)))
+           (if@,A
+            (elif@3
+             (infix@6 >=
+              (dot~5 f~1 len@1)9@3)
+             (stmts~1,1
+              (let@4 sl . . .
+               (call@F parseIntOr~A
+                (at@2 f~1 0@1)))
+              (let@4,1 sc . . .
+               (call@F parseIntOr~A
+                (at@2 f~1 1@1)))
+              (let@4,2 el . . .
+               (call@F parseIntOr~A
+                (at@2 f~1 2@1)))
+              (let@4,3 ec . . .
+               (call@F parseIntOr~A
+                (at@2 f~1 3@1)))
+              (cmd@6,4
+               (dot spanSl~6 add@1)sl@5)
+              (cmd@6,5
+               (dot spanSc~6 add@1)sc@5)
+              (cmd@6,6
+               (dot spanEl~6 add@1)el@5)
+              (cmd@6,7
+               (dot spanEc~6 add@1)ec@5)
+              (cmd@6,8
+               (dot spanId~6 add@1)
+               (at@6 f~1 4@1))
+              (cmd@6,9
+               (dot headEl~6 add@1)
+               (call@F parseIntOr~A
+                (at@2 f~1 7@1)))
+              (cmd@6,A
+               (dot headEc~6 add@1)
+               (call@F parseIntOr~A
+                (at@2 f~1 8@1)))
+              (let@4,B rng . . .
+               (call@H newJsObject~B))
+              (call@7,C
+               (dot~4 rng~3 set@1)"startLineNumber"@1
+               (call@O toJs~4 sl@1))
+              (call@7,D
+               (dot~4 rng~3 set@1)"startColumn"@1
+               (call@K toJs~4 sc@1))
+              (call@7,E
+               (dot~4 rng~3 set@1)"endLineNumber"@1
+               (call@M toJs~4 el@1))
+              (call@7,F
+               (dot~4 rng~3 set@1)"endColumn"@1
+               (call@I toJs~4 ec@1))
+              (var@4,K tip . . . ""@6)
+              (var@4,L k . . . 0@4)
+              (while@,M
+               (infix@8 < k~2
+                (dot@6
+                 (at~3 f~1 5@1)len@1))
+               (stmts@2,1
+                (if
+                 (elif@3
+                  (infix@b and
+                   (infix~K and
+                    (infix~B <
+                     (infix~4 \2B k~2 1@2)
+                     (dot@6
+                      (at~3 f~1 5@1)len@1))
+                    (infix@C ==
+                     (at~4
+                      (at~3 f~1 5@1)k@1)'\5C'@3))
+                   (infix@G ==
+                    (at~8
+                     (at~3 f~1 5@1)
+                     (infix@3 \2B k~2 1@2))'n'@3))
+                  (stmts~1,1
+                   (cmd@3
+                    (dot tip~3 add@1)"\0A"@5)
+                   (asgn@2,1 k~2
+                    (infix@4 \2B k~2 2@2))))
+                 (else@,3
+                  (stmts@2,1
+                   (cmd@3
+                    (dot tip~3 add@1)
+                    (at@9
+                     (at~3 f~1 5@1)k@1))
+                   (cmd@,1 inc k@4))))))
+              (let@4,T hov . . .
+               (call@H newJsObject~B))
+              (call@7,U
+               (dot~4 hov~3 set@1)"value"@1
+               (call@E toJs~4 tip@1))
+              (let@4,V opt . . .
+               (call@H newJsObject~B))
+              (call@7,W
+               (dot~4 opt~3 set@1)"hoverMessage"@1 hov@H)
+              (let@4,j d . . .
+               (call@F newJsObject~B))
+              (call@5,k
+               (dot~4 d~1 set@1)"range"@1 rng@A)
+              (call@5,l
+               (dot~4 d~1 set@1)"options"@1 opt@C)
+              (cmd@3,m
+               (dot arr~3 add@1)d@5)))))))
+        (asgn@5,z line~5 ""@2)))
+      (else@,11
+       (stmts@2,1
+        (cmd@4
+         (dot line~4 add@1)
+         (at@B report~6 i@1)))))
+     (cmd@,13 inc i@4)))
+   (call@5,1B stash~5 "__sxAll"@1
+    (call@N
+     (dot~5 editor~6 call@1)"createDecorationsCollection"@1 arr@W))))
+ (proc@,Aj showStructure@5 x . .
+  (params@J
+   (param@1 html . . string@6 .)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 el . . .
+    (call@D byWidget~8 "atoms"@1))
+   (if@,4
+    (elif@3
+     (dot@2 el~2 isNil@1)
+     (stmts@A
+      (ret .))))
+   (call@6,5
+    (dot~4 el~2 set@1)"innerHTML"@1
+    (call@I toJs~4 html@1))))
+ (proc@,Ar showPreview@5 x . .
+  (params@H
+   (param@1 html . . string@6 .)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 el . . .
+    (call@D byWidget~8 "preview"@1))
+   (if@,4
+    (elif@3
+     (dot@2 el~2 isNil@1)
+     (stmts@A
+      (ret .))))
+   (call@6,5
+    (dot~4 el~2 set@1)"innerHTML"@1
+    (call@I toJs~4 html@1))))
+ (proc@,Az ask@5 x . .
+  (params@9
+   (param@1 question . . string@G .)
+   (param@B dflt . . string@6 .))string@Q . .
+  (stmts@2,1
+   (let@4 v . . .
+    (call@C
+     (dot~5
+      (call~2 g~1)call@1)"prompt"@1
+     (call@F toJs~4 question@1)
+     (call@V toJs~4 dflt@1)))
+   (if@,1
+    (elif@3
+     (dot@1 v~1 isNil@1)
+     (stmts@9
+      (ret ""@7))))
+   (prefix@,2 $ v@1)))
+ (proc@,B5 onFrame@5 . . .
+  (params@C
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@P nimcall@2). .)
+ (proc@,B7 relayout@5 x . .
+  (params@E). . .
+  (stmts@2,1
+   (comment)
+   (if@,2
+    (elif@3
+     (dot@6 editor~6 isNil@1)
+     (stmts@E
+      (ret .))))
+   (discard@,3
+    (call@J
+     (dot~5 editor~6 call@1)"layout"@1))))
+ (proc@,BD onFrame@5 . . .
+  (params@C
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@P nimcall@2).
+  (stmts@d
+   (call@8 relayout~8)))
+ (proc@,BF onResize@5 . . .
+  (params@D
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@Q nimcall@2).
+  (stmts@e
+   (call@8 relayout~8)))
+ (proc@,BH watchResize@5 x . .
+  (params@H). . .
+  (stmts@2,1
+   (comment)
+   (discard@,2
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"addEventListener"@1
+     (call@P toJs~4 "resize"@1)
+     (call@f toJs~4 onResize@1)))))
+ (proc@,BM editorText@5 x . .
+  (params@G)string@4 . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (dot@6 editor~6 isNil@1)
+     (stmts~1,1
+      (if
+       (elif@3 havePending
+        (stmts@D
+         (ret pendingText@7))))
+      (ret@,1 ""@7))))
+   (prefix@,3 $
+    (call@C
+     (dot~5 editor~6 call@1)"getValue"@1))))
+ (proc@,BS setEditable@5 x . .
+  (params@H
+   (param@1 on . . bool@4 .)). . .
+  (stmts@2,1
+   (comment)
+   (asgn@9,G editable~9 on@2)
+   (if@,H
+    (elif@3
+     (dot@6 editor~6 isNil@1)
+     (stmts@E
+      (ret .))))
+   (let@4,I opt . . .
+    (call@H newJsObject~B))
+   (call@7,J
+    (dot~4 opt~3 set@1)"readOnly"@1
+    (call@H toJs~4
+     (prefix@1 not on@4)))
+   (call@7,L
+    (dot~4 opt~3 set@1)"readOnlyMessage"@1
+    (call@V newJsObject~B))
+   (call@U,M
+    (dot~4
+     (call~J
+      (dot~4 opt~3 get@1)"readOnlyMessage"@1)set@1)"value"@1
+    (call~O,1 toJs~4
+     (infix@15,1 &
+      (infix@6,~1 & "This is a **reading** of an atom, not its source — parentheses are "~1A "dropped and named parts are folded. Use **edit source** in the "~1A,1)"toolbar to open the document it came from."~14,1)))
+   (discard@,Q
+    (call@J
+     (dot~5 editor~6 call@1)"updateOptions"@1 opt@I))))
+ (proc@,Bv setEditor@5 x . .
+  (params@F
+   (param@1 text . . string@C .)
+   (param@7 lang . . string@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (dot@6 editor~6 isNil@1)
+     (stmts~1,1
+      (asgn@C pendingText~C text@2)
+      (asgn@C,1 pendingLang~C lang@2)
+      (asgn@C,2 havePending~C true@2)
+      (ret@,3 .))))
+   (let@4,5 model . . .
+    (call@J
+     (dot~5 editor~6 call@1)"getModel"@1))
+   (if@,6
+    (elif@3
+     (infix@O !=
+      (prefix~O $
+       (call@B
+        (dot~5 model~5 call@1)"getValue"@1))text@3)
+     (stmts~1,6
+      (asgn@8 loading~8 true@2)
+      (discard@,1
+       (call@I
+        (dot~5 model~5 call@1)"setValue"@1
+        (call@H toJs~4 text@1)))
+      (asgn@8,2 loading~8 false@2))))
+   (discard@,F
+    (call@7,1
+     (dot~5
+      (call@Q,~1
+       (dot~4
+        (call~A global~6 "monaco"@1)get@1)"editor"@1)call@1)"setModelLanguage"@1 model@L
+     (call@W toJs~4 lang@1)))))
+ (comment@,CE)
+ (proc@,CK onBootGone@5 . . .
+  (params@F
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@S nimcall@2).
+  (stmts@2,1
+   (let@4 b . . .
+    (call@E
+     (dot~5
+      (call~2 doc~3)call@1)"getElementById"@1
+     (call@N toJs~4 "boot"@1)))
+   (if@,1
+    (elif@3
+     (dot@1 b~1 isNil@1)
+     (stmts@9
+      (ret .))))
+   (discard@,2
+    (call@E
+     (dot~5 b~1 call@1)"remove"@1))))
+ (proc@,CP bootDone@5 x . .
+  (params@E). . .
+  (stmts@2,1
+   (comment)
+   (let@4,7 b . . .
+    (call@E
+     (dot~5
+      (call~2 doc~3)call@1)"getElementById"@1
+     (call@N toJs~4 "boot"@1)))
+   (if@,8
+    (elif@3
+     (dot@1 b~1 isNil@1)
+     (stmts@9
+      (ret .))))
+   (discard@,9
+    (call@E
+     (dot~5 b~1 call@1)"setAttribute"@1
+     (call@L toJs~4 "class"@1)
+     (call@a toJs~4 "loading is-done"@1)))
+   (discard@,A
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"setTimeout"@1
+     (call@J toJs~4 onBootGone@1)
+     (call@b toJs~4 280@1)))))
+ (proc@,Cc savedNow@5 x . .
+  (params@E). . .
+  (stmts@2,1
+   (comment)
+   (call@7,4 setText~7
+    (call@8 byClass~7 "js-saved"@1)
+    (infix@V & "saved "~9
+     (call@9 timeNow~7)))))
+ (proc@,Cj noSave@5 . . .
+  (params@B).
+  (pragmas@E nimcall@2).
+  (stmts@S
+   (discard .)))
+ (var@4,Cl saveHook . .
+  (proctype@F ....
+   (params).
+   (pragmas@3 nimcall@2)..)noSave@W)
+ (proc@,Cn setSaveHook@5 x . .
+  (params@H
+   (param@1 f . .
+    (proctype@8 ....
+     (params).
+     (pragmas@3 nimcall@2)..).)). . .
+  (stmts@i
+   (asgn@9 saveHook~9 f@2)))
+ (proc@,Cp onSaveKey@5 . . .
+  (params@E).
+  (pragmas@H nimcall@2).
+  (stmts@V
+   (call@8 saveHook~8)))
+ (comment@,Cr)
+ (proc@,D2 onSaveTimer@5 . . .
+  (params@G
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@T nimcall@2).
+  (stmts@h
+   (call@8 saveHook~8)))
+ (proc@,D4 onEdit@5 . . .
+  (params@B
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@O nimcall@2).
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 or loading~8
+      (prefix@3 not editable@4))
+     (stmts@P
+      (ret .))))
+   (let@4,1 g0 . . .
+    (call@6 g~1))
+   (let@4,2 prev . . .
+    (call@D
+     (dot~4 g0~2 get@1)"__saveTimer"@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (dot@8 prev~4 isNil@1))
+     (stmts@G
+      (discard
+       (call@F
+        (dot~5 g0~2 call@1)"clearTimeout"@1 prev@H)))))
+   (call@7,4 setText~7
+    (call@8 byClass~7 "js-saved"@1)"saving..."@M)
+   (call@6,5
+    (dot~4 g0~2 set@1)"__saveTimer"@1
+    (call@N
+     (dot~5 g0~2 call@1)"setTimeout"@1
+     (call@J toJs~4 onSaveTimer@1)
+     (call@c toJs~4 700@1)))))
+ (proc@,DC addRule@5 . . .
+  (params@C
+   (param@1 dest . . JsValue@6 .)
+   (param@G pat . . string@A .)
+   (param@L act . . string@5 .)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,F a . . .
+    (call@E newJsArray~A))
+   (cmd@1,G
+    (dot a~1 add@1)
+    (call@9 toJs~4 pat@1))
+   (cmd@1,H
+    (dot a~1 add@1)
+    (call@9 toJs~4 act@1))
+   (cmd@4,I
+    (dot dest~4 add@1)a@5)))
+ (proc@,DX defineAtomLanguage@5 . . .
+  (params@N). . .
+  (stmts@2,1
+   (comment)
+   (let@4,H m . . .
+    (call@A global~6 "monaco"@1))
+   (if@,I
+    (elif@3
+     (dot@1 m~1 isNil@1)
+     (stmts@9
+      (ret .))))
+   (let@4,J reg . . .
+    (call@H newJsObject~B))
+   (call@7,K
+    (dot~4 reg~3 set@1)"id"@1
+    (call@B toJs~4 "atoms"@1))
+   (discard@,L
+    (call@V
+     (dot~5
+      (call~D
+       (dot~4 m~1 get@1)"languages"@1)call@1)"register"@1 reg@D))
+   (let@4,M root . . .
+    (call@H newJsArray~A))
+   (call@7,O addRule~7 root@1 "^\5Cs*\23.*$"@7 "comment"@K)
+   (call@7,Q addRule~7 root@1 "\40\5B\5Cw.\5C-\5D+"@7 "type.identifier"@M)
+   (call@7,S addRule~7 root@1 "…\5Cd*"@7 "comment"@I)
+   (call@7,V addRule~7 root@1 "\5B\5Cw\5C-.\5D+\28?=\5C=\29"@7 "attribute.name"@S)
+   (call@7,W addRule~7 root@1 "="@7 "delimiter"@C)
+   (call@7,X addRule~7 root@1 "\22\5B^\22\5D*\22"@7 "string"@L)
+   (call@7,Z addRule~7 root@1 "\5C?\5C??\5B\5Cw\5D+"@7 "variable.predefined"@O)
+   (call@7,b addRule~7 root@1 "\5BA-Za-z_\5D\5B\5Cw\5C-.\5D*"@7 "tag"@U)
+   (let@4,c tokenizer . . .
+    (call@N newJsObject~B))
+   (call@D,d
+    (dot~4 tokenizer~9 set@1)"root"@1 root@9)
+   (let@4,e spec . . .
+    (call@I newJsObject~B))
+   (call@8,f
+    (dot~4 spec~4 set@1)"tokenizer"@1 tokenizer@E)
+   (discard@,g
+    (call@V
+     (dot~5
+      (call~D
+       (dot~4 m~1 get@1)"languages"@1)call@1)"setMonarchTokensProvider"@1
+     (call@X toJs~4 "atoms"@1)spec@i))))
+ (proc@,EG defineNimLanguage@5 . . .
+  (params@M). . .
+  (stmts@2,1
+   (comment)
+   (let@4,2 m . . .
+    (call@A global~6 "monaco"@1))
+   (if@,3
+    (elif@3
+     (dot@1 m~1 isNil@1)
+     (stmts@9
+      (ret .))))
+   (let@4,4 reg . . .
+    (call@H newJsObject~B))
+   (call@7,5
+    (dot~4 reg~3 set@1)"id"@1
+    (call@B toJs~4 "nim"@1))
+   (discard@,6
+    (call@V
+     (dot~5
+      (call~D
+       (dot~4 m~1 get@1)"languages"@1)call@1)"register"@1 reg@D))
+   (let@4,8 kw . . .
+    (call@F newJsArray~A))
+   (let@4,9 words . . .
+    (infix@1C,2 &
+     (infix@,~1 &
+      (infix~1,~1 & "proc func var let const type if elif else while for in return "~13 "result import export object enum case of discard echo template "~13,1)"macro when try except finally raise yield block break continue "~14,1)"and or not true false nil seq string int bool float"~14,1))
+   (var@4,D cur . . . ""@6)
+   (var@4,E i . . . 0@4)
+   (while@,F
+    (infix@8 <= i~2
+     (dot@8 words~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@F or
+        (infix~D == i~2
+         (dot@8 words~5 len@1))
+        (infix@C ==
+         (at~4 words~5 i@1)' '@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@8 >
+           (dot~5 cur~3 len@1)0@2)
+          (stmts@D
+           (cmd@2
+            (dot kw~2 add@1)
+            (call@9 toJs~4 cur@1)))))
+        (asgn@4,1 cur~4 ""@2)))
+      (else@,3
+       (stmts@2,1
+        (cmd@3
+         (dot cur~3 add@1)
+         (at@A words~5 i@1)))))
+     (cmd@,5 inc i@4)))
+   (let@4,N root . . .
+    (call@H newJsArray~A))
+   (cmd@4,O
+    (dot root~4 addRule@1)"\23\23.*$"@9 "comment.doc"@I)
+   (cmd@4,P
+    (dot root~4 addRule@1)"\23.*$"@9 "comment"@H)
+   (cmd@4,Q
+    (dot root~4 addRule@1)"\5C\7B\5C.\5B^\7D\5D*\5C.\5C\7D"@9 "annotation"@U)
+   (cmd@4,R
+    (dot root~4 addRule@1)"\22\5B^\22\5D*\22"@9 "string"@N)
+   (cmd@4,S
+    (dot root~4 addRule@1)"\5Cb\5Cd+\5C.?\5Cd*\5Cb"@9 "number"@V)
+   (let@4,V cases . . .
+    (call@J newJsObject~B))
+   (call@9,W
+    (dot~4 cases~5 set@1)"\40keywords"@1
+    (call@I toJs~4 "keyword"@1))
+   (call@9,X
+    (dot~4 cases~5 set@1)"\40default"@1
+    (call@H toJs~4 "identifier"@1))
+   (let@4,Y act . . .
+    (call@H newJsObject~B))
+   (call@7,Z
+    (dot~4 act~3 set@1)"cases"@1 cases@A)
+   (let@4,a idRule . . .
+    (call@J newJsArray~A))
+   (cmd@6,b
+    (dot idRule~6 add@1)
+    (call@9 toJs~4 "\5Ba-zA-Z_\5D\5Cw*"@1))
+   (cmd@6,c
+    (dot idRule~6 add@1)act@5)
+   (cmd@4,d
+    (dot root~4 add@1)idRule@5)
+   (let@4,f tokenizer . . .
+    (call@N newJsObject~B))
+   (call@D,g
+    (dot~4 tokenizer~9 set@1)"root"@1 root@9)
+   (let@4,h spec . . .
+    (call@I newJsObject~B))
+   (call@8,i
+    (dot~4 spec~4 set@1)"keywords"@1 kw@D)
+   (call@8,j
+    (dot~4 spec~4 set@1)"tokenizer"@1 tokenizer@E)
+   (discard@,k
+    (call@V
+     (dot~5
+      (call~D
+       (dot~4 m~1 get@1)"languages"@1)call@1)"setMonarchTokensProvider"@1
+     (call@X toJs~4 "nim"@1)spec@g))))
+ (proc@,F3 cssVar@5 . . .
+  (params@B
+   (param@1 name . . string@G .)
+   (param@7 fallback . . string@A .))string@Q . .
+  (stmts@2,1
+   (comment)
+   (let@4,D raw . . .
+    (prefix@6 $
+     (call@7,1
+      (dot~5
+       (call@7,~1
+        (dot~5
+         (call~2 g~1)call@1)"getComputedStyle"@1
+        (call@U
+         (dot~4
+          (call~2 doc~3)get@1)"documentElement"@1))call@1)"getPropertyValue"@1
+      (call@P toJs~4 name@1))))
+   (var@4,F v . . . ""@4)
+   (var@4,G i . . . 0@4)
+   (while@,H
+    (infix@8 < i~2
+     (dot@5 raw~3 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@7 !=
+        (at~4 raw~3 i@1)' '@3)
+       (stmts@F
+        (cmd@1
+         (dot v~1 add@1)
+         (at@8 raw~3 i@1)))))
+     (cmd@,1 inc i@4)))
+   (if@,K
+    (elif@3
+     (infix@A or
+      (infix~4 <
+       (dot~5 v~1 len@1)4@2)
+      (infix@8 !=
+       (at~4 v~1 0@1)'\23'@3))
+     (stmts@Q
+      (ret fallback@7))))v@,L))
+ (proc@,FR tokenRule@5 . . .
+  (params@E
+   (param@1 dest . . JsValue@6 .)
+   (param@G token . . string@F .)
+   (param@N colour . . string@8 .)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,4 r . . .
+    (call@F newJsObject~B))
+   (call@5,5
+    (dot~4 r~1 set@1)"token"@1
+    (call@E toJs~4 token@1))
+   (var@4,9 c . . . colour@4)
+   (if@,A
+    (elif@3
+     (infix@A and
+      (infix~4 >
+       (dot~5 c~1 len@1)1@2)
+      (infix@9 ==
+       (at~4 c~1 0@1)'\23'@3))
+     (stmts@R
+      (asgn@2 c~2
+       (call@A
+        (dot~7 c~1 substr@1)1@1)))))
+   (call@5,B
+    (dot~4 r~1 set@1)"foreground"@1
+    (call@J toJs~4 c@1))
+   (cmd@4,C
+    (dot dest~4 add@1)r@5)))
+ (proc@,Fg defineDarkTheme@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (comment)
+   (let@4,5 m . . .
+    (call@A global~6 "monaco"@1))
+   (let@4,6 colors . . .
+    (call@K newJsObject~B))
+   (var@4,7 base . . . "vs-dark"@7)
+   (if@,8
+    (elif@3
+     (call@8 lightish~8
+      (call@A themeName~9))
+     (stmts@N
+      (asgn@5 base~5 "vs"@2))))
+   (var@4,D line . . . "\233a3f46"@7)
+   (if@,E
+    (elif@3
+     (infix@5 == base~5 "vs"@3)
+     (stmts@E
+      (asgn@5 line~5 "\23d3cec6"@2))))
+   (let@4,F faint . . .
+    (call@E cssVar~6 "--tertiary"@1 "\238b8b8b"@F))
+   (let@4,G bg . . .
+    (call@B cssVar~6 "--bg-3"@1 "\23111418"@B))
+   (let@4,H fg . . .
+    (call@B cssVar~6 "--primary"@1 "\23f4f1ea"@E))
+   (let@4,I accent . . .
+    (call@F cssVar~6 "--accent"@1 "\235bd49c"@D))
+   (call@A,J
+    (dot~4 colors~6 set@1)"editor.background"@1
+    (call@Q toJs~4 bg@1))
+   (call@A,K
+    (dot~4 colors~6 set@1)"editor.foreground"@1
+    (call@Q toJs~4 fg@1))
+   (call@A,L
+    (dot~4 colors~6 set@1)"editorLineNumber.foreground"@1
+    (call@a toJs~4
+     (call@7 cssVar~6 "--tertiary"@1 "\238b8b8b"@F)))
+   (call@A,M
+    (dot~4 colors~6 set@1)"editorLineNumber.activeForeground"@1
+    (call@g toJs~4 fg@1))
+   (call@A,N
+    (dot~4 colors~6 set@1)"editorIndentGuide.background1"@1
+    (call@c toJs~4 line@1))
+   (call@A,O
+    (dot~4 colors~6 set@1)"editorIndentGuide.activeBackground1"@1
+    (call@i toJs~4 accent@1))
+   (call@A,P
+    (dot~4 colors~6 set@1)"editorGutter.background"@1
+    (call@W toJs~4 bg@1))
+   (call@A,V
+    (dot~4 colors~6 set@1)"editor.foldBackground"@1
+    (call@U toJs~4
+     (infix@7 & faint~6 "22"@2)))
+   (let@4,h rules . . .
+    (call@I newJsArray~A))
+   (call@9,i tokenRule~9 rules@1 "tag"@8 accent@F)
+   (call@9,j tokenRule~9 rules@1 "attribute.name"@8 faint@Q)
+   (call@9,k tokenRule~9 rules@1 "string"@8
+    (call@O cssVar~6 "--primary"@1 "\23f4f1ea"@E))
+   (call@9,l tokenRule~9 rules@1 "delimiter"@8 faint@L)
+   (call@9,m tokenRule~9 rules@1 "comment"@8 faint@J)
+   (call@9,n tokenRule~9 rules@1 "type.identifier"@8 accent@R)
+   (call@9,o tokenRule~9 rules@1 "variable.predefined"@8
+    (call@b cssVar~6 "--secondary"@1 "\23aaa39a"@G))
+   (let@4,p spec . . .
+    (call@I newJsObject~B))
+   (call@8,q
+    (dot~4 spec~4 set@1)"base"@1
+    (call@D toJs~4 base@1))
+   (call@8,r
+    (dot~4 spec~4 set@1)"inherit"@1
+    (call@G toJs~4 true@1))
+   (call@8,s
+    (dot~4 spec~4 set@1)"rules"@1 rules@A)
+   (call@8,t
+    (dot~4 spec~4 set@1)"colors"@1 colors@B)
+   (discard@,u
+    (call@S
+     (dot~5
+      (call~A
+       (dot~4 m~1 get@1)"editor"@1)call@1)"defineTheme"@1
+     (call@K toJs~4 "master-theme"@1)spec@c))
+   (discard@,x
+    (call@S
+     (dot~5
+      (call~A
+       (dot~4 m~1 get@1)"editor"@1)call@1)"setTheme"@1
+     (call@H toJs~4
+      (call@B finalTheme~A))))))
+ (proc@,Gg mountMonaco@5 . . .
+  (params@G
+   (param@1 el . . JsValue@4 .)). . .
+  (stmts@2,1
+   (let@4 m . . .
+    (call@A global~6 "monaco"@1))
+   (let@4,1 opt . . .
+    (call@H newJsObject~B))
+   (var@4,2 initial . . . ""@A)
+   (if@,3
+    (elif@3 havePending
+     (stmts@D
+      (asgn@8 initial~8 pendingText@2))))
+   (call@7,4
+    (dot~4 opt~3 set@1)"value"@1
+    (call@E toJs~4 initial@1))
+   (call@7,5
+    (dot~4 opt~3 set@1)"language"@1
+    (call@H toJs~4 pendingLang@1))
+   (call@7,6
+    (dot~4 opt~3 set@1)"theme"@1
+    (call@E toJs~4
+     (call@C monacoTheme~B)))
+   (call@7,7
+    (dot~4 opt~3 set@1)"fontSize"@1
+    (call@H toJs~4 13@1))
+   (call@7,8
+    (dot~4 opt~3 set@1)"automaticLayout"@1
+    (call@O toJs~4 true@1))
+   (call@7,9
+    (dot~4 opt~3 set@1)"scrollBeyondLastLine"@1
+    (call@T toJs~4 false@1))
+   (call@7,A
+    (dot~4 opt~3 set@1)"tabSize"@1
+    (call@G toJs~4 2@1))
+   (call@7,B
+    (dot~4 opt~3 set@1)"renderWhitespace"@1
+    (call@P toJs~4 "selection"@1))
+   (let@4,N guides . . .
+    (call@K newJsObject~B))
+   (call@A,O
+    (dot~4 guides~6 set@1)"indentation"@1
+    (call@K toJs~4 true@1))
+   (call@A,P
+    (dot~4 guides~6 set@1)"highlightActiveIndentation"@1
+    (call@Z toJs~4 "always"@1))
+   (call@A,Q
+    (dot~4 guides~6 set@1)"bracketPairs"@1
+    (call@L toJs~4 false@1))
+   (call@7,R
+    (dot~4 opt~3 set@1)"guides"@1 guides@B)
+   (call@7,S
+    (dot~4 opt~3 set@1)"renderLineHighlight"@1
+    (call@S toJs~4 "none"@1))
+   (call@7,T
+    (dot~4 opt~3 set@1)"occurrencesHighlight"@1
+    (call@T toJs~4 "off"@1))
+   (call@7,U
+    (dot~4 opt~3 set@1)"wordBasedSuggestions"@1
+    (call@T toJs~4 "off"@1))
+   (let@4,V mini . . .
+    (call@I newJsObject~B))
+   (call@8,W
+    (dot~4 mini~4 set@1)"enabled"@1
+    (call@G toJs~4 false@1))
+   (call@7,X
+    (dot~4 opt~3 set@1)"minimap"@1 mini@C)
+   (call@7,b
+    (dot~4 opt~3 set@1)"lineNumbersMinChars"@1
+    (call@S toJs~4 3@1))
+   (call@7,c
+    (dot~4 opt~3 set@1)"glyphMargin"@1
+    (call@K toJs~4 false@1))
+   (call@7,o
+    (dot~4 opt~3 set@1)"folding"@1
+    (call@G toJs~4 true@1))
+   (call@7,p
+    (dot~4 opt~3 set@1)"foldingStrategy"@1
+    (call@O toJs~4 "indentation"@1))
+   (call@7,q
+    (dot~4 opt~3 set@1)"showFoldingControls"@1
+    (call@S toJs~4 "mouseover"@1))
+   (asgn@6,r stage~6 3@2)
+   (call@3,s log~3 "monaco\3A creating the editor"@1 ""@W)
+   (asgn@7,t editor~7
+    (call@M
+     (dot~5
+      (call~A
+       (dot~4 m~1 get@1)"editor"@1)call@1)"create"@1 el@B opt@F))
+   (asgn@C,u havePending~C false@2)
+   (asgn@6,v stage~6 4@2)
+   (discard@,19
+    (call@J
+     (dot~5 editor~6 call@1)"onMouseDown"@1
+     (call@K toJs~4 onEditorMouse@1)))
+   (discard@,1A
+    (call@J
+     (dot~5 editor~6 call@1)"onKeyDown"@1
+     (call@I toJs~4 onModDown@1)))
+   (discard@,1B
+    (call@J
+     (dot~5 editor~6 call@1)"onKeyUp"@1
+     (call@G toJs~4 onModUp@1)))
+   (discard@,1E
+    (call@J
+     (dot~5 editor~6 call@1)"onDidChangeCursorPosition"@1
+     (call@Y toJs~4 onCursor@1)))
+   (discard@,1F
+    (call@J
+     (dot~5 editor~6 call@1)"onDidChangeModelContent"@1
+     (call@W toJs~4 onEdit@1)))
+   (call@3,1G log~3 "monaco\3A editor mounted"@1 "ok"@R)
+   (discard@,1R
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"requestAnimationFrame"@1
+     (call@U toJs~4 onFrame@1)))
+   (let@4,1U mod0 . . .
+    (call@C toInt~5
+     (call@K
+      (dot~4
+       (call~A
+        (dot~4 m~1 get@1)"KeyMod"@1)get@1)"CtrlCmd"@1)))
+   (let@4,1V key . . .
+    (call@B toInt~5
+     (call@L
+      (dot~4
+       (call~B
+        (dot~4 m~1 get@1)"KeyCode"@1)get@1)"KeyS"@1)))
+   (discard@,1W
+    (call@J
+     (dot~5 editor~6 call@1)"addCommand"@1
+     (call@J toJs~4
+      (infix@6 or mod0~5 key@3))
+     (call@c toJs~4 onSaveKey@1)))
+   (call@F,1f defineDarkTheme~F)))
+ (proc@,IP mountAll@5 x . .
+  (params@E). . .
+  (stmts@2,1
+   (comment)
+   (let@4,I el . . .
+    (call@D byWidget~8 "monaco"@1))
+   (if@,J
+    (elif@3
+     (prefix not
+      (dot@6 el~2 isNil@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@l !=
+         (prefix~l $
+          (call@8
+           (dot~5 el~2 call@1)"getAttribute"@1
+           (call@L toJs~4 "data-mounted"@1)))"1"@3)
+        (stmts~1,4
+         (if
+          (elif@3
+           (prefix not
+            (dot@K
+             (call~A global~6 "monaco"@1)isNil@1))
+           (stmts~1,1
+            (discard
+             (call@F
+              (dot~5 el~2 call@1)"setAttribute"@1
+              (call@L toJs~4 "data-mounted"@1)
+              (call@h toJs~4 "1"@1)))
+            (call@B,1 mountMonaco~B el@1))))))))))
+   (call@8,U relayout~8)))
+ (var@4,Ix tries . . . 0@8)
+ (proc@,Iz onRetry@5 . . .
+  (params@C
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@P nimcall@2).
+  (stmts@2,1
+   (comment)
+   (if@,D
+    (elif@3
+     (prefix not
+      (dot@A editor~6 isNil@1))
+     (stmts@I
+      (ret .))))
+   (cmd@,E inc tries@4)
+   (call@8,F mountAll~8)
+   (if@,G
+    (elif@3
+     (infix@D and
+      (dot~7 editor~6 isNil@1)
+      (infix@A < tries~6 40@2))
+     (stmts~1,1
+      (discard
+       (call@G
+        (dot~5
+         (call~2 g~1)call@1)"setTimeout"@1
+        (call@J toJs~4 onRetry@1)
+        (call@Y toJs~4 250@1))))))))
+ (proc@,JJ onDecorate@5 . . .
+  (params@F
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@S nimcall@2).
+  (stmts@2,1
+   (call@I defineAtomLanguage~I)
+   (call@H,1 defineNimLanguage~H)
+   (call@F,4 defineDarkTheme~F)))
+ (proc@,JQ onMonacoReady@5 . . .
+  (params@I).
+  (pragmas@L nimcall@2).
+  (stmts@2,1
+   (comment)
+   (asgn@6,A stage~6 2@2)
+   (call@3,B log~3 "monaco\3A library loaded"@1 ""@R)
+   (call@8,C mountAll~8)
+   (call@8,D relayout~8)
+   (discard@,J
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"setTimeout"@1
+     (call@J toJs~4 onDecorate@1)
+     (call@b toJs~4 0@1)))))
+ (proc@,Jm onMonacoLate@5 . . .
+  (params@H
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@U nimcall@2).
+  (stmts@2,1
+   (comment)
+   (if@,B
+    (elif@3
+     (prefix not
+      (dot@A editor~6 isNil@1))
+     (stmts@I
+      (ret .))))
+   (let@4,C el . . .
+    (call@D byWidget~8 "monaco"@1))
+   (if@,D
+    (elif@3
+     (dot@2 el~2 isNil@1)
+     (stmts@A
+      (ret .))))
+   (var@4,I why . . . ""@6)
+   (if@,J
+    (elif@3
+     (infix@6 == stage~6 0@3)
+     (stmts~1,1
+      (asgn@4 why~4 "loadMonaco was never called -- the client did not get that far."@2)))
+    (elif@5,2
+     (infix@6 == stage~6 1@3)
+     (stmts~3,1
+      (asgn@4 why~4
+       (infix@16 & "the AMD loader never called back. monaco-editor did not arrive "~14 "from cdn.jsdelivr.net; check the network tab for editor.main."~14,1))))
+    (elif@5,5
+     (infix@6 == stage~6 2@3)
+     (stmts~3,1
+      (let@4 list . . .
+       (call@H
+        (dot~5
+         (call~2 doc~3)call@1)"querySelectorAll"@1
+        (call@P toJs~4 "\5Bdata-widget\5D"@1)))
+      (var@4,1 mounted . . . "?"@A)
+      (let@4,2 mp . . .
+       (call@D byWidget~8 "monaco"@1))
+      (if@,3
+       (elif@3
+        (prefix not
+         (dot@6 mp~2 isNil@1))
+        (stmts@E
+         (asgn@8 mounted~8
+          (prefix@2 $
+           (call@8
+            (dot~5 mp~2 call@1)"getAttribute"@1
+            (call@L toJs~4 "data-mounted"@1)))))))
+      (asgn@4,4 why~4
+       (infix@F,4 &
+        (infix@k,~1 &
+         (infix~W &
+          (infix@F,~1 &
+           (infix~A &
+            (infix@A,~1 &
+             (infix~T &
+              (infix@o,~1 & "the library loaded but the mount never took. widgets in the "~11 "document\3A "~11,1)
+              (prefix@2 $
+               (call@6 toInt~5
+                (call@9
+                 (dot~4 list~4 get@1)"length"@1))))", monaco widget data-mounted="~g,1)mounted@2)", monaco global present="~g,1)
+          (prefix@2 $
+           (par@1
+            (prefix@1 not
+             (dot@K
+              (call~A global~6 "monaco"@1)isNil@1)))))", retries="~x,1)
+        (prefix@2 $ tries@1)))))
+    (else@,F
+     (stmts@2,1
+      (asgn@4 why~4 "the mount was attempted and produced no editor."@2))))
+   (call@6,a
+    (dot~4 el~2 set@1)"textContent"@1
+    (call@K toJs~4
+     (infix@T & "The editor did not load\3A "~S why@2)))
+   (call@3,b log~3
+    (infix@i &
+     (infix~7 &
+      (infix~9 & "monaco stalled at stage "~R
+       (prefix@2 $ stage@1))"\3A "@2)why@2)"err"@p)))
+ (proc@,KQ loadMonaco@5 x . .
+  (params@G). . .
+  (stmts@2,1
+   (let@4 req . . .
+    (call@C global~6 "require"@1))
+   (if@,1
+    (elif@3
+     (dot@3 req~3 isNil@1)
+     (stmts~1,1
+      (call@3 log~3 "monaco loader missing -- the editor will not mount"@1 "err"@t)
+      (ret@,1 .))))
+   (asgn@6,4 stage~6 1@2)
+   (discard@,5
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"setTimeout"@1
+     (call@J toJs~4 onMonacoLate@1)
+     (call@d toJs~4 6000@1)))
+   (discard@,6
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"setTimeout"@1
+     (call@J toJs~4 onRetry@1)
+     (call@Y toJs~4 250@1)))
+   (call@3,7 log~3 "monaco\3A asking the loader for editor.main"@1 ""@k)
+   (let@4,8 paths . . .
+    (call@J newJsObject~B))
+   (call@9,9
+    (dot~4 paths~5 set@1)"vs"@1
+    (call@B toJs~4 "https\3A//cdn.jsdelivr.net/npm/monaco-editor\400.52.2/min/vs"@1))
+   (let@4,A cfg . . .
+    (call@H newJsObject~B))
+   (call@7,B
+    (dot~4 cfg~3 set@1)"paths"@1 paths@A)
+   (discard@,C
+    (call@G
+     (dot~5 req~3 call@1)"config"@1 cfg@B))
+   (let@4,D mods . . .
+    (call@H newJsArray~A))
+   (cmd@4,E
+    (dot mods~4 add@1)
+    (call@9 toJs~4 "vs/editor/editor.main"@1))
+   (discard@,F
+    (call@H
+     (dot~6
+      (call~2 g~1)apply@1)"require"@1
+     (bracket@C mods@1
+      (call@B toJs~4 onMonacoReady@1)))))))

@@ -1,0 +1,724 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../aowlui/kit/sheet.nim
+ (comment)
+ (import@,R css@7)
+ (const@6,W ease~4 x . . "cubic-bezier\28.2,.8,.2,1\29"@4)
+ (const@8,X motion~6 x . .
+  (infix@o,1 &
+   (infix~O &
+    (infix~7 &
+     (infix@S,~1 &
+      (infix~7 & "transition\3Abackground-color .12s "~a ease@2)",color .12s "~h,1)ease@2)",border-color .12s "@2)ease@2))
+ (proc@,a kitSheet@5 x . .
+  (params@E)Stylesheet@4 . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7
+    (call@G initStylesheet~E))
+   (cmd@6,4
+    (dot result~6 rule@1)".shell"@6
+    (call@N styleOf~7 "display\3Agrid;grid-template-rows\3Aauto 1fr auto;height\3A100%;min-height\3A0"~R,1))
+   (cmd@6,6
+    (dot result~6 rule@1)".shell-body"@6
+    (call@S styleOf~7 "display\3Aflex;min-height\3A0;min-width\3A0;overflow\3Ahidden"~W,1))
+   (cmd@6,C
+    (dot result~6 rule@1)".win"@6
+    (call@L styleOf~7
+     (infix@e,2 &
+      (infix@2,~1 & "display\3Aflex;flex-direction\3Acolumn;min-height\3A0;overflow\3Ahidden;"~15 "background\3Avar\28--bg-2\29;border\3Avar\28--hair\29 solid var\28--border\29;"~15,1)"border-radius\3Avar\28--r2\29;box-shadow\3Avar\28--shadow\29"~13,1)))
+   (cmd@6,G
+    (dot result~6 rule@1)".win-bar"@6
+    (call@P styleOf~7
+     (infix@K,3 &
+      (infix~8,~1 &
+       (infix@M,~1 & "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29;flex\3A0 0 auto;"~11 "height\3Avar\28--bar\29;padding\3A0 var\28--s3\29;"~11,1)"border-bottom\3Avar\28--hair\29 solid var\28--border\29;"~f,1)"background\3Avar\28--bg-2\29;user-select\3Anone"~n,1)))
+   (cmd@6,L
+    (dot result~6 rule@1)".win-title"@6
+    (call@R styleOf~7
+     (infix@T,1 & "font-weight\3A600;letter-spacing\3A-.01em;white-space\3Anowrap;"~y "overflow\3Ahidden;text-overflow\3Aellipsis"~y,1)))
+   (cmd@6,O
+    (dot result~6 rule@1)".win-actions"@6
+    (call@T styleOf~7 "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s1\29;margin-left\3Aauto"~X,1))
+   (cmd@6,Q
+    (dot result~6 rule@1)".win-body"@6
+    (call@Q styleOf~7 "flex\3A1 1 auto;min-height\3A0;overflow\3Aauto"~U,1))
+   (cmd@6,U
+    (dot result~6 rule@1)".panes"@6
+    (call@N styleOf~7 "display\3Aflex;flex\3A1 1 auto;min-height\3A0;min-width\3A0"~R,1))
+   (cmd@6,W
+    (dot result~6 rule@1)".panes-col"@6
+    (call@R styleOf~7 "flex-direction\3Acolumn"@1))
+   (cmd@6,X
+    (dot result~6 rule@1)".pane"@6
+    (call@M styleOf~7
+     (infix@m,1 & "display\3Aflex;flex-direction\3Acolumn;flex\3A1 1 0;min-width\3A0;min-height\3A0;"~1C "overflow\3Ahidden"~1C,1)))
+   (cmd@6,a
+    (dot result~6 rule@1)".pane-head"@6
+    (call@R styleOf~7
+     (infix@Y,4 &
+      (infix~G,~1 &
+       (infix~8,~1 &
+        (infix@M,~1 & "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29;flex\3A0 0 auto;"~11 "height\3Avar\28--ctl\29;padding\3A0 var\28--s3\29;"~11,1)"border-bottom\3Avar\28--hair\29 solid var\28--border\29;"~f,1)"color\3Avar\28--secondary\29;font-size\3Avar\28--fs-sm\29;font-weight\3A500;"~n,1)"text-transform\3Auppercase;letter-spacing\3A.08em;user-select\3Anone"~13,1)))
+   (cmd@6,g
+    (dot result~6 rule@1)".pane-body"@6
+    (call@R styleOf~7 "flex\3A1 1 auto;min-height\3A0;overflow\3Aauto"@1))
+   (cmd@6,p
+    (dot result~6 rule@1)".console"@6
+    (call@P styleOf~7 "flex\3A0 0 auto;height\3Acalc\28var\28--u\29 * 40\29;min-height\3Acalc\28var\28--u\29 * 16\29"~T,1))
+   (cmd@6,v
+    (dot result~6 rule@1)".pane.is-column > .pane-body"@6
+    (call@j styleOf~7 "display\3Aflex;flex-direction\3Acolumn;overflow\3Ahidden"~n,1))
+   (cmd@6,y
+    (dot result~6 rule@1)".fill"@6
+    (call@M styleOf~7 "flex\3A1 1 auto;min-height\3A0;min-width\3A0"@1))
+   (cmd@6,17
+    (dot result~6 rule@1)".splitter"@6
+    (call@Q styleOf~7
+     (infix@N,1 & "flex\3A0 0 auto;position\3Arelative;width\3Avar\28--hair\29;"~r "background\3Avar\28--border\29;cursor\3Acol-resize"~r,1)))
+   (cmd@6,1A
+    (dot result~6 rule@1)".splitter\3A\3Abefore"@6
+    (call@Y styleOf~7
+     (infix@9,1 & "content\3A\27\27;position\3Aabsolute;top\3A0;bottom\3A0;"~l "left\3Acalc\28-1 * var\28--s2\29\29;right\3Acalc\28-1 * var\28--s2\29\29"~l,1)))
+   (cmd@6,1D
+    (dot result~6 rule@1)".splitter\3Ahover"@6
+    (call@W styleOf~7 "background\3Avar\28--accent\29"@1))
+   (cmd@6,1E
+    (dot result~6 rule@1)".splitter.is-row"@6
+    (call@X styleOf~7 "width\3Aauto;height\3Avar\28--hair\29;cursor\3Arow-resize"~b,1))
+   (cmd@6,1G
+    (dot result~6 rule@1)".splitter.is-row\3A\3Abefore"@6
+    (call@f styleOf~7 "left\3A0;right\3A0;top\3Acalc\28-1 * var\28--s2\29\29;bottom\3Acalc\28-1 * var\28--s2\29\29"~j,1))
+   (cmd@6,1K
+    (dot result~6 rule@1)".toolbar"@6
+    (call@P styleOf~7
+     (infix@C,2 &
+      (infix@M,~1 & "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29;flex\3A0 0 auto;"~11 "height\3Avar\28--bar\29;padding\3A0 var\28--s3\29;"~11,1)"border-bottom\3Avar\28--hair\29 solid var\28--border\29;background\3Avar\28--bg-2\29"~f,1)))
+   (cmd@6,1O
+    (dot result~6 rule@1)".toolbar-sep"@6
+    (call@T styleOf~7
+     (infix@Y,1 & "width\3Avar\28--hair\29;align-self\3Astretch;margin\3Avar\28--s2\29 var\28--s1\29;"~15 "background\3Avar\28--border\29"~15,1)))
+   (cmd@6,1R
+    (dot result~6 rule@1)".toolbar-spacer"@6
+    (call@W styleOf~7 "margin-left\3Aauto"@1))
+   (cmd@6,1S
+    (dot result~6 rule@1)".statusbar"@6
+    (call@R styleOf~7
+     (infix@c,3 &
+      (infix~S,~1 &
+       (infix@M,~1 & "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s3\29;flex\3A0 0 auto;"~11 "height\3Avar\28--ctl\29;padding\3A0 var\28--s3\29;"~11,1)"border-top\3Avar\28--hair\29 solid var\28--border\29;background\3Avar\28--bg-2\29;"~f,1)"color\3Avar\28--secondary\29;font-size\3Avar\28--fs-sm\29"~17,1)))
+   (cmd@6,1X
+    (dot result~6 rule@1)".status-item"@6
+    (call@T styleOf~7
+     (infix@N,1 & "display\3Ainline-flex;align-items\3Acenter;gap\3Avar\28--s1\29;"~u "font-variant-numeric\3Atabular-nums"~u,1)))
+   (cmd@6,1c
+    (dot result~6 rule@1)".sidebar"@6
+    (call@P styleOf~7
+     (infix@N,2 &
+      (infix@D,~1 & "display\3Aflex;flex-direction\3Acolumn;flex\3A0 0 auto;min-height\3A0;"~13 "width\3Acalc\28var\28--u\29 * 56\29;background\3Avar\28--bg-2\29;"~13,1)"border-right\3Avar\28--hair\29 solid var\28--border\29"~q,1)))
+   (cmd@6,1g
+    (dot result~6 rule@1)".explorer"@6
+    (call@Q styleOf~7 "flex\3A1 1 auto;min-height\3A0;overflow\3Aauto;padding\3Avar\28--s1\29 0"~U,1))
+   (cmd@6,1k
+    (dot result~6 rule@1)".tree-item"@6
+    (call@R styleOf~7
+     (infix@P,4 &
+      (infix~B,~1 &
+       (infix~4,~1 &
+        (infix@8,~1 & "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29;"~n "height\3Avar\28--ctl\29;padding\3A0 var\28--s3\29;"~n,1)"border-left\3Avar\28--rail\29 solid transparent;"~f,1)"color\3Avar\28--primary\29;cursor\3Adefault;user-select\3Anone;"~j,1)motion@2)))
+   (cmd@6,1p
+    (dot result~6 rule@1)".tree-item\3Ahover"@6
+    (call@X styleOf~7 "background\3Acolor-mix\28in srgb, var\28--primary\29 6%, transparent\29"~b,1))
+   (cmd@6,1r
+    (dot result~6 rule@1)".tree-twisty"@6
+    (call@T styleOf~7
+     (infix~4,2 &
+      (infix@Q,~1 & "flex\3A0 0 auto;width\3Avar\28--s3\29;color\3Avar\28--tertiary\29;"~t "transition\3Atransform .12s "~t,1)ease@2)))
+   (cmd@6,1u
+    (dot result~6 rule@1)".tree-item.is-open .tree-twisty"@6
+    (call@m styleOf~7 "transform\3Arotate\2890deg\29"@1))
+   (cmd@6,1v
+    (dot result~6 rule@1)".tree-label"@6
+    (call@S styleOf~7 "overflow\3Ahidden;text-overflow\3Aellipsis;white-space\3Anowrap"~W,1))
+   (cmd@6,1x
+    (dot result~6 rule@1)".tree-hint"@6
+    (call@R styleOf~7
+     (infix@Y,1 & "margin-left\3Aauto;color\3Avar\28--tertiary\29;font-size\3Avar\28--fs-sm\29;"~13 "font-variant-numeric\3Atabular-nums"~13,1)))
+   (cmd@6,22
+    (dot result~6 rule@1)".is-selected"@6
+    (call@T styleOf~7
+     (infix@W,1 & "background\3Acolor-mix\28in srgb, var\28--accent\29 12%, transparent\29;"~13 "border-left-color\3Avar\28--accent\29;color\3Avar\28--primary\29"~13,1)))
+   (cmd@6,25
+    (dot result~6 rule@1)".is-disabled"@6
+    (call@T styleOf~7 "opacity\3A.45;pointer-events\3Anone"~X,1))
+   (cmd@6,27
+    (dot result~6 rule@1)"\3Afocus-visible"@6
+    (call@V styleOf~7
+     (infix@j,1 & "outline\3Avar\28--rail\29 solid color-mix\28in srgb, var\28--accent\29 55%, transparent\29;"~1I "outline-offset\3A1px;border-radius\3Avar\28--r1\29"~1I,1)))
+   (cmd@6,2C
+    (dot result~6 rule@1)".tabs"@6
+    (call@M styleOf~7
+     (infix@h,2 &
+      (infix~5,~1 & "display\3Aflex;align-items\3Astretch;gap\3Avar\28--s1\29;flex\3A0 0 auto;"~12 "padding\3A0 var\28--s2\29;border-bottom\3Avar\28--hair\29 solid var\28--border\29;"~12,1)"background\3Avar\28--bg-2\29;user-select\3Anone"~17,1)))
+   (cmd@6,2G
+    (dot result~6 rule@1)".tab"@6
+    (call@L styleOf~7
+     (infix@T,4 &
+      (infix@P,~1 &
+       (infix~c,~1 &
+        (infix@F,~1 & "display\3Ainline-flex;align-items\3Acenter;gap\3Avar\28--s2\29;"~u "height\3Avar\28--ctl\29;padding\3A0 var\28--s3\29;"~u,1)"border\3A0;border-bottom\3Avar\28--rail\29 solid transparent;background\3Atransparent;"~f,1)"color\3Avar\28--secondary\29;font\3Ainherit;cursor\3Apointer;"~1H,1)motion@2)))
+   (cmd@6,2L
+    (dot result~6 rule@1)".tab\3Ahover"@6
+    (call@R styleOf~7 "color\3Avar\28--primary\29"@1))
+   (cmd@6,2M
+    (dot result~6 rule@1)".tab.is-active"@6
+    (call@V styleOf~7 "color\3Avar\28--primary\29;border-bottom-color\3Avar\28--accent\29"~Z,1))
+   (cmd@6,2Q
+    (dot result~6 rule@1)".crumbs"@6
+    (call@O styleOf~7
+     (infix@X,1 & "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s1\29;min-width\3A0;"~z "color\3Avar\28--secondary\29;font-size\3Avar\28--fs-sm\29"~z,1)))
+   (cmd@6,2T
+    (dot result~6 rule@1)".crumb"@6
+    (call@N styleOf~7 "white-space\3Anowrap;overflow\3Ahidden;text-overflow\3Aellipsis"~R,1))
+   (cmd@6,2V
+    (dot result~6 rule@1)".crumb\3Alast-child"@6
+    (call@Y styleOf~7 "color\3Avar\28--primary\29"@1))
+   (cmd@6,2W
+    (dot result~6 rule@1)".crumb-sep"@6
+    (call@R styleOf~7 "color\3Avar\28--tertiary\29"@1))
+   (cmd@6,2Z
+    (dot result~6 rule@1)".menu"@6
+    (call@M styleOf~7
+     (infix@d,2 &
+      (infix~E,~1 & "min-width\3Acalc\28var\28--u\29 * 44\29;padding\3Avar\28--s1\29;"~p "background\3Avar\28--bg-2\29;border\3Avar\28--hair\29 solid var\28--border\29;"~p,1)"border-radius\3Avar\28--r2\29;box-shadow\3Avar\28--shadow\29"~13,1)))
+   (cmd@6,2d
+    (dot result~6 rule@1)".menu-item"@6
+    (call@R styleOf~7
+     (infix@3,5 &
+      (infix@R,~1 &
+       (infix@G,~1 &
+        (infix~a,~1 &
+         (infix@J,~1 & "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29;width\3A100%;"~y "height\3Avar\28--ctl\29;padding\3A0 var\28--s2\29;"~y,1)"border\3A0;border-left\3Avar\28--rail\29 solid transparent;background\3Atransparent;"~f,1)"border-radius\3Avar\28--r1\29;color\3Avar\28--primary\29;font\3Ainherit;"~1F,1)"text-align\3Aleft;cursor\3Apointer;"~z,1)motion@2)))
+   (cmd@6,2j
+    (dot result~6 rule@1)".menu-item\3Ahover"@6
+    (call@X styleOf~7 "background\3Acolor-mix\28in srgb, var\28--primary\29 6%, transparent\29"~b,1))
+   (cmd@6,2l
+    (dot result~6 rule@1)".menu-hint"@6
+    (call@R styleOf~7 "margin-left\3Aauto;color\3Avar\28--tertiary\29;font-size\3Avar\28--fs-sm\29"~V,1))
+   (cmd@6,2n
+    (dot result~6 rule@1)".menu-sep"@6
+    (call@Q styleOf~7 "height\3Avar\28--hair\29;margin\3Avar\28--s1\29 0;background\3Avar\28--border\29"~U,1))
+   (cmd@6,2r
+    (dot result~6 rule@1)".inspector"@6
+    (call@R styleOf~7 "display\3Aflex;flex-direction\3Acolumn"@1))
+   (cmd@6,2s
+    (dot result~6 rule@1)".insp-row"@6
+    (call@Q styleOf~7
+     (infix@F,2 &
+      (infix@R,~1 & "display\3Agrid;grid-template-columns\3Aminmax\280,calc\28var\28--u\29 * 30\29\29 1fr;"~1A "gap\3Avar\28--s3\29;padding\3Avar\28--s2\29 var\28--s3\29;"~1A,1)"border-bottom\3Avar\28--hair\29 solid var\28--border\29"~j,1)))
+   (cmd@6,2w
+    (dot result~6 rule@1)".insp-key"@6
+    (call@Q styleOf~7
+     (infix@J,1 & "color\3Avar\28--secondary\29;font-size\3Avar\28--fs-sm\29;"~n "overflow\3Ahidden;text-overflow\3Aellipsis"~n,1)))
+   (cmd@6,2z
+    (dot result~6 rule@1)".insp-val"@6
+    (call@Q styleOf~7
+     (infix@P,1 & "font-family\3Avar\28--font-mono\29;font-size\3Avar\28--fs-sm\29;"~t "overflow-wrap\3Aanywhere;user-select\3Atext"~t,1)))
+   (cmd@6,34
+    (dot result~6 rule@1)".list"@6
+    (call@M styleOf~7 "display\3Aflex;flex-direction\3Acolumn;min-height\3A0"@1))
+   (cmd@6,35
+    (dot result~6 rule@1)".list-item"@6
+    (call@R styleOf~7
+     (infix@T,3 &
+      (infix~7,~1 &
+       (infix~4,~1 & "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29;"~n "min-height\3Avar\28--ctl\29;padding\3Avar\28--s1\29 var\28--s3\29;"~n,1)"border-left\3Avar\28--rail\29 solid transparent;cursor\3Adefault;"~r,1)motion@2)))
+   (cmd@6,39
+    (dot result~6 rule@1)".list-item\3Ahover"@6
+    (call@X styleOf~7 "background\3Acolor-mix\28in srgb, var\28--primary\29 6%, transparent\29"~b,1))
+   (cmd@6,3D
+    (dot result~6 rule@1)".well"@6
+    (call@M styleOf~7
+     (infix@d,1 & "background\3Avar\28--bg-3\29;border\3Avar\28--hair\29 solid var\28--border\29;"~13 "border-radius\3Avar\28--r2\29;padding\3Avar\28--s3\29"~13,1)))
+   (cmd@6,3G
+    (dot result~6 rule@1)".code"@6
+    (call@M styleOf~7
+     (infix@k,3 &
+      (infix~6,~1 &
+       (infix~D,~1 & "margin\3A0;padding\3Avar\28--s3\29;background\3Avar\28--bg-3\29;"~r "border\3Avar\28--hair\29 solid var\28--border\29;border-radius\3Avar\28--r2\29;"~r,1)"font-family\3Avar\28--font-mono\29;font-size\3Avar\28--fs-sm\29;line-height\3A1.55;"~14,1)"overflow\3Aauto;user-select\3Atext"~1A,1)))
+   (cmd@6,3N
+    (dot result~6 rule@1)".logview"@6
+    (call@P styleOf~7
+     (infix@P,2 &
+      (infix@B,~1 & "display\3Aflex;flex-direction\3Acolumn;min-height\3A0;overflow\3Aauto;"~13 "padding\3Avar\28--s2\29 var\28--s3\29;background\3Avar\28--bg-3\29;"~13,1)"font-family\3Avar\28--font-mono\29;font-size\3Avar\28--fs-sm\29;line-height\3A1.7"~s,1)))
+   (cmd@6,3R
+    (dot result~6 rule@1)".log-line"@6
+    (call@Q styleOf~7 "display\3Aflex;gap\3Avar\28--s3\29;align-items\3Abaseline;color\3Avar\28--ink-2\29"~U,1))
+   (cmd@6,3T
+    (dot result~6 rule@1)".log-time"@6
+    (call@Q styleOf~7 "flex\3Anone;color\3Avar\28--ink-3\29;font-variant-numeric\3Atabular-nums"~U,1))
+   (cmd@6,3V
+    (dot result~6 rule@1)".log-msg"@6
+    (call@P styleOf~7 "white-space\3Apre-wrap;word-break\3Abreak-word"@1))
+   (cmd@6,3W
+    (dot result~6 rule@1)".log-line.is-ok .log-msg"@6
+    (call@f styleOf~7 "color\3Avar\28--ok\29"@1))
+   (cmd@6,3X
+    (dot result~6 rule@1)".log-line.is-warn .log-msg"@6
+    (call@h styleOf~7 "color\3Avar\28--warn\29"@1))
+   (cmd@6,3Y
+    (dot result~6 rule@1)".log-line.is-err .log-msg"@6
+    (call@g styleOf~7 "color\3Avar\28--danger\29"@1))
+   (cmd@6,3d
+    (dot result~6 rule@1)".btn"@6
+    (call@L styleOf~7
+     (infix@f,5 &
+      (infix~J,~1 &
+       (infix@J,~1 &
+        (infix~B,~1 &
+         (infix@A,~1 & "display\3Ainline-flex;align-items\3Acenter;justify-content\3Acenter;"~13 "gap\3Avar\28--s2\29;height\3Avar\28--ctl\29;padding\3A0 var\28--s3\29;"~13,1)"border\3Avar\28--hair\29 solid var\28--border\29;border-radius\3Avar\28--r1\29;"~t,1)"background\3Avar\28--bg-3\29;color\3Avar\28--primary\29;"~14,1)"font\3Ainherit;font-weight\3A500;cursor\3Apointer;white-space\3Anowrap;"~l,1)motion@2)))
+   (cmd@6,3j
+    (dot result~6 rule@1)".btn\3Ahover"@6
+    (call@R styleOf~7 "background\3Acolor-mix\28in srgb, var\28--primary\29 8%, var\28--bg-3\29\29"~V,1))
+   (cmd@6,3l
+    (dot result~6 rule@1)".btn\3Aactive"@6
+    (call@S styleOf~7 "transform\3AtranslateY\281px\29"@1))
+   (cmd@6,3m
+    (dot result~6 rule@1)".btn.is-primary"@6
+    (call@W styleOf~7 "background\3Avar\28--accent\29;border-color\3Avar\28--accent\29;color\3Avar\28--bg\29"~a,1))
+   (cmd@6,3o
+    (dot result~6 rule@1)".btn.is-primary\3Ahover"@6
+    (call@c styleOf~7 "background\3Acolor-mix\28in srgb, var\28--accent\29 88%, var\28--primary\29\29"~g,1))
+   (cmd@6,3q
+    (dot result~6 rule@1)".btn.is-danger"@6
+    (call@V styleOf~7 "background\3Avar\28--danger\29;border-color\3Avar\28--danger\29;color\3Avar\28--bg\29"~Z,1))
+   (cmd@6,3s
+    (dot result~6 rule@1)".btn.is-ghost"@6
+    (call@U styleOf~7 "background\3Atransparent;border-color\3Atransparent;color\3Avar\28--secondary\29"~Y,1))
+   (cmd@6,3u
+    (dot result~6 rule@1)".btn.is-ghost\3Ahover"@6
+    (call@a styleOf~7
+     (infix@P,1 & "background\3Acolor-mix\28in srgb, var\28--primary\29 8%, transparent\29;"~13 "color\3Avar\28--primary\29"~13,1)))
+   (cmd@6,3x
+    (dot result~6 rule@1)".btn-icon"@6
+    (call@Q styleOf~7 "width\3Avar\28--ctl\29;padding\3A0;flex\3A0 0 auto"~U,1))
+   (cmd@6,40
+    (dot result~6 rule@1)".field"@6
+    (call@N styleOf~7 "display\3Aflex;flex-direction\3Acolumn;gap\3Avar\28--s1\29;min-width\3A0"~R,1))
+   (cmd@6,42
+    (dot result~6 rule@1)".field-label"@6
+    (call@T styleOf~7 "color\3Avar\28--secondary\29;font-size\3Avar\28--fs-sm\29;font-weight\3A500"~X,1))
+   (cmd@6,44
+    (dot result~6 rule@1)".field-help"@6
+    (call@S styleOf~7 "color\3Avar\28--tertiary\29;font-size\3Avar\28--fs-sm\29"~W,1))
+   (cmd@6,46
+    (dot result~6 rule@1)".input"@6
+    (call@N styleOf~7
+     (infix@Y,3 &
+      (infix@4,~1 &
+       (infix~C,~1 & "height\3Avar\28--ctl\29;padding\3A0 var\28--s2\29;min-width\3A0;"~r "background\3Avar\28--bg-3\29;border\3Avar\28--hair\29 solid var\28--border\29;"~r,1)"border-radius\3Avar\28--r1\29;color\3Avar\28--primary\29;font\3Ainherit;"~13,1)motion@2)))
+   (cmd@6,4A
+    (dot result~6 rule@1)".input\3Ahover"@6
+    (call@T styleOf~7 "border-color\3Acolor-mix\28in srgb, var\28--primary\29 24%, var\28--border\29\29"~X,1))
+   (cmd@6,4C
+    (dot result~6 rule@1)".input\3A\3Aplaceholder"@6
+    (call@a styleOf~7 "color\3Avar\28--tertiary\29"@1))
+   (cmd@6,4D
+    (dot result~6 rule@1)".textarea"@6
+    (call@Q styleOf~7 "height\3Aauto;padding\3Avar\28--s2\29;line-height\3A1.5;resize\3Avertical"~U,1))
+   (cmd@6,4H
+    (dot result~6 rule@1)".chip"@6
+    (call@M styleOf~7
+     (infix@S,4 &
+      (infix@B,~1 &
+       (infix~G,~1 &
+        (infix@7,~1 & "display\3Ainline-flex;align-items\3Acenter;gap\3Avar\28--s1\29;"~u "padding\3A0 var\28--s2\29;height\3Acalc\28var\28--u\29 * 5\29;"~u,1)"background\3Avar\28--bg-3\29;border\3Avar\28--hair\29 solid var\28--border\29;"~n,1)"border-radius\3Avar\28--r-pill\29;color\3Avar\28--secondary\29;"~13,1)"font-size\3Avar\28--fs-sm\29;white-space\3Anowrap"~s,1)))
+   (cmd@6,4N
+    (dot result~6 rule@1)".chip.is-accent"@6
+    (call@W styleOf~7
+     (infix@X,2 &
+      (infix~4,~1 & "background\3Acolor-mix\28in srgb, var\28--accent\29 14%, transparent\29;"~13 "border-color\3Acolor-mix\28in srgb, var\28--accent\29 45%, var\28--border\29\29;"~13,1)"color\3Avar\28--accent\29"~17,1)))
+   (cmd@6,4R
+    (dot result~6 rule@1)".chip.is-danger"@6
+    (call@W styleOf~7
+     (infix@X,2 &
+      (infix~4,~1 & "background\3Acolor-mix\28in srgb, var\28--danger\29 14%, transparent\29;"~13 "border-color\3Acolor-mix\28in srgb, var\28--danger\29 45%, var\28--border\29\29;"~13,1)"color\3Avar\28--danger\29"~17,1)))
+   (cmd@6,4W
+    (dot result~6 rule@1)".dot"@6
+    (call@L styleOf~7
+     (infix@d,1 & "width\3Avar\28--s2\29;height\3Avar\28--s2\29;border-radius\3Avar\28--r-pill\29;"~12 "background\3Avar\28--tertiary\29;flex\3A0 0 auto"~12,1)))
+   (cmd@6,4Z
+    (dot result~6 rule@1)".dot.is-live"@6
+    (call@T styleOf~7 "background\3Avar\28--accent\29"@1))
+   (cmd@6,4a
+    (dot result~6 rule@1)".dot.is-danger"@6
+    (call@V styleOf~7 "background\3Avar\28--danger\29"@1))
+   (cmd@6,4c
+    (dot result~6 rule@1)".meter"@6
+    (call@N styleOf~7
+     (infix@i,1 & "height\3Avar\28--s1\29;background\3Avar\28--bg-3\29;border-radius\3Avar\28--r-pill\29;"~19 "overflow\3Ahidden"~19,1)))
+   (cmd@6,4f
+    (dot result~6 rule@1)".meter-fill"@6
+    (call@S styleOf~7 "height\3A100%;background\3Avar\28--accent\29;border-radius\3Avar\28--r-pill\29"~W,1))
+   (cmd@6,4j
+    (dot result~6 rule@1)".scrim"@6
+    (call@N styleOf~7 "position\3Afixed;inset\3A0;background\3Acolor-mix\28in srgb, var\28--bg\29 68%, transparent\29"~R,1))
+   (cmd@6,4l
+    (dot result~6 rule@1)".dialog"@6
+    (call@O styleOf~7
+     (infix@b,3 &
+      (infix~6,~1 &
+       (infix~7,~1 & "display\3Aflex;flex-direction\3Acolumn;gap\3Avar\28--s3\29;"~q "width\3Amin\28calc\28var\28--u\29 * 120\29, 92vw\29;padding\3Avar\28--s4\29;"~q,1)"background\3Avar\28--bg-2\29;border\3Avar\28--hair\29 solid var\28--border\29;"~x,1)"border-radius\3Avar\28--r3\29;box-shadow\3Avar\28--shadow\29"~13,1)))
+   (cmd@6,4q
+    (dot result~6 rule@1)".dialog-title"@6
+    (call@U styleOf~7 "font-size\3Avar\28--fs-lg\29;font-weight\3A600;letter-spacing\3A-.01em"~Y,1))
+   (cmd@6,4s
+    (dot result~6 rule@1)".dialog-actions"@6
+    (call@W styleOf~7 "display\3Aflex;gap\3Avar\28--s2\29;justify-content\3Aflex-end"~a,1))
+   (cmd@6,4u
+    (dot result~6 rule@1)".toast"@6
+    (call@N styleOf~7
+     (infix@x,3 &
+      (infix~g,~1 &
+       (infix@9,~1 & "display\3Aflex;align-items\3Aflex-start;gap\3Avar\28--s2\29;"~r "padding\3Avar\28--s3\29;background\3Avar\28--bg-2\29;"~r,1)"border\3Avar\28--hair\29 solid var\28--border\29;border-left\3Avar\28--rail\29 solid var\28--accent\29;"~i,1)"border-radius\3Avar\28--r2\29;box-shadow\3Avar\28--shadow\29"~1O,1)))
+   (cmd@6,4z
+    (dot result~6 rule@1)".callout"@6
+    (call@P styleOf~7
+     (infix@i,3 &
+      (infix~9,~1 &
+       (infix@6,~1 & "display\3Aflex;flex-direction\3Acolumn;gap\3Avar\28--s1\29;padding\3Avar\28--s3\29;"~18 "background\3Acolor-mix\28in srgb, var\28--accent\29 8%, transparent\29;"~18,1)"border\3A1px solid color-mix\28in srgb, var\28--accent\29 40%, var\28--border\29\29;"~12,1)"border-radius\3Avar\28--r2\29"~1B,1)))
+   (cmd@6,56
+    (dot result~6 rule@1)".empty"@6
+    (call@N styleOf~7
+     (infix@a,2 &
+      (infix@H,~1 & "display\3Aflex;flex-direction\3Acolumn;align-items\3Acenter;justify-content\3Acenter;"~1I "gap\3Avar\28--s2\29;padding\3Avar\28--s8\29 var\28--s4\29;text-align\3Acenter;"~1I,1)"color\3Avar\28--secondary\29"~11,1)))
+   (cmd@6,5A
+    (dot result~6 rule@1)".empty-title"@6
+    (call@T styleOf~7 "color\3Avar\28--primary\29;font-weight\3A600"@1))
+   (cmd@6,5D
+    (dot result~6 rule@1)".mono"@6
+    (call@M styleOf~7 "font-family\3Avar\28--font-mono\29;font-variant-numeric\3Atabular-nums"~Q,1))
+   (cmd@6,5F
+    (dot result~6 rule@1)".muted"@6
+    (call@N styleOf~7 "color\3Avar\28--secondary\29"@1))
+   (cmd@6,5G
+    (dot result~6 rule@1)".hint"@6
+    (call@M styleOf~7 "color\3Avar\28--tertiary\29;font-size\3Avar\28--fs-sm\29"@1))
+   (cmd@6,5H
+    (dot result~6 rule@1)".row"@6
+    (call@L styleOf~7 "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29;min-width\3A0"~P,1))
+   (cmd@6,5J
+    (dot result~6 rule@1)".col"@6
+    (call@L styleOf~7 "display\3Aflex;flex-direction\3Acolumn;gap\3Avar\28--s2\29;min-width\3A0"~P,1))
+   (cmd@6,5R
+    (dot result~6 rule@1)".grow"@6
+    (call@M styleOf~7 "flex\3A1 1 0;min-width\3A0"@1))
+   (cmd@6,5V
+    (dot result~6 rule@1)".is-wide"@6
+    (call@P styleOf~7 "flex\3A2 1 0"@1))
+   (cmd@6,5W
+    (dot result~6 rule@1)".pad"@6
+    (call@L styleOf~7 "padding\3Avar\28--s3\29"@1))
+   (cmd@6,5Z
+    (dot result~6 rule@1)".wrap"@6
+    (call@M styleOf~7 "flex-wrap\3Awrap"@1))
+   (cmd@6,5f
+    (dot result~6 rule@1)".sx"@6
+    (call@K styleOf~7
+     (infix@b,2 &
+      (infix@A,~1 & "font-family\3Avar\28--font-mono\29;font-size\3Avar\28--fs-sm\29;line-height\3A1.5;"~19 "white-space\3Apre;overflow\3Aauto;padding\3Avar\28--s2\29 var\28--s3\29;"~19,1)"min-height\3A0;color\3Avar\28--primary\29"~z,1)))
+   (cmd@6,5j
+    (dot result~6 rule@1)".sx-node"@6
+    (call@P styleOf~7
+     (infix@D,1 & "border-radius\3Avar\28--r1\29;cursor\3Apointer;"~g "box-shadow\3Ainset 0 0 0 var\28--hair\29 transparent"~g,1)))
+   (cmd@6,5m
+    (dot result~6 rule@1)".sx-node\3Ahover"@6
+    (call@V styleOf~7 "background\3Avar\28--bg-2\29;box-shadow\3Ainset 0 0 0 var\28--hair\29 var\28--border\29"~Z,1))
+   (cmd@6,5o
+    (dot result~6 rule@1)".sx-tag"@6
+    (call@O styleOf~7 "color\3Avar\28--accent\29;font-weight\3A600"@1))
+   (cmd@6,5p
+    (dot result~6 rule@1)".sx-leaf"@6
+    (call@P styleOf~7 "color\3Avar\28--secondary\29"@1))
+   (cmd@6,5q
+    (dot result~6 rule@1)".sx-str"@6
+    (call@O styleOf~7 "color\3Avar\28--ok\29"@1))
+   (cmd@6,69
+    (dot result~6 rule@1)".sx-here"@6
+    (call@P styleOf~7
+     (infix@a,1 & "background\3Acolor-mix\28in srgb, var\28--accent\29 22%, transparent\29;"~13 "border-radius\3Avar\28--r1\29;font-weight\3A600"~13,1)))
+   (cmd@6,6N
+    (dot result~6 rule@1)".sx-region"@6
+    (call@R styleOf~7
+     (infix@k,2 &
+      (infix~X,~1 & "cursor\3Apointer;text-decoration\3Aunderline;"~i "text-decoration-color\3Avar\28--accent\29;text-decoration-thickness\3Avar\28--hair\29;"~i,1)"text-underline-offset\3Acalc\28var\28--u\29 * 0.75\29"~1F,1)))
+   (cmd@6,6V
+    (dot result~6 rule@1)".sx-def"@6
+    (call@O styleOf~7
+     (infix@E,2 &
+      (infix@9,~1 & "cursor\3Apointer;text-decoration\3Aunderline dotted;"~p "text-decoration-color\3Avar\28--secondary\29;"~p,1)"text-underline-offset\3Acalc\28var\28--u\29 * 0.75\29"~g,1)))
+   (cmd@6,6c
+    (dot result~6 rule@1)".tab.is-preview"@6
+    (call@W styleOf~7 "font-style\3Aitalic"@1))
+   (cmd@6,6d
+    (dot result~6 rule@1)".crumb.is-current"@6
+    (call@Y styleOf~7 "color\3Avar\28--primary\29;font-weight\3A600"~c,1))
+   (cmd@6,6f
+    (dot result~6 rule@1)".crumb"@6
+    (call@N styleOf~7 "cursor\3Apointer"@1))
+   (cmd@6,6l
+    (dot result~6 rule@1)".check"@6
+    (call@N styleOf~7
+     (infix@f,3 &
+      (infix~2,~1 &
+       (infix~A,~1 & "display\3Ainline-flex;align-items\3Acenter;gap\3Avar\28--s2\29;"~u "background\3Anone;border\3A0;color\3Avar\28--secondary\29;cursor\3Apointer;"~u,1)"font\3Ainherit;padding\3Avar\28--s1\29 var\28--s2\29;border-radius\3Avar\28--r1\29;"~14,1)motion~16,1)))
+   (cmd@6,6q
+    (dot result~6 rule@1)".check\3Ahover"@6
+    (call@T styleOf~7 "color\3Avar\28--primary\29;background\3Avar\28--bg-3\29"~X,1))
+   (cmd@6,6s
+    (dot result~6 rule@1)".check-box"@6
+    (call@R styleOf~7
+     (infix@h,1 & "width\3Avar\28--s3\29;height\3Avar\28--s3\29;border-radius\3Avar\28--r1\29;flex\3A0 0 auto;"~1C "border\3Avar\28--hair\29 solid var\28--border\29;background\3Avar\28--bg-3\29"~1C,1)))
+   (cmd@6,6v
+    (dot result~6 rule@1)".check-label"@6
+    (call@T styleOf~7 "white-space\3Anowrap"@1))
+   (cmd@6,6w
+    (dot result~6 rule@1)".check.is-on"@6
+    (call@T styleOf~7 "color\3Avar\28--primary\29"@1))
+   (cmd@6,6x
+    (dot result~6 rule@1)".check.is-on .check-box"@6
+    (call@e styleOf~7 "background\3Avar\28--accent\29;border-color\3Avar\28--accent\29"~i,1))
+   (cmd@6,6z
+    (dot result~6 rule@1)".range"@6
+    (call@N styleOf~7
+     (infix@h,1 & "flex\3A0 0 auto;width\3Acalc\28var\28--u\29 * 30\29;accent-color\3Avar\28--accent\29;"~18 "cursor\3Apointer"~18,1)))
+   (cmd@6,7G
+    (dot result~6 rule@1)".dock"@6
+    (call@M styleOf~7 "position\3Arelative;display\3Aflex;flex\3A1 1 auto;min-width\3A0;min-height\3A0"~Q,1))
+   (cmd@6,7L
+    (dot result~6 rule@1)".dock-split"@6
+    (call@S styleOf~7 "display\3Aflex;flex\3A1 1 auto;min-width\3A0;min-height\3A0"~W,1))
+   (cmd@6,7N
+    (dot result~6 rule@1)".dock-split.is-col"@6
+    (call@Z styleOf~7 "flex-direction\3Acolumn"@1))
+   (cmd@6,7O
+    (dot result~6 rule@1)".dock-leaf"@6
+    (call@R styleOf~7
+     (infix@W,1 & "display\3Aflex;flex-direction\3Acolumn;min-width\3A0;min-height\3A0;"~11 "overflow\3Ahidden"~11,1)))
+   (cmd@6,7U
+    (dot result~6 rule@1)".dock-res"@6
+    (call@Q styleOf~7
+     (infix@c,1 & "flex\3A0 0 auto;background\3Atransparent;position\3Arelative;z-index\3A2;"~16 motion~16,1)))
+   (cmd@6,7X
+    (dot result~6 rule@1)".dock-res.is-x"@6
+    (call@V styleOf~7 "width\3Avar\28--s2\29;cursor\3Acol-resize"@1))
+   (cmd@6,7Y
+    (dot result~6 rule@1)".dock-res.is-y"@6
+    (call@V styleOf~7 "height\3Avar\28--s2\29;cursor\3Arow-resize"@1))
+   (cmd@6,7Z
+    (dot result~6 rule@1)".dock-res\3Ahover"@6
+    (call@W styleOf~7 "background\3Avar\28--accent\29"@1))
+   (cmd@6,7g
+    (dot result~6 rule@1)".dock-win"@6
+    (call@Q styleOf~7
+     (infix@O,2 &
+      (infix@B,~1 & "display\3Aflex;flex-direction\3Acolumn;flex\3A1 1 auto;min-height\3A0;"~13 "min-width\3A0;overflow\3Ahidden;background\3Avar\28--bg-2\29;"~13,1)"border\3Avar\28--hair\29 solid var\28--border\29;border-radius\3Avar\28--r2\29"~s,1)))
+   (cmd@6,7k
+    (dot result~6 rule@1)".dock-bar"@6
+    (call@Q styleOf~7
+     (infix@e,2 &
+      (infix~7,~1 & "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29;flex\3A0 0 auto;"~11 "height\3Avar\28--ctl\29;padding\3A0 var\28--s2\29;user-select\3Anone;cursor\3Agrab;"~11,1)"border-bottom\3Avar\28--hair\29 solid var\28--border\29;color\3Avar\28--secondary\29"~18,1)))
+   (cmd@6,7o
+    (dot result~6 rule@1)".dock-bar\3Ahover"@6
+    (call@W styleOf~7 "color\3Avar\28--primary\29"@1))
+   (cmd@6,7p
+    (dot result~6 rule@1)".dock-ico"@6
+    (call@Q styleOf~7 "flex\3A0 0 auto;opacity\3A.7;font-size\3Avar\28--fs-sm\29"~U,1))
+   (cmd@6,7r
+    (dot result~6 rule@1)".dock-title"@6
+    (call@S styleOf~7
+     (infix@M,1 & "font-weight\3A600;white-space\3Anowrap;overflow\3Ahidden;"~s "text-overflow\3Aellipsis;font-size\3Avar\28--fs-sm\29"~s,1)))
+   (cmd@6,7u
+    (dot result~6 rule@1)".dock-actions"@6
+    (call@U styleOf~7 "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s1\29;margin-left\3Aauto"~Y,1))
+   (cmd@6,7w
+    (dot result~6 rule@1)".dock-body"@6
+    (call@R styleOf~7 "flex\3A1 1 auto;min-height\3A0;min-width\3A0;overflow\3Aauto"~V,1))
+   (cmd@6,81
+    (dot result~6 rule@1)".dock-win.is-collapsed"@6
+    (call@d styleOf~7 "flex\3A0 0 auto"@1))
+   (cmd@6,82
+    (dot result~6 rule@1)".dock-win.is-collapsed .dock-body"@6
+    (call@o styleOf~7 "display\3Anone"@1))
+   (cmd@6,83
+    (dot result~6 rule@1)".dock-win.is-active"@6
+    (call@a styleOf~7 "border-color\3Avar\28--accent\29"@1))
+   (cmd@6,89
+    (dot result~6 rule@1)".dock-float-layer"@6
+    (call@Y styleOf~7 "position\3Aabsolute;inset\3A0;pointer-events\3Anone;z-index\3Avar\28--z-float\29"~c,1))
+   (cmd@6,8B
+    (dot result~6 rule@1)".dock-float"@6
+    (call@S styleOf~7
+     (infix@W,2 &
+      (infix@C,~1 & "position\3Aabsolute;pointer-events\3Aauto;display\3Aflex;flex-direction\3Acolumn;"~1E "min-width\3Acalc\28var\28--u\29 * 30\29;min-height\3Acalc\28var\28--u\29 * 20\29;"~1E,1)"box-shadow\3Avar\28--shadow\29;border-radius\3Avar\28--r2\29"~12,1)))
+   (cmd@6,8H
+    (dot result~6 rule@1)".dock-grip"@6
+    (call@R styleOf~7
+     (infix@e,1 & "position\3Aabsolute;right\3A0;bottom\3A0;width\3Avar\28--s4\29;height\3Avar\28--s4\29;"~19 "cursor\3Anwse-resize;z-index\3A3"~19,1)))
+   (cmd@6,8K
+    (dot result~6 rule@1)".dock-grip\3A\3Aafter"@6
+    (call@Y styleOf~7
+     (infix@T,2 &
+      (infix~2,~1 & "content\3A\27\27;position\3Aabsolute;right\3Avar\28--s1\29;bottom\3Avar\28--s1\29;"~13 "width\3Avar\28--s2\29;height\3Avar\28--s2\29;border-right\3Avar\28--rail\29 solid "~13,1)"var\28--border\29;border-bottom\3Avar\28--rail\29 solid var\28--border\29"~15,1)))
+   (cmd@6,8U
+    (dot result~6 rule@1)".dock-ghost"@6
+    (call@S styleOf~7
+     (infix@X,4 &
+      (infix~A,~1 &
+       (infix~6,~1 &
+        (infix@B,~1 & "position\3Afixed;z-index\3Avar\28--z-drag\29;pointer-events\3Anone;"~y "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29;"~y,1)"padding\3Avar\28--s1\29 var\28--s3\29;border-radius\3Avar\28--r1\29;"~n,1)"background\3Avar\28--bg-2\29;border\3Avar\28--hair\29 solid var\28--accent\29;"~t,1)"box-shadow\3Avar\28--shadow\29;font-size\3Avar\28--fs-sm\29"~13,1)))
+   (cmd@6,8a
+    (dot result~6 rule@1)".dock-zone"@6
+    (call@R styleOf~7
+     (infix@Z,5 &
+      (infix~J &
+       (infix~7 &
+        (infix~I &
+         (infix~7 &
+          (infix@c,~1 &
+           (infix~7 &
+            (infix~F &
+             (infix~7 &
+              (infix@a,~1 &
+               (infix@B,~1 &
+                (infix~1,~1 & "position\3Afixed;z-index\3Avar\28--z-drop\29;pointer-events\3Anone;opacity\3A0;"~18 "border-radius\3Avar\28--r2\29;background\3Acolor-mix\28in srgb, var\28--accent\29 "~18,1)"10%, transparent\29;border\3Avar\28--rail\29 solid var\28--accent\29;"~19,1)"transition\3Aleft .12s "~y,1)ease@2)",top .12s "@2)ease@2)",width .12s "~r,1)ease@2)",height .12s "@2)ease@2)",opacity .12s "@2)ease@2)))
+   (cmd@6,8g
+    (dot result~6 rule@1)".dock-zone.is-on"@6
+    (call@X styleOf~7 "opacity\3A1"@1))
+   (cmd@6,8h
+    (dot result~6 rule@1)".dock-edge"@6
+    (call@R styleOf~7
+     (infix@Z,4 &
+      (infix~J &
+       (infix~7 &
+        (infix~I &
+         (infix~7 &
+          (infix@c,~1 &
+           (infix~7 &
+            (infix~F &
+             (infix~7 &
+              (infix@S,~1 &
+               (infix@I,~1 & "position\3Afixed;z-index\3Avar\28--z-drop\29;pointer-events\3Anone;opacity\3A0;"~18 "border-radius\3Avar\28--r1\29;background\3Avar\28--accent\29;"~18,1)"transition\3Aleft .12s "~q,1)ease@2)",top .12s "@2)ease@2)",width .12s "~r,1)ease@2)",height .12s "@2)ease@2)",opacity .12s "@2)ease@2)))
+   (cmd@6,8m
+    (dot result~6 rule@1)".dock-edge.is-on"@6
+    (call@X styleOf~7 "opacity\3A1"@1))
+   (cmd@6,8z
+    (dot result~6 rule@1)"body.is-dragging"@6
+    (call@X styleOf~7 "cursor\3Agrabbing"@1))
+   (cmd@6,90
+    (dot result~6 rule@1)".drag-shield"@6
+    (call@T styleOf~7 "position\3Afixed;inset\3A0;z-index\3Avar\28--z-drag\29;display\3Anone"~X,1))
+   (cmd@6,92
+    (dot result~6 rule@1)"body.is-dragging .drag-shield"@6
+    (call@k styleOf~7 "display\3Ablock"@1))
+   (cmd@6,93
+    (dot result~6 rule@1)"body.is-resizing-x .drag-shield"@6
+    (call@m styleOf~7 "display\3Ablock;cursor\3Acol-resize"~q,1))
+   (cmd@6,95
+    (dot result~6 rule@1)"body.is-resizing-y .drag-shield"@6
+    (call@m styleOf~7 "display\3Ablock;cursor\3Arow-resize"~q,1))
+   (cmd@6,9G
+    (dot result~6 rule@1)".tools"@6
+    (call@N styleOf~7
+     (infix@c,4 &
+      (infix~K,~1 &
+       (infix@4,~1 &
+        (infix@P,~1 & "position\3Aabsolute;top\3Avar\28--s2\29;right\3Avar\28--s3\29;z-index\3Avar\28--z-float\29;"~1C "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s1\29;"~1C,1)"padding\3Avar\28--s1\29;border-radius\3Avar\28--r2\29;"~n,1)"background\3Avar\28--bg-2\29;border\3Avar\28--hair\29 solid var\28--border\29;"~j,1)"box-shadow\3Avar\28--shadow\29"~13,1)))
+   (cmd@6,9O
+    (dot result~6 rule@1)".tools.is-collapsed"@6
+    (call@a styleOf~7
+     (infix@R,1 & "background\3Atransparent;border-color\3Atransparent;box-shadow\3Anone;"~15 "opacity\3A.45"~15,1)))
+   (cmd@6,9R
+    (dot result~6 rule@1)".tools.is-collapsed\3Ahover"@6
+    (call@g styleOf~7 "opacity\3A1"@1))
+   (cmd@6,9S
+    (dot result~6 rule@1)".tools-body"@6
+    (call@S styleOf~7 "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29"~W,1))
+   (cmd@6,9U
+    (dot result~6 rule@1)".tools.is-collapsed .tools-body"@6
+    (call@m styleOf~7 "display\3Anone"@1))
+   (cmd@6,9e
+    (dot result~6 rule@1)".anchored"@6
+    (call@Q styleOf~7
+     (infix@Q,1 & "position\3Arelative;display\3Aflex;flex-direction\3Acolumn;"~u "min-height\3A0;min-width\3A0"~u,1)))
+   (cmd@6,9q
+    (dot result~6 rule@1)".loading"@6
+    (call@P styleOf~7
+     (infix~2,4 &
+      (infix@Y,~1 &
+       (infix@6,~1 &
+        (infix~6,~1 & "position\3Afixed;inset\3A0;z-index\3Avar\28--z-drag\29;display\3Aflex;"~z "flex-direction\3Acolumn;align-items\3Acenter;justify-content\3Acenter;"~z,1)"gap\3Avar\28--s4\29;background\3Avar\28--bg\29;color\3Avar\28--secondary\29;"~15,1)"transition\3Aopacity .25s "~z,1)ease@2)))
+   (cmd@6,9v
+    (dot result~6 rule@1)".loading.is-done"@6
+    (call@X styleOf~7 "opacity\3A0;pointer-events\3Anone"@1))
+   (cmd@6,9w
+    (dot result~6 rule@1)".spinner"@6
+    (call@P styleOf~7
+     (infix@5,3 &
+      (infix@8,~1 &
+       (infix@C,~1 & "width\3Avar\28--s8\29;height\3Avar\28--s8\29;border-radius\3A50%;"~s "border\3Avar\28--rail\29 solid var\28--border\29;"~s,1)"border-top-color\3Avar\28--accent\29;"~g,1)"animation\3Aaowl-spin .8s linear infinite"~Y,1)))
+   (cmd@6,A1
+    (dot result~6 rule@1)".loading-label"@6
+    (call@V styleOf~7 "font-size\3Avar\28--fs-sm\29;letter-spacing\3A.08em;text-transform\3Auppercase"~Z,1))
+   (cmd@6,A8
+    (dot result~6 rule@1)".mem"@6
+    (call@L styleOf~7
+     (infix@j,1 & "display\3Aflex;flex-direction\3Acolumn;gap\3Avar\28--s1\29;padding\3Avar\28--s2\29;"~18 "font-size\3Avar\28--fs-sm\29;color\3Avar\28--secondary\29;user-select\3Anone"~18,1)))
+   (cmd@6,AB
+    (dot result~6 rule@1)".mem-head"@6
+    (call@Q styleOf~7 "display\3Aflex;align-items\3Abaseline;justify-content\3Aspace-between;gap\3Avar\28--s2\29"~U,1))
+   (cmd@6,AD
+    (dot result~6 rule@1)".mem-title"@6
+    (call@R styleOf~7
+     (infix@Y,1 & "font-weight\3A600;color\3Avar\28--primary\29;text-transform\3Auppercase;"~13 "letter-spacing\3A.08em"~13,1)))
+   (cmd@6,AG
+    (dot result~6 rule@1)".mem-total"@6
+    (call@R styleOf~7 "color\3Avar\28--tertiary\29;font-variant-numeric\3Atabular-nums"~V,1))
+   (cmd@6,AI
+    (dot result~6 rule@1)".mem-rows"@6
+    (call@Q styleOf~7 "display\3Aflex;flex-direction\3Acolumn;gap\3Avar\28--s1\29"~U,1))
+   (cmd@6,AK
+    (dot result~6 rule@1)".mem-row"@6
+    (call@P styleOf~7 "display\3Aflex;align-items\3Acenter;gap\3Avar\28--s2\29"~T,1))
+   (cmd@6,AM
+    (dot result~6 rule@1)".mem-label"@6
+    (call@R styleOf~7 "flex\3A0 0 auto;width\3Acalc\28var\28--u\29 * 12\29;color\3Avar\28--tertiary\29"~V,1))
+   (cmd@6,AO
+    (dot result~6 rule@1)".mem-track"@6
+    (call@R styleOf~7
+     (infix@V,1 & "flex\3A1 1 auto;height\3Avar\28--s2\29;border-radius\3Avar\28--r-pill\29;"~10 "background\3Avar\28--bg-3\29;overflow\3Ahidden"~10,1)))
+   (cmd@6,AT
+    (dot result~6 rule@1)".mem-fill"@6
+    (call@Q styleOf~7
+     (infix@S,2 &
+      (infix~R &
+       (infix~7 &
+        (infix@q,~1 & "height\3A100%;width\3A0;border-radius\3Avar\28--r-pill\29;background\3Avar\28--accent\29;"~1E "transition\3Awidth .2s "~1E,1)ease@2)",background-color .2s "@2)ease@2)))
+   (cmd@6,AW
+    (dot result~6 rule@1)".mem-fill.is-warn"@6
+    (call@Y styleOf~7 "background\3Avar\28--warning\29"@1))
+   (cmd@6,AX
+    (dot result~6 rule@1)".mem-fill.is-danger"@6
+    (call@a styleOf~7 "background\3Avar\28--danger\29"@1))
+   (cmd@6,AY
+    (dot result~6 rule@1)".mem-val"@6
+    (call@P styleOf~7
+     (infix@V,1 & "flex\3A0 0 auto;width\3Acalc\28var\28--u\29 * 16\29;text-align\3Aright;"~y "font-variant-numeric\3Atabular-nums;color\3Avar\28--primary\29"~y,1)))
+   (cmd@6,Ab
+    (dot result~6 rule@1)".mem-foot"@6
+    (call@Q styleOf~7 "color\3Avar\28--tertiary\29"@1))
+   (cmd@6,Ac
+    (dot result~6 rule@1)".sr-only"@6
+    (call@P styleOf~7
+     (infix@Z,1 & "position\3Aabsolute;width\3A1px;height\3A1px;padding\3A0;margin\3A-1px;"~12 "overflow\3Ahidden;clip-path\3Ainset\2850%\29;white-space\3Anowrap"~12,1))))))

@@ -4,7 +4,7 @@
 // compiled to JS through lengjs like any other module; the runtime provides only
 // `mmap`/`munmap` as the page primitives it sits on (Araq's boundary), so `alloc`/
 // `dealloc`/`realloc` and their free-list reuse all run as real Nim code.
-const _ab = new ArrayBuffer(1 << 29);           // 512 MiB linear memory
+const _ab = new ArrayBuffer(1 << 30);           // 1 GiB linear memory
 const _dv = new DataView(_ab);
 const _u8 = new Uint8Array(_ab);
 
@@ -37,9 +37,25 @@ const _u8 = new Uint8Array(_ab);
 // Framed work returns its storage, so an interactive page reaches a steady
 // state. A harness that reconciles ten thousand times from `main`, with no
 // callback in sight, is the case that sets this bound.
-const _FIXED_CAP = 1 << 27;                     // 128 MiB of value-aggregate arena
+const _FIXED_CAP = 1 << 28;                     // 256 MiB of value-aggregate arena
 let _fbrk = 8;                                  // offset 0 reserved as nil
 let _mbrk = _FIXED_CAP;                         // the Nim heap starts above it
+
+// ── WHAT THE RUNTIME IS USING, readable from outside ────────────────────────
+//
+// Both arenas are bump pointers into one buffer, so "how full is it" is three
+// subtractions -- but nothing outside this file could see them, which meant
+// every memory question in this project was answered by adding a temporary
+// `console.log` to a copy of the runtime. Exposed deliberately, and read-only:
+// a monitor should not be able to move a heap pointer.
+globalThis.__lengMem = () => ({
+  total: _u8.length,
+  fixedCap: _FIXED_CAP,
+  fixedUsed: _fbrk,          // value aggregates; reclaimed per callback frame
+  heapUsed: _mbrk - _FIXED_CAP,  // pages handed to the Nim allocator
+  frameDepth: _frameDepth,
+  handles: _jsv ? _jsv.length : 0,
+});
 
 function allocFixed(n){
   const p=(_fbrk+7)&~7; _fbrk=p+n;

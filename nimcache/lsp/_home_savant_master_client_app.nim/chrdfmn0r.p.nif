@@ -1,0 +1,267 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../master/client/chromeui.nim
+ (comment)
+ (import@,D
+  (infix@A / std~3 syncio@1))
+ (import@,E jsffi@7)
+ (import@,F widgets@7)
+ (proc@,H onReloaded@5 . . .
+  (params@F
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@S nimcall@2). .)
+ (var@4,J dragEl . . . undefined@9)
+ (var@4,K dragVertical . . . true@F)
+ (var@4,L dragStart . . . 0@C)
+ (var@4,M dragBase . . . 0@B)
+ (var@4,N dragging . . . false@B)
+ (var@4,P moveFn . . . undefined@9)
+ (var@4,Q upFn . . . undefined@7)
+ (var@4,R wired . . . false@8)
+ (proc@,T onMove@5 . . .
+  (params@B
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@P nimcall@2).
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@D or
+      (prefix~D not dragging@4)
+      (dot@9 dragEl~6 isNil@1))
+     (stmts@U
+      (ret .))))
+   (var@4,1 now . . . 0@6)
+   (if@,2
+    (elif@3 dragVertical
+     (stmts@E
+      (asgn@4 now~4
+       (call@7 toInt~5
+        (call@7
+         (dot~4 ev~2 get@1)"clientX"@1)))))
+    (else@,1
+     (stmts@6
+      (asgn@4 now~4
+       (call@7 toInt~5
+        (call@7
+         (dot~4 ev~2 get@1)"clientY"@1))))))
+   (var@4,4 size . . .
+    (infix@M \2D
+     (infix~6 \2B dragBase~9 now@2)dragStart@2))
+   (if@,5
+    (elif@3
+     (infix@5 < size~5 120@2)
+     (stmts@C
+      (asgn@5 size~5 120@2))))
+   (let@4,6 style . . .
+    (call@I
+     (dot~4 dragEl~6 get@1)"style"@1))
+   (call@9,7
+    (dot~4 style~5 set@1)"flex"@1
+    (call@D toJs~4 "0 0 auto"@1))
+   (if@,8
+    (elif@3 dragVertical
+     (stmts@E
+      (call@9
+       (dot~4 style~5 set@1)"width"@1
+       (call@E toJs~4
+        (infix@7 &
+         (prefix~6 $ size@1)"px"@2)))))
+    (else@,1
+     (stmts@6
+      (call@9
+       (dot~4 style~5 set@1)"height"@1
+       (call@F toJs~4
+        (infix@7 &
+         (prefix~6 $ size@1)"px"@2))))))
+   (call@8,A relayout~8)))
+ (proc@,g onUp@5 . . .
+  (params@9
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@N nimcall@2).
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not dragging@4)
+     (stmts@E
+      (ret .))))
+   (asgn@9,1 dragging~9 false@2)
+   (discard@,2
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"removeEventListener"@1
+     (call@S toJs~4 "mousemove"@1)moveFn@h))
+   (discard@,3
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"removeEventListener"@1
+     (call@S toJs~4 "mouseup"@1)upFn@f))
+   (call@8,4 relayout~8)))
+ (proc@,n onDown@5 . . .
+  (params@B
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@P nimcall@2).
+  (stmts@2,1
+   (let@4 target . . .
+    (call@F
+     (dot~4 ev~2 get@1)"target"@1))
+   (if@,1
+    (elif@3
+     (dot@6 target~6 isNil@1)
+     (stmts@E
+      (ret .))))
+   (let@4,2 sp . . .
+    (call@G
+     (dot~5 target~6 call@1)"closest"@1
+     (call@G toJs~4 ".splitter"@1)))
+   (if@,3
+    (elif@3
+     (dot@2 sp~2 isNil@1)
+     (stmts@A
+      (ret .))))
+   (discard@,4
+    (call@F
+     (dot~5 ev~2 call@1)"preventDefault"@1))
+   (let@4,5 prev . . .
+    (call@D
+     (dot~4 sp~2 get@1)"previousElementSibling"@1))
+   (if@,6
+    (elif@3
+     (dot@4 prev~4 isNil@1)
+     (stmts@C
+      (ret .))))
+   (asgn@7,7 dragEl~7 prev@2)
+   (asgn@D,8 dragVertical~D
+    (prefix@2 not
+     (call@A toBool~6
+      (call@P
+       (dot~5
+        (call~D
+         (dot~4 sp~2 get@1)"classList"@1)call@1)"contains"@1
+       (call@H toJs~4 "is-row"@1)))))
+   (let@4,9 box . . .
+    (call@F
+     (dot~5 prev~4 call@1)"getBoundingClientRect"@1))
+   (if@,A
+    (elif@3 dragVertical
+     (stmts~1,1
+      (asgn@A dragStart~A
+       (call@7 toInt~5
+        (call@7
+         (dot~4 ev~2 get@1)"clientX"@1)))
+      (asgn@9,1 dragBase~9
+       (call@7 toInt~5
+        (call@8
+         (dot~4 box~3 get@1)"width"@1)))))
+    (else@,3
+     (stmts@2,1
+      (asgn@A dragStart~A
+       (call@7 toInt~5
+        (call@7
+         (dot~4 ev~2 get@1)"clientY"@1)))
+      (asgn@9,1 dragBase~9
+       (call@7 toInt~5
+        (call@8
+         (dot~4 box~3 get@1)"height"@1))))))
+   (asgn@9,G dragging~9 true@2)
+   (discard@,H
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"addEventListener"@1
+     (call@P toJs~4 "mousemove"@1)moveFn@e))
+   (discard@,I
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"addEventListener"@1
+     (call@P toJs~4 "mouseup"@1)upFn@c))))
+ (comment@,18)
+ (var@4,1J escapeFn . . . undefined@B)
+ (proc@,1L onKey@5 . . .
+  (params@A
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@O nimcall@2).
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@A toBool~6
+       (call@7
+        (dot~4 ev~2 get@1)"ctrlKey"@1)))
+     (stmts@V
+      (ret .))))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@A toBool~6
+       (call@7
+        (dot~4 ev~2 get@1)"altKey"@1)))
+     (stmts@U
+      (ret .))))
+   (let@4,2 k . . .
+    (prefix@4 $
+     (call@7
+      (dot~4 ev~2 get@1)"key"@1)))
+   (if@,3
+    (elif@3
+     (infix@9 and
+      (infix~7 != k~2 "r"@3)
+      (infix@6 != k~2 "R"@3))
+     (stmts@N
+      (ret .))))
+   (discard@,4
+    (call@F
+     (dot~5 ev~2 call@1)"preventDefault"@1))
+   (call@3,5 log~3 "escape hatch\3A restoring the boot chrome"@1 "warn"@i)
+   (let@4,6 opt . . .
+    (call@H newJsObject~B))
+   (call@7,7
+    (dot~4 opt~3 set@1)"method"@1
+    (call@F toJs~4 "POST"@1))
+   (call@7,8
+    (dot~4 opt~3 set@1)"body"@1
+    (call@D toJs~4 "reset-doc atoms\3Achrome"@1))
+   (discard@,9
+    (call@7,1
+     (dot~5
+      (call@F,~1
+       (dot~6
+        (call~2 g~1)apply@1)"fetch"@1
+       (bracket@A
+        (call@5 toJs~4 "/api/command"@1)opt@N))call@1)"then"@1
+     (call@D toJs~4 onReloaded@1)))))
+ (proc@,1Y onReloaded@5 . . .
+  (params@F
+   (param@1 v . . JsValue@3 .)).
+  (pragmas@S nimcall@2).
+  (stmts@2,1
+   (discard
+    (call@W
+     (dot~5
+      (call~C
+       (dot~4
+        (call~2 g~1)get@1)"location"@1)call@1)"reload"@1))))
+ (proc@,1b wireGestures@5 x . .
+  (params@I). . .
+  (stmts@2,1
+   (if
+    (elif@3 wired
+     (stmts@7
+      (ret .))))
+   (asgn@6,1 wired~6 true@2)
+   (asgn@7,2 moveFn~7
+    (call@6 toJs~4 onMove@1))
+   (asgn@5,3 upFn~5
+    (call@6 toJs~4 onUp@1))
+   (asgn@9,4 escapeFn~9
+    (call@6 toJs~4 onKey@1))
+   (discard@,5
+    (call@I
+     (dot~5
+      (call~2 doc~3)call@1)"addEventListener"@1
+     (call@P toJs~4 "mousedown"@1)
+     (call@i toJs~4 onDown@1)))
+   (discard@,6
+    (call@G
+     (dot~5
+      (call~2 g~1)call@1)"addEventListener"@1
+     (call@P toJs~4 "keydown"@1)escapeFn@c)))))

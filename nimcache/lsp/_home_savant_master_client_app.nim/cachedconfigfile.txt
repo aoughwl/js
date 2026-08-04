@@ -1,0 +1,1 @@
+--base:/home/savant/master/client -d:nimony --bits:64 --cpu:amd64 --os:Linux /home/savant/master/client/app.nim --passC: --passL:

@@ -1,0 +1,17 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-deps")
+(stmts
+ (import
+  (infix / std
+   (bracket syncio cmdline strutils tables)))
+ (import
+  (infix / serve reactorhttp))
+ (import
+  (infix / http request))
+ (import
+  (infix / http response))
+ (import aifcas)
+ (import nifrewrite)
+ (import rulefile)
+ (import derive))
