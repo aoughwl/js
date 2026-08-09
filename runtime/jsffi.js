@@ -246,7 +246,26 @@ function _jsNew(v){                                   // intern a JS value -> ha
   const i = _jsvFree.length ? _jsvFree.pop() : _jsv.length;
   _jsv[i] = v; return i;
 }
-function _jsRelease(h){ if (h > 0){ _jsv[h] = undefined; _jsvFree.push(h); } }
+// IDEMPOTENT, and that is load-bearing rather than tidy.
+//
+// This pushed `h` onto the free list unconditionally, so releasing the same
+// handle twice put one slot in the list TWICE -- and the next two interns then
+// shared it. Everything downstream reads as a wild type error a long way from
+// the cause:
+//
+//   TypeError: o[_jsv[nameH]] is not a function     (the object is now a string)
+//   TypeError: Cannot use 'in' operator to search for 'clear' in clear
+//   TypeError: _jsv[h].push is not a function
+//   TypeError: Cannot set properties of undefined
+//
+// all of which were reported from master's page as separate bugs and are one.
+// A double release is a destructor placement bug in the compiler (filed to the
+// `nimony` inbox) and cannot be fixed from here -- but it need not corrupt the
+// table. A live slot never holds `undefined`: `_jsNew` maps undefined and null
+// to handle 0, so `_jsv[h] === undefined` is exactly "already free".
+function _jsRelease(h){
+  if (h > 0 && _jsv[h] !== undefined){ _jsv[h] = undefined; _jsvFree.push(h); }
+}
 function _jsvDup(h){ return _jsNew(_jsv[h]); }        // a new slot to the same JS value
 function _jsvLive(){ return _jsv.length - 1 - _jsvFree.length; }   // live slot count (leak tests)
 
