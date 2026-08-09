@@ -32,6 +32,8 @@ proc rawRelease(h: int32) {.importc: "_jsRelease".}
 proc rawDup(h: int32): int32 {.importc: "_jsvDup".}
 proc rawStrictEq(a, b: int32): bool {.importc: "_jsStrictEq".}
 proc rawLive(): int {.importc: "_jsvLive".}
+proc rawFrameMark(): int32 {.importc: "jsFrameMark".}
+proc rawFrameRelease(m: int32) {.importc: "jsFrameRelease".}
 
 proc rawStrToJs(p: cstring; n: int): int32 {.importc: "_strToJs".}
 proc rawStrLen(h: int32): int {.importc: "_jsStrLen".}
@@ -88,6 +90,29 @@ proc isNil*(v: JsValue): bool {.inline.} = v.h == 0
 
 proc liveHandles*(): int {.inline.} = rawLive()
   ## Number of live (un-freed) slots in the runtime value table — for leak tests.
+
+# ── THE VALUE-AGGREGATE ARENA, RELEASED EXPLICITLY ───────────────────────────
+#
+# `allocFixed` is a C-stack model that is never reclaimed except at the JS→Nim
+# callback boundary. That is correct for event-shaped work and wrong the moment
+# ONE callback is a whole computation: a rewriter walking a term allocates
+# O(total work) aggregates while its live set stays small, and exhausts the
+# arena inside a single event. Capacity is measurably not the fix.
+#
+# ⚠️ THE CALLER MUST KNOW THAT NOTHING IT KEEPS LIVES IN THE ARENA. A value
+# aggregate produced between the mark and the release is GONE afterwards. This
+# is safe where the result is a `string`, a `seq` or a `ref` — those are on the
+# Nim heap, which is a separate arena and is not touched — and unsafe for an
+# object/tuple/array returned by value.
+#
+# On any backend but the JS one these are absent, so a caller that wants to work
+# on both must reach them through a hook rather than importing them directly.
+
+proc arenaMark*(): int32 {.inline.} = rawFrameMark()
+  ## Where the value-aggregate arena stands now.
+
+proc arenaRelease*(m: int32) {.inline.} = rawFrameRelease(m)
+  ## Give back everything `allocFixed`'d since `m`. Only ever shrinks.
 
 # ── raw-handle seam for higher layers (web-state, DOM bindings) ──────────────
 # A layer built on jsffi (e.g. aoughwl/web-state) needs to marshal a `JsValue`

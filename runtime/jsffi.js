@@ -40,6 +40,7 @@ const _u8 = new Uint8Array(_ab);
 const _FIXED_CAP = 1 << 28;                     // 256 MiB of value-aggregate arena
 let _fbrk = 8;                                  // offset 0 reserved as nil
 let _mbrk = _FIXED_CAP;                         // the Nim heap starts above it
+let _fpeak = 8;                                 // the arena's high-water mark
 
 // ── WHAT THE RUNTIME IS USING, readable from outside ────────────────────────
 //
@@ -52,6 +53,7 @@ globalThis.__lengMem = () => ({
   total: _u8.length,
   fixedCap: _FIXED_CAP,
   fixedUsed: _fbrk,          // value aggregates; reclaimed per callback frame
+  fixedPeak: _fpeak,         // the most it ever held -- survives an unwind
   heapUsed: _mbrk - _FIXED_CAP,  // pages handed to the Nim allocator
   frameDepth: _frameDepth,
   // LIVE handles, and separately the table's high-water mark. Reporting only
@@ -66,6 +68,13 @@ globalThis.__lengMem = () => ({
 
 function allocFixed(n){
   const p=(_fbrk+7)&~7; _fbrk=p+n;
+  // HIGH-WATER MARK. The break itself is useless as evidence: `_leaveFrame`
+  // resets it as an exception unwinds, so a run that died of exhaustion reads
+  // back as an empty arena. A gate sampling `fixedUsed` before and after
+  // therefore reports zero growth whether the storage was reclaimed or the
+  // program ran out of it -- green in both directions, which is worse than no
+  // measurement. The peak is monotonic and survives the unwind.
+  if(_fbrk>_fpeak) _fpeak=_fbrk;
   // A NAMED failure. Running off the end used to surface as a DataView range
   // error from whichever store happened to be first past the boundary, which
   // named neither the arena nor the cause.
@@ -112,6 +121,32 @@ function allocFixed(n){
 let _frameDepth = 0;
 function _enterFrame(){ _frameDepth++; return _fbrk; }
 function _leaveFrame(mark){ if(--_frameDepth === 0) _fbrk = mark; }
+
+// ── AN EXPLICIT FRAME, FOR CODE THAT KNOWS ITS OWN LIFETIMES ────────────────
+//
+// The callback frame above is right for event-shaped work and useless when ONE
+// callback is a whole computation. A rewriter walking a 21 KB term allocates
+// O(total work) value aggregates while its LIVE SET stays small, and reaches
+// the cap inside a single event -- measured: 21 KB with 34 rules exhausts 256
+// MiB *and* 512 MiB, so capacity is not the fix.
+//
+// The general answer is for the codegen to reclaim per Nim CALL. That is a
+// calling-convention change and it has one hard case: a value aggregate
+// RETURNED from a proc must not be freed by that proc's own frame.
+//
+// These two are the narrow answer, for a caller that can see that its result
+// does NOT live in the arena. `vnorm` returns an `AtomId`, which is a string on
+// the Nim HEAP -- a different arena entirely -- so releasing the fixed arena
+// around one node's recursion cannot dangle. That property is the caller's to
+// know, which is why this is explicit rather than automatic.
+//
+// `jsFrameRelease` only ever SHRINKS, and never below the reserved nil slot.
+// Handing it a stale or forged mark can lose storage; it cannot hand out memory
+// that is still live above the current break.
+function jsFrameMark(){ return _fbrk; }
+function jsFrameRelease(mark){
+  if (mark >= 8 && mark <= _fbrk) _fbrk = mark;
+}
 
 // Page primitives for `system/osalloc.nim`: `mmap` hands the Nim allocator a
 // page-aligned, zero-filled region carved from the same buffer (MAP_FAILED = -1
