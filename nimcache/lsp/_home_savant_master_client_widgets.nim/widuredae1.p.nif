@@ -956,7 +956,53 @@
     (elif@3 regionsOn
      (stmts@B
       (call@C clearRegions~C))))))
- (proc@,7p watchModifier@5 x . .
+ (proc@,7p noRename@5 . . .
+  (params@D).
+  (pragmas@G nimcall@2).
+  (stmts@U
+   (discard .)))
+ (var@4,7q renameHook . .
+  (proctype@H ....
+   (params).
+   (pragmas@3 nimcall@2)..)noRename@Y)
+ (proc@,7r setRenameHook@5 x . .
+  (params@J
+   (param@1 f . .
+    (proctype@8 ....
+     (params).
+     (pragmas@3 nimcall@2)..).)). . .
+  (stmts@k
+   (asgn@B renameHook~B f@2)))
+ (proc@,7t onF2@5 . . .
+  (params@9
+   (param@1 ev . . JsValue@4 .)).
+  (pragmas@N nimcall@2).
+  (stmts@2,1
+   (comment)
+   (let@4,3 k . . .
+    (prefix@4 $
+     (call@7
+      (dot~4 ev~2 get@1)"key"@1)))
+   (if@,4
+    (elif@3
+     (infix@2 != k~2 "F2"@3)
+     (stmts@B
+      (ret .))))
+   (discard@,5
+    (call@F
+     (dot~5 ev~2 call@1)"preventDefault"@1))
+   (call@A,6 renameHook~A)))
+ (proc@,82 watchRename@5 x . .
+  (params@H). . .
+  (stmts@2,1
+   (discard
+    (call@I
+     (dot~5
+      (call~2 doc~3)call@1)"addEventListener"@1
+     (call@P toJs~4 "keydown"@1)
+     (call@g toJs~4 onF2@1)
+     (call@s toJs~4 true@1)))))
+ (proc@,85 watchModifier@5 x . .
   (params@J). . .
   (stmts@2,1
    (comment)
@@ -980,11 +1026,11 @@
       (call~2 g~1)call@1)"addEventListener"@1
      (call@P toJs~4 "blur"@1)
      (call@d toJs~4 onModBlur@1)))))
- (proc@,89 onCursor@5 . . .
+ (proc@,8P onCursor@5 . . .
   (params@D
    (param@1 ev . . JsValue@4 .)).
   (pragmas@R nimcall@2). .)
- (proc@,8B innermostAt@5 . . .
+ (proc@,8R innermostAt@5 . . .
   (params@G
    (param@1 ln . . int@8 .)
    (param@5 cl . . int@4 .))int@F . .
@@ -1041,7 +1087,7 @@
            (asgn@7 result~7 i@2)
            (asgn@5,1 best~5 size@2)))))))
      (cmd@,7 inc i@4)))))
- (proc@,8Q onCursor@5 . . .
+ (proc@,8g onCursor@5 . . .
   (params@D
    (param@1 ev . . JsValue@4 .)).
   (pragmas@R nimcall@2).
@@ -1082,7 +1128,7 @@
    (call@5,M stash~5 "__sxHere"@1
     (call@O
      (dot~5 editor~6 call@1)"createDecorationsCollection"@1 arr@W))))
- (proc@,8p revealAtom@5 x . .
+ (proc@,95 revealAtom@5 x . .
   (params@G
    (param@1 id . . string@4 .)). . .
   (stmts@2,1
@@ -1128,7 +1174,7 @@
           (dot~5 editor~6 call@1)"setSelection"@1 sel@H))
         (ret@,7 .))))
      (cmd@,9 inc i@4)))))
- (proc@,98 clearSpans@5 x . .
+ (proc@,9O clearSpans@5 x . .
   (params@G). . .
   (stmts@2,1
    (asgn@7 spanSl~7
@@ -1155,7 +1201,7 @@
    (call@9,7 dropStash~9 "__sxAll"@1)
    (call@9,8 dropStash~9 "__sxHere"@1)
    (call@C,9 clearRegions~C)))
- (proc@,9K applySpans@5 x . .
+ (proc@,9a applySpans@5 x . .
   (params@G
    (param@1 report . . string@8 .)). . .
   (stmts@2,1
@@ -1325,7 +1371,7 @@
    (call@5,1B stash~5 "__sxAll"@1
     (call@N
      (dot~5 editor~6 call@1)"createDecorationsCollection"@1 arr@W))))
- (proc@,Aj showStructure@5 x . .
+ (proc@,Az showStructure@5 x . .
   (params@J
    (param@1 html . . string@6 .)). . .
   (stmts@2,1
@@ -1340,7 +1386,7 @@
    (call@6,5
     (dot~4 el~2 set@1)"innerHTML"@1
     (call@I toJs~4 html@1))))
- (proc@,Ar showPreview@5 x . .
+ (proc@,B7 showPreview@5 x . .
   (params@H
    (param@1 html . . string@6 .)). . .
   (stmts@2,1
@@ -1355,7 +1401,7 @@
    (call@6,5
     (dot~4 el~2 set@1)"innerHTML"@1
     (call@I toJs~4 html@1))))
- (proc@,Az ask@5 x . .
+ (proc@,BF ask@5 x . .
   (params@9
    (param@1 question . . string@G .)
    (param@B dflt . . string@6 .))string@Q . .
@@ -1372,11 +1418,11 @@
      (stmts@9
       (ret ""@7))))
    (prefix@,2 $ v@1)))
- (proc@,B5 onFrame@5 . . .
+ (proc@,BL onFrame@5 . . .
   (params@C
    (param@1 v . . JsValue@3 .)).
   (pragmas@P nimcall@2). .)
- (proc@,B7 relayout@5 x . .
+ (proc@,BN relayout@5 x . .
   (params@E). . .
   (stmts@2,1
    (comment)
@@ -1388,19 +1434,19 @@
    (discard@,3
     (call@J
      (dot~5 editor~6 call@1)"layout"@1))))
- (proc@,BD onFrame@5 . . .
+ (proc@,BT onFrame@5 . . .
   (params@C
    (param@1 v . . JsValue@3 .)).
   (pragmas@P nimcall@2).
   (stmts@d
    (call@8 relayout~8)))
- (proc@,BF onResize@5 . . .
+ (proc@,BV onResize@5 . . .
   (params@D
    (param@1 v . . JsValue@3 .)).
   (pragmas@Q nimcall@2).
   (stmts@e
    (call@8 relayout~8)))
- (proc@,BH watchResize@5 x . .
+ (proc@,BX watchResize@5 x . .
   (params@H). . .
   (stmts@2,1
    (comment)
@@ -1410,7 +1456,7 @@
       (call~2 g~1)call@1)"addEventListener"@1
      (call@P toJs~4 "resize"@1)
      (call@f toJs~4 onResize@1)))))
- (proc@,BM editorText@5 x . .
+ (proc@,Bc editorText@5 x . .
   (params@G)string@4 . .
   (stmts@2,1
    (if
@@ -1425,7 +1471,7 @@
    (prefix@,3 $
     (call@C
      (dot~5 editor~6 call@1)"getValue"@1))))
- (proc@,BS setEditable@5 x . .
+ (proc@,Bi setEditable@5 x . .
   (params@H
    (param@1 on . . bool@4 .)). . .
   (stmts@2,1
@@ -1455,7 +1501,7 @@
    (discard@,Q
     (call@J
      (dot~5 editor~6 call@1)"updateOptions"@1 opt@I))))
- (proc@,Bv setEditor@5 x . .
+ (proc@,CB setEditor@5 x . .
   (params@F
    (param@1 text . . string@C .)
    (param@7 lang . . string@6 .)). . .
@@ -1491,8 +1537,8 @@
        (dot~4
         (call~A global~6 "monaco"@1)get@1)"editor"@1)call@1)"setModelLanguage"@1 model@L
      (call@W toJs~4 lang@1)))))
- (comment@,CE)
- (proc@,CK onBootGone@5 . . .
+ (comment@,CU)
+ (proc@,Ca onBootGone@5 . . .
   (params@F
    (param@1 v . . JsValue@3 .)).
   (pragmas@S nimcall@2).
@@ -1510,7 +1556,7 @@
    (discard@,2
     (call@E
      (dot~5 b~1 call@1)"remove"@1))))
- (proc@,CP bootDone@5 x . .
+ (proc@,Cf bootDone@5 x . .
   (params@E). . .
   (stmts@2,1
    (comment)
@@ -1535,7 +1581,7 @@
       (call~2 g~1)call@1)"setTimeout"@1
      (call@J toJs~4 onBootGone@1)
      (call@b toJs~4 280@1)))))
- (proc@,Cc savedNow@5 x . .
+ (proc@,Cs savedNow@5 x . .
   (params@E). . .
   (stmts@2,1
    (comment)
@@ -1543,16 +1589,16 @@
     (call@8 byClass~7 "js-saved"@1)
     (infix@V & "saved "~9
      (call@9 timeNow~7)))))
- (proc@,Cj noSave@5 . . .
+ (proc@,Cz noSave@5 . . .
   (params@B).
   (pragmas@E nimcall@2).
   (stmts@S
    (discard .)))
- (var@4,Cl saveHook . .
+ (var@4,D1 saveHook . .
   (proctype@F ....
    (params).
    (pragmas@3 nimcall@2)..)noSave@W)
- (proc@,Cn setSaveHook@5 x . .
+ (proc@,D3 setSaveHook@5 x . .
   (params@H
    (param@1 f . .
     (proctype@8 ....
@@ -1560,19 +1606,19 @@
      (pragmas@3 nimcall@2)..).)). . .
   (stmts@i
    (asgn@9 saveHook~9 f@2)))
- (proc@,Cp onSaveKey@5 . . .
+ (proc@,D5 onSaveKey@5 . . .
   (params@E).
   (pragmas@H nimcall@2).
   (stmts@V
    (call@8 saveHook~8)))
- (comment@,Cr)
- (proc@,D2 onSaveTimer@5 . . .
+ (comment@,D7)
+ (proc@,DI onSaveTimer@5 . . .
   (params@G
    (param@1 v . . JsValue@3 .)).
   (pragmas@T nimcall@2).
   (stmts@h
    (call@8 saveHook~8)))
- (proc@,D4 onEdit@5 . . .
+ (proc@,DK onEdit@5 . . .
   (params@B
    (param@1 v . . JsValue@3 .)).
   (pragmas@O nimcall@2).
@@ -1604,7 +1650,7 @@
      (dot~5 g0~2 call@1)"setTimeout"@1
      (call@J toJs~4 onSaveTimer@1)
      (call@c toJs~4 700@1)))))
- (proc@,DC addRule@5 . . .
+ (proc@,DS addRule@5 . . .
   (params@C
    (param@1 dest . . JsValue@6 .)
    (param@G pat . . string@A .)
@@ -1621,7 +1667,7 @@
     (call@9 toJs~4 act@1))
    (cmd@4,I
     (dot dest~4 add@1)a@5)))
- (proc@,DX defineAtomLanguage@5 . . .
+ (proc@,Dn defineAtomLanguage@5 . . .
   (params@N). . .
   (stmts@2,1
    (comment)
@@ -1666,7 +1712,7 @@
       (call~D
        (dot~4 m~1 get@1)"languages"@1)call@1)"setMonarchTokensProvider"@1
      (call@X toJs~4 "atoms"@1)spec@i))))
- (proc@,EG defineNimLanguage@5 . . .
+ (proc@,EW defineNimLanguage@5 . . .
   (params@M). . .
   (stmts@2,1
    (comment)
@@ -1771,7 +1817,7 @@
       (call~D
        (dot~4 m~1 get@1)"languages"@1)call@1)"setMonarchTokensProvider"@1
      (call@X toJs~4 "nim"@1)spec@g))))
- (proc@,F3 cssVar@5 . . .
+ (proc@,FJ cssVar@5 . . .
   (params@B
    (param@1 name . . string@G .)
    (param@7 fallback . . string@A .))string@Q . .
@@ -1812,7 +1858,7 @@
        (at~4 v~1 0@1)'\23'@3))
      (stmts@Q
       (ret fallback@7))))v@,L))
- (proc@,FR tokenRule@5 . . .
+ (proc@,Fh tokenRule@5 . . .
   (params@E
    (param@1 dest . . JsValue@6 .)
    (param@G token . . string@F .)
@@ -1841,7 +1887,7 @@
     (call@J toJs~4 c@1))
    (cmd@4,C
     (dot dest~4 add@1)r@5)))
- (proc@,Fg defineDarkTheme@5 . . .
+ (proc@,Fw defineDarkTheme@5 . . .
   (params@K). . .
   (stmts@2,1
    (comment)
@@ -1932,7 +1978,7 @@
        (dot~4 m~1 get@1)"editor"@1)call@1)"setTheme"@1
      (call@H toJs~4
       (call@B finalTheme~A))))))
- (proc@,Gg mountMonaco@5 . . .
+ (proc@,Gw mountMonaco@5 . . .
   (params@G
    (param@1 el . . JsValue@4 .)). . .
   (stmts@2,1
@@ -2068,7 +2114,7 @@
       (infix@6 or mod0~5 key@3))
      (call@c toJs~4 onSaveKey@1)))
    (call@F,1f defineDarkTheme~F)))
- (proc@,IP mountAll@5 x . .
+ (proc@,If mountAll@5 x . .
   (params@E). . .
   (stmts@2,1
    (comment)
@@ -2100,8 +2146,8 @@
               (call@h toJs~4 "1"@1)))
             (call@B,1 mountMonaco~B el@1))))))))))
    (call@8,U relayout~8)))
- (var@4,Ix tries . . . 0@8)
- (proc@,Iz onRetry@5 . . .
+ (var@4,JD tries . . . 0@8)
+ (proc@,JF onRetry@5 . . .
   (params@C
    (param@1 v . . JsValue@3 .)).
   (pragmas@P nimcall@2).
@@ -2127,7 +2173,7 @@
          (call~2 g~1)call@1)"setTimeout"@1
         (call@J toJs~4 onRetry@1)
         (call@Y toJs~4 250@1))))))))
- (proc@,JJ onDecorate@5 . . .
+ (proc@,JZ onDecorate@5 . . .
   (params@F
    (param@1 v . . JsValue@3 .)).
   (pragmas@S nimcall@2).
@@ -2135,7 +2181,7 @@
    (call@I defineAtomLanguage~I)
    (call@H,1 defineNimLanguage~H)
    (call@F,4 defineDarkTheme~F)))
- (proc@,JQ onMonacoReady@5 . . .
+ (proc@,Jg onMonacoReady@5 . . .
   (params@I).
   (pragmas@L nimcall@2).
   (stmts@2,1
@@ -2150,7 +2196,7 @@
       (call~2 g~1)call@1)"setTimeout"@1
      (call@J toJs~4 onDecorate@1)
      (call@b toJs~4 0@1)))))
- (proc@,Jm onMonacoLate@5 . . .
+ (proc@,K2 onMonacoLate@5 . . .
   (params@H
    (param@1 v . . JsValue@3 .)).
   (pragmas@U nimcall@2).
@@ -2232,7 +2278,7 @@
      (infix~7 &
       (infix~9 & "monaco stalled at stage "~R
        (prefix@2 $ stage@1))"\3A "@2)why@2)"err"@p)))
- (proc@,KQ loadMonaco@5 x . .
+ (proc@,Kg loadMonaco@5 x . .
   (params@G). . .
   (stmts@2,1
    (let@4 req . . .

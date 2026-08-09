@@ -1352,7 +1352,279 @@
                 (prefix@2 $ sxCol@1))"\09"@2)a~v,1)"\09"@2)tip@2)"\09"@2)cls@2)"\09"@2)
         (prefix@2 $ hel@1))"\09"@2)
       (prefix@2 $ hec@1))"\0A"@2))))
- (proc@,9s sxRender@5 . . .
+ (proc@,AM lineTokens@5 . . .
+  (params@F
+   (param@1 line . . string@6 .)
+   (param@F toks . .
+    (mut@6
+     (at@7 seq~3 string@1)).)
+   (param@c quoted . .
+    (mut@8
+     (at@7 seq~3 bool@1)).)). . .
+  (stmts@2,1
+   (asgn@5 toks~5
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@7,1 quoted~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 line~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==
+        (at~4 line~4 i@1)' '@3)
+       (stmts~1,1
+        (cmd inc i@4)))
+      (elif@5,2
+       (infix@8 ==
+        (at~4 line~4 i@1)'\22'@3)
+       (stmts~3,1
+        (var@4 s . . . ""@4)
+        (cmd@,1 inc i@4)
+        (while@,2
+         (infix@J and
+          (infix~B < i~2
+           (dot@6 line~4 len@1))
+          (infix@C !=
+           (at~4 line~4 i@1)'\22'@3))
+         (stmts@2,1
+          (cmd@1
+           (dot s~1 add@1)
+           (at@9 line~4 i@1))
+          (cmd@,1 inc i@4)))
+        (cmd@,5 inc i@4)
+        (cmd@4,6
+         (dot toks~4 add@1)s@5)
+        (cmd@6,7
+         (dot quoted~6 add@1)true@5)))
+      (else@,B
+       (stmts@2,1
+        (var@4 s . . . ""@4)
+        (while@,1
+         (infix@J and
+          (infix~B < i~2
+           (dot@6 line~4 len@1))
+          (infix@C !=
+           (at~4 line~4 i@1)' '@3))
+         (stmts@2,1
+          (cmd@1
+           (dot s~1 add@1)
+           (at@9 line~4 i@1))
+          (cmd@,1 inc i@4)))
+        (cmd@4,4
+         (dot toks~4 add@1)s@5)
+        (cmd@6,5
+         (dot quoted~6 add@1)false@5))))))))
+ (proc@,Ak indentOf@5 . . .
+  (params@D
+   (param@1 line . . string@6 .))int@G . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (while@,1
+    (infix@O and
+     (infix~B < result~7
+      (dot@6 line~4 len@1))
+     (infix@H ==
+      (at~9 line~4 result@1)' '@3))
+    (stmts@n
+     (cmd inc result@4)))))
+ (var@4,As rdTags . .
+  (at@B seq~3 string@1)
+  (prefix@M \40
+   (bracket@1)))
+ (var@4,At rdKids . .
+  (at@B seq~3
+   (at@4 seq~3 AtomId@1))
+  (prefix@R \40
+   (bracket@1)))
+ (var@4,Au rdDepth . .
+  (at@C seq~3 int@1)
+  (prefix@K \40
+   (bracket@1)))
+ (var@4,Av rdDone . . AtomId@8 ""@H)
+ (proc@,Ax rdCloseTo@5 . . .
+  (params@E
+   (param@1 d . . int@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (while@,2
+    (infix@M and
+     (infix~4 >
+      (dot~5 rdDepth~7 len@1)0@2)
+     (infix@T >=
+      (at~I rdDepth~7
+       (infix@D \2D
+        (dot~5 rdDepth~7 len@1)1@2))d@3))
+    (stmts@2,1
+     (let@4 t . . .
+      (at@A rdTags~6
+       (infix@C \2D
+        (dot~5 rdTags~6 len@1)1@2)))
+     (let@4,1 ks . . .
+      (at@B rdKids~6
+       (infix@C \2D
+        (dot~5 rdKids~6 len@1)1@2)))
+     (call@D,2
+      (dot~7 rdTags~6 setLen@1)
+      (infix@C \2D
+       (dot~5 rdTags~6 len@1)1@2))
+     (call@D,3
+      (dot~7 rdKids~6 setLen@1)
+      (infix@C \2D
+       (dot~5 rdKids~6 len@1)1@2))
+     (call@E,4
+      (dot~7 rdDepth~7 setLen@1)
+      (infix@D \2D
+       (dot~5 rdDepth~7 len@1)1@2))
+     (let@4,5 node . . .
+      (call@E
+       (dot~5 st~2 node@1)t@1 ks@4))
+     (if@,6
+      (elif@3
+       (infix@B >
+        (dot~5 rdKids~6 len@1)0@2)
+       (stmts~1,1
+        (var@4 up . . .
+         (at@B rdKids~6
+          (infix@C \2D
+           (dot~5 rdKids~6 len@1)1@2)))
+        (cmd@2,1
+         (dot up~2 add@1)node@5)
+        (asgn@N,2
+         (at~H rdKids~6
+          (infix@C \2D
+           (dot~5 rdKids~6 len@1)1@2))up@2)))
+      (else@,4
+       (stmts@2,1
+        (asgn@7 rdDone~7 node@2))))))))
+ (proc@,BE readingToAtom@5 . . .
+  (params@I
+   (param@1 text . . string@6 .)
+   (param@F err . .
+    (mut@5 string@4).))AtomId@X . .
+  (stmts@2,1
+   (comment)
+   (asgn@4,1 err~4 ""@2)
+   (asgn@7,2 rdTags~7
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@7,3 rdKids~7
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@8,4 rdDepth~8
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@7,5 rdDone~7 ""@2)
+   (var@4,6 line . . . ""@7)
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 <= i~2
+     (dot@7 text~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 text~4 len@1))
+        (infix@B ==
+         (at~4 text~4 i@1)'\0A'@3))
+       (stmts~1,1
+        (var@4 bare . . . ""@7)
+        (var@4,1 j . . . 0@4)
+        (while@,2
+         (infix@8 < j~2
+          (dot@6 line~4 len@1))
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@8 !=
+             (at~4 line~4 j@1)' '@3)
+            (stmts@G
+             (cmd@4
+              (dot bare~4 add@1)
+              (at@9 line~4 j@1)))))
+          (cmd@,1 inc j@4)))
+        (if@,5
+         (elif@3
+          (infix@9 >
+           (dot~5 bare~4 len@1)0@2)
+          (stmts~1,1
+           (let@4 d . . .
+            (infix@J div
+             (call~7 indentOf~8 line@1)2@4))
+           (var@4,1 toks . .
+            (at@9 seq~3 string@1)
+            (prefix@K \40
+             (bracket@1)))
+           (var@4,2 q . .
+            (at@6 seq~3 bool@1)
+            (prefix@F \40
+             (bracket@1)))
+           (call@A,3 lineTokens~A line@1 toks@7 q@D)
+           (call@9,4 rdCloseTo~9 d@1)
+           (if@,5
+            (elif@3
+             (infix@H and
+              (infix~5 ==
+               (dot~5 rdDepth~7 len@1)0@3)
+              (infix@F >
+               (dot~5 rdDone~6 len@1)0@2))
+             (stmts~1,1
+              (asgn@4 err~4 "two roots -- a document is one atom, not a list of them"@2)
+              (ret@,1 ""@7))))
+           (var@4,9 ks . .
+            (at@7 seq~3 AtomId@1)
+            (prefix@I \40
+             (bracket@1)))
+           (var@4,A k . . . 1@4)
+           (while@,B
+            (infix@8 < k~2
+             (dot@6 toks~4 len@1))
+            (stmts@2,1
+             (if
+              (elif@3
+               (at@1 q~1 k@1)
+               (stmts@6
+                (cmd@2
+                 (dot ks~2 add@1)
+                 (call@E
+                  (dot~7 st~2 strLit@1)
+                  (at@5 toks~4 k@1)))))
+              (else@,1
+               (stmts@6
+                (cmd@2
+                 (dot ks~2 add@1)
+                 (call@D
+                  (dot~6 st~2 ident@1)
+                  (at@5 toks~4 k@1))))))
+             (cmd@,2 inc k@4)))
+           (cmd@6,F
+            (dot rdTags~6 add@1)
+            (at@9 toks~4 0@1))
+           (cmd@6,G
+            (dot rdKids~6 add@1)ks@5)
+           (cmd@7,H
+            (dot rdDepth~7 add@1)d@5))))
+        (asgn@5,O line~5 ""@2)))
+      (else@,Q
+       (stmts@2,1
+        (cmd@4
+         (dot line~4 add@1)
+         (at@9 text~4 i@1)))))
+     (cmd@,S inc i@4)))
+   (call@9,c rdCloseTo~9 0@1)
+   (if@,d
+    (elif@3
+     (infix@B ==
+      (dot~5 rdDone~6 len@1)0@3)
+     (stmts~1,1
+      (asgn@4 err~4 "nothing to read"@2)
+      (ret@,1 ""@7))))rdDone@,g))
+ (proc@,Bx sxRender@5 . . .
   (params@D
    (param@1 a . . AtomId@3 .)
    (param@C fold . . . false@7)
@@ -1368,7 +1640,7 @@
    (asgn@7,6 sxLine~7 1@2)
    (asgn@6,7 sxCol~6 1@2)
    (call@6,8 sxWalk~6 a@1 0@4)))
- (proc@,A3 atomByLabel@5 . . .
+ (proc@,C8 atomByLabel@5 . . .
   (params@G
    (param@1 name . . string@6 .))string@G . .
   (stmts@2,1
@@ -1409,7 +1681,7 @@
         (ret
          (at@D
           (dot~5 n~1 kids@1)1@1)))))))""@,8))
- (proc@,AE resolveAtom@5 . . .
+ (proc@,CJ resolveAtom@5 . . .
   (params@G
    (param@1 name . . string@6 .))string@G . .
   (stmts@2,1
@@ -1420,7 +1692,7 @@
      (stmts@E
       (ret name@7))))
    (call@B,1 atomByLabel~B name@1)))
- (proc@,AI sxOf@5 . . .
+ (proc@,CN sxOf@5 . . .
   (params@9
    (param@1 a . . AtomId@3 .)
    (param@C depth . . int@7 .))string@P . .
@@ -1553,7 +1825,7 @@
      (cmd@,9 inc i@4)))
    (cmd@6,j
     (dot result~6 add@1)"\29</span>"@5)))
- (proc@,BV esc@5 . . .
+ (proc@,Da esc@5 . . .
   (params@8
    (param@1 s . . string@3 .))string@D . .
   (stmts@2,1
@@ -1573,7 +1845,7 @@
          (dot result~6 add@1)
          (at@6 s~1 i@1)))))
      (cmd@,1 inc i@4)))))
- (proc@,Bg treeItem@5 . . .
+ (proc@,Dl treeItem@5 . . .
   (params@D
    (param@1 label . . string@P .)
    (param@8 hint . . string@I .)
@@ -1589,15 +1861,15 @@
          (infix~I &
           (infix~8 & "\28vnode ktree-item \28props \28p extra \22"~d extra@2)"\22\29 \28p cmd \22"@2)cmd@2)"\22\29 \28p hint \22"~17,1)hint@2)"\22\29 \28p label \22"@2)
      (call@5 esc~3 label@1))"\22\29\29 \28kids\29\29"@2)))
- (proc@,Bk handlerNames@5 . . .
+ (proc@,Dp handlerNames@5 . . .
   (params@H)string@4 . . .)
- (proc@,Bl docLayer@5 . . .
+ (proc@,Dq docLayer@5 . . .
   (params@D
    (param@1 id . . string@4 .))string@E . . .)
- (proc@,Bm docName@5 . . .
+ (proc@,Dr docName@5 . . .
   (params@C
    (param@1 id . . string@4 .))string@E . . .)
- (proc@,Bo docItem@5 . . .
+ (proc@,Dt docItem@5 . . .
   (params@C
    (param@1 id . . string@A .)
    (param@5 open . . string@6 .))string@K . .
@@ -1614,8 +1886,8 @@
      (call~4 docName~7 id@1)treeItem@1)
     (call@9 docLayer~8 id@1)
     (infix@N & "open\3A"~8 id@2)sel@T)))
- (const@6,Bw Catalogs . . . "kit.catalog ui.catalog view.catalog dock.catalog"@B)
- (proc@,By eachWordSep@5 . . .
+ (const@6,E1 Catalogs . . . "kit.catalog ui.catalog view.catalog dock.catalog"@B)
+ (proc@,E3 eachWordSep@5 . . .
   (params@G
    (param@1 s . . string@3 .)
    (param@C sep . . char@5 .))
@@ -1652,7 +1924,7 @@
          (dot cur~3 add@1)
          (at@6 s~1 i@1)))))
      (cmd@,5 inc i@4)))))
- (proc@,CA eachWord@5 . . .
+ (proc@,EF eachWord@5 . . .
   (params@D
    (param@1 s . . string@3 .))
   (at@G seq~3 string@1). .
@@ -1691,8 +1963,8 @@
          (dot cur~3 add@1)
          (at@6 s~1 i@1)))))
      (cmd@,5 inc i@4)))))
- (const@6,CM ExplorerMax . . . 60@E)
- (proc@,CO slotHandlers@5 . . .
+ (const@6,ER ExplorerMax . . . 60@E)
+ (proc@,ET slotHandlers@5 . . .
   (params@H
    (param@1 doc . . string@8 .)
    (param@6 q . . string@3 .))string@I . .
@@ -1834,7 +2106,7 @@
          (prefix@2 $ total@1))"open\3Astore\3A*"@H,1 ""@X,1)))))
    (cmd@6,1C
     (dot result~6 add@1)"\29\29"@5)))
- (proc@,Dd tab@5 . . .
+ (proc@,Fi tab@5 . . .
   (params@8
    (param@1 label . . string@J .)
    (param@8 cmd . . string@C .)
@@ -1847,7 +2119,7 @@
        (infix~I &
         (infix~8 & "\28vnode ktab \28props \28p extra \22"~X extra@2)"\22\29 \28p cmd \22"@2)cmd@2)"\22\29 \28p label \22"~11,1)
      (call@5 esc~3 label@1))"\22\29\29 \28kids\29\29"@2)))
- (proc@,Dh labelFor@5 . . .
+ (proc@,Fm labelFor@5 . . .
   (params@D
    (param@1 id . . string@4 .))string@E . .
   (stmts@2,1
@@ -1883,7 +2155,7 @@
      (stmts@2,1
       (asgn@7 result~7
        (call@9 docName~7 id@1)))))))
- (proc@,Dq slotTabs@5 . . .
+ (proc@,Fv slotTabs@5 . . .
   (params@D
    (param@1 doc . . string@J .)
    (param@6 preview . . string@E .)
@@ -1929,7 +2201,7 @@
        (call@8 tab~3 "nothing open"@1 ""@H ""@L)))))
    (cmd@6,I
     (dot result~6 add@1)"\29\29"@5)))
- (proc@,EB slotTabsOld@5 . . .
+ (proc@,GG slotTabsOld@5 . . .
   (params@G
    (param@1 doc . . string@E .)
    (param@6 preview . . string@9 .))string@O . .
@@ -1995,7 +2267,7 @@
          (call@5 esc~3 doc@1))cls@P)))))
    (cmd@6,L
     (dot result~6 add@1)"\29\29"@5)))
- (proc@,EZ crumb@5 . . .
+ (proc@,Ge crumb@5 . . .
   (params@A
    (param@1 v . . string@F .)
    (param@4 cmd . . string@C .)
@@ -2008,7 +2280,7 @@
        (infix~I &
         (infix~8 & "\28vnode kcrumb \28props \28p extra \22"~Z extra@2)"\22\29 \28p cmd \22"@2)cmd@2)"\22\29 \28p value \22"~13,1)
      (call@5 esc~3 v@1))"\22\29\29 \28kids\29\29"@2)))
- (proc@,Ed slotCrumbs@5 . . .
+ (proc@,Gi slotCrumbs@5 . . .
   (params@F
    (param@1 doc . . string@5 .))string@F . .
   (stmts@2,1
@@ -2036,7 +2308,7 @@
        (call~e,1 crumb~5
         (call@9 docLayer~8 doc@1)""@G ""@K))"\28vnode kcrumb-sep \28props\29 \28kids\29\29"@2)
      (call~10,1 crumb~5 nm@1 ""@5 "is-current"@9))"\29\29"@2)))
- (proc@,El slotNav@5 . . .
+ (proc@,Gq slotNav@5 . . .
   (params@C
    (param@1 nav . . string@5 .)
    (param@E navi . . int@6 .))string@Q . .
@@ -2103,8 +2375,8 @@
        (call@A crumb~5 "nothing opened yet"@1 ""@N ""@R)))))
    (cmd@6,K
     (dot result~6 add@1)"\29\29"@5)))
- (comment@,F8)
- (type@7,FF Sess~5 . . .
+ (comment@,HD)
+ (type@7,HK Sess~5 . . .
   (object@2 .
    (fld~5,1 doc . . string@5 .)
    (fld~5,2 q . . string@3 .)
@@ -2114,8 +2386,9 @@
    (fld~5,6 fold . . bool@6 .)
    (fld~5,7 depth . . int@7 .)
    (fld~5,8 raw . . bool@5 .)
-   (fld~5,9 tools . . bool@7 .)))
- (proc@,FQ sessKey@5 . . .
+   (fld~5,9 tools . . bool@7 .)
+   (fld~5,A lowered . . bool@9 .)))
+ (proc@,HW sessKey@5 . . .
   (params@C
    (param@1 s . . Sess@3 .))string@B . .
   (stmts@2,1
@@ -2161,7 +2434,7 @@
              (dot@2 s~1 navi@1)))"\01"~19,1)f@2)"\01"@2)
         (prefix@2 $
          (dot@2 s~1 depth@1)))"\01"@2)r@2)"\01"@2)t@2)))
- (proc@,Fa checkbox@5 . . .
+ (proc@,Hg checkbox@5 . . .
   (params@D
    (param@1 cmd . . string@C .)
    (param@6 label . . string@7 .)
@@ -2179,7 +2452,7 @@
        (infix~I &
         (infix~4 & "\28vnode kcheck \28props \28p extra \22"~Z x@2)"\22\29 \28p cmd \22"@2)cmd@2)"\22\29 \28p label \22"~z,1)
      (call@5 esc~3 label@1))"\22\29\29 \28kids\29\29"@2)))
- (proc@,Fg slotSettings@5 . . .
+ (proc@,Hm slotSettings@5 . . .
   (params@H
    (param@1 s . . Sess@3 .))string@B . .
   (stmts@2,1
@@ -2199,8 +2472,18 @@
      (dot@1 s~1 tools@1)
      (stmts@9
       (asgn@2 x~2 ""@2))))
-   (asgn@7,E result~7
-    (infix@d,6 &
+   (var@4,I nimTools . . . ""@B)
+   (if@,J
+    (elif@3
+     (infix@G ==
+      (call~8 docLayer~8
+       (dot@2 s~1 doc@1))"nim"@3)
+     (stmts~1,1
+      (asgn@9 nimTools~9
+       (call@A checkbox~8 "lowered"@1 "lowered"@C
+        (dot@O s~1 lowered@1))))))
+   (asgn@7,L result~7
+    (infix@d,7 &
      (infix~H &
       (infix~B &
        (infix@t,~1 &
@@ -2209,17 +2492,18 @@
           (infix~5 &
            (infix~Q,~1 &
             (infix@7,~1 &
-             (infix@J,~1 &
-              (infix~G &
-               (infix~4 & "\28vnode ktools \28props \28p extra \22"~Z x@2)"\22\29\29 \28kids "@2)
-              (call~s,1 checkbox~8 "fold"@1 "collapse named"@9
+             (infix~Y,~1 &
+              (infix@r,~1 &
+               (infix~G &
+                (infix~4 & "\28vnode ktools \28props \28p extra \22"~Z x@2)"\22\29\29 \28kids "@2)nimTools~10,1)
+              (call~1,1 checkbox~8 "fold"@1 "collapse named"@9
                (dot@S s~1 fold@1)))
              (call~Z,1 checkbox~8 "raw"@1 "raw atoms"@8
               (dot@M s~1 raw@1)))"\28vnode kstatus-item \28props \28p extra \22\22\29 \28p value \22depth "~a,1)dl@2)"\22\29\29 \28kids\29\29"~13,1)"\28vnode krange \28props \28p cmd \22depth\22\29 \28p min \220\22\29 \28p max \2212\22\29 "~H,1)"\28p value \22"~17,1)
        (prefix@2 $
         (dot@2 s~1 depth@1)))"\22\29\29 \28kids\29\29"@2)"\29\29"~i,1))))
- (const@6,G4 UsesMax . . . 60@A)
- (proc@,G6 slotUses@5 . . .
+ (const@6,II UsesMax . . . 60@A)
+ (proc@,IK slotUses@5 . . .
   (params@D
    (param@1 s . . Sess@3 .))string@B . .
   (stmts@2,1
@@ -2331,7 +2615,7 @@
             (dot~5 ps~2 len@1)UsesMax@2))))" more not shown\22\29\29 \28kids\29\29\29\29"@2)))))
    (cmd@6,q
     (dot result~6 add@1)"\29\29"@5)))
- (proc@,Gz slotText@5 . . .
+ (proc@,JD slotText@5 . . .
   (params@D
    (param@1 name . . string@6 .)
    (param@F s . . Sess@3 .))string@P . .
@@ -2373,10 +2657,22 @@
      (stmts@G
       (ret
        (call@F slotUses~8 s@1)))))
-   (infix@C,9 &
+   (if@,D
+    (elif@3
+     (infix@5 == name~5 "dock"@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@E ==
+         (dot~5 layoutSrc~9 len@1)0@3)
+        (stmts~1,1
+         (ret
+          (infix@16 & "\28vnode kchip \28props \28p extra \22is-danger\22\29 \28p value \22no "~z "layout.view\22\29\29 \28kids\29\29"~z,1)))))
+      (ret@,3 layoutSrc@7))))
+   (infix@C,M &
     (infix@y,~1 & "\28vnode kchip \28props \28p extra \22is-danger\22\29 \28p value \22no such slot\3A "~1A
      (call~15,1 esc~3 name@1))"\22\29\29 \28kids\29\29"@2)))
- (proc@,HB slotName@5 . . .
+ (proc@,Jc slotName@5 . . .
   (params@D
    (param@1 s . . Store@3 .)
    (param@B node . . AtomId@6 .))string@Q . .
@@ -2447,11 +2743,12 @@
            (at@7
             (dot~5 p~1 kids@1)1@1))text@1)))))
      (cmd@,3 inc i@4)))""@,B))
- (proc@,HP fillSlots@5 . . .
+ (proc@,Jq fillSlots@5 . . .
   (params@E
    (param@1 s . . Store@3 .)
    (param@B node . . AtomId@6 .)
-   (param@P se . . Sess@4 .))AtomId@a . .
+   (param@P se . . Sess@4 .)
+   (param@Z depth . . . 0@8))AtomId@l . .
   (stmts@2,1
    (let@4 nm . . .
     (call@D slotName~8 s@1 node@4))
@@ -2459,25 +2756,33 @@
     (elif@3
      (infix@7 >
       (dot~5 nm~2 len@1)0@2)
-     (stmts@C
-      (ret
-       (call@G parseTerm~9 s@1
-        (call@C slotText~8 nm@1 se@5))))))
-   (let@4,2 a . . .
+     (stmts~1,1
+      (let@4 filled . . .
+       (call@I parseTerm~9 s@1
+        (call@C slotText~8 nm@1 se@5)))
+      (if@,A
+       (elif@3
+        (infix@6 >= depth~6 4@3)
+        (stmts@C
+         (ret filled@7))))
+      (ret@,B
+       (call@G fillSlots~9 s@1 filled@4 se@C
+        (infix@M \2B depth~6 1@2))))))
+   (let@4,E a . . .
     (call@9
      (dot~4 s~1 get@1)node@1))
-   (if@,3
+   (if@,F
     (elif@3
      (infix@7 !=
       (dot~6 a~1 kind@1)kNode@3)
      (stmts@H
       (ret node@7))))
-   (var@4,4 kids . .
+   (var@4,G kids . .
     (at@9 seq~3 AtomId@1)
     (prefix@K \40
      (bracket@1)))
-   (var@4,5 i . . . 0@4)
-   (while@,6
+   (var@4,H i . . . 0@4)
+   (while@,I
     (infix@8 < i~2
      (dot@8
       (dot~5 a~1 kids@1)len@1))
@@ -2486,12 +2791,12 @@
       (dot kids~4 add@1)
       (call@E fillSlots~9 s@1
        (at@A
-        (dot~5 a~1 kids@1)i@1)se@F))
+        (dot~5 a~1 kids@1)i@1)se@F depth@J))
      (cmd@,1 inc i@4)))
-   (call@6,9
+   (call@6,L
     (dot~5 s~1 node@1)
     (dot@2 a~1 tag@1)kids@8)))
- (proc@,Hb deriveChrome@5 . . .
+ (proc@,KE deriveChrome@5 . . .
   (params@H
    (param@1 src . . string@5 .)
    (param@E se . . Sess@4 .)
@@ -2524,16 +2829,16 @@
        (infix@L &
         (infix~6 & "refused\3A \27"~D bad@2)"\27 is not a primitive and no rule saturates it"@2))
       (ret@,1 ""@7))))sat@,J))
- (const@6,ID ChromeCacheMax . . . 8@H)
- (var@4,IE cacheKeys . .
+ (const@6,Kq ChromeCacheMax . . . 8@H)
+ (var@4,Kr cacheKeys . .
   (at@E seq~3 string@1)
   (prefix@P \40
    (bracket@1)))
- (var@4,IF cacheVals . .
+ (var@4,Ks cacheVals . .
   (at@E seq~3 string@1)
   (prefix@P \40
    (bracket@1)))
- (proc@,IH dropChromeCache@5 . . .
+ (proc@,Ku dropChromeCache@5 . . .
   (params@K). . .
   (stmts@2,1
    (asgn@A cacheKeys~A
@@ -2542,7 +2847,7 @@
    (asgn@A,1 cacheVals~A
     (prefix@2 \40
      (bracket@1)))))
- (proc@,IL chromeFor@5 . . .
+ (proc@,Ky chromeFor@5 . . .
   (params@E
    (param@1 se . . Sess@4 .)
    (param@B msg . .
@@ -2607,8 +2912,8 @@
     (dot cacheKeys~9 add@1)key@5)
    (cmd@9,N
     (dot cacheVals~9 add@1)result@5)))
- (const@6,J6 Layers . . . "rules atoms nim store atom"@9)
- (proc@,J8 docLayer@5 . . .
+ (const@6,Lj Layers . . . "rules atoms nim store atom"@9)
+ (proc@,Ll docLayer@5 . . .
   (params@D
    (param@1 id . . string@4 .))string@E . .
   (stmts@2,1
@@ -2629,7 +2934,7 @@
       (at@7 id~2 i@1))
      (cmd@,2 inc i@4)))
    (asgn@7,6 result~7 ""@2)))
- (proc@,JH docName@5 . . .
+ (proc@,Lu docName@5 . . .
   (params@C
    (param@1 id . . string@4 .))string@E . .
   (stmts@2,1
@@ -2653,7 +2958,7 @@
       (dot result0~7 add@1)
       (at@7 id~2 i@1))
      (cmd@,1 inc i@4)))result0@,7))
- (proc@,JR docPath@5 . . .
+ (proc@,M4 docPath@5 . . .
   (params@C
    (param@1 id . . string@4 .))string@E . .
   (stmts@2,1
@@ -2699,7 +3004,7 @@
       (ret
        (infix@T &
         (infix~F & WsRoot~7 "/handlers/"@2)name@2)))))""@,D))
- (proc@,Jw storeTags@5 . . .
+ (proc@,MZ storeTags@5 . . .
   (params@E)
   (at@7 seq~3 string@1). .
   (stmts@2,1
@@ -2811,7 +3116,7 @@
        (prefix@2 $
         (at@7 counts~6 best@1))))
      (cmd@,7 inc n@4)))))
- (proc@,KZ tagOnly@5 . . .
+ (proc@,NC tagOnly@5 . . .
   (params@C
    (param@1 entry . . string@7 .))string@H . .
   (stmts@2,1
@@ -2831,8 +3136,8 @@
       (dot result~6 add@1)
       (at@A entry~5 i@1))
      (cmd@,2 inc i@4)))))
- (const@6,Kh StoreShow . . . 40@C)
- (proc@,Kj storeSummary@5 . . .
+ (const@6,NK StoreShow . . . 40@C)
+ (proc@,NM storeSummary@5 . . .
   (params@H)string@4 . .
   (stmts@2,1
    (comment)
@@ -2851,7 +3156,7 @@
       (infix@D &
        (at~4 tags~4 i@1)"\0A"@2))
      (cmd@,1 inc i@4)))))
- (proc@,Kw storeDoc@5 . . .
+ (proc@,NZ storeDoc@5 . . .
   (params@D
    (param@1 tag . . string@5 .))string@F . .
   (stmts@2,1
@@ -2899,7 +3204,7 @@
      (cmd@6,1
       (dot result~6 add@1)"\0A\0A"@5)
      (cmd@,2 inc i@4)))))
- (proc@,LD bundleName@5 . . .
+ (proc@,Nq bundleName@5 . . .
   (params@F
    (param@1 a . . AtomId@3 .))string@D . .
   (stmts@2,1
@@ -2940,9 +3245,9 @@
            (dot~4 st~2 get@1)
            (at@7
             (dot~5 n~1 kids@1)2@1))text@1)))))))""@,9))
- (const@6,Lc NamedKinds . . .
+ (const@6,OF NamedKinds . . .
   (infix@1C & "ktoolbar ksidebar kbody kstatusbar kpanes kpane kexplorer "~z "kdock ksplit kleaf kwin kfloats"~z,1))
- (proc@,Lf propOf@5 . . .
+ (proc@,OI propOf@5 . . .
   (params@B
    (param@1 node . . AtomId@6 .)
    (param@F want . . string@6 .))string@U . .
@@ -3005,7 +3310,7 @@
            (at@7
             (dot~5 p~1 kids@1)1@1))text@1)))))
      (cmd@,3 inc i@4)))""@,A))
- (proc@,Ls isNamedKind@5 . . .
+ (proc@,OV isNamedKind@5 . . .
   (params@G
    (param@1 tag . . string@5 .))bool@F . .
   (stmts@2,1
@@ -3019,7 +3324,7 @@
        (infix@2 == w~2 tag@3)
        (stmts@A
         (ret true@7))))))false@,2))
- (proc@,Lx nameParts@5 . . .
+ (proc@,Oa nameParts@5 . . .
   (params@E
    (param@1 node . . AtomId@6 .)). . .
   (stmts@2,1
@@ -3094,14 +3399,429 @@
       (at@7
        (dot~5 a~1 kids@1)i@1))
      (cmd@,1 inc i@4)))))
- (proc@,MT mintLabels@5 . . .
+ (var@4,PE rootAtoms . .
+  (at@E seq~3 AtomId@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@4,PF rootDocs . .
+  (at@D seq~3 string@1)
+  (prefix@O \40
+   (bracket@1)))
+ (proc@,PH containsAtom@5 . . .
+  (params@H
+   (param@1 root . . AtomId@9 .)
+   (param@7 a . . AtomId@3 .))bool@J . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == root~5 a@3)
+     (stmts@B
+      (ret true@7))))
+   (let@4,1 n . . .
+    (call@A
+     (dot~4 st~2 get@1)root@1))
+   (if@,2
+    (elif@3
+     (infix@7 !=
+      (dot~6 n~1 kind@1)kNode@3)
+     (stmts@H
+      (ret false@7))))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 n~1 kids@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@C containsAtom~C
+        (at@7
+         (dot~5 n~1 kids@1)i@1)a@C)
+       (stmts@S
+        (ret true@7))))
+     (cmd@,1 inc i@4)))false@,7))
+ (proc@,PR containerOf@5 . . .
+  (params@G
+   (param@1 a . . AtomId@3 .))string@D . .
+  (stmts@2,1
+   (comment)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@B rootAtoms~9 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@C containsAtom~C
+        (at@A rootAtoms~9 i@1)a@F)
+       (stmts@V
+        (ret
+         (at@F rootDocs~8 i@1)))))
+     (cmd@,1 inc i@4)))""@,5))
+ (proc@,PZ replaceIn@5 . . .
+  (params@E
+   (param@1 root . . AtomId@K .)
+   (param@7 target . . AtomId@E .)
+   (param@F repl . . AtomId@6 .))AtomId@U . .
+  (stmts@2,1
+   (comment)
+   (if@,4
+    (elif@3
+     (infix@5 == root~5 target@3)
+     (stmts@G
+      (ret repl@7))))
+   (let@4,5 n . . .
+    (call@A
+     (dot~4 st~2 get@1)root@1))
+   (if@,6
+    (elif@3
+     (infix@7 !=
+      (dot~6 n~1 kind@1)kNode@3)
+     (stmts@H
+      (ret root@7))))
+   (var@4,7 kids . .
+    (at@9 seq~3 AtomId@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,8 changed . . . false@A)
+   (var@4,9 i . . . 0@4)
+   (while@,A
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 n~1 kids@1)len@1))
+    (stmts@2,1
+     (let@4 k . . .
+      (call@D replaceIn~9
+       (at@7
+        (dot~5 n~1 kids@1)i@1)target@C repl@K))
+     (if@,1
+      (elif@3
+       (infix@2 != k~2
+        (at@9
+         (dot~5 n~1 kids@1)i@1))
+       (stmts@G
+        (asgn@8 changed~8 true@2))))
+     (cmd@4,2
+      (dot kids~4 add@1)k@5)
+     (cmd@,3 inc i@4)))
+   (if@,F
+    (elif@3
+     (prefix not changed@4)
+     (stmts@D
+      (ret root@7))))
+   (call@7,G
+    (dot~5 st~2 node@1)
+    (dot@2 n~1 tag@1)kids@8)))
+ (proc@,Ps findByProp@5 . . .
+  (params@F
+   (param@1 root . . AtomId@6 .)
+   (param@F kind . . string@K .)
+   (param@L field . . string@E .)
+   (param@S value . . string@7 .))AtomId@i . .
+  (stmts@2,1
+   (comment)
+   (let@4,4 n . . .
+    (call@A
+     (dot~4 st~2 get@1)root@1))
+   (if@,5
+    (elif@3
+     (infix@7 !=
+      (dot~6 n~1 kind@1)kNode@3)
+     (stmts@H
+      (ret ""@7))))
+   (if@,6
+    (elif@3
+     (infix@V,1 and
+      (infix@6,~1 and
+       (infix~K and
+        (infix~B ==
+         (dot~5 n~1 tag@1)"vnode"@3)
+        (infix@F >=
+         (dot~5
+          (dot~5 n~1 kids@1)len@1)3@3))
+       (infix~E,1 ==
+        (dot~6
+         (call~B
+          (dot~4 st~2 get@1)
+          (at@7
+           (dot~5 n~1 kids@1)0@1))text@1)kind@3))
+      (infix@O ==
+       (call~E propOf~6 root@1 field@7)value@3))
+     (stmts~1,2
+      (ret root@7))))
+   (var@4,9 i . . . 0@4)
+   (while@,A
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 n~1 kids@1)len@1))
+    (stmts@2,1
+     (let@4 hit . . .
+      (call@G findByProp~A
+       (at@7
+        (dot~5 n~1 kids@1)i@1)kind@C field@I value@P))
+     (if@,1
+      (elif@3
+       (infix@8 >
+        (dot~5 hit~3 len@1)0@2)
+       (stmts@D
+        (ret hit@7))))
+     (cmd@,2 inc i@4)))""@,E))
+ (proc@,Q9 dropChild@5 . . .
+  (params@E
+   (param@1 root . . AtomId@E .)
+   (param@7 target . . AtomId@8 .))AtomId@O . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 n . . .
+    (call@A
+     (dot~4 st~2 get@1)root@1))
+   (if@,4
+    (elif@3
+     (infix@7 !=
+      (dot~6 n~1 kind@1)kNode@3)
+     (stmts@H
+      (ret root@7))))
+   (var@4,5 kids . .
+    (at@9 seq~3 AtomId@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,6 changed . . . false@A)
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 n~1 kids@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@A ==
+        (at~4
+         (dot~5 n~1 kids@1)i@1)target@3)
+       (stmts~1,1
+        (asgn@8 changed~8 true@2)
+        (if@,2
+         (elif@3
+          (infix@9 >
+           (dot~5 kids~4 len@1)0@2)
+          (stmts~1,1
+           (let@4 last . . .
+            (call@D
+             (dot~4 st~2 get@1)
+             (at@5 kids~4
+              (infix@A \2D
+               (dot~5 kids~4 len@1)1@2))))
+           (if@,1
+            (elif@3
+             (infix@g and
+              (infix~N and
+               (infix~9 ==
+                (dot~6 last~4 kind@1)kNode@3)
+               (infix@I >=
+                (dot~5
+                 (dot~5 last~4 kids@1)len@1)1@3))
+              (infix~G,1 ==
+               (dot~6
+                (call~E
+                 (dot~4 st~2 get@1)
+                 (at@A
+                  (dot~5 last~4 kids@1)0@1))text@1)"kres"@3))
+             (stmts~1,2
+              (call@B
+               (dot~7 kids~4 setLen@1)
+               (infix@A \2D
+                (dot~5 kids~4 len@1)1@2)))))))
+         (elif@5,5
+          (infix@6 <
+           (infix~4 \2B i~2 1@2)
+           (dot@8
+            (dot~5 n~1 kids@1)len@1))
+          (stmts~3,2
+           (let@4 nxt . . .
+            (call@C
+             (dot~4 st~2 get@1)
+             (at@7
+              (dot~5 n~1 kids@1)
+              (infix@3 \2B i~2 1@2))))
+           (if@,1
+            (elif@3
+             (infix@e and
+              (infix~M and
+               (infix~9 ==
+                (dot~6 nxt~3 kind@1)kNode@3)
+               (infix@H >=
+                (dot~5
+                 (dot~5 nxt~3 kids@1)len@1)1@3))
+              (infix~F,1 ==
+               (dot~6
+                (call~D
+                 (dot~4 st~2 get@1)
+                 (at@9
+                  (dot~5 nxt~3 kids@1)0@1))text@1)"kres"@3))
+             (stmts~1,2
+              (cmd inc i@4)))))))))
+      (else@,E
+       (stmts@2,1
+        (cmd@4
+         (dot kids~4 add@1)
+         (call@E dropChild~9
+          (at@7
+           (dot~5 n~1 kids@1)i@1)target@C)))))
+     (cmd@,G inc i@4)))
+   (if@,Q
+    (elif@3
+     (prefix not changed@4)
+     (stmts~1,1
+      (var@4 same . . . true@7)
+      (var@4,1 j . . . 0@4)
+      (while@,2
+       (infix@J and
+        (infix~B < j~2
+         (dot@6 kids~4 len@1))
+        (infix@6 < j~2
+         (dot@8
+          (dot~5 n~1 kids@1)len@1)))
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@8 !=
+           (at~4 kids~4 j@1)
+           (at@9
+            (dot~5 n~1 kids@1)j@1))
+          (stmts@M
+           (asgn@5 same~5 false@2))))
+        (cmd@,1 inc j@4)))
+      (if@,5
+       (elif@3 same
+        (stmts@6
+         (ret root@7)))))))
+   (call@7,X
+    (dot~5 st~2 node@1)
+    (dot@2 n~1 tag@1)kids@8)))
+ (proc@,Qj withProp@5 . . .
+  (params@D
+   (param@1 node . . AtomId@6 .)
+   (param@F field . . string@E .)
+   (param@M value . . string@7 .))AtomId@c . .
+  (stmts@2,1
+   (comment)
+   (let@4,2 a . . .
+    (call@A
+     (dot~4 st~2 get@1)node@1))
+   (if@,3
+    (elif@3
+     (infix@G or
+      (infix~9 !=
+       (dot~6 a~1 kind@1)kNode@3)
+      (infix@E <
+       (dot~5
+        (dot~5 a~1 kids@1)len@1)2@2))
+     (stmts@Z
+      (ret node@7))))
+   (let@4,4 props . . .
+    (call@E
+     (dot~4 st~2 get@1)
+     (at@7
+      (dot~5 a~1 kids@1)1@1)))
+   (var@4,5 ps . .
+    (at@7 seq~3 AtomId@1)
+    (prefix@I \40
+     (bracket@1)))
+   (var@4,6 i . . . 0@4)
+   (var@4,7 hit . . . false@6)
+   (while@,8
+    (infix@8 < i~2
+     (dot@C
+      (dot~5 props~5 kids@1)len@1))
+    (stmts@2,1
+     (let@4 p . . .
+      (call@A
+       (dot~4 st~2 get@1)
+       (at@B
+        (dot~5 props~5 kids@1)i@1)))
+     (if@,1
+      (elif@3
+       (infix@a and
+        (infix~K and
+         (infix~9 ==
+          (dot~6 p~1 kind@1)kNode@3)
+         (infix@F >=
+          (dot~5
+           (dot~5 p~1 kids@1)len@1)2@3))
+        (infix@R ==
+         (dot~6
+          (call~B
+           (dot~4 st~2 get@1)
+           (at@7
+            (dot~5 p~1 kids@1)0@1))text@1)field@3))
+       (stmts~1,1
+        (cmd@2
+         (dot ps~2 add@1)
+         (call@C
+          (dot~5 st~2 node@1)"p"@1
+          (prefix@6 \40
+           (bracket@1
+            (call@9
+             (dot~6 st~2 ident@1)field@1)
+            (call@R
+             (dot~7 st~2 strLit@1)value@1)))))
+        (asgn@4,1 hit~4 true@2)))
+      (else@,3
+       (stmts@2,1
+        (cmd@2
+         (dot ps~2 add@1)
+         (at@F
+          (dot~5 props~5 kids@1)i@1)))))
+     (cmd@,6 inc i@4)))
+   (if@,G
+    (elif@3
+     (prefix not hit@4)
+     (stmts@9
+      (cmd@2
+       (dot ps~2 add@1)
+       (call@C
+        (dot~5 st~2 node@1)"p"@1
+        (prefix@6 \40
+         (bracket@1
+          (call@9
+           (dot~6 st~2 ident@1)field@1)
+          (call@R
+           (dot~7 st~2 strLit@1)value@1))))))))
+   (var@4,H kids . .
+    (at@9 seq~3 AtomId@1)
+    (prefix@K \40
+     (bracket@1
+      (at@7
+       (dot~5 a~1 kids@1)0@1)
+      (call@J
+       (dot~5 st~2 node@1)"props"@1 ps@A))))
+   (var@4,I j . . . 2@4)
+   (while@,J
+    (infix@8 < j~2
+     (dot@8
+      (dot~5 a~1 kids@1)len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot kids~4 add@1)
+      (at@B
+       (dot~5 a~1 kids@1)j@1))
+     (cmd@,1 inc j@4)))
+   (call@7,M
+    (dot~5 st~2 node@1)
+    (dot@2 a~1 tag@1)kids@8)))
+ (proc@,R8 mintLabels@5 . . .
   (params@F). . .
   (stmts@2,1
    (comment)
    (asgn@7,6 claims~7
     (prefix@2 \40
      (bracket@1)))
-   (for@4,L
+   (asgn@A,7 rootAtoms~A
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@9,8 rootDocs~9
+    (prefix@2 \40
+     (bracket@1)))
+   (for@4,N
     (call@D eachWord~8 Catalogs@1)
     (unpackflat
      (let c . . ..))
@@ -3177,16 +3897,24 @@
                 (call@5,1 claim~5 "from"@1 r@9
                  (infix@L & "rules\3A"~9 c@2)))))))))))
        (cmd@,E inc ri0@4)))))
-   (let@4,e vt . . .
+   (let@4,g vt . . .
     (call@E parseTerm~9 st@1 viewSrc@5))
-   (call@5,f claim~5 "label"@1 vt@A "view"@E)
-   (call@5,g claim~5 "from"@1 vt@9 "atoms\3Aview"@D)
-   (let@4,h ct . . .
+   (call@5,h claim~5 "label"@1 vt@A "view"@E)
+   (call@5,i claim~5 "from"@1 vt@9 "atoms\3Aview"@D)
+   (cmd@9,j
+    (dot rootAtoms~9 add@1)vt@5)
+   (cmd@8,k
+    (dot rootDocs~8 add@1)"atoms\3Aview"@5)
+   (let@4,l ct . . .
     (call@E parseTerm~9 st@1 chromeSrc@5))
-   (call@5,i claim~5 "label"@1 ct@A "chrome"@E)
-   (call@5,j claim~5 "from"@1 ct@9 "atoms\3Achrome"@D)
-   (call@9,k nameParts~9 ct@1)
-   (if@,l
+   (call@5,m claim~5 "label"@1 ct@A "chrome"@E)
+   (call@5,n claim~5 "from"@1 ct@9 "atoms\3Achrome"@D)
+   (cmd@9,o
+    (dot rootAtoms~9 add@1)ct@5)
+   (cmd@8,p
+    (dot rootDocs~8 add@1)"atoms\3Achrome"@5)
+   (call@9,q nameParts~9 ct@1)
+   (if@,r
     (elif@3
      (infix@E >
       (dot~5 layoutSrc~9 len@1)0@2)
@@ -3200,8 +3928,53 @@
         (stmts~1,1
          (call@5 claim~5 "label"@1 lt@A "layout"@E)
          (call@5,1 claim~5 "from"@1 lt@9 "atoms\3Alayout"@D)
-         (call@9,2 nameParts~9 lt@1)))))))))
- (proc@,NM applyView@5 . . .
+         (cmd@9,2
+          (dot rootAtoms~9 add@1)lt@5)
+         (cmd@8,3
+          (dot rootDocs~8 add@1)"atoms\3Alayout"@5)
+         (call@9,4 nameParts~9 lt@1)))))))))
+ (proc@,S9 applyLayout@5 . . .
+  (params@G
+   (param@1 src . . string@5 .)
+   (param@E msg . .
+    (mut@5 string@4).))bool@W . .
+  (stmts@2,1
+   (comment)
+   (let@4,B prev . . . layoutSrc@7)
+   (asgn@A,C layoutSrc~A src@2)
+   (asgn@4,D msg~4 ""@2)
+   (let@4,E d . . .
+    (call@G deriveChrome~C chromeSrc@1
+     (oconstr@G Sess~4
+      (kv@4 doc~3 "atom\3Achrome"@2)
+      (kv@M q~1 ""@2)
+      (kv@U pv~2 "0"@2)
+      (kv~C,1 nav~3 ""@2)
+      (kv~2,1 navi~4 0@2)
+      (kv@7,1 fold~4 false@2)
+      (kv@L,1 depth~5 0@2)
+      (kv@T,1 raw~3 false@2)
+      (kv~A,2 tools~5 false@2)
+      (kv@6,2 lowered~7 false@2))msg@W,2))
+   (if@,H
+    (elif@3
+     (infix@C or
+      (infix~4 >
+       (dot~5 msg~3 len@1)0@2)
+      (infix@9 ==
+       (dot~5 d~1 len@1)0@3))
+     (stmts~1,1
+      (asgn@A layoutSrc~A prev@2)
+      (ret@,1 false@7))))
+   (call@F,K dropChromeCache~F)
+   (try@,L
+    (stmts@2,1
+     (call@9 writeFile~9
+      (infix@8 & WsRoot~7 "/layout.view"@2)src@Q))
+    (except@,2 .
+     (stmts@2,1
+      (asgn@4 msg~4 "applied, but could not persist -- it reverts on restart"@2))))true@,P))
+ (proc@,Sb applyView@5 . . .
   (params@E
    (param@1 src . . string@B .)
    (param@6 name . . string@6 .)
@@ -3263,16 +4036,16 @@
      (infix~A & "applied\3A "~C
       (prefix@2 $
        (dot@3 ch~2 len@1)))" change\28s\29"@2))true@,W))
- (proc@,Ny csystem@5 . . .
+ (proc@,TD csystem@5 . . .
   (params@C
    (param@1 cmd . . cstring@5 .))cint@G
   (pragmas@X
    (kv@9 importc~7 "system"@2)
    (kv@R header~6 "<stdlib.h>"@2)). .)
- (const@6,O0 WebRoot . . . "/home/savant/master/web"@A)
- (const@6,O1 WsRoot . . . "/home/savant/master/workspace"@9)
- (const@6,O2 CatRoot . . . "/home/savant/master/catalog"@A)
- (proc@,O4 slurp@5 . . .
+ (const@6,TF WebRoot . . . "/home/savant/master/web"@A)
+ (const@6,TG WsRoot . . . "/home/savant/master/workspace"@9)
+ (const@6,TH CatRoot . . . "/home/savant/master/catalog"@A)
+ (proc@,TJ slurp@5 . . .
   (params@A
    (param@1 path . . string@6 .)
    (param@F ok . .
@@ -3288,7 +4061,7 @@
     (except@,3 .
      (stmts@2,1
       (asgn@7 result~7 ""@2))))))
- (proc@,OD serveFile@5 . . .
+ (proc@,TS serveFile@5 . . .
   (params@E
    (param@1 name . . string@D .)
    (param@7 ctype . . string@7 .))Response@N . .
@@ -3310,7 +4083,7 @@
     (call@A response~8 200@1 ctype@6 body@D))
    (call@H,C
     (dot~B result~6 withHeader@1)"Cache-Control"@1 "no-store"@I)))
- (proc@,OS runTool@5 . . .
+ (proc@,Th runTool@5 . . .
   (params@C
    (param@1 action . . string@E .)
    (param@9 name . . string@6 .)
@@ -3345,7 +4118,7 @@
       (infix@3 div rc~3 256@4)))
     (else@P
      (stmts@6 rc)))))
- (proc@,Oi handlerNames@5 . . .
+ (proc@,Tx handlerNames@5 . . .
   (params@H)string@4 . .
   (stmts@2,1
    (comment)
@@ -3358,7 +4131,7 @@
      (prefix not ok@4)
      (stmts@8
       (asgn@7 result~7 ""@2))))))
- (proc@,Ou afterPrefix@5 . . .
+ (proc@,U9 afterPrefix@5 . . .
   (params@G
    (param@1 path . . string@E .)
    (param@7 prefix . . string@8 .))string@O . .
@@ -3374,7 +4147,7 @@
        (dot@7 prefix~6 len@1))))
     (else@o
      (stmts@6 "")))))
- (proc@,Ox parseIntOr@5 . . .
+ (proc@,UC parseIntOr@5 . . .
   (params@F
    (param@1 x . . string@3 .))int@D . .
   (stmts@2,1
@@ -3401,7 +4174,7 @@
              (at@2 x~1 i@1))
             (call@5 ord~3 '0'@1))))))))
      (cmd@,1 inc i@4)))))
- (proc@,P4 splitQuery@5 . . .
+ (proc@,UJ splitQuery@5 . . .
   (params@F
    (param@1 path . . string@6 .)
    (param@F qs . .
@@ -3435,7 +4208,7 @@
          (dot result~6 add@1)
          (at@9 path~4 i@1)))))
      (cmd@,6 inc i@4)))))
- (proc@,PJ param@5 . . .
+ (proc@,UY param@5 . . .
   (params@A
    (param@1 qs . . string@A .)
    (param@5 name . . string@6 .)
@@ -3499,7 +4272,7 @@
            (ret v@7))))
         (ret@,6 dflt@7))))
      (cmd@,D inc i@4)))dflt@,L))
- (proc@,Ph handler@5 . . .
+ (proc@,Uw handler@5 . . .
   (params@C
    (param@1 req . . Request@5 .))Response@G
   (pragmas@b nimcall@2).
@@ -3522,11 +4295,11 @@
        (call@G serveFile~9 "master.js"@1 "application/javascript; charset=utf-8"@E)))))
    (if@,C
     (elif@3
-     (infix@5 == path~5 "/widgets/memory.js"@3)
+     (infix@5 == path~5 "/widgets/perf.js"@3)
      (stmts~1,1
       (var@4 ok0 . . . false@6)
       (let@4,1 body0 . . .
-       (call@D slurp~5 "/home/savant/aowlui/widgets/memory.js"@1 ok0@g))
+       (call@D slurp~5 "/home/savant/aowlui/widgets/perf.js"@1 ok0@e))
       (if@,2
        (elif@3
         (prefix not ok0@4)
@@ -3625,9 +4398,66 @@
           (call@F response~8 200@1 "text/plain"@6
            (call@S storeDoc~8
             (call@8 docName~7 id@1)))))))
-      (let@4,K path0 . . .
+      (if@,W
+       (elif@3
+        (infix@M and
+         (infix~9 ==
+          (call~5 docLayer~8 id@1)"nim"@3)
+         (infix@U ==
+          (call~L param~5 qs@1 "lowered"@5 "0"@G)"1"@3))
+        (stmts~1,1
+         (let@4 stem . . .
+          (call@E docName~7 id@1))
+         (var@4,1 base . . . ""@7)
+         (var@4,2 bi . . . 0@5)
+         (while@,3
+          (infix@K and
+           (infix~B < bi~3
+            (dot@6 stem~4 len@1))
+           (infix@D !=
+            (at~5 stem~4 bi@1)'.'@3))
+          (stmts@2,1
+           (cmd@4
+            (dot base~4 add@1)
+            (at@9 stem~4 bi@1))
+           (cmd@,1 inc bi@4)))
+         (var@4,6 found . . . ""@8)
+         (var@4,7 outp0 . . . ""@8)
+         (if@,8
+          (elif@3
+           (infix@W ==
+            (call~P runTool~7 "lowered"@1 base@C outp0@I)0@3)
+           (stmts@c
+            (asgn@6 found~6 outp0@2))))
+         (var@4,9 lowOk . . . false@8)
+         (var@4,A low . . . ""@6)
+         (if@,B
+          (elif@3
+           (infix@A >
+            (dot~5 found~5 len@1)0@2)
+           (stmts@F
+            (asgn@4 low~4
+             (call@7 slurp~5 found@1 lowOk@8)))))
+         (if@,C
+          (elif@3
+           (prefix not lowOk@4)
+           (stmts~1,1
+            (ret
+             (call@F response~8 200@1 "text/plain"@6
+              (infix@t,2 &
+               (infix@2,~1 &
+                (infix~w &
+                 (infix~7 & "\23 "~5 stem@2)" has not been compiled, so there is no lowered form\0A"@2)"\23 to show. Build it and this becomes the typed NIF the compiler\0A"~18,1)"\23 ingested -- the rung between this file and the rules.\0A"~16,1))))))
+         (ret@,K
+          (call@F response~8 200@1 "text/plain"@6
+           (infix@y,3 &
+            (infix~3,~1 &
+             (infix~A,~1 &
+              (infix~m &
+               (infix~7 & "\23 "~5 stem@2)", as the compiler ingested it\3A typed NIF.\0A"@2)"\23 This is the rung between the file above and the rules below it,\0A"~y,1)"\23 and it is the artifact that actually ran -- not a re-derivation.\0A\0A"~18,1)low~1B,1))))))
+      (let@4,x path0 . . .
        (call@F docPath~7 id@1))
-      (if@,L
+      (if@,y
        (elif@3
         (infix@A ==
          (dot~5 path0~5 len@1)0@3)
@@ -3638,19 +4468,19 @@
             (infix@v,~1 &
              (infix~b &
               (infix~5 & "not a document id\3A "~M id@2)" \28want LAYER\3ANAME, layer one of "@2)Layers~12,1)"\29"@2))))))
-      (var@4,P ok . . . false@5)
-      (let@4,Q body . . .
+      (var@4,12 ok . . . false@5)
+      (let@4,13 body . . .
        (call@C slurp~5 path0@1 ok@8))
-      (if@,R
+      (if@,14
        (elif@3
         (prefix not ok@4)
         (stmts@8
          (ret
           (call@F response~8 404@1 "text/plain"@6
            (infix@Z & "no document "~F id@2))))))
-      (ret@,S
+      (ret@,15
        (call@F response~8 200@1 "text/plain"@6 body@K)))))
-   (if@,1B
+   (if@,1o
     (elif@3
      (call@F
       (dot~B path~4 startsWith@1)"/api/source/"@1)
@@ -3668,7 +4498,7 @@
       (ret@,2
        (call@F response~8 200@1 "text/plain"@6
         (call@U bundleName~A a@1))))))
-   (if@,1G
+   (if@,1t
     (elif@3
      (call@F
       (dot~B path~4 startsWith@1)"/api/spans/"@1)
@@ -3694,7 +4524,7 @@
         (call~H param~5 qs@1 "raw"@5 "0"@C)"1"@3))
       (ret@,9
        (call@F response~8 200@1 "text/plain"@6 sxSpans@K)))))
-   (if@,1S
+   (if@,25
     (elif@3
      (call@F
       (dot~B path~4 startsWith@1)"/api/structure/"@1)
@@ -3715,7 +4545,7 @@
         (infix@r &
          (infix~D & "<div class=\22sx\22>"~L
           (call@6 sxOf~4 a@1 0@4))"</div>"@2))))))
-   (if@,1b
+   (if@,2E
     (elif@3
      (infix@5 == path~5 "/api/layout"@3)
      (stmts~1,1
@@ -3758,28 +4588,28 @@
       (ret@,A
        (call@F response~8 200@1 "text/plain"@6
         (call@U renderTree~A st@1 d@5))))))
-   (if@,1o
+   (if@,2R
     (elif@3
      (infix@5 == path~5 "/api/derived"@3)
      (stmts~1,1
       (ret
        (call@F response~8 200@1 "text/plain"@6
         (call@U renderTree~A st@1 derived@5))))))
-   (if@,1q
+   (if@,2T
     (elif@3
      (infix@5 == path~5 "/api/handlers"@3)
      (stmts~1,1
       (ret
        (call@F response~8 200@1 "text/plain"@6
         (call@W handlerNames~C))))))
-   (if@,1s
+   (if@,2V
     (elif@3
      (infix@5 == path~5 "/api/view"@3)
      (stmts~1,1
       (ret
        (call@F response~8 200@1 "text/html"@6
         (call@P toHtml~6 st@1 derived@5))))))
-   (if@,1u
+   (if@,2X
     (elif@3
      (infix@5 == path~5 "/api/command"@3)
      (stmts~1,1
@@ -3817,27 +4647,133 @@
          (if@,8
           (elif@3
            (infix@6 == layer~6 "atom"@3)
-           (stmts~1,F
-            (let@4 origin0 . . .
-             (call@K bundleName~A
-              (call@C resolveAtom~B
-               (call@8 docName~7 id@1))))
+           (stmts~1,E
+            (let@4 target . . .
+             (call@K resolveAtom~B
+              (call@8 docName~7 id@1)))
             (if@,1
+             (elif@3
+              (infix@B ==
+               (dot~5 target~6 len@1)0@3)
+              (stmts~1,1
+               (ret
+                (call@F response~8 404@1 "text/plain"@6
+                 (infix@V & "no atom "~B
+                  (call@9 docName~7 id@1)))))))
+            (if@,3
+             (elif@3
+              (infix@U or
+               (infix~7 ==
+                (call~I param~5 qs@1 "fold"@5 "0"@D)"1"@3)
+               (infix@6,1 >
+                (call~Q parseIntOr~A
+                 (call@6 param~5 qs@1 "depth"@5 "0"@E))0@2))
+              (stmts~1,2
+               (ret
+                (call@F response~8 400@1 "text/plain"@6
+                 (infix@q,2 &
+                  (infix@4,~1 & "refused\3A `collapse named` or a depth limit is on, so what you are "~17 "looking at is a SUMMARY -- named parts show as \40name and deep "~17,1)"subtrees as a count. Turn them off to edit."~13,1))))))
+            (if@,9
+             (elif@3
+              (infix@M !=
+               (call~H param~5 qs@1 "raw"@5 "0"@C)"1"@3)
+              (stmts~1,1
+               (ret
+                (call@F response~8 400@1 "text/plain"@6
+                 (infix@s,3 &
+                  (infix@2,~1 &
+                   (infix~8,~1 & "refused\3A the compact reading drops the `props` and `kids` "~z "wrappers, so `kshell` with an indented child could be a view node "~z,1)"or a plain term and the text cannot say which. Tick `raw atoms` "~17,1)"to edit -- that reading round-trips exactly."~15,1))))))
+            (var@4,F rerr . . . ""@7)
+            (let@4,G fresh . . .
+             (call@L readingToAtom~D src@1 rerr@6))
+            (if@,H
+             (elif@3
+              (infix@9 >
+               (dot~5 rerr~4 len@1)0@2)
+              (stmts~1,1
+               (ret
+                (call@F response~8 400@1 "text/plain"@6
+                 (infix@W & "refused\3A "~C rerr@2))))))
+            (if@,J
+             (elif@3
+              (infix@6 == fresh~6 target@3)
+              (stmts~1,1
+               (ret
+                (call@F response~8 200@1 "text/plain"@6 "no change"@K)))))
+            (let@4,P origin0 . . .
+             (call@K bundleName~A target@1))
+            (if@,Q
              (elif@3
               (infix@C ==
                (dot~5 origin0~7 len@1)0@3)
               (stmts~1,1
                (ret
                 (call@F response~8 400@1 "text/plain"@6
-                 (infix@u,1 & "that atom has no source of its own -- it is a PART of a document, "~17 "or a derived tree. Open what contains it and edit that."~17,1))))))
-            (ret@,5
-             (call@F response~8 400@1 "text/plain"@6
-              (infix@G,4 &
-               (infix~A &
-                (infix@q,~1 &
-                 (infix~4,~1 &
-                  (infix@4,~1 & "refused\3A what you are looking at is a READING of that atom, not its "~19 "source -- parentheses are dropped and named parts are folded to "~19,1)"\40name, so writing it back would replace the document with a summary "~15,1)"of itself. Open "~19,1)origin0@2)" and edit that."@2))))))
-         (if@,Y
+                 (infix@p,1 & "that atom is a PART of something, or derived. Open the whole "~12 "thing and edit it there -- there is nowhere to write a fragment."~12,1))))))
+            (if@,U
+             (elif@3
+              (infix@I !=
+               (call~A docLayer~8 origin0@1)"atoms"@3)
+              (stmts~1,1
+               (ret
+                (call@F response~8 400@1 "text/plain"@6
+                 (infix~5,3 &
+                  (infix@w,~1 &
+                   (infix~2,~1 &
+                    (infix~I &
+                     (infix~A & "that atom is written down inside "~a origin0@2)", which is a "@2)"catalog. Editing a single rule in place is not wired yet; open "~12,1)origin0~14,1)"."@2))))))
+            (asgn@3,Z id~3 origin0@2)
+            (asgn@6,a layer~6 "atoms"@2)
+            (asgn@5,b name~5
+             (call@9 docName~7 origin0@1))
+            (let@4,i back . . .
+             (call@D pretty~6
+              (call@B renderTree~A st@1 fresh@5)))
+            (if@,j
+             (elif@3
+              (infix@5 == name~5 "chrome"@3)
+              (stmts~1,1
+               (var@4 msg0 . . . ""@7)
+               (let@4,1 d0 . . .
+                (call@H deriveChrome~C back@1
+                 (oconstr@B Sess~4
+                  (kv@4 doc~3 "atom\3Achrome"@2)
+                  (kv@M q~1 ""@2)
+                  (kv@U pv~2 "0"@2)
+                  (kv~7,1 nav~3 ""@2)
+                  (kv@3,1 navi~4 0@2)
+                  (kv@C,1 fold~4 false@2)
+                  (kv@Q,1 depth~5 0@2)
+                  (kv~7,2 raw~3 false@2)
+                  (kv@7,2 tools~5 false@2))msg0@S,2))
+               (if@,4
+                (elif@3
+                 (infix@9 >
+                  (dot~5 msg0~4 len@1)0@2)
+                 (stmts@E
+                  (ret
+                   (call@F response~8 200@1 "text/plain"@6 msg0@K)))))
+               (discard@,5 d0@8)
+               (asgn@A,6 chromeSrc~A back@2)
+               (call@A,7 mintLabels~A)
+               (call@F,8 dropChromeCache~F)
+               (try@,9
+                (stmts@2,1
+                 (call@9 writeFile~9
+                  (infix@8 & WsRoot~7 "/chrome.view"@2)back@Q))
+                (except@,2 .
+                 (stmts@2,1
+                  (ret
+                   (call@F response~8 200@1 "text/plain"@6 "applied, but could not persist -- it reverts on restart"~D,1)))))
+               (ret@,E
+                (call@F response~8 200@1 "text/plain"@6 "applied"@K)))))
+            (var@4,z msg1 . . . ""@7)
+            (discard@,10
+             (call@H applyView~9 back@1 name@7 msg1@D))
+            (call@A,11 mintLabels~A)
+            (ret@,12
+             (call@F response~8 200@1 "text/plain"@6 msg1@K)))))
+         (if@,1Q
           (elif@3
            (infix@6 == layer~6 "atom-unused"@3)
            (stmts~1,A
@@ -3860,14 +4796,14 @@
              (call@A docLayer~8 origin@1))
             (asgn@5,B name~5
              (call@9 docName~7 origin@1)))))
-         (if@,u
+         (if@,1m
           (elif@3
            (infix@6 == layer~6 "store"@3)
            (stmts~1,1
             (ret
              (call@F response~8 400@1 "text/plain"@6
               (infix@u,1 & "the store is what the other layers DERIVE. Edit the document that "~17 "produced these atoms and they change with it."~17,1))))))
-         (if@,y
+         (if@,1q
           (elif@3
            (infix@G ==
             (dot~5
@@ -3876,7 +4812,7 @@
             (ret
              (call@F response~8 400@1 "text/plain"@6
               (infix@g & "not a document id\3A "~M id@2))))))
-         (if@,11
+         (if@,1t
           (elif@3
            (infix@6 == layer~6 "atoms"@3)
            (stmts~1,5
@@ -3923,7 +4859,7 @@
             (call@A,H mintLabels~A)
             (ret@,I
              (call@F response~8 200@1 "text/plain"@6 msg@K)))))
-         (if@,1Q
+         (if@,2I
           (elif@3
            (infix@6 == layer~6 "rules"@3)
            (stmts~1,A
@@ -4040,7 +4976,7 @@
               (infix@w,1 &
                (infix~q &
                 (infix~7 & "applied\3A "~C name@2)" is now the meaning. Every node of those kinds "@2)"re-derived."~19,1))))))
-         (try@,2g
+         (try@,3Y
           (stmts@2,1
            (call@9 writeFile~9
             (call@8 docPath~7 id@1)src@E))
@@ -4049,10 +4985,10 @@
             (ret
              (call@F response~8 500@1 "text/plain"@6
               (infix@d & "could not write "~J name@2))))))
-         (var@4,2k outp . . . ""@7)
-         (let@4,2l rc . . .
+         (var@4,3c outp . . . ""@7)
+         (let@4,3d rc . . .
           (call@C runTool~7 "build"@1 name@A outp@G))
-         (if@,2m
+         (if@,3e
           (elif@3
            (infix@3 != rc~3 0@3)
            (stmts~1,1
@@ -4061,10 +4997,10 @@
               (infix@l &
                (infix~B &
                 (infix~7 & "saved "~9 name@2)", but "@2)outp@2))))))
-         (ret@,2o
+         (ret@,3g
           (call@F response~8 200@1 "text/plain"@6
            (infix@d & "saved and built "~J name@2))))))
-      (if@,2y
+      (if@,3q
        (elif@3
         (call@F
          (dot~B body~4 startsWith@1)"reset-doc "@1)
@@ -4091,7 +5027,7 @@
             (discard .))))
          (ret@,B
           (call@F response~8 200@1 "text/plain"@6 "chrome restored to the boot view"@K)))))
-      (if@,3F
+      (if@,47
        (elif@3
         (call@F
          (dot~B body~4 startsWith@1)"run "@1)
@@ -4134,7 +5070,358 @@
          (ret@,C
           (call@F response~8 200@1 "text/plain"@6
            (infix@O & tag~4 outp@2))))))
-      (if@,3U
+      (if@,4a
+       (elif@3
+        (call@F
+         (dot~B body~4 startsWith@1)"rename "@1)
+        (stmts~1,1
+         (let@4 rest0 . . .
+          (call@J
+           (dot~7 body~4 substr@1)7@1))
+         (let@4,1 nl0 . . .
+          (call@G
+           (dot~5 rest0~5 find@1)"\0A"@1))
+         (if@,2
+          (elif@3
+           (infix@4 <= nl0~4 0@3)
+           (stmts~1,1
+            (ret
+             (call@F response~8 400@1 "text/plain"@6 "rename wants ATOM\5CnNEWNAME"@K)))))
+         (let@4,4 who . . .
+          (call@H resolveAtom~B
+           (call@D
+            (dot~7 rest0~5 substr@1)0@1
+            (infix@8 \2D nl0~4 1@2))))
+         (var@4,5 newName . . .
+          (call@M
+           (dot~7 rest0~5 substr@1)
+           (infix@5 \2B nl0~4 1@2)))
+         (var@4,8 clean . . . ""@8)
+         (var@4,9 ci . . . 0@5)
+         (while@,A
+          (infix@9 < ci~3
+           (dot@9 newName~7 len@1))
+          (stmts@2,1
+           (if
+            (elif@3
+             (infix@J and
+              (infix~7 !=
+               (at~5 newName~7 ci@1)'\22'@3)
+              (infix@G !=
+               (at~5 newName~7 ci@1)'\0A'@3))
+             (stmts@i
+              (cmd@5
+               (dot clean~5 add@1)
+               (at@C newName~7 ci@1)))))
+           (cmd@,1 inc ci@4)))
+         (asgn@8,D newName~8 clean@2)
+         (if@,E
+          (elif@3
+           (infix@8 ==
+            (dot~5 who~3 len@1)0@3)
+           (stmts@E
+            (ret
+             (call@F response~8 404@1 "text/plain"@6 "no such atom"@K)))))
+         (if@,F
+          (elif@3
+           (infix@C ==
+            (dot~5 newName~7 len@1)0@3)
+           (stmts~1,1
+            (ret
+             (call@F response~8 400@1 "text/plain"@6 "a name cannot be empty"@K)))))
+         (let@4,H old . . .
+          (call@D labelOf~7 who@1))
+         (if@,I
+          (elif@3
+           (infix@4 == old~4 newName@3)
+           (stmts@G
+            (ret
+             (call@F response~8 200@1 "text/plain"@6 "no change"@K)))))
+         (var@4,M field . . . "head"@8)
+         (if@,N
+          (elif@3
+           (infix@O ==
+            (dot~5
+             (call~D propOf~6 who@1 "head"@6)len@1)0@3)
+           (stmts~1,1
+            (if
+             (elif@3
+              (infix@P >
+               (dot~5
+                (call~E propOf~6 who@1 "title"@6)len@1)0@2)
+              (stmts@U
+               (asgn@6 field~6 "title"@2)))
+             (else@,1
+              (stmts@6
+               (asgn@6 field~6 ""@2)))))))
+         (if@,Q
+          (elif@3
+           (infix@A ==
+            (dot~5 field~5 len@1)0@3)
+           (stmts~1,1
+            (ret
+             (call@F response~8 400@1 "text/plain"@6
+              (infix@s,1 & "that atom\27s name is not written anywhere -- it is a bundle or a "~15 "leaf, and its label comes from what produced it. Rename that."~15,1))))))
+         (var@4,W where . . .
+          (call@I bundleName~A who@1))
+         (if@,X
+          (elif@3
+           (infix@A ==
+            (dot~5 where~5 len@1)0@3)
+           (stmts@G
+            (asgn@6 where~6
+             (call@D containerOf~B who@1)))))
+         (if@,Y
+          (elif@3
+           (infix@F or
+            (infix~5 ==
+             (dot~5 where~5 len@1)0@3)
+            (infix@J !=
+             (call~8 docLayer~8 where@1)"atoms"@3))
+           (stmts~1,1
+            (ret
+             (call@F response~8 400@1 "text/plain"@6
+              (infix@w,1 & "that atom is not written down in a document this can edit -- a rule "~19 "lives in a catalog, and a derived tree has no source at all."~19,1))))))
+         (let@4,g renamed . . .
+          (call@I withProp~8 who@1 field@6 newName@D))
+         (let@4,h docRoot . . .
+          (call@L resolveAtom~B
+           (call@8 docName~7 where@1)))
+         (var@4,i newRoot . . . renamed@A)
+         (if@,j
+          (elif@3
+           (infix@G and
+            (infix~4 >
+             (dot~5 docRoot~7 len@1)0@2)
+            (infix@C != docRoot~8 who@3))
+           (stmts~1,1
+            (asgn@8 newRoot~8
+             (call@B replaceIn~9 docRoot@1 who@A renamed@F)))))
+         (let@4,l back1 . . .
+          (call@E pretty~6
+           (call@B renderTree~A st@1 newRoot@5)))
+         (let@4,m nm1 . . .
+          (call@D docName~7 where@1))
+         (if@,n
+          (elif@3
+           (infix@4 == nm1~4 "chrome"@3)
+           (stmts~1,1
+            (var@4 m2 . . . ""@5)
+            (discard@,1
+             (call@K deriveChrome~C back1@1
+              (oconstr@C Sess~4
+               (kv@4 doc~3 "atom\3Achrome"@2)
+               (kv@M q~1 ""@2)
+               (kv@U pv~2 "0"@2)
+               (kv~8,1 nav~3 ""@2)
+               (kv@2,1 navi~4 0@2)
+               (kv@B,1 fold~4 false@2)
+               (kv@P,1 depth~5 0@2)
+               (kv~8,2 raw~3 false@2)
+               (kv@6,2 tools~5 false@2))m2@S,2))
+            (if@,4
+             (elif@3
+              (infix@7 >
+               (dot~5 m2~2 len@1)0@2)
+              (stmts@C
+               (ret
+                (call@F response~8 200@1 "text/plain"@6 m2@K)))))
+            (asgn@A,5 chromeSrc~A back1@2)
+            (call@A,6 mintLabels~A)
+            (call@F,7 dropChromeCache~F)
+            (try@,8
+             (stmts@5
+              (call@9 writeFile~9
+               (infix@8 & WsRoot~7 "/chrome.view"@2)back1@Q))
+             (except@,1 .
+              (stmts@8
+               (ret
+                (call@F response~8 200@1 "text/plain"@6 "renamed, but could not persist -- it reverts on restart"~L,1)))))
+            (ret@,B
+             (call@F response~8 200@1 "text/plain"@6
+              (infix@D,1 &
+               (infix~9 &
+                (infix~6 & "renamed "~B old@2)" to "@2)newName@2))))))
+         (var@4,11 m3 . . . ""@5)
+         (discard@,12
+          (call@H applyView~9 back1@1 nm1@8 m3@D))
+         (call@A,13 mintLabels~A)
+         (if@,14
+          (elif@3
+           (infix@B and
+            (infix~4 >
+             (dot~5 m3~2 len@1)0@2)
+            (call@H
+             (dot~B m3~2 startsWith@1)"refused"@1))
+           (stmts~1,1
+            (ret
+             (call@F response~8 200@1 "text/plain"@6 m3@K)))))
+         (ret@,16
+          (call@F response~8 200@1 "text/plain"@6
+           (infix@k &
+            (infix~9 &
+             (infix~6 & "renamed "~B old@2)" to "@2)newName@2))))))
+      (if@,5v
+       (elif@3
+        (call@F
+         (dot~B body~4 startsWith@1)"layout-"@1)
+        (stmts~1,1
+         (if
+          (elif@3
+           (infix@E ==
+            (dot~5 layoutSrc~9 len@1)0@3)
+           (stmts~1,1
+            (ret
+             (call@F response~8 400@1 "text/plain"@6 "there is no layout.view"@K)))))
+         (let@4,2 nl2 . . .
+          (call@F
+           (dot~5 body~4 find@1)"\0A"@1))
+         (var@4,3 head2 . . . body@8)
+         (if@,4
+          (elif@3
+           (infix@4 > nl2~4 0@2)
+           (stmts@9
+            (asgn@6 head2~6
+             (call@D
+              (dot~7 body~4 substr@1)0@1
+              (infix@8 \2D nl2~4 1@2))))))
+         (let@4,5 parts . . .
+          (call@G eachWord~8 head2@1))
+         (if@,6
+          (elif@3
+           (infix@A <
+            (dot~5 parts~5 len@1)2@2)
+           (stmts~1,1
+            (ret
+             (call@F response~8 400@1 "text/plain"@6 "layout-VERB wants arguments"@K)))))
+         (let@4,8 verb . . .
+          (at@C parts~5 0@1))
+         (var@4,9 root2 . . .
+          (call@H parseTerm~9 st@1 layoutSrc@5))
+         (if@,A
+          (elif@3
+           (infix@A ==
+            (dot~5 root2~5 len@1)0@3)
+           (stmts~1,1
+            (ret
+             (call@F response~8 400@1 "text/plain"@6 "layout.view does not parse"@K)))))
+         (if@,D
+          (elif@3
+           (infix@5 == verb~5 "layout-weight"@3)
+           (stmts~1,4
+            (if
+             (elif@3
+              (infix@A <
+               (dot~5 parts~5 len@1)5@2)
+              (stmts~1,1
+               (ret
+                (call@F response~8 400@1 "text/plain"@6 "layout-weight wants LEAF W LEAF W"@1,1)))))
+            (var@4,3 i2 . . . 1@5)
+            (while@,4
+             (infix@D <
+              (infix~4 \2B i2~3 1@2)
+              (dot@7 parts~5 len@1))
+             (stmts@2,1
+              (let@4 leaf . . .
+               (call@H findByProp~A root2@1 "kleaf"@8 "id"@H
+                (at@S parts~5 i2@1)))
+              (if@,1
+               (elif@3
+                (infix@9 >
+                 (dot~5 leaf~4 len@1)0@2)
+                (stmts~1,1
+                 (asgn@6 root2~6
+                  (call@B replaceIn~9 root2@1 leaf@8
+                   (call@M withProp~8 leaf@1 "weight"@7
+                    (at@M parts~5
+                     (infix@4 \2B i2~3 1@2))))))))
+              (asgn@3,3 i2~3
+               (infix@5 \2B i2~3 2@2))))))
+          (elif@5,D
+           (infix@5 == verb~5 "layout-collapse"@3)
+           (stmts~3,1
+            (let@4 win . . .
+             (call@G findByProp~A root2@1 "kwin"@8 "id"@G
+              (at@R parts~5 1@1)))
+            (if@,1
+             (elif@3
+              (infix@8 ==
+               (dot~5 win~3 len@1)0@3)
+              (stmts@E
+               (ret
+                (call@F response~8 404@1 "text/plain"@6 "no such window"@K)))))
+            (var@4,2 x2 . . .
+             (call@B propOf~6 win@1 "extra"@6))
+            (if@,3
+             (elif@3
+              (call@B
+               (dot~9 x2~2 contains@1)"is-collapsed"@1)
+              (stmts@T
+               (asgn@3 x2~3 ""@2)))
+             (else@,1
+              (stmts@6
+               (asgn@3 x2~3 "is-collapsed"@2))))
+            (asgn@6,5 root2~6
+             (call@B replaceIn~9 root2@1 win@8
+              (call@L withProp~8 win@1 "extra"@6 x2@F)))))
+          (elif@5,K
+           (infix@5 == verb~5 "layout-close"@3)
+           (stmts~3,1
+            (let@4 leaf . . .
+             (call@H findByProp~A root2@1 "kleaf"@8 "id"@H
+              (at@S parts~5 1@1)))
+            (if@,1
+             (elif@3
+              (infix@9 ==
+               (dot~5 leaf~4 len@1)0@3)
+              (stmts@F
+               (ret
+                (call@F response~8 404@1 "text/plain"@6 "no such leaf"@K)))))
+            (asgn@6,2 root2~6
+             (call@B dropChild~9 root2@1 leaf@8))))
+          (else@,O
+           (stmts@2,1
+            (ret
+             (call@F response~8 400@1 "text/plain"@6
+              (infix@i & "unknown layout verb\3A "~O verb@2))))))
+         (let@4,e back2 . . .
+          (call@E pretty~6
+           (call@B renderTree~A st@1 root2@5)))
+         (var@4,f m4 . . . ""@5)
+         (discard@,g
+          (call@K deriveChrome~C back2@1
+           (oconstr@C Sess~4
+            (kv@4 doc~3 "atom\3Achrome"@2)
+            (kv@M q~1 ""@2)
+            (kv@U pv~2 "0"@2)
+            (kv~8,1 nav~3 ""@2)
+            (kv@2,1 navi~4 0@2)
+            (kv@B,1 fold~4 false@2)
+            (kv@P,1 depth~5 0@2)
+            (kv@X,1 raw~3 false@2)
+            (kv~6,2 tools~5 false@2)
+            (kv@A,2 lowered~7 false@2))m4@W,2))
+         (if@,j
+          (elif@3
+           (infix@7 >
+            (dot~5 m4~2 len@1)0@2)
+           (stmts@C
+            (ret
+             (call@F response~8 200@1 "text/plain"@6 m4@K)))))
+         (asgn@A,k layoutSrc~A back2@2)
+         (call@A,l mintLabels~A)
+         (call@F,m dropChromeCache~F)
+         (try@,n
+          (stmts@2,1
+           (call@9 writeFile~9
+            (infix@8 & WsRoot~7 "/layout.view"@2)back2@Q))
+          (except@,2 .
+           (stmts@2,1
+            (ret
+             (call@F response~8 200@1 "text/plain"@6 "applied, but could not persist -- it reverts on restart"~D,1)))))
+         (ret@,s
+          (call@F response~8 200@1 "text/plain"@6 "layout applied"@K)))))
+      (if@,6q
        (elif@3
         (call@F
          (dot~B body~4 startsWith@1)"new "@1)
@@ -4147,7 +5434,7 @@
              (dot~7 body~4 substr@1)4@1))outp@X))
          (ret@,2
           (call@F response~8 200@1 "text/plain"@6 outp@K)))))
-      (if@,3Z
+      (if@,6v
        (elif@3
         (call@F
          (dot~B body~4 startsWith@1)"delete "@1)
@@ -4169,7 +5456,7 @@
            (call@F docName~7 id@1)outp@L))
          (ret@,7
           (call@F response~8 200@1 "text/plain"@6 outp@K)))))
-      (if@,3l
+      (if@,77
        (elif@3
         (call@F
          (dot~B body~4 startsWith@1)"observe "@1)
@@ -4197,26 +5484,26 @@
               (infix@W & "refused\3A "~C outp@2))))))
          (ret@,7
           (call@F response~8 200@1 "text/plain"@6 outp@K)))))
-      (ret@,3v
+      (ret@,7H
        (call@F response~8 400@1 "text/plain"@6 "unknown command"@K)))))
-   (call@8,5r response~8 404@1 "text/plain"@6
+   (call@8,9q response~8 404@1 "text/plain"@6
     (infix@a & "no route for "~G path@2))))
- (asgn@3,Vb st~3
+ (asgn@3,ep st~3
   (call@A newStore~8))
- (asgn@6,Vc rules~6
+ (asgn@6,eq rules~6
   (call@E loadCatalogs~C st@1))
- (asgn@8,Vd bootSrc~8 BootView@2)
- (var@4,Vh viewOk . . . false@9)
- (asgn@8,Vi viewSrc~8
+ (asgn@8,er bootSrc~8 BootView@2)
+ (var@4,ev viewOk . . . false@9)
+ (asgn@8,ew viewSrc~8
   (call@7 slurp~5
    (infix@8 & WsRoot~7 "/view.view"@2)viewOk@O))
- (if@,Vm
+ (if@,f0
   (elif@3
    (infix@C ==
     (dot~5 viewSrc~7 len@1)0@3)
    (stmts@I
     (asgn@7 viewOk~7 false@2))))
- (if@,Vn
+ (if@,f1
   (elif@3
    (prefix not viewOk@4)
    (stmts~1,1
@@ -4228,39 +5515,39 @@
      (except@,2 .
       (stmts@2,1
        (discard .)))))))
- (asgn@8,Vt derived~8
+ (asgn@8,f7 derived~8
   (call@8 derive~6 st@1 rules@5
    (call@L parseTerm~9 st@1 viewSrc@5)))
- (var@4,Vz layoutOk . . . false@B)
- (asgn@A,W0 layoutSrc~A
+ (var@4,fD layoutOk . . . false@B)
+ (asgn@A,fE layoutSrc~A
   (call@7 slurp~5
    (infix@8 & WsRoot~7 "/layout.view"@2)layoutOk@Q))
- (if@,W1
+ (if@,fF
   (elif@3
    (prefix not layoutOk@4)
    (stmts@E
     (asgn@A layoutSrc~A ""@2))))
- (var@4,W3 chromeOk . . . false@B)
- (asgn@B,W4 bootChrome~B
+ (var@4,fH chromeOk . . . false@B)
+ (asgn@B,fI bootChrome~B
   (call@7 slurp~5 "/home/savant/master/web/chrome.boot.view"@1 chromeOk@j))
- (if@,W5
+ (if@,fJ
   (elif@3
    (prefix not chromeOk@4)
    (stmts~1,1
     (cmd echo "master\3A cannot read web/chrome.boot.view -- the IDE has no chrome"@5)
     (cmd@,1 quit 1@5))))
- (var@4,W8 liveOk . . . false@9)
- (asgn@A,W9 chromeSrc~A
+ (var@4,fM liveOk . . . false@9)
+ (asgn@A,fN chromeSrc~A
   (call@7 slurp~5
    (infix@8 & WsRoot~7 "/chrome.view"@2)liveOk@Q))
- (if@,WA
+ (if@,fO
   (elif@3
    (prefix not liveOk@4)
    (stmts@C
     (asgn@A chromeSrc~A bootChrome@2))))
- (call@A,WB mintLabels~A)
- (var@4,WH warm . . . ""@7)
- (discard@,WI
+ (call@A,fP mintLabels~A)
+ (var@4,fV warm . . . ""@7)
+ (discard@,fW
   (call@H chromeFor~9
    (oconstr@5 Sess~4
     (kv@4 doc~3 "atom\3Achrome"@2)
@@ -4272,13 +5559,13 @@
     (kv@J,1 depth~5 0@2)
     (kv@R,1 raw~3 false@2)
     (kv@f,1 tools~5 false@2))warm@u,1))
- (if@,WK
+ (if@,fY
   (elif@3
    (infix@9 >
     (dot~5 warm~4 len@1)0@2)
    (stmts@E
     (cmd echo "master\3A the boot chrome does not derive\3A "@5 warm@o))))
- (if@,WQ
+ (if@,fe
   (elif@3
    (infix@E >
     (dot~5 layoutSrc~9 len@1)0@2)
@@ -4318,8 +5605,8 @@
          (stmts@2,1
           (cmd echo "master\3A layout.view derives to primitives"@5)))))))
     (call@9,E resetNorm~9))))
- (var@4,Wh port . . . 8150@7)
- (if@,Wi
+ (var@4,fv port . . . 8150@7)
+ (if@,fw
   (elif@3
    (infix@D >=
     (call~3 paramCount~A)1@3)
@@ -4332,5 +5619,5 @@
      (except@,1 .
       (stmts@8
        (asgn@5 port~5 8150@2)))))))
- (cmd@,Wm echo "master on http\3A//127.0.0.1\3A"@5 port@a)
- (call@G,Wn serveHttpReactor~G port@1 handler@7))
+ (cmd@,g0 echo "master on http\3A//127.0.0.1\3A"@5 port@a)
+ (call@G,g1 serveHttpReactor~G port@1 handler@7))

@@ -181,14 +181,58 @@ function __atomic_compare_exchange_n(p,exp,des,weak,so,fo){
 
 // stdio — distinct stdout/stderr handles; the lowered code passes one as the
 // `FILE*`, so route on identity (error/panic reporting goes to stderr).
+// A BROWSER HAS NO `process`, and `echo` lowers to fwrite. Written as
+// `process.stdout.write(...)` unconditionally, one `echo` anywhere in a page
+// bundle threw `ReferenceError: process is not defined` from inside whatever
+// called it -- so an error reporter that echoed its message crashed instead of
+// reporting it. The console is the browser's stdout; the fallback buffers a
+// line at a time so a partial write does not become a console entry of its own.
 const stdout = {}, stderr = {};
+const _hasProc = (typeof process !== 'undefined') && !!(process && process.stdout);
+const _pend = { out: '', err: '' };
+function _consoleWrite(f, s){
+  const k = (f === stderr) ? 'err' : 'out';
+  _pend[k] += s;
+  let nl = _pend[k].indexOf('\n');
+  while (nl >= 0){
+    const line = _pend[k].slice(0, nl);
+    _pend[k] = _pend[k].slice(nl + 1);
+    if (k === 'err') console.error(line); else console.log(line);
+    nl = _pend[k].indexOf('\n');
+  }
+}
 function _stream(f){ return f === stderr ? process.stderr : process.stdout; }
-function fwrite(ptr,size,nmemb,f){ _stream(f).write(Buffer.from(_u8.subarray(ptr,ptr+size*nmemb))); return nmemb; }
-function fprintf(f,fmt,...a){ let i=0; _stream(f).write(String(fmt).replace(/%ll[du]|%l[du]|%[dus]/g,()=>String(a[i++]))); }
-function fputc(c,f){ _stream(f).write(Buffer.from([c&0xff])); return c; }
-function nimFlushStdStreams(){}
+function _emit(f, bytesOrStr){
+  if (_hasProc){
+    _stream(f).write(typeof bytesOrStr === 'string'
+      ? bytesOrStr : Buffer.from(bytesOrStr));
+    return;
+  }
+  _consoleWrite(f, typeof bytesOrStr === 'string'
+    ? bytesOrStr : _td.decode(bytesOrStr));
+}
+function fwrite(ptr,size,nmemb,f){ _emit(f, _u8.subarray(ptr,ptr+size*nmemb)); return nmemb; }
+function fprintf(f,fmt,...a){ let i=0; _emit(f, String(fmt).replace(/%ll[du]|%l[du]|%[dus]/g,()=>String(a[i++]))); }
+function fputc(c,f){ _emit(f, Uint8Array.from([c&0xff])); return c; }
+function nimFlushStdStreams(){
+  if (_hasProc) return;
+  // Anything without a trailing newline would otherwise never be shown.
+  for (const k of ['out','err']){
+    if (_pend[k].length){
+      if (k === 'err') console.error(_pend[k]); else console.log(_pend[k]);
+      _pend[k] = '';
+    }
+  }
+}
 function copyMem_0_sysvq0asl(d,s,n){ if(typeof d==='number'&&typeof s==='number') _u8.copyWithin(d,s,s+n); }
-function exit(c){ process.exit(Number(c)||0); }
+function exit(c){
+  nimFlushStdStreams();
+  // Same reason as the stdio fallback above: in a page there is no `process`,
+  // and `quit 1` must not turn into a ReferenceError naming something the
+  // program never mentioned.
+  if (_hasProc) { process.exit(Number(c)||0); return; }
+  throw new Error('quit(' + (Number(c)||0) + ')');
+}
 
 // ── JS-value interop bridge (std/jsffi) ──────────────────────────────────────
 // Native Nim data lives in linear memory as byte offsets; a *JS* value (string,
