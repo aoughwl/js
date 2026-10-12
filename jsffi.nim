@@ -147,8 +147,17 @@ proc toStr*(v: JsValue): string =
   ## A JS value stringified (`String(v)`) and copied into a Nim `string`.
   let n = rawStrLen(v.h)
   if n <= 0: return ""
-  result = newString(n)
-  rawStrInto(v.h, toCString(result))
+  # ⚠️ NOT THROUGH `toCString(result)`. A string longer than its inline capacity keeps
+  # a copy of its first bytes in the header, for `==`, `<` and `hash` to read without
+  # touching the payload; bytes written through the cstring never reach that copy.
+  # Such a string PRINTS right and compares wrong: on --bits:32 every string of 6+
+  # bytes from JS was unequal to the same Nim string and missed its table slot. The
+  # runtime writes into a plain buffer and the string is built by `add`, which keeps
+  # the header in step.
+  var buf = newSeq[char](n + 1)
+  rawStrInto(v.h, cast[cstring](addr buf[0]))
+  result = newStringOfCap(n)
+  for i in 0 ..< n: result.add buf[i]
 
 proc `$`*(v: JsValue): string {.inline.} = toStr(v)
 
