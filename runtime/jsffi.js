@@ -304,6 +304,19 @@ function _jsRelease(h){
 function _jsvDup(h){ return _jsNew(_jsv[h]); }        // a new slot to the same JS value
 function _jsvLive(){ return _jsv.length - 1 - _jsvFree.length; }   // live slot count (leak tests)
 
+// THE GCC BUILTIN NIMONY'S STRING COMPARE CALLS. `<` on two strings compares a
+// word at a time and finds the first differing byte by counting trailing zeros;
+// lengjs emits `__builtin_ctzll(BigInt(x))` and nothing defined it, so comparing
+// two strings that differ early threw a ReferenceError -- in any program, the
+// first time it sorted. Takes a BigInt, answers a Number, as the call site uses it.
+function __builtin_ctzll(x){
+  x = BigInt.asUintN(64, BigInt(x));
+  if (x === 0n) return 64;
+  let n = 0;
+  while ((x & 1n) === 0n){ x >>= 1n; n++; }
+  return n;
+}
+
 // Strings cross the linear-memory boundary as UTF-8 bytes. `_strToJs` decodes a
 // (ptr,len) slice of Nim string storage into a real JS string; the read-back is
 // two calls (length, then copy) so no scratch region leaks — and since JS
