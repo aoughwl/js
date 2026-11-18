@@ -138,26 +138,41 @@ proc toFloat*(v: JsValue): float {.inline.} = rawToFloat(v.h)
 proc toJs*(b: bool): JsValue {.inline.} = JsValue(h: rawBoolToJs(b))
 proc toBool*(v: JsValue): bool {.inline.} = rawToBool(v.h)
 
+when defined(aowljs):
+  proc rawStrToJsNative(s: string): int32 {.importc: "_strToJsNative".}
+
 proc toJs*(s: string): JsValue =
   ## A Nim `string` as a real JS string (UTF-8 decoded).
-  var t = s
-  JsValue(h: rawStrToJs(toCString(t), t.len))
+  when defined(aowljs):
+    return JsValue(h: rawStrToJsNative(s))
+  else:
+    var t = s
+    return JsValue(h: rawStrToJs(toCString(t), t.len))
+
+when defined(aowljs):
+  # aowljs (native-JS backend): a Nim string is a JS byte-string and a cstring/addr
+  # cannot be written through, so read the whole string back in one call
+  # (runtime/jsffi-native.js `_jsStrGet` UTF-8-encodes it into a byte-string).
+  proc rawStrGet(h: int32): string {.importc: "_jsStrGet".}
 
 proc toStr*(v: JsValue): string =
   ## A JS value stringified (`String(v)`) and copied into a Nim `string`.
-  let n = rawStrLen(v.h)
-  if n <= 0: return ""
-  # ⚠️ NOT THROUGH `toCString(result)`. A string longer than its inline capacity keeps
-  # a copy of its first bytes in the header, for `==`, `<` and `hash` to read without
-  # touching the payload; bytes written through the cstring never reach that copy.
-  # Such a string PRINTS right and compares wrong: on --bits:32 every string of 6+
-  # bytes from JS was unequal to the same Nim string and missed its table slot. The
-  # runtime writes into a plain buffer and the string is built by `add`, which keeps
-  # the header in step.
-  var buf = newSeq[char](n + 1)
-  rawStrInto(v.h, cast[cstring](addr buf[0]))
-  result = newStringOfCap(n)
-  for i in 0 ..< n: result.add buf[i]
+  when defined(aowljs):
+    return rawStrGet(v.h)
+  else:
+    let n = rawStrLen(v.h)
+    if n <= 0: return ""
+    # ⚠️ NOT THROUGH `toCString(result)`. A string longer than its inline capacity keeps
+    # a copy of its first bytes in the header, for `==`, `<` and `hash` to read without
+    # touching the payload; bytes written through the cstring never reach that copy.
+    # Such a string PRINTS right and compares wrong: on --bits:32 every string of 6+
+    # bytes from JS was unequal to the same Nim string and missed its table slot. The
+    # runtime writes into a plain buffer and the string is built by `add`, which keeps
+    # the header in step.
+    var buf = newSeq[char](n + 1)
+    rawStrInto(v.h, cast[cstring](addr buf[0]))
+    result = newStringOfCap(n)
+    for i in 0 ..< n: result.add buf[i]
 
 proc `$`*(v: JsValue): string {.inline.} = toStr(v)
 
@@ -184,6 +199,13 @@ type
     ## A one-argument callback — the shape of a DOM event handler. Its `JsValue`
     ## argument is only valid for the duration of the call (the runtime releases
     ## the handle when the callback returns), matching the DOM event contract.
+
+when defined(aowljs):
+  # The runtime builds the callback's `JsValue` argument itself, and cannot know the
+  # (mangled) name of its field — so it is handed a constructor once, at init.
+  proc mkJsValue(h: int32): JsValue = JsValue(h: h)
+  proc rawRegisterMk(mk: proc(h: int32): JsValue {.nimcall.}) {.importc: "_jsRegisterMk".}
+  rawRegisterMk(mkJsValue)
 
 proc rawFnToJs0(p: JsProc0): int32 {.importc: "_fnToJs0".}
 proc rawFnToJs1(p: JsProc1): int32 {.importc: "_fnToJs1".}
